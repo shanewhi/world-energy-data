@@ -13,6 +13,9 @@ Created on Wed Mar 20 13:56:55 2024
 # https://github.com/shanewhi
 # https://www.worldenergydata.org
 
+# Required input:
+# https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
+
 # Choose a country at bottom of script. If that country has never produced a
 # specific fuel, then a corresponding chart isn't created. Entered country
 # name must match that used by The Energry Institute's dataset.
