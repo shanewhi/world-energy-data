@@ -15,31 +15,36 @@ class Constant(Enum):
     FIG_HSIZE_SUBPLOT_1X3 = 15
     FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_HSIZE_SUBPLOT_2X3 = 15
+    FIG_SIZE_TREEMAP = 2.5
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
-    FONT = 'Open Sans'
+    CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
+    CHART_STYLE = 'bmh'     #'default' 'seaborn-darkgrid'
+#all prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
+
 
 #define fuel colors for charts
 class Color(Enum):
      COAL = 'black'
-     OIL = 'firebrick'
-     GAS = 'orange'
+     OIL = 'brown'#firebrick'
+     GAS = 'darkorange'
      NUCLEAR = 'mediumvioletred'
      HYDRO = 'dodgerblue'
      WIND = 'blue'
-     SOLAR = 'red'
+     SOLAR = 'crimson'#'red'
      GEO_BIO_OTHER = 'sienna'
      OTHER = 'tan'
      FOSSIL_FUELS = 'grey'
      LOW_C = 'forestgreen'
      WIND_SOLAR = 'limegreen'
      ELECTRICITY = 'teal'
+#Python chart gallery: https://python-graph-gallery.com/
 
 #define custom class of a country specific energy system
 class Energy_System:
     def __init__(
             self,
-            name, # country name
+            name, #country name
             coalprod_Mt,
             oilprod_Mbpd,
             gasprod_bcm,

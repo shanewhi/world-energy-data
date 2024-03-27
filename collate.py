@@ -19,11 +19,11 @@ def populate_energy_system(ei_data, country):
     coalprod_Mt = country_data.loc[country_data['Var'] == 'coalprod_mt']
     coalprod_Mt.replace('coalprod_mt', 'coalprod_Mt')
     oilprod_kbpd = country_data.loc[country_data['Var'] == 'oilprod_kbd']
-    oilprod_Mbpd = pd.DataFrame(index = oilprod_kbpd.index, \
+    oilprod_Mbpd = pd.DataFrame(index = oilprod_kbpd.index,
                                 columns = ['Year', 'Var', 'Value'])
     oilprod_Mbpd.Year = oilprod_kbpd.Year
     oilprod_Mbpd.Var = 'oilprod_Mbpd'
-    oilprod_Mbpd.Value = oilprod_kbpd.Value *\
+    oilprod_Mbpd.Value = oilprod_kbpd.Value * \
                          user_globals.Constant.THOUSAND_TO_MILLION.value
     gasprod_bcm = country_data.loc[country_data['Var'] == 'gasprod_bcm']
     coal_primary_EJ = country_data.loc[country_data['Var'] == 'coalcons_ej']
@@ -33,8 +33,10 @@ def populate_energy_system(ei_data, country):
     hydro_primary_EJ = country_data.loc[country_data['Var'] == 'hydro_ej']
     wind_primary_EJ = country_data.loc[country_data['Var'] == 'wind_ej']
     solar_primary_EJ = country_data.loc[country_data['Var'] == 'solar_ej']
-    geo_bio_other_primary_EJ = country_data.loc[country_data['Var'] == \
+    biogeo_primary_EJ = country_data.loc[country_data['Var'] ==
                                                 'biogeo_ej']
+    biofuels_primary_PJ = country_data.loc[country_data['Var'] ==
+                                           'biofuels_cons_pj']
     #drop 'country' index from dataframes and replace with 'year'
     primary_EJ = primary_EJ.set_index('Year')
     coalprod_Mt = coalprod_Mt.set_index('Year')
@@ -47,7 +49,8 @@ def populate_energy_system(ei_data, country):
     hydro_primary_EJ = hydro_primary_EJ.set_index('Year')
     wind_primary_EJ = wind_primary_EJ.set_index('Year')
     solar_primary_EJ = solar_primary_EJ.set_index('Year')
-    geo_bio_other_primary_EJ = geo_bio_other_primary_EJ.set_index('Year')
+    biogeo_primary_EJ = biogeo_primary_EJ.set_index('Year')
+    biofuels_primary_PJ = biofuels_primary_PJ.set_index('Year')
     #ensure all dataframes comsist of the same range of years
     coalprod_Mt = \
         coalprod_Mt.reindex(primary_EJ.index, fill_value = 0)
@@ -69,8 +72,17 @@ def populate_energy_system(ei_data, country):
         wind_primary_EJ.reindex(primary_EJ.index)
     solar_primary_EJ = \
         solar_primary_EJ.reindex(primary_EJ.index)
-    geo_bio_other_primary_EJ = \
-        geo_bio_other_primary_EJ.reindex(primary_EJ.index)
+    biogeo_primary_EJ  = \
+        biogeo_primary_EJ.reindex(primary_EJ.index)
+    biofuels_primary_PJ  = \
+        biofuels_primary_PJ.reindex(primary_EJ.index)
+    #construct geo_bio_other dataframe to combine biogeo_cons_ej and
+    #biofuels_cons_pj
+    geo_bio_other_primary_EJ = pd.DataFrame(index = biogeo_primary_EJ.index,
+                                columns = ['Var', 'Value'])
+    geo_bio_other_primary_EJ.Var = 'geo_bio_other_ej'
+    geo_bio_other_primary_EJ.Value = biogeo_primary_EJ.Value + \
+                            (biofuels_primary_PJ.Value / 1000)
     #replace world label for charts
     if country == 'Total World':
         country = 'World'

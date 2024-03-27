@@ -39,8 +39,8 @@ ei_data = pd.read_csv(
     index_col=['Country'],
     usecols=['Country', 'Year', 'Var', 'Value'])
 #profile following countries:
-profile('Mexico')
+#profile('Mexico')
 #profile('Germany')
 #profile('United Arab Emirates')
-#profile('United Kingdom')
-#profile('Total World')
+profile('United Kingdom')
+profile('Total World')
