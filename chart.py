@@ -7,17 +7,17 @@
 #import Python modules
 import matplotlib.pyplot as plt
 import numpy as np
-#import squarify #for treemap
 import mpl_extra.treemap as tr #https://github.com/chenyulue/matplotlib-extra
 import pandas as pd
+#import squarify #for treemap
 
 #import user modules
 import user_globals
 
-#three subplot column chart, 1 row, 3 columns
+#three subplot column chart, 1x3
 def column_subplot(primary_energy, df0, df1, df2, color0, color1, color2,
-                   title, sub_title0, sub_title1, sub_title2, ylabel0,
-                   ylabel1, ylabel2):
+                   title, title_addition, sub_title0, sub_title1, sub_title2,
+                   ylabel0, ylabel1, ylabel2, footer_text1):
     #plt.style.use('default')
     plt.style.use('bmh')
     #plt.style.use('seaborn-darkgrid')
@@ -40,19 +40,14 @@ def column_subplot(primary_energy, df0, df1, df2, color0, color1, color2,
     #main title
     fig.suptitle(title, x = 0.1, y = 0.97, horizontalalignment = 'left',
                  fontsize = 'xx-large', fontweight = 'heavy')
-    fig.text(0.1, 0.9, 'Fossil Fuel Production',
-             fontweight = 'demibold', horizontalalignment = 'left',
-             fontsize = 'large')
-    fig.text(0.1, 0.01, 'Any gap at beginning of a chart is due to data' +
-             ' not present in dataset.\n',
-             fontweight = 'light', horizontalalignment = 'left',
-             fontsize = 'small')
+    fig.text(0.1, 0.9, title_addition, fontweight = 'demibold',
+             horizontalalignment = 'left', fontsize = 'large')
+    fig.text(0.1, 0.01, footer_text1, fontweight = 'light',
+             horizontalalignment = 'left', fontsize = 'small')
     if color0 == 'black':
         edge_color = 'dimgrey'
     else:
         edge_color = 'black'
-    #ylim = autoscale_column(df0) #matplotlib autoscale is inadequate here
-    #ax[0].set_ylim(0, ylim)
     ax[0].autoscale(axis = 'y')
     ax[0].set_title(sub_title0, weight = 'demibold')
     ax[0].set_ylabel(ylabel0)
@@ -101,8 +96,6 @@ def column_subplot(primary_energy, df0, df1, df2, color0, color1, color2,
         edge_color = 'dimgrey'
     else:
         edge_color = 'black'
-    #ylim = autoscale_column(df2)
-    #ax[2].set_ylim(0, ylim)
     ax[2].autoscale(axis = 'y')
     ax[2].set_title(sub_title2, weight = 'demibold')
     ax[2].set_ylabel(ylabel2)
@@ -127,7 +120,7 @@ def column_subplot(primary_energy, df0, df1, df2, color0, color1, color2,
 def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
                  color2, color3, color4, color5, color6, title, title_addition,
                  sub_title1, sub_title2, sub_title3, sub_title4, sub_title5,
-                 sub_title6, ylabel):
+                 sub_title6, ylabel, footer_text1, footer_text2, footer_text3):
     plt.style.use(user_globals.Constant.CHART_STYLE.value)
     plt.rcParams['font.family'] = user_globals.Constant.CHART_FONT.value
     plt.rcParams['font.weight'] = 'regular'
@@ -139,8 +132,6 @@ def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
         if year % 10 == 0:
             x_ticks.append(year)
     x_ticks[len(x_ticks) - 1] = max(primary_energy.index)
-    #y-axis:
-    #scale max to be 10% greater than the next decade above the highest fuel
     #share
     maxdf1 = np.nanmax(df1.Value)
     maxdf2 = np.nanmax(df2.Value)
@@ -156,21 +147,14 @@ def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
     plt.subplots_adjust(wspace = 0.2, hspace = 0.3)
     fig.suptitle(title, x = 0.1, y = 0.97, horizontalalignment = 'left',
                  fontsize = 'xx-large', fontweight = 'heavy')
-    fig.text(0.1, 0.935, 'Share of Fuels in '+ title_addition +
-			' Energy Supply', fontweight = 'demibold',
+    fig.text(0.1, 0.935, title_addition, fontweight = 'demibold',
             horizontalalignment = 'left', fontsize = 'large')
-    fig.text(0.1, 0.045, 'Shares of geothermal, biofuels and \'other\' are ' +
-            'small and omitted for clarity',
-            fontweight = 'light', horizontalalignment = 'left',
-            fontsize = 'small')
-    fig.text(0.1, 0.03, 'Gaps may be present in line segments due to data' +
-                        ' not present in dataset.',
-            fontweight = 'light', horizontalalignment = 'left',
-            fontsize = 'small')
-    fig.text(0.1, 0.015, 'Share for a given year is calculated using only' +
-                         ' data for fuels reported in that year.',
-         fontweight = 'light', horizontalalignment = 'left',
-         fontsize = 'small')
+    fig.text(0.1, 0.045, footer_text1, fontweight = 'light',
+             horizontalalignment = 'left', fontsize = 'small')
+    fig.text(0.1, 0.03, footer_text2, fontweight = 'light',
+             horizontalalignment = 'left', fontsize = 'small')
+    fig.text(0.1, 0.015, footer_text3, fontweight = 'light',
+             horizontalalignment = 'left', fontsize = 'small')
     ax[0, 0].plot(df1.index, df1.Value, color1, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[0, 0].set_ylim(0, max_y)
@@ -225,21 +209,42 @@ def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
     ax[1, 2].set_xticks(x_ticks)
     ax[1, 2].set_box_aspect(1)
 
-#Treemap
-def treemap(values, names, colors):
-    df = pd.DataFrame({'title': names, 'counts':values})
-    df['labels'] = [f'  {a}  \n  {b}%  ' for a, b in zip(df['title'],
-														 df['counts'])]
-    #df['labels'] = [f'{a}' for a in zip(df['title'])]
-    fig, ax = plt.subplots(figsize = (
-                           user_globals.Constant.FIG_SIZE_TREEMAP.value,
-                           user_globals.Constant.FIG_SIZE_TREEMAP.value),
-                           dpi = 400, subplot_kw = dict(aspect = 1))
-    tr.treemap(ax, df, area='counts', labels='labels',
-               cmap=colors, fill = 'title',
-               rectprops=dict(ec = 'white'),
-               textprops=dict(c = 'white'))
-    ax.axis('off')
+# Piechart, 1x2
+def treemap(values0, colors0, names0, subplot_title0, values1, colors1, names1,
+            subplot_title1, suptitle, suptitle_addition, footer_text):
+    plt.rcParams['font.family'] = user_globals.Constant.CHART_FONT.value
+    plt.rcParams['font.weight'] = 'regular'
+    fig, ax = plt.subplots(1, 2, figsize = (
+                           user_globals.Constant.FIG_HSIZE_TREEMAP_1X2.value,
+                           user_globals.Constant.FIG_VSIZE_TREEMAP_1X2.value),
+                           subplot_kw=dict(aspect=1))
+    plt.subplots_adjust(bottom = 0.02)
+    df0 = pd.DataFrame({'title0': names0, 'counts0' : values0})
+    df0['labels0'] = [f'{a}\n  {b}%  ' for a, b in zip(df0['title0'],
+														 df0['counts0'])]
+    tr.treemap(ax[0], df0, area = 'counts0', labels='labels0',
+               cmap = colors0, fill = 'title0',
+               rectprops = dict(ec = 'white'),
+               textprops = dict(c = 'white', place = 'center', reflow = True))
+    ax[0].axis('off')
+    ax[0].set_title(subplot_title0, fontsize = 'large',
+                    fontweight = 'demibold')
+    df1 = pd.DataFrame({'title1': names1, 'counts1' : values1})
+    df1['labels1'] = [f'  {a}  \n  {b}%  ' for a, b in zip(df1['title1'],
+														 df1['counts1'])]
+    tr.treemap(ax[1], df1, area = 'counts1', labels='labels1',
+               cmap = colors1, fill = 'title1',
+               rectprops = dict(ec = 'white'),
+               textprops = dict(c = 'white'))
+    ax[1].axis('off')
+    ax[1].set_title(subplot_title1, fontsize = 'large',
+                    fontweight = 'demibold')
+    fig.suptitle(suptitle, x = 0.1, y = 0.97, horizontalalignment = 'left',
+                 fontsize = 'xx-large', fontweight = 'heavy')
+    fig.text(0.1, 0.91, suptitle_addition, fontweight = 'demibold',
+             horizontalalignment = 'left', fontsize = 'large')
+    fig.text(0.1, 0.01, footer_text, fontweight = 'light',
+             horizontalalignment = 'left', fontsize = 'small')
 
 #line chart
 #redundant as of March 25, 2024
@@ -258,8 +263,7 @@ def line(data, line_color, title, ylabel):
                                  linewidth = 6)
                                  #markeredgewidth = 0.8
                                  #markeredgecolor='grey'
-      ax.plot(
-              data.index,
+      ax.plot(data.index,
               data['Value'],
               **filled_marker_style)
       #on x-axis, display every second year, and display final year

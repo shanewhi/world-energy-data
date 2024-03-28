@@ -19,7 +19,6 @@
 
 #import Python modules
 import pandas as pd
-import matplotlib.pyplot as plt
 
 #import user modules
 import collate
@@ -33,14 +32,13 @@ def profile(country):
     process.primary_energy(country_energy_system)
 
 #main function
-plt.close('all')
 ei_data = pd.read_csv(
     "Statistical Review of World Energy Narrow File.csv",
-    index_col=['Country'],
-    usecols=['Country', 'Year', 'Var', 'Value'])
+	index_col = ['Country'],
+    usecols = ['Country', 'Year', 'Var', 'Value'])
 #profile following countries:
 #profile('Mexico')
 #profile('Germany')
-#profile('United Arab Emirates')
-profile('United Kingdom')
-profile('Total World')
+profile('United Arab Emirates')
+#profile('United Kingdom')
+#profile('Total World')

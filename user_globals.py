@@ -11,11 +11,12 @@ from enum import Enum
 class Constant(Enum):
     THOUSAND_TO_MILLION = 1 / 1000
     FIG_SIZE = 8
-    FIG_VSIZE_SUBPLOT_1X3 = 5
     FIG_HSIZE_SUBPLOT_1X3 = 15
-    FIG_VSIZE_SUBPLOT_2X3 = 10
+    FIG_VSIZE_SUBPLOT_1X3 = 5
     FIG_HSIZE_SUBPLOT_2X3 = 15
-    FIG_SIZE_TREEMAP = 2.5
+    FIG_VSIZE_SUBPLOT_2X3 = 10
+    FIG_HSIZE_TREEMAP_1X2 = 12
+    FIG_VSIZE_TREEMAP_1X2 = 6
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
@@ -34,8 +35,8 @@ class Color(Enum):
      SOLAR = 'crimson'#'red'
      GEO_BIO_OTHER = 'sienna'
      OTHER = 'tan'
-     FOSSIL_FUELS = 'grey'
-     LOW_C = 'forestgreen'
+     FOSSIL_FUELS = 'dimgray'
+     RENEW = 'forestgreen'
      WIND_SOLAR = 'limegreen'
      ELECTRICITY = 'teal'
 #Python chart gallery: https://python-graph-gallery.com/
