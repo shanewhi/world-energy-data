@@ -1,13 +1,14 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#Created on Wed Mar 20 14:19:37 2024
-#@author: shanewhite
+# Created on Wed Mar 20 14:19:37 2024
+# @author: shanewhite
 
-#import Python modules
+# Import Python modules
 from enum import Enum
 
-#define conversion coefficeints (multiply for conversion)
+# Define conversion coefficeints (multiply for conversion)
+
 class Constant(Enum):
     THOUSAND_TO_MILLION = 1 / 1000
     FIG_SIZE = 8
@@ -15,24 +16,28 @@ class Constant(Enum):
     FIG_VSIZE_SUBPLOT_1X3 = 5
     FIG_HSIZE_SUBPLOT_2X3 = 15
     FIG_VSIZE_SUBPLOT_2X3 = 10
-    FIG_HSIZE_TREEMAP_1X2 = 12
-    FIG_VSIZE_TREEMAP_1X2 = 6
+    FIG_HSIZE_PIE_1X2 = 12
+    FIG_VSIZE_PIE_1X2 = 6
+    FIG_HSIZE_TREE_1X2 = 14
+    FIG_VSIZE_TREE_1X2 = 7
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
-    CHART_STYLE = 'bmh'     #'default' 'seaborn-darkgrid'
-#all prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
+    CHART_STYLE = 'bmh'     #'default', 'seaborn-darkgrid'
+# All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
 
 
-#define fuel colors for charts
+# Define fuel colors for charts
+# https://matplotlib.org/stable/gallery/color/named_colors.html
+
 class Color(Enum):
      COAL = 'black'
-     OIL = 'brown'#firebrick'
+     OIL = 'brown'
      GAS = 'darkorange'
-     NUCLEAR = 'mediumvioletred'
+     NUCLEAR = 'darkmagenta'
      HYDRO = 'dodgerblue'
      WIND = 'blue'
-     SOLAR = 'crimson'#'red'
+     SOLAR = 'crimson'
      GEO_BIO_OTHER = 'sienna'
      OTHER = 'tan'
      FOSSIL_FUELS = 'dimgray'
@@ -41,7 +46,8 @@ class Color(Enum):
      ELECTRICITY = 'teal'
 #Python chart gallery: https://python-graph-gallery.com/
 
-#define custom class of a country specific energy system
+# Define custom class of a country specific energy system
+
 class Energy_System:
     def __init__(
             self,

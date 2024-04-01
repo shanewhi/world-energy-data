@@ -42,7 +42,7 @@ def column_subplot(primary_energy, df0, df1, df2, color0, color1, color2,
                  fontsize = 'xx-large', fontweight = 'heavy')
     fig.text(0.1, 0.9, title_addition, fontweight = 'demibold',
              horizontalalignment = 'left', fontsize = 'large')
-    fig.text(0.1, 0.01, footer_text1, fontweight = 'light',
+    fig.text(0.1, 0.01, footer_text1, fontweight = 'regular',
              horizontalalignment = 'left', fontsize = 'small')
     if color0 == 'black':
         edge_color = 'dimgrey'
@@ -149,11 +149,11 @@ def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
                  fontsize = 'xx-large', fontweight = 'heavy')
     fig.text(0.1, 0.935, title_addition, fontweight = 'demibold',
             horizontalalignment = 'left', fontsize = 'large')
-    fig.text(0.1, 0.045, footer_text1, fontweight = 'light',
+    fig.text(0.1, 0.045, footer_text1, fontweight = 'regular',
              horizontalalignment = 'left', fontsize = 'small')
-    fig.text(0.1, 0.03, footer_text2, fontweight = 'light',
+    fig.text(0.1, 0.03, footer_text2, fontweight = 'regular',
              horizontalalignment = 'left', fontsize = 'small')
-    fig.text(0.1, 0.015, footer_text3, fontweight = 'light',
+    fig.text(0.1, 0.015, footer_text3, fontweight = 'regular',
              horizontalalignment = 'left', fontsize = 'small')
     ax[0, 0].plot(df1.index, df1.Value, color1, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
@@ -209,23 +209,26 @@ def line_subplot(primary_energy, df1, df2, df3, df4, df5, df6, color1,
     ax[1, 2].set_xticks(x_ticks)
     ax[1, 2].set_box_aspect(1)
 
-# Piechart, 1x2
-def treemap(values0, colors0, names0, subplot_title0, values1, colors1, names1,
-            subplot_title1, suptitle, suptitle_addition, footer_text):
+def treemap(values0, names0, colors0, subplot_title0, values1,
+            names1, colors1, subplot_title1, suptitle,
+            suptitle_addition, footer_text):
     plt.rcParams['font.family'] = user_globals.Constant.CHART_FONT.value
     plt.rcParams['font.weight'] = 'regular'
     fig, ax = plt.subplots(1, 2, figsize = (
-                           user_globals.Constant.FIG_HSIZE_TREEMAP_1X2.value,
-                           user_globals.Constant.FIG_VSIZE_TREEMAP_1X2.value),
+                           user_globals.Constant.FIG_HSIZE_TREE_1X2.value,
+                           user_globals.Constant.FIG_VSIZE_TREE_1X2.value),
                            subplot_kw=dict(aspect=1))
-    plt.subplots_adjust(bottom = 0.02)
     df0 = pd.DataFrame({'title0': names0, 'counts0' : values0})
-    df0['labels0'] = [f'{a}\n  {b}%  ' for a, b in zip(df0['title0'],
-														 df0['counts0'])]
+    df0['labels0'] = ''
+    df0.loc[df0['counts0'] < 10, ['labels0']] = df0['counts0'].astype(str) + '%'
+    df0.loc[df0['counts0'] >= 10, ['labels0']] = df0['title0'].astype(str) + ' ' + df0['counts0'].astype(str) + '%'
+
     tr.treemap(ax[0], df0, area = 'counts0', labels='labels0',
                cmap = colors0, fill = 'title0',
-               rectprops = dict(ec = 'white'),
-               textprops = dict(c = 'white', place = 'center', reflow = True))
+               rectprops = dict(ec = 'white', lw = 2),
+               textprops = dict(c = 'white', place = 'center', reflow = True,
+                                max_fontsize = 120))
+    ax[0].legend(df0.title0, bbox_to_anchor=(1,0), frameon = False, handlelength=2, ncol = 2, fontsize = 'large')
     ax[0].axis('off')
     ax[0].set_title(subplot_title0, fontsize = 'large',
                     fontweight = 'demibold')
@@ -234,16 +237,18 @@ def treemap(values0, colors0, names0, subplot_title0, values1, colors1, names1,
 														 df1['counts1'])]
     tr.treemap(ax[1], df1, area = 'counts1', labels='labels1',
                cmap = colors1, fill = 'title1',
-               rectprops = dict(ec = 'white'),
-               textprops = dict(c = 'white'))
+               rectprops = dict(ec = 'white', lw = 2),
+               textprops = dict(c = 'white', place = 'center', reflow = True,
+               max_fontsize = 70))
+    ax[1].legend(df1.title1, bbox_to_anchor=(1,0), frameon = False, handlelength=2, ncol = 2, fontsize = 'large')
     ax[1].axis('off')
     ax[1].set_title(subplot_title1, fontsize = 'large',
                     fontweight = 'demibold')
     fig.suptitle(suptitle, x = 0.1, y = 0.97, horizontalalignment = 'left',
                  fontsize = 'xx-large', fontweight = 'heavy')
-    fig.text(0.1, 0.91, suptitle_addition, fontweight = 'demibold',
+    fig.text(0.1, 0.92, suptitle_addition, fontweight = 'demibold',
              horizontalalignment = 'left', fontsize = 'large')
-    fig.text(0.1, 0.01, footer_text, fontweight = 'light',
+    fig.text(0.1, 0.01, footer_text, fontweight = 'regular',
              horizontalalignment = 'left', fontsize = 'small')
 
 #line chart
@@ -324,3 +329,15 @@ def column(data, column_color, title, ylabel):
     ax.set_xlabel('Year')
     ax.set_ylabel(ylabel)
     #plt.savefig(title, dpi=300)
+
+# Piechart, 1x2
+def pie_subplot(values0, colors0, names0, subplot_title0, values1, colors1, names1,
+            subplot_title1, suptitle, suptitle_addition, footer_text):
+    plt.rcParams['font.family'] = user_globals.Constant.CHART_FONT.value
+    plt.rcParams['font.weight'] = 'regular'
+    fig, ax = plt.subplots(1, 2, figsize = (
+                           user_globals.Constant.FIG_HSIZE_PIE_1X2.value,
+                           user_globals.Constant.FIG_VSIZE_PIE_1X2.value),
+                       subplot_kw=dict(aspect=1))
+    ax[0].pie(values0, colors = colors0, labels = names0)
+
