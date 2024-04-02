@@ -4,11 +4,12 @@
 # Created on Wed Mar 20 14:19:37 2024
 # @author: shanewhite
 
-# Import Python modules
+
+# Import Python modules.
 from enum import Enum
 
-# Define conversion coefficeints (multiply for conversion)
 
+# Define conversion coefficeints (multiply for conversion).
 class Constant(Enum):
     THOUSAND_TO_MILLION = 1 / 1000
     FIG_SIZE = 8
@@ -18,7 +19,7 @@ class Constant(Enum):
     FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_HSIZE_PIE_1X2 = 12
     FIG_VSIZE_PIE_1X2 = 6
-    FIG_HSIZE_TREE_1X2 = 14
+    FIG_HSIZE_TREE_1X2 = 12
     FIG_VSIZE_TREE_1X2 = 7
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
@@ -27,9 +28,8 @@ class Constant(Enum):
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
 
 
-# Define fuel colors for charts
+# Define fuel colors for charts.
 # https://matplotlib.org/stable/gallery/color/named_colors.html
-
 class Color(Enum):
      COAL = 'black'
      OIL = 'brown'
@@ -46,8 +46,8 @@ class Color(Enum):
      ELECTRICITY = 'teal'
 #Python chart gallery: https://python-graph-gallery.com/
 
-# Define custom class of a country specific energy system
 
+# Define custom class for a national energy system.
 class Energy_System:
     def __init__(
             self,
@@ -64,7 +64,7 @@ class Energy_System:
             wind_primary_EJ,
             solar_primary_EJ,
             geo_bio_other_primary_EJ):
-        self.name = name
+        self.name = name # Country's name
         self.coalprod_Mt = coalprod_Mt
         self.oilprod_Mbpd = oilprod_Mbpd
         self.gasprod_bcm = gasprod_bcm

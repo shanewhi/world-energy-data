@@ -4,15 +4,17 @@
 #Created on Wed Mar 20 13:56:36 2024
 #@author: shanewhite
 
-# import Python modules
+
+# Import Python modules.
 import pandas as pd
 
-# import user modules
+
+# Import user modules.
 import user_globals
 
-# Extract country specific data from Energy Institute's dataset and return
-# populated instance of custom class Energy_System
 
+# Extract national data from Energy Institute's dataset and return
+# populated instance of custom class Energy_System.
 def populate_energy_system(ei_data, country):
     country_data = ei_data.loc[country]
     primary_EJ = country_data.loc[country_data['Var'] ==
@@ -39,8 +41,7 @@ def populate_energy_system(ei_data, country):
     biofuels_primary_PJ = country_data.loc[country_data['Var'] ==
                                            'biofuels_cons_pj']
 
-    # Drop 'country' index from dataframes and replace with 'Year'
-
+    # Drop 'country' index from dataframes and replace with 'Year'.
     primary_EJ = primary_EJ.set_index('Year')
     coalprod_Mt = coalprod_Mt.set_index('Year')
     oilprod_Mbpd = oilprod_Mbpd.set_index('Year')
@@ -55,12 +56,11 @@ def populate_energy_system(ei_data, country):
     biogeo_primary_EJ = biogeo_primary_EJ.set_index('Year')
     biofuels_primary_PJ = biofuels_primary_PJ.set_index('Year')
 
-    # Ensure all dataframes comsist of the same range of years
+    # Ensure all dataframes comsist of the same range of years.
 
-    # Fill any missing production values with 0
-    # Leave missing primary energy values as NaN for accurate representation
-    # in charts
-
+    # Fill any missing production Values with 0.
+    # Leave missing primary energy Values as NaN for accurate representation
+    # in charts.
     coalprod_Mt = \
         coalprod_Mt.reindex(primary_EJ.index, fill_value = 0)
     oilprod_Mbpd = \
@@ -87,20 +87,18 @@ def populate_energy_system(ei_data, country):
         biofuels_primary_PJ.reindex(primary_EJ.index)
 
     # Construct geo_bio_other dataframe to combine biogeo_cons_ej and
-    # biofuels_cons_pj (i.e. combine solid and liquid biofuels)
-
+    # biofuels_cons_pj (i.e. combine solid and liquid biofuels).
     geo_bio_other_primary_EJ = pd.DataFrame(index = biogeo_primary_EJ.index,
                                 columns = ['Var', 'Value'])
     geo_bio_other_primary_EJ['Var'] = 'geo_bio_other_ej'
     geo_bio_other_primary_EJ['Value'] = biogeo_primary_EJ['Value'] + \
                             (biofuels_primary_PJ.Value / 1000)
 
-    # Replace 'World' label for chart titles
+    # Replace 'Totl World' label for chart titles.
     if country == 'Total World':
         country = 'World'
 
-    # Return energy system data for a country
-
+    # Return national energy system data
     return (user_globals.Energy_System(
             country,
             coalprod_Mt,
