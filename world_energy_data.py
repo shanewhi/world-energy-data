@@ -13,6 +13,13 @@
 # https://www.energyinst.org/__data/assets/file/0003/1055694/ ...
 # Consolidated-Dataset-Narrow-format.csv
 
+# Files:
+# world_energy_data.py (main)
+# user_globals.py (defs)
+# collate.py (called by world_energy_data.py)
+# process.py (called by world_energy_data.py)
+# chart.py (called by process.py)
+
 # Choose a country at bottom of script.
 # Name must match that used by The Energry Institute's dataset, and have
 # primary energy data.
@@ -45,8 +52,22 @@ ei_data = pd.read_csv(
 #profile('United Arab Emirates')
 #profile('United Kingdom')
 #profile('Sweden')
-#profile('Australia')
-#profile('Total World')
+profile('Australia')
+profile('Total World')
 profile('Vietnam')
 
 # add co2 chart
+# To access IEA world balances:
+# https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
+# Access instructions:
+    # Load https://www.iea.org/data-and-statistics/data-tools/ \
+        # energy-statistics-data-browser?country=WORLD&fuel= \
+        # Energy%20supply&indicator=TESbySource
+    # 2. Right click on chart -> Inspect
+    # 3. Select Network tab
+    # 5. Click XHR button
+    # 6. Select Browse as Tables
+    # 7. Select year from dropdown (ensure this is done manually)
+    # 8. Double click on the following result (using 2021 as an example)
+# https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
+    # 9. Save as JSON format

@@ -30,6 +30,24 @@ def production(energy_system):
 
 # Identify national primary energy data, and plot.
 def primary_energy(energy_system):
+    # Plot absolute quantity of primary energy of fossil fuels.
+    chart.column_subplot(
+        energy_system.primary_EJ,
+        energy_system.coal_primary_EJ,
+        energy_system.oil_primary_EJ,
+        energy_system.gas_primary_EJ,
+        user_globals.Color.COAL.value,
+        user_globals.Color.OIL.value,
+        user_globals.Color.GAS.value,
+        energy_system.name.upper(),
+        'Fossil Fuels in Energy Supply (Primary Energy)',
+        'Coal',
+        'Oil',
+        'Gas',
+        'Annual Primary Energy (EJ)', 'Annual Primary Energy (EJ)',
+        'Annual Primary Energy (EJ)', '')
+    plt.show()
+
     # Calculate shares of primary energy over time for each fuel.
     # Coal:
 
@@ -203,9 +221,11 @@ def primary_energy(energy_system):
     title = (energy_system.name.upper())
     title_addition = ''
     if not energy_system.name == 'World':
-        title_addition = 'Share of Fuels in National Energy Supply'
+        title_addition =\
+            'Share of Fuels in World Energy Supply (Primary Energy)'
     else:
-        title_addition = 'Share of Fuels in Energy Supply'
+        title_addition =\
+            'Share of Fuels in National Energy Supply (Primary Energy)'
 
     # Subplot titles.
     title1 = 'Coal'
@@ -388,8 +408,8 @@ shares."
 
     chart.column_grouped(
         energy_system.name.upper(),
-        'Annual Additions to and Subtractions from Categories in Energy Supply \
-(Primary Energy)',
+        'Annual Additions to and Subtractions from Categories in Energy \
+ Supply (Primary Energy)',
         y_label,
         'For clarity: (1) Values of change at tops of columns are \
 rounded to nearest whole number, (2) Values that round to zero are not shown, \

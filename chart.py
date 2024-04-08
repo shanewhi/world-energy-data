@@ -296,7 +296,7 @@ def treemap(
                          max_fontsize = 80))
     ax[0].legend(
         df1['Name'],
-        bbox_to_anchor = (0.77, 0),
+        loc = 'upper left', bbox_to_anchor=(0, 0),
         frameon = False,
         handlelength = 2,
         ncol = 2,
@@ -320,7 +320,7 @@ def treemap(
                    max_fontsize = 50))
     ax[1].legend(
         df2['Name'],
-        bbox_to_anchor = (1.035, 0),
+        loc = 'upper left', bbox_to_anchor = (0, 0),
         frameon = False,
         handlelength = 2,
         ncol = 3,
@@ -328,7 +328,8 @@ def treemap(
     ax[1].axis('off')
     ax[1].set_title(subplot2_title, fontsize = 'large',
                     fontweight = 'demibold')
-    fig.suptitle(country_name, x = 0.125, y = 0.97, horizontalalignment = 'left',
+    fig.suptitle(country_name, x = 0.125, y = 0.97,
+                 horizontalalignment = 'left',
                  fontsize = 'xx-large', fontweight = 'heavy')
     fig.text(0.125, 0.92, title, fontweight = 'demibold',
              horizontalalignment = 'left', fontsize = 'large')
@@ -378,10 +379,10 @@ def column_grouped(
                    start_yr), width = column_width, \
                    color = colors[multiplier], edgecolor = 'black', \
                    linewidth = 0.2)
-        labels = [round(v.get_height()) if v.get_height() > 1 or v.get_height() < -1 \
-                  else '' for v in p]
+        # Disable displaying of zero labels on top of columns.
+        labels = [round(v.get_height()) if v.get_height() > 1 or
+                  v.get_height() < -1 else '' for v in p]
         ax.bar_label(p, labels = labels, fmt = '%.0f', padding = label_pad)
-        #ax.bar_label(p, fmt = '%.0f', padding = label_pad)
         # Extract fuel names from each sataframe, for use in chart legend.
         plot_names.append(dataframe.loc[min(dataframe.index), 'Name'])
         multiplier += 1
