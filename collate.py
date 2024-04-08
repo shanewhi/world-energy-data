@@ -58,9 +58,7 @@ def populate_energy_system(ei_data, country):
 
     # Ensure all dataframes comsist of the same range of years.
 
-    # Fill any missing production Values with 0.
-    # Leave missing primary energy Values as NaN for accurate representation
-    # in charts.
+    # Fill any missing values with 0.
     coalprod_Mt = \
         coalprod_Mt.reindex(primary_EJ.index, fill_value = 0)
     oilprod_Mbpd = \
@@ -68,23 +66,23 @@ def populate_energy_system(ei_data, country):
     gasprod_bcm = \
         gasprod_bcm.reindex(primary_EJ.index, fill_value = 0)
     coal_primary_EJ = \
-        coal_primary_EJ.reindex(primary_EJ.index)
+        coal_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     oil_primary_EJ = \
-        oil_primary_EJ.reindex(primary_EJ.index)
+        oil_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     gas_primary_EJ = \
-        gas_primary_EJ.reindex(primary_EJ.index)
+        gas_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     nuclear_primary_EJ = \
-        nuclear_primary_EJ.reindex(primary_EJ.index)
+        nuclear_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     hydro_primary_EJ = \
-        hydro_primary_EJ.reindex(primary_EJ.index)
+        hydro_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     wind_primary_EJ = \
-        wind_primary_EJ.reindex(primary_EJ.index)
+        wind_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     solar_primary_EJ = \
-        solar_primary_EJ.reindex(primary_EJ.index)
+        solar_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     biogeo_primary_EJ  = \
-        biogeo_primary_EJ.reindex(primary_EJ.index)
+        biogeo_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     biofuels_primary_PJ  = \
-        biofuels_primary_PJ.reindex(primary_EJ.index)
+        biofuels_primary_PJ.reindex(primary_EJ.index, fill_value = 0)
 
     # Construct geo_bio_other dataframe to combine biogeo_cons_ej and
     # biofuels_cons_pj (i.e. combine solid and liquid biofuels).

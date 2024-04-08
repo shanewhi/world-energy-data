@@ -42,7 +42,11 @@ ei_data = pd.read_csv(
 #profile following countries:
 #profile('Mexico')
 #profile('Germany')
-profile('United Arab Emirates')
+#profile('United Arab Emirates')
 #profile('United Kingdom')
-profile('Sweden')
+#profile('Sweden')
+#profile('Australia')
 #profile('Total World')
+profile('Vietnam')
+
+# add co2 chart

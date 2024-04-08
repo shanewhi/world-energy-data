@@ -24,122 +24,180 @@ def production(energy_system):
         user_globals.Color.GAS.value, energy_system.name.upper(),
         'Fossil Fuel Production','Coal', 'Oil', 'Gas',
         'Annual Production (Mt)', 'Annual Production (Mbpd)',
-        'Annual Production (bcm)', 'Any gap at beginning of a chart is due to\
-data not present in dataset.\n')
+        'Annual Production (bcm)', '')
     plt.show()
 
 
 # Identify national primary energy data, and plot.
 def primary_energy(energy_system):
     # Calculate shares of primary energy over time for each fuel.
-    # Coal.
+    # Coal:
+
+    min_year = min(energy_system.primary_EJ.index)
+    max_year = max(energy_system.primary_EJ.index)
+    change_period = range(min_year + 1, max_year + 1)
+
     if not energy_system.coal_primary_EJ.empty:
-        coal_primary_share = pd.DataFrame(index =
+        coal_primary_EJ = pd.DataFrame(index =
                              energy_system.coal_primary_EJ.index,
-                             columns = ['Var', 'Value'])
-        coal_primary_share['Var'] = 'coal_primary_share'
-        coal_primary_share['Value'] = \
-            (energy_system.coal_primary_EJ.Value /
-             energy_system.primary_EJ.Value) * 100
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        # Provide name for plot legend.
+        coal_primary_EJ.at[min(coal_primary_EJ.index), 'Name'] = 'Coal'
+        coal_primary_EJ['Value'] = energy_system.coal_primary_EJ['Value']
+        coal_primary_EJ['Share'] = (coal_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            coal_primary_EJ.loc[yr, 'Change'] = \
+                coal_primary_EJ.loc[yr, 'Value'] - \
+                coal_primary_EJ.loc[yr - 1, 'Value']
 
-    # Oil.
+    # Oil:
     if not energy_system.oil_primary_EJ.empty:
-        oil_primary_share = pd.DataFrame(index = \
-                            energy_system.oil_primary_EJ.index,
-                            columns = ['Var', 'Value'])
-        oil_primary_share['Var'] = 'oil_primary_share'
-        oil_primary_share['Value'] = \
-            (energy_system.oil_primary_EJ.Value / \
-             energy_system.primary_EJ.Value) * 100
+        oil_primary_EJ = pd.DataFrame(index =
+                             energy_system.oil_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        oil_primary_EJ.at[min(oil_primary_EJ.index), 'Name'] = 'Oil'
+        oil_primary_EJ['Value'] = energy_system.oil_primary_EJ['Value']
+        oil_primary_EJ['Share'] = (oil_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            oil_primary_EJ.loc[yr, 'Change'] = \
+                oil_primary_EJ.loc[yr, 'Value'] - \
+                oil_primary_EJ.loc[yr - 1, 'Value']
 
-    # Gas.
+    # Gas:
     if not energy_system.gas_primary_EJ.empty:
-       gas_primary_share = pd.DataFrame(index = \
-                           energy_system.gas_primary_EJ.index,
-                           columns = ['Var', 'Value'])
-       gas_primary_share['Var'] = 'gas_primary_share'
-       gas_primary_share['Value'] = \
-           (energy_system.gas_primary_EJ.Value /
-            energy_system.primary_EJ.Value) * 100
+        gas_primary_EJ = pd.DataFrame(index =
+                             energy_system.gas_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        gas_primary_EJ.at[min(gas_primary_EJ.index), 'Name'] = 'Gas'
+        gas_primary_EJ['Value'] = energy_system.gas_primary_EJ['Value']
+        gas_primary_EJ['Share'] = (gas_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            gas_primary_EJ.loc[yr, 'Change'] = \
+                gas_primary_EJ.loc[yr, 'Value'] - \
+                gas_primary_EJ.loc[yr - 1, 'Value']
 
-    # Nuclear.
+    # Nuclear:
     if not energy_system.nuclear_primary_EJ.empty:
-        nuclear_primary_share = pd.DataFrame(index = \
-                                energy_system.nuclear_primary_EJ.index,
-                                columns = ['Var', 'Value'])
-        nuclear_primary_share['Var'] = 'nuclear_primary_share'
-        nuclear_primary_share['Value'] = \
-           (energy_system.nuclear_primary_EJ.Value /
-            energy_system.primary_EJ.Value) * 100
+        nuclear_primary_EJ = pd.DataFrame(index =
+                             energy_system.nuclear_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        nuclear_primary_EJ.at[min(nuclear_primary_EJ.index), 'Name'] = \
+            'Nuclear'
+        nuclear_primary_EJ['Value'] = energy_system.nuclear_primary_EJ['Value']
+        nuclear_primary_EJ['Share'] = (nuclear_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            nuclear_primary_EJ.loc[yr, 'Change'] = \
+                nuclear_primary_EJ.loc[yr, 'Value'] - \
+                nuclear_primary_EJ.loc[yr - 1, 'Value']
 
-    # Hydro.
+    # Hydro:
     if not energy_system.hydro_primary_EJ.empty:
-        hydro_primary_share = pd.DataFrame(index = \
-                              energy_system.hydro_primary_EJ.index,
-                              columns = ['Var', 'Value'])
-        hydro_primary_share['Var'] = 'hydro_primary_share'
-        hydro_primary_share['Value'] = \
-           (energy_system.hydro_primary_EJ.Value /
-            energy_system.primary_EJ.Value) * 100
+        hydro_primary_EJ = pd.DataFrame(index =
+                             energy_system.hydro_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        hydro_primary_EJ.at[min(hydro_primary_EJ.index), 'Name'] = 'Hydro'
+        hydro_primary_EJ['Value'] = energy_system.hydro_primary_EJ['Value']
+        hydro_primary_EJ['Share'] = (hydro_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            hydro_primary_EJ.loc[yr, 'Change'] = \
+                hydro_primary_EJ.loc[yr, 'Value'] - \
+                hydro_primary_EJ.loc[yr - 1, 'Value']
 
-    # Wind.
+    # Wind:
     if not energy_system.wind_primary_EJ.empty:
-        wind_primary_share = pd.DataFrame(index = \
-                             energy_system.primary_EJ.index,
-                             columns = ['Var', 'Value'])
-        wind_primary_share['Var'] = 'wind_primary_share'
-        wind_primary_share['Value'] = \
-            (energy_system.wind_primary_EJ.Value /
-             energy_system.primary_EJ.Value) * 100
+        wind_primary_EJ = pd.DataFrame(index =
+                             energy_system.wind_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        wind_primary_EJ.at[min(wind_primary_EJ.index), 'Name'] = 'Wind'
+        wind_primary_EJ['Value'] = energy_system.wind_primary_EJ['Value']
+        wind_primary_EJ['Share'] = (wind_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            wind_primary_EJ.loc[yr, 'Change'] = \
+                wind_primary_EJ.loc[yr, 'Value'] - \
+                wind_primary_EJ.loc[yr - 1, 'Value']
 
-    # Solar.
+    # Solar:
     if not energy_system.solar_primary_EJ.empty:
-        solar_primary_share = pd.DataFrame(index = \
-                              energy_system.solar_primary_EJ.index,
-                              columns = ['Var', 'Value'])
-        solar_primary_share['Var'] = 'solar_primary_share'
-        solar_primary_share['Value'] = \
-            (energy_system.solar_primary_EJ.Value / \
-             energy_system.primary_EJ.Value) * 100
+        solar_primary_EJ = pd.DataFrame(index =
+                             energy_system.solar_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        solar_primary_EJ.at[min(solar_primary_EJ.index), 'Name'] = 'Solar'
+        solar_primary_EJ['Value'] = energy_system.solar_primary_EJ['Value']
+        solar_primary_EJ['Share'] = (solar_primary_EJ['Value'] /
+                                     energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            solar_primary_EJ.loc[yr, 'Change'] = \
+                solar_primary_EJ.loc[yr, 'Value'] - \
+                solar_primary_EJ.loc[yr - 1, 'Value']
 
-    # Geo, Bio and Other.
+    # Geo, Bio and Other:
     if not energy_system.geo_bio_other_primary_EJ.empty:
-        geo_bio_other_primary_share = pd.DataFrame(index = \
-                              energy_system.geo_bio_other_primary_EJ.index,
-                              columns = ['Var', 'Value'])
-        geo_bio_other_primary_share['Var'] = 'geo_bio_other_primary_share'
-        geo_bio_other_primary_share['Value'] = \
-            (energy_system.geo_bio_other_primary_EJ.Value /
-             energy_system.primary_EJ.Value) * 100
+        geo_bio_other_primary_EJ = pd.DataFrame(index =
+                             energy_system.geo_bio_other_primary_EJ.index,
+                             columns = ['Name', 'Value', 'Share', 'Change'])
+        geo_bio_other_primary_EJ.at[min(geo_bio_other_primary_EJ.index), \
+                                    'Name'] = 'Geo + Bio + Other'
+        geo_bio_other_primary_EJ['Value'] = \
+            energy_system.geo_bio_other_primary_EJ['Value']
+        geo_bio_other_primary_EJ['Share'] = \
+            (geo_bio_other_primary_EJ['Value'] /
+            energy_system.primary_EJ['Value']) * 100
+        for yr in change_period:
+            geo_bio_other_primary_EJ.loc[yr, 'Change'] = \
+                geo_bio_other_primary_EJ.loc[yr, 'Value'] - \
+                geo_bio_other_primary_EJ.loc[yr - 1, 'Value']
 
-    # Wind + Solar.
+    # Wind + Solar:
     if not (energy_system.wind_primary_EJ.empty or \
             energy_system.solar_primary_EJ.empty):
-         wind_solar_primary_share = pd.DataFrame(index = \
-                                    energy_system.primary_EJ.index,
-                                    columns = ['Var', 'Value'])
-         wind_solar_primary_share['Var'] = 'wind_solar_primary_share'
-         wind_solar_primary_share['Value'] = \
-            ((energy_system.wind_primary_EJ.Value +
-              energy_system.solar_primary_EJ.Value) / \
-              energy_system.primary_EJ.Value) * 100
+         wind_solar_primary_EJ = pd.DataFrame(index =
+                              energy_system.primary_EJ.index,
+                              columns = ['Name', 'Value', 'Share', 'Change'])
+         wind_solar_primary_EJ.at[min(wind_solar_primary_EJ.index), 'Name'] = \
+             'Wind + Solar'
+         wind_solar_primary_EJ['Value'] = wind_primary_EJ['Value'] + \
+                                             solar_primary_EJ['Value']
+         wind_solar_primary_EJ['Share'] = \
+            ((wind_primary_EJ['Value'] + solar_primary_EJ['Value']) /
+            energy_system.primary_EJ.Value) * 100
+         for yr in change_period:
+             wind_solar_primary_EJ.loc[yr, 'Change'] = \
+             wind_solar_primary_EJ.loc[yr, 'Value'] - \
+             wind_solar_primary_EJ.loc[yr - 1, 'Value']
 
-    # Fossil Fuels.
-    ff_primary_share = pd.DataFrame(index = \
-                                   energy_system.primary_EJ.index,
-                                   columns = ['Var', 'Value'])
-    ff_primary_share['Var'] = 'ff_primary_share'
-    ff_primary_share['Value'] = coal_primary_share.Value.fillna(0) + \
-            				oil_primary_share.Value.fillna(0) + \
-                			gas_primary_share.Value.fillna(0)
+    # Fossil Fuels:
+    ff_primary_EJ = pd.DataFrame(index =
+                    energy_system.primary_EJ.index,
+                    columns = ['Name', 'Value', 'Share', 'Change'])
+    ff_primary_EJ.at[min(ff_primary_EJ.index), 'Name'] = 'Fossil Fuels'
+    ff_primary_EJ['Value'] = coal_primary_EJ['Value'] + \
+        gas_primary_EJ['Value'] + oil_primary_EJ['Value']
+    ff_primary_EJ['Share'] = (ff_primary_EJ['Value'] /
+                              energy_system.primary_EJ['Value']) * 100
+    for yr in change_period:
+        ff_primary_EJ.loc[yr, 'Change'] = ff_primary_EJ.loc[yr, 'Value'] - \
+            ff_primary_EJ.loc[yr - 1, 'Value']
 
     # Renewables (Wind + Solar + Hydro).
-    renew_primary_share = pd.DataFrame(index = \
-                                   energy_system.primary_EJ.index,
-                                   columns = ['Var', 'Value'])
-    renew_primary_share['Var'] = 'renew_primary_share'
-    renew_primary_share['Value'] = wind_solar_primary_share.Value.fillna(0) + \
-                                hydro_primary_share.Value.fillna(0)
+    # Fossil Fuels:
+    renew_primary_EJ = pd.DataFrame(index =
+                    energy_system.primary_EJ.index,
+                    columns = ['Name', 'Value', 'Share', 'Change'])
+    renew_primary_EJ.at[min(renew_primary_EJ.index), 'Name'] = 'Renewables'
+    renew_primary_EJ['Value'] = wind_solar_primary_EJ['Value'] + \
+        hydro_primary_EJ['Value']
+    renew_primary_EJ['Share'] = (renew_primary_EJ['Value'] /
+                              energy_system.primary_EJ['Value']) * 100
+    for yr in change_period:
+        renew_primary_EJ.loc[yr, 'Change'] = \
+            renew_primary_EJ.loc[yr, 'Value'] - \
+            renew_primary_EJ.loc[yr - 1, 'Value']
 
     # Chart title.
     title = (energy_system.name.upper())
@@ -159,15 +217,13 @@ def primary_energy(energy_system):
 
     # Additional text.
     ylabel = ('Annual Share of Primary Energy (%)')
-    footer_text = "Annual share is calculated only using data for \
-fuels reported in that year.\nGaps may be present in line segments due to \
-data not present in dataset.\n'Shares of geothermal, biofuels and 'other' \
+    footer_text = "Shares of geothermal, biofuels and 'other' \
 are small and omitted for clarity."
 
     chart.line_subplot(energy_system.primary_EJ,
-                       coal_primary_share, oil_primary_share,
-                       gas_primary_share, nuclear_primary_share,
-                       hydro_primary_share, wind_solar_primary_share,
+                       coal_primary_EJ, oil_primary_EJ,
+                       gas_primary_EJ, nuclear_primary_EJ,
+                       hydro_primary_EJ, wind_solar_primary_EJ,
                        user_globals.Color.COAL.value,
                        user_globals.Color.OIL.value,
                        user_globals.Color.GAS.value,
@@ -179,17 +235,18 @@ are small and omitted for clarity."
     plt.show()
 
     # Plot primary energy shares for most recent year using treemaps.
-    # Extract data for most recent year and arrange into dataframes.
-    final_ff_primary_share = ff_primary_share.Value.iloc[-1]
-    final_renew_primary_share = renew_primary_share.Value.iloc[-1]
-    final_coal_share = coal_primary_share.Value.iloc[-1]
-    final_oil_share = oil_primary_share.Value.iloc[-1]
-    final_gas_share = gas_primary_share.Value.iloc[-1]
-    final_nuclear_share = nuclear_primary_share.Value.iloc[-1]
-    final_hyrdo_share = hydro_primary_share.Value.iloc[-1]
-    final_wind_share = wind_primary_share.Value.iloc[-1]
-    final_solar_share = solar_primary_share.Value.iloc[-1]
-    final_geo_bio_other_share = geo_bio_other_primary_share.Value.iloc[-1]
+    # Organise data for most recent year into dataframes.
+    final_ff_primary_share = ff_primary_EJ['Share'].iloc[-1]
+    final_renew_primary_share = renew_primary_EJ['Share'].iloc[-1]
+    final_coal_primary_share = coal_primary_EJ['Share'].iloc[-1]
+    final_oil_primary_share = oil_primary_EJ['Share'].iloc[-1]
+    final_gas_primary_share = gas_primary_EJ['Share'].iloc[-1]
+    final_nuclear_primary_share = nuclear_primary_EJ['Share'].iloc[-1]
+    final_hyrdo_primary_share = hydro_primary_EJ['Share'].iloc[-1]
+    final_wind_primary_share = wind_primary_EJ['Share'].iloc[-1]
+    final_solar_primary_share = solar_primary_EJ['Share'].iloc[-1]
+    final_geo_bio_other_primary_share = \
+        geo_bio_other_primary_EJ['Share'].iloc[-1]
 
     category_name = [
         'Fossil Fuels',
@@ -208,18 +265,18 @@ are small and omitted for clarity."
 
     final_category_share = [
         final_ff_primary_share,
-        final_nuclear_share,
+        final_nuclear_primary_share,
         final_renew_primary_share,
-        final_geo_bio_other_share]
+        final_geo_bio_other_primary_share]
     final_fuel_share = [
-        final_coal_share,
-        final_oil_share,
-        final_gas_share,
-        final_nuclear_share,
-        final_hyrdo_share,
-        final_wind_share,
-        final_solar_share,
-        final_geo_bio_other_share]
+        final_coal_primary_share,
+        final_oil_primary_share,
+        final_gas_primary_share,
+        final_nuclear_primary_share,
+        final_hyrdo_primary_share,
+        final_wind_primary_share,
+        final_solar_primary_share,
+        final_geo_bio_other_primary_share]
 
     category_color = [
         user_globals.Color.FOSSIL_FUELS.value,
@@ -254,7 +311,8 @@ are small and omitted for clarity."
     for i in range(len(final_fuel_share)):
         if not (math.isnan(final_fuel_share[i]) or final_fuel_share[i] < 1):
             filtered_fuel_name.append(fuel_name[i])
-            filtered_final_fuel_share.append(int(round(final_fuel_share[i], 0)))
+            filtered_final_fuel_share.append(int(round(final_fuel_share[i],
+                                                       0)))
             filtered_fuel_color.append(fuel_color[i])
 
     suptitle = (energy_system.name.upper())
@@ -262,8 +320,8 @@ are small and omitted for clarity."
 year ' + str(energy_system.primary_EJ.index[-1])
     title1 = 'Category Shares'
     title2 = 'Individual Fuel Shares'
-    footer_text = "For clarity: (1) Values are rounded, so shares may not total \
-100%, (2) Shares <1% aren't shown,\n(3) Labels for categories <20% \
+    footer_text = "For clarity: (1) Values are rounded, so shares may not \
+total 100%, (2) Shares <1% aren't shown,\n(3) Labels for categories <20% \
 aren't shown if there's a large difference between lowest & highest \
 shares."
 
@@ -319,6 +377,55 @@ shares."
         suptitle,
         suptitle_addition,
         footer_text)
+    plt.show()
+
+    # Plot annual additions and subtractions for categories and fuels
+    chart_start_yr = 1995
+    if energy_system.name == 'World':
+        y_label = 'Annual Change (EJ/year)'
+    else:
+        y_label = 'Annual Change (PJ/year)'
+
+    chart.column_grouped(
+        energy_system.name.upper(),
+        'Annual Additions to and Subtractions from Categories in Energy Supply \
+(Primary Energy)',
+        y_label,
+        'For clarity: (1) Values of change at tops of columns are \
+rounded to nearest whole number, (2) Values that round to zero are not shown, \
+\n(3) When the value of a fuel is zero or rounds to zero, the column is not \
+shown resulting in a gap between plotted columns.',
+        chart_start_yr,
+        user_globals.Color.FOSSIL_FUELS.value,
+        user_globals.Color.NUCLEAR.value,
+        user_globals.Color.RENEW.value,
+        df1 = ff_primary_EJ,
+        df2 = nuclear_primary_EJ,
+        df3 = renew_primary_EJ)
+    plt.show()
+
+    chart.column_grouped(
+        energy_system.name.upper(),
+        'Annual Additions to and Subtractions from Fuels in Energy Supply \
+(Primary Energy)',
+        y_label,
+        'For clarity: (1) Values of change at tops of columns are \
+rounded to nearest whole number, (2) Values that round to zero are not shown, \
+\n(3) When the value of a fuel is zero or rounds to zero, the column is not \
+shown resulting in a gap between plotted columns.',
+        chart_start_yr,
+        user_globals.Color.COAL.value,
+        user_globals.Color.OIL.value,
+        user_globals.Color.GAS.value,
+        user_globals.Color.NUCLEAR.value,
+        user_globals.Color.HYDRO.value,
+        user_globals.Color.WIND_SOLAR.value,
+        df1 = coal_primary_EJ,
+        df2 = oil_primary_EJ,
+        df3 = gas_primary_EJ,
+        df4 = nuclear_primary_EJ,
+        df5 = hydro_primary_EJ,
+        df6 = wind_solar_primary_EJ)
     plt.show()
 
 

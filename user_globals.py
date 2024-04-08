@@ -10,17 +10,18 @@ from enum import Enum
 
 
 # Define conversion coefficeints (multiply for conversion).
+# Chart sizes suit 16" MBP screen
 class Constant(Enum):
     THOUSAND_TO_MILLION = 1 / 1000
     FIG_SIZE = 8
-    FIG_HSIZE_SUBPLOT_1X3 = 15
+    FIG_VSIZE_COLUMN_PLOT = 7
+    FIG_HSIZE_COLUMN_PLOT = 18
     FIG_VSIZE_SUBPLOT_1X3 = 5
-    FIG_HSIZE_SUBPLOT_2X3 = 15
+    FIG_HSIZE_SUBPLOT_1X3 = 15
     FIG_VSIZE_SUBPLOT_2X3 = 10
-    FIG_HSIZE_PIE_1X2 = 12
-    FIG_VSIZE_PIE_1X2 = 6
-    FIG_HSIZE_TREE_1X2 = 12
+    FIG_HSIZE_SUBPLOT_2X3 = 15
     FIG_VSIZE_TREE_1X2 = 7
+    FIG_HSIZE_TREE_1X2 = 12
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
@@ -40,7 +41,7 @@ class Color(Enum):
      SOLAR = 'crimson'
      GEO_BIO_OTHER = 'sienna'
      OTHER = 'tan'
-     FOSSIL_FUELS = 'dimgray'
+     FOSSIL_FUELS = 'grey' #'dimgray'
      RENEW = 'forestgreen'
      WIND_SOLAR = 'limegreen'
      ELECTRICITY = 'teal'
