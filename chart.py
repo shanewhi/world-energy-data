@@ -17,14 +17,6 @@ import user_globals
 
 
 def scale(val):
-# val < 10:
-# val = 2.3 -> rounded = 2 -> rounded < val -> return 2.5
-# val = 2.7 -> rounded = 3 -> return 3
-# val = 23 -> rounded = 2 -> return 40
-# val = 56 -> rounded = 6 -> return 80
-# val = 140 -> rounded = 1 -> return 150
-# val = 170 -> rounded = 2 -> return 200
-
     if val < 10:
         rounded = round(val, 0)
         if rounded < val:
@@ -42,14 +34,14 @@ def scale(val):
         val /= 100
         rounded = round(val, 0)
         if rounded < val:
-            return((rounded + 0.2) * 100)
+            return((rounded + 0.5) * 100)
         else:
             return(rounded) * 100
     elif val < 10000:
         val /= 1000
         rounded = round(val, 0)
         if rounded < val:
-            return((rounded + 0.2) * 1000)
+            return((rounded + 0.5) * 1000)
         else:
             return(rounded) * 1000
     else:
