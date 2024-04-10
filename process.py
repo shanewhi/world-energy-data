@@ -18,20 +18,43 @@ import chart
 
 # Plot national fossil fuel production.
 def production(energy_system):
-    chart.column_subplot(energy_system.primary_EJ, energy_system.coalprod_Mt,
-        energy_system.oilprod_Mbpd, energy_system.gasprod_bcm,
-        user_globals.Color.COAL.value, user_globals.Color.OIL.value,
-        user_globals.Color.GAS.value, energy_system.name.upper(),
-        'Fossil Fuel Production','Coal', 'Oil', 'Gas',
-        'Annual Production (Mt)', 'Annual Production (Mbpd)',
-        'Annual Production (bcm)', '')
+    chart.column_subplot(
+        energy_system.primary_EJ,
+        energy_system.coalprod_Mt,
+        energy_system.oilprod_Mbpd,
+        energy_system.gasprod_bcm,
+        user_globals.Color.COAL.value,
+        user_globals.Color.OIL.value,
+        user_globals.Color.GAS.value,
+        energy_system.name.upper(),
+        'Fossil Fuel Production',
+        'Coal',
+        'Oil',
+        'Gas',
+        'Annual Production (Mt)',
+        'Annual Production (Mbpd)',
+        'Annual Production (bcm)',
+        '')
+    plt.show()
+
+
+def co2_emissions(energy_system):
+    chart.line_plot(
+        energy_system.primary_EJ.index,
+        energy_system.co2_combust_mtco2['Value'],
+        energy_system.name.upper(),
+        user_globals.Color.CO2.value,
+        'Fossil Fuel Carbon Dioxide Emissions',
+        'Annual Emissions (MtCO\u2082)',
+        ''
+        )
     plt.show()
 
 
 # Identify national primary energy data, and plot.
 def primary_energy(energy_system):
     # Plot absolute quantity of primary energy of fossil fuels.
-    chart.column_subplot(
+    chart.column_subplot_equiv_units(
         energy_system.primary_EJ,
         energy_system.coal_primary_EJ,
         energy_system.oil_primary_EJ,
@@ -44,8 +67,10 @@ def primary_energy(energy_system):
         'Coal',
         'Oil',
         'Gas',
-        'Annual Primary Energy (EJ)', 'Annual Primary Energy (EJ)',
-        'Annual Primary Energy (EJ)', '')
+        'Annual Primary Energy (EJ)',
+        'Annual Primary Energy (EJ)',
+        'Annual Primary Energy (EJ)',
+        '')
     plt.show()
 
     # Calculate shares of primary energy over time for each fuel.

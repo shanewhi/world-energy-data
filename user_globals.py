@@ -22,6 +22,7 @@ class Constant(Enum):
     FIG_HSIZE_SUBPLOT_2X3 = 15
     FIG_VSIZE_TREE_1X2 = 7
     FIG_HSIZE_TREE_1X2 = 12
+    LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
@@ -45,6 +46,7 @@ class Color(Enum):
      RENEW = 'forestgreen'
      WIND_SOLAR = 'limegreen'
      ELECTRICITY = 'teal'
+     CO2 = 'black'
 #Python chart gallery: https://python-graph-gallery.com/
 
 
@@ -64,7 +66,8 @@ class Energy_System:
             hydro_primary_EJ,
             wind_primary_EJ,
             solar_primary_EJ,
-            geo_bio_other_primary_EJ):
+            geo_bio_other_primary_EJ,
+            co2_combust_mtco2):
         self.name = name # Country's name
         self.coalprod_Mt = coalprod_Mt
         self.oilprod_Mbpd = oilprod_Mbpd
@@ -78,3 +81,4 @@ class Energy_System:
         self.wind_primary_EJ = wind_primary_EJ
         self.solar_primary_EJ = solar_primary_EJ
         self.geo_bio_other_primary_EJ = geo_bio_other_primary_EJ
+        self.co2_combust_mtco2 = co2_combust_mtco2

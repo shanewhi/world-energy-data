@@ -40,6 +40,8 @@ def populate_energy_system(ei_data, country):
                                                 'biogeo_ej']
     biofuels_primary_PJ = country_data.loc[country_data['Var'] ==
                                            'biofuels_cons_pj']
+    co2_combust_mtco2 = country_data.loc[country_data['Var'] ==
+                                           'co2_combust_mtco2']
 
     # Drop 'country' index from dataframes and replace with 'Year'.
     primary_EJ = primary_EJ.set_index('Year')
@@ -55,6 +57,7 @@ def populate_energy_system(ei_data, country):
     solar_primary_EJ = solar_primary_EJ.set_index('Year')
     biogeo_primary_EJ = biogeo_primary_EJ.set_index('Year')
     biofuels_primary_PJ = biofuels_primary_PJ.set_index('Year')
+    co2_combust_mtco2 = co2_combust_mtco2.set_index('Year')
 
     # Ensure all dataframes comsist of the same range of years.
 
@@ -83,6 +86,8 @@ def populate_energy_system(ei_data, country):
         biogeo_primary_EJ.reindex(primary_EJ.index, fill_value = 0)
     biofuels_primary_PJ  = \
         biofuels_primary_PJ.reindex(primary_EJ.index, fill_value = 0)
+    co2_combust_mtco2  = \
+        co2_combust_mtco2.reindex(primary_EJ.index, fill_value = 0)
 
     # Construct geo_bio_other dataframe to combine biogeo_cons_ej and
     # biofuels_cons_pj (i.e. combine solid and liquid biofuels).
@@ -110,4 +115,5 @@ def populate_energy_system(ei_data, country):
             hydro_primary_EJ,
             wind_primary_EJ,
             solar_primary_EJ,
-            geo_bio_other_primary_EJ))
+            geo_bio_other_primary_EJ,
+            co2_combust_mtco2))

@@ -39,6 +39,7 @@ import process
 def profile(country):
     country_energy_system = collate.populate_energy_system(ei_data, country)
     process.production(country_energy_system)
+    process.co2_emissions(country_energy_system)
     process.primary_energy(country_energy_system)
 
 # Main function
@@ -47,11 +48,11 @@ ei_data = pd.read_csv(
 	index_col = ['Country'],
     usecols = ['Country', 'Year', 'Var', 'Value'])
 #profile following countries:
-#profile('Mexico')
-#profile('Germany')
-#profile('United Arab Emirates')
-#profile('United Kingdom')
-#profile('Sweden')
+profile('Mexico')
+profile('Germany')
+profile('United Arab Emirates')
+profile('United Kingdom')
+profile('Sweden')
 profile('Australia')
 profile('Total World')
 profile('Vietnam')
