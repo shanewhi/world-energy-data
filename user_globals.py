@@ -12,7 +12,12 @@ from enum import Enum
 # Define conversion coefficeints (multiply for conversion).
 # Chart sizes suit 16" MBP screen
 class Constant(Enum):
-    THOUSAND_TO_MILLION = 1 / 1000
+    k_TO_M = 1E-3
+    TJ_TO_PJ = 1E-3
+    EJ_TO_PJ = 1E3
+    PJ_TO_EJ = 1 / EJ_TO_PJ
+    TFC_START_YEAR = 2021
+    TFC_END_YEAR = 2021
     FIG_SIZE = 8
     FIG_VSIZE_COLUMN_PLOT = 7
     FIG_HSIZE_COLUMN_PLOT = 18
@@ -28,6 +33,7 @@ class Constant(Enum):
     CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
     CHART_STYLE = 'bmh'     #'default', 'seaborn-darkgrid'
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
+
 
 
 # Define fuel colors for charts.
@@ -49,36 +55,41 @@ class Color(Enum):
      CO2 = 'black'
 #Python chart gallery: https://python-graph-gallery.com/
 
+# Define dataset as global.
+global ei_data_import
+ei_data_import = []
 
 # Define custom class for a national energy system.
 class Energy_System:
     def __init__(
             self,
             name, #country name
+            co2_combust_mtco2,
             coalprod_Mt,
             oilprod_Mbpd,
             gasprod_bcm,
-            primary_EJ,
-            coal_primary_EJ,
-            oil_primary_EJ,
-            gas_primary_EJ,
-            nuclear_primary_EJ,
-            hydro_primary_EJ,
-            wind_primary_EJ,
-            solar_primary_EJ,
-            geo_bio_other_primary_EJ,
-            co2_combust_mtco2):
+            total_primary_PJ,
+            coal_primary_PJ,
+            oil_primary_PJ,
+            gas_primary_PJ,
+            nuclear_primary_PJ,
+            hydro_primary_PJ,
+            wind_primary_PJ,
+            solar_primary_PJ,
+            geo_bio_other_primary_PJ,
+            tf_consumption_PJ):
         self.name = name # Country's name
+        self.co2_combust_mtco2 = co2_combust_mtco2
         self.coalprod_Mt = coalprod_Mt
         self.oilprod_Mbpd = oilprod_Mbpd
         self.gasprod_bcm = gasprod_bcm
-        self.primary_EJ = primary_EJ
-        self.coal_primary_EJ = coal_primary_EJ
-        self.oil_primary_EJ = oil_primary_EJ
-        self.gas_primary_EJ = gas_primary_EJ
-        self.nuclear_primary_EJ = nuclear_primary_EJ
-        self.hydro_primary_EJ = hydro_primary_EJ
-        self.wind_primary_EJ = wind_primary_EJ
-        self.solar_primary_EJ = solar_primary_EJ
-        self.geo_bio_other_primary_EJ = geo_bio_other_primary_EJ
-        self.co2_combust_mtco2 = co2_combust_mtco2
+        self.total_primary_PJ = total_primary_PJ
+        self.coal_primary_PJ = coal_primary_PJ
+        self.oil_primary_PJ = oil_primary_PJ
+        self.gas_primary_PJ = gas_primary_PJ
+        self.nuclear_primary_PJ = nuclear_primary_PJ
+        self.hydro_primary_PJ = hydro_primary_PJ
+        self.wind_primary_PJ = wind_primary_PJ
+        self.solar_primary_PJ = solar_primary_PJ
+        self.geo_bio_other_primary_PJ = geo_bio_other_primary_PJ
+        self.tf_consumption_PJ = tf_consumption_PJ
