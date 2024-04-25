@@ -9,6 +9,7 @@ Required Input:
 -
 https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
 (from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
+IEA annual energy balances in JSON format.
 
 
 Consists of the following files:
@@ -19,7 +20,7 @@ Consists of the following files:
 4. process.py (data processing)
 5. chart.py (generic chart functions)
 
-Output (as of March 21, 2024):
+Output (as of April 25, 2024):
 -
-Country (or World) specific charts of fossil fuel production and primary
-energy.
+Country (or World) specific charts of fossil fuel production, primary
+energy and total final consumption.
