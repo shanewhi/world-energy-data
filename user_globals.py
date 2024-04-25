@@ -16,7 +16,8 @@ class Constant(Enum):
     TJ_TO_PJ = 1E-3
     EJ_TO_PJ = 1E3
     PJ_TO_EJ = 1 / EJ_TO_PJ
-    TFC_START_YEAR = 2021
+    CHANGE_START_YEAR = 1995
+    TFC_START_YEAR = 1990
     TFC_END_YEAR = 2021
     FIG_SIZE = 8
     FIG_VSIZE_COLUMN_PLOT = 7
@@ -30,66 +31,55 @@ class Constant(Enum):
     LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
-    CHART_FONT = 'Open Sans' #all: matplotlib.font_manager.get_font_names()
-    CHART_STYLE = 'bmh'     #'default', 'seaborn-darkgrid'
+    CHART_DPI = 100
+    CHART_FONT = "Open Sans" #all: matplotlib.font_manager.get_font_names()
+    CHART_STYLE = "bmh"     #"default", "seaborn-darkgrid"
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
-
 
 
 # Define fuel colors for charts.
 # https://matplotlib.org/stable/gallery/color/named_colors.html
 class Color(Enum):
-     COAL = 'black'
-     OIL = 'brown'
-     GAS = 'darkorange'
-     NUCLEAR = 'darkmagenta'
-     HYDRO = 'dodgerblue'
-     WIND = 'blue'
-     SOLAR = 'crimson'
-     GEO_BIO_OTHER = 'sienna'
-     OTHER = 'tan'
-     FOSSIL_FUELS = 'grey' #'dimgray'
-     RENEW = 'forestgreen'
-     WIND_SOLAR = 'limegreen'
-     ELECTRICITY = 'teal'
-     CO2 = 'black'
-#Python chart gallery: https://python-graph-gallery.com/
+     COAL = "black"
+     OIL = "brown"
+     GAS = "darkorange"
+     NUCLEAR = "darkmagenta"
+     HYDRO = "dodgerblue"
+     WIND = "blue"
+     SOLAR = "crimson"
+     GEO_BIO = "sienna"
+     OTHER = "tan"
+     HEAT = "purple"
+     FOSSIL_FUELS = "dimgray"
+     RENEW = "forestgreen"
+     WIND_SOLAR = "limegreen"
+     ELECTRICITY = "teal"
+     CO2 = "black"
+# Python chart gallery: https://python-graph-gallery.com/
+
 
 # Define dataset as global.
 global ei_data_import
 ei_data_import = []
 
+
 # Define custom class for a national energy system.
 class Energy_System:
     def __init__(
             self,
-            name, #country name
-            co2_combust_mtco2,
+            name, # Country name.
+            co2_combust_Mt,
             coalprod_Mt,
             oilprod_Mbpd,
             gasprod_bcm,
-            total_primary_PJ,
-            coal_primary_PJ,
-            oil_primary_PJ,
-            gas_primary_PJ,
-            nuclear_primary_PJ,
-            hydro_primary_PJ,
-            wind_primary_PJ,
-            solar_primary_PJ,
-            geo_bio_other_primary_PJ,
+            primary_PJ,
+            elec_gen_TWh,
             tf_consumption_PJ):
-        self.name = name # Country's name
-        self.co2_combust_mtco2 = co2_combust_mtco2
+        self.name = name
+        self.co2_combust_Mt = co2_combust_Mt
         self.coalprod_Mt = coalprod_Mt
         self.oilprod_Mbpd = oilprod_Mbpd
         self.gasprod_bcm = gasprod_bcm
-        self.total_primary_PJ = total_primary_PJ
-        self.coal_primary_PJ = coal_primary_PJ
-        self.oil_primary_PJ = oil_primary_PJ
-        self.gas_primary_PJ = gas_primary_PJ
-        self.nuclear_primary_PJ = nuclear_primary_PJ
-        self.hydro_primary_PJ = hydro_primary_PJ
-        self.wind_primary_PJ = wind_primary_PJ
-        self.solar_primary_PJ = solar_primary_PJ
-        self.geo_bio_other_primary_PJ = geo_bio_other_primary_PJ
+        self.primary_PJ = primary_PJ
+        self.elec_gen_TWh = elec_gen_TWh
         self.tf_consumption_PJ = tf_consumption_PJ

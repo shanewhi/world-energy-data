@@ -7,6 +7,8 @@
 
 # Import Python modules.
 import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 
 # Import user modules.
@@ -28,8 +30,8 @@ import process
 ###############################################################################
 def profile(country):
     country_energy_system = collate.populate_energy_system(country)
-    process.production(country_energy_system)
     process.co2_emissions(country_energy_system)
+    process.production(country_energy_system)
     process.primary_energy(country_energy_system)
     process.consumption(country_energy_system)
 
@@ -45,7 +47,7 @@ def profile(country):
 # https://www.worldenergydata.org
 #
 # Files:
-# world_energy_data.py (this one)
+# world_energy_data.py (this file)
 # user_globals.py (defs)
 # collate.py (called by world_energy_data.py)
 # process.py (called by world_energy_data.py)
@@ -69,10 +71,13 @@ def profile(country):
 # 5. Click XHR button
 # 6. Select Browse as Tables
 # 7. Select year from dropdown (ensure this is done manually)
-# 8. Double click on the following result (using 2021 as an example)
+# 8. Reload page
+# 9. Double click on the following result (using 2021 as an example)
 # https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
-# 9. Save as JSON format
-# 10. Add to start of file {"balances": and to the end }
+# 10. Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
+# year.
+# 11. Add to start of file: {"balances":
+# 12. Add to the end of the file: }
 #
 # Output(s): Charts.
 #
@@ -87,6 +92,12 @@ user_globals.ei_data_import = pd.read_csv(
 # because it's imported as annual Energy Balances stored in separate JSON
 # files, because their Highlights dataset omits some countries.
 
+# Set plot globals
+plt.style.use(user_globals.Constant.CHART_STYLE.value)
+plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
+plt.rcParams["font.weight"] = "regular"
+mpl.rcParams['figure.dpi']= user_globals.Constant.CHART_DPI.value
+
 # Profile following countries or "Total World".
 #profile("Mexico")
 #profile("Germany")
@@ -94,6 +105,6 @@ user_globals.ei_data_import = pd.read_csv(
 #profile("United Kingdom")
 #profile("Sweden")
 #profile("Australia")
-#profile("Total World")
+profile("Total World")
 #profile("Algeria")
-profile("Vietnam")
+#profile("Vietnam")

@@ -34,162 +34,160 @@ def populate_energy_system(country):
     if country in ei_data["Country"].values:
         country_data = ei_data.loc[ei_data["Country"] == country]
 
+        # Replace "Total World" label for chart titles.
+        if country == "Total World":
+            country = "World"
+
         #######################################################################
         # CO2
         #######################################################################
-        co2_combust_mtco2 = country_data.loc[country_data["Var"] ==
-                                             "co2_combust_mtco2"]
+        co2_combust_Mt = country_data.loc[country_data["Var"] ==
+                                          "co2_combust_mtco2", "Value"]
 
         #######################################################################
         # Production
         #######################################################################
-        coalprod_Mt = country_data.loc[country_data["Var"] == "coalprod_mt"]
-        coalprod_Mt.replace("coalprod_mt", "coalprod_Mt")
-        oilprod_kbpd = country_data.loc[country_data["Var"] == "oilprod_kbd"]
-        oilprod_Mbpd = pd.DataFrame(index = oilprod_kbpd.index,
-                                    columns = ["Country", "Var", "Value"])
-        oilprod_Mbpd["Country"] = oilprod_kbpd["Country"]
-        oilprod_Mbpd["Var"] = "oilprod_Mbpd"
-        oilprod_Mbpd["Value"] = oilprod_kbpd["Value"] *\
-            user_globals.Constant.k_TO_M.value
-        gasprod_bcm = country_data.loc[country_data["Var"] == "gasprod_bcm"]
+        coalprod_Mt = country_data.loc[country_data["Var"] ==
+                                       "coalprod_mt", "Value"]
+        oilprod_kbpd = country_data.loc[country_data["Var"] ==
+                                        "oilprod_kbd", "Value"]
+        oilprod_Mbpd = oilprod_kbpd * user_globals.Constant.k_TO_M.value
+        gasprod_bcm = country_data.loc[country_data["Var"] ==
+                                       "gasprod_bcm", "Value"]
 
         #######################################################################
         # Primary Energy
         #######################################################################
         total_primary_EJ = country_data.loc[country_data["Var"] ==
-                                            "primary_ej"]
-        coal_primary_EJ = country_data.loc[country_data["Var"] ==
-                                           "coalcons_ej"]
-        oil_primary_EJ = country_data.loc[country_data["Var"] == "oilcons_ej"]
-        gas_primary_EJ = country_data.loc[country_data["Var"] == "gascons_ej"]
-        nuclear_primary_EJ = country_data.loc[country_data["Var"] ==
-                                              "nuclear_ej"]
-        hydro_primary_EJ = country_data.loc[country_data["Var"] == "hydro_ej"]
-        wind_primary_EJ = country_data.loc[country_data["Var"] == "wind_ej"]
-        solar_primary_EJ = country_data.loc[country_data["Var"] == "solar_ej"]
-        biogeo_primary_EJ = country_data.loc[country_data["Var"] ==
-                                             "biogeo_ej"]
-        biofuels_primary_PJ = country_data.loc[country_data["Var"] ==
-                                               "biofuels_cons_pj"]
-        # Drop "Var" and "country" index from dataframes and convert value to
-        # PJ.
-        total_primary_PJ = total_primary_EJ
-        total_primary_PJ = total_primary_PJ.drop(["Var"], axis = 'columns')
-        total_primary_PJ["Value"] = total_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
+                                        "primary_ej", "Value"]
 
-        coal_primary_PJ = coal_primary_EJ
-        coal_primary_PJ = coal_primary_PJ.drop(["Var"], axis = 'columns')
-        coal_primary_PJ["Value"] = coal_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ = pd.DataFrame(index = total_primary_EJ.index,
+            columns = \
+            ["Coal", "Oil", "Gas", "Nuclear", "Hydro", "Wind",
+             "Solar", "Bio Geo", "Fossil Fuels", "Wind and Solar", "Total"])
 
-        oil_primary_PJ = oil_primary_EJ
-        oil_primary_PJ = oil_primary_PJ.drop(["Var"], axis = 'columns')
-        oil_primary_PJ["Value"] = oil_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Coal"] = country_data.loc[country_data["Var"] ==
+                                        "coalcons_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Oil"] = country_data.loc[country_data["Var"] ==
+                                        "oilcons_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Gas"] = country_data.loc[country_data["Var"] ==
+                                        "gascons_ej", "Value"] *\
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Nuclear"] = country_data.loc[country_data["Var"] ==
+                                        "nuclear_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Hydro"] = country_data.loc[country_data["Var"] ==
+                                        "hydro_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Wind"] = country_data.loc[country_data["Var"] ==
+                                        "wind_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Solar"] = country_data.loc[country_data["Var"] ==
+                                        "solar_ej", "Value"] * \
+                                        user_globals.Constant.EJ_TO_PJ.value
+        primary_PJ["Bio Geo"] = country_data.loc[country_data["Var"] ==
+                                    "biogeo_ej", "Value"] * \
+                                    user_globals.Constant.EJ_TO_PJ.value + \
+                                    country_data.loc[country_data["Var"] ==
+                                    "biofuels_cons_pj", "Value"]
 
-        gas_primary_PJ = gas_primary_EJ
-        gas_primary_PJ = gas_primary_PJ.drop(["Var"], axis = 'columns')
-        gas_primary_PJ["Value"] = gas_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
+        # Replace any NaNs with 0 in fields imported into primary_PJ.
+        primary_PJ.fillna(0, inplace = True)
 
-        nuclear_primary_PJ = nuclear_primary_EJ
-        nuclear_primary_PJ = nuclear_primary_PJ.drop(["Var"], axis = 'columns')
-        nuclear_primary_PJ["Value"] = nuclear_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
+        # Calculate categories.
+        primary_PJ["Fossil Fuels"] = primary_PJ["Coal"] + \
+                                     primary_PJ["Oil"] + \
+                                     primary_PJ["Gas"]
+        primary_PJ["Wind and Solar"] = primary_PJ["Wind"] + primary_PJ["Solar"]
+        primary_PJ["Total"] = total_primary_EJ * \
+                              user_globals.Constant.EJ_TO_PJ.value
 
-        hydro_primary_PJ = hydro_primary_EJ
-        hydro_primary_PJ = hydro_primary_PJ.drop(["Var"], axis = 'columns')
-        hydro_primary_PJ["Value"] = hydro_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
-
-        wind_primary_PJ = wind_primary_EJ
-        wind_primary_PJ = wind_primary_PJ.drop(["Var"], axis = 'columns')
-        wind_primary_PJ["Value"] = wind_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
-
-        solar_primary_PJ = solar_primary_EJ
-        solar_primary_PJ = solar_primary_PJ.drop(["Var"], axis = 'columns')
-        solar_primary_PJ["Value"] = solar_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
-
-        biogeo_primary_PJ = biogeo_primary_EJ
-        biogeo_primary_PJ = biogeo_primary_PJ.drop(["Var"], axis = 'columns')
-        biogeo_primary_PJ["Value"] = biogeo_primary_PJ["Value"] * \
-            user_globals.Constant.EJ_TO_PJ.value
-
-        # Liquid biofuels in dataset has units PJ.
-        biofuels_primary_PJ = biofuels_primary_PJ.drop(["Var"], axis =\
-                                                       'columns')
-
-        # Construct geo_bio_other dataframe to combine biogeo_cons and
-        # biofuels_cons (i.e. combine solid and liquid biofuels).
-        geo_bio_other_primary_PJ = pd.DataFrame(index =\
-                                                biogeo_primary_PJ.index,
-                                                columns = ["Value"])
-        geo_bio_other_primary_PJ["Value"] = biogeo_primary_PJ["Value"] + \
-            biofuels_primary_PJ["Value"]
-
-        # Ensure all dataframes comsist of the same range of years.
-        # Fill any missing values with 0.
-        co2_combust_mtco2  = \
-            co2_combust_mtco2.reindex(total_primary_PJ.index, fill_value = 0)
+        # Make years production consistent and fill any missing values with 0.
         coalprod_Mt = \
-            coalprod_Mt.reindex(total_primary_PJ.index, fill_value = 0)
+            coalprod_Mt.reindex(primary_PJ.index, fill_value = 0)
         oilprod_Mbpd = \
-            oilprod_Mbpd.reindex(total_primary_PJ.index, fill_value = 0)
+            oilprod_Mbpd.reindex(primary_PJ.index, fill_value = 0)
         gasprod_bcm = \
-            gasprod_bcm.reindex(total_primary_PJ.index, fill_value = 0)
-        coal_primary_PJ = \
-            coal_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        oil_primary_PJ = \
-            oil_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        gas_primary_PJ = \
-            gas_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        nuclear_primary_PJ = \
-            nuclear_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        hydro_primary_PJ = \
-            hydro_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        wind_primary_PJ = \
-            wind_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        solar_primary_PJ = \
-            solar_primary_PJ.reindex(total_primary_PJ.index, fill_value = 0)
-        geo_bio_other_primary_PJ = \
-            geo_bio_other_primary_PJ.reindex(total_primary_PJ.index,
-                                             fill_value = 0)
+            gasprod_bcm.reindex(primary_PJ.index, fill_value = 0)
 
-        # Replace "Total World" label for chart titles.
-        if country == "Total World":
-            country = "World"
+        #######################################################################
+        # Electricity
+        #######################################################################
+        total_elec_gen_TWh = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_total"]
+
+        elec_gen_TWh = pd.DataFrame(index = total_elec_gen_TWh.index,
+            columns = \
+            ["Coal", "Oil", "Gas", "Nuclear", "Hydro", "Renew",
+             "Other", "Fossil Fuels", "Low C", "Hydro Renew", "Total"])
+
+        elec_gen_TWh["Coal"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_coal", "Value"]
+        elec_gen_TWh["Oil"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_oil", "Value"]
+        elec_gen_TWh["Gas"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_gas", "Value"]
+        elec_gen_TWh["Nuclear"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_nuclear", "Value"]
+        elec_gen_TWh["Hydro"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_hydro", "Value"]
+        elec_gen_TWh["Renew"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_ren_power", "Value"]
+        elec_gen_TWh["Other"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_other", "Value"]
+        elec_gen_TWh["Fossil Fuels"] = elec_gen_TWh["Coal"] + \
+                                       elec_gen_TWh["Oil"] + \
+                                       elec_gen_TWh["Gas"]
+        elec_gen_TWh["Low C"] = elec_gen_TWh["Nuclear"] + \
+                                elec_gen_TWh["Hydro"] + \
+                                elec_gen_TWh["Renew"]
+        elec_gen_TWh["Hydro Renew"] = elec_gen_TWh["Hydro"] + \
+                                      elec_gen_TWh["Renew"]
+        elec_gen_TWh["Total"] = country_data.loc[country_data["Var"] ==
+                                              "electbyfuel_total", "Value"]
+        elec_gen_TWh.fillna(0, inplace = True)
+
     else:
         print("Country not in EI data.\n")
 
     ###########################################################################
     # Total Final Consumption
     ###########################################################################
-
     # Make country name JSON compliant for use with IEA dataset.
     country_upper = "'" + country.upper() + "'"
+
+    # Make country names compatible with IEA dataset when needed.
+    if country_upper == "'AUSTRALIA'":
+        country_upper = "'AUSTRALI'"
+    if country_upper == "'UNITED ARAB EMIRATES'":
+        country_upper = "'UAE'"
+    if country_upper == "'UNITED KINGDOM'":
+        country_upper = "'UK'"
 
     # Create year array for new TFC dataframe derived from IEA Balances.
     tfc_years = np.array(range(user_globals.Constant.TFC_START_YEAR.value,
                          user_globals.Constant.TFC_END_YEAR.value + 1))
     tf_consumption_PJ = pd.DataFrame(index = tfc_years, columns = \
-                        ["Country", "Coal", "Oil", "Gas", "Wind solar etc",
-                         "Bio and Waste", "Electricity", "Heat", "Total"])
+                        ["Coal", "Oil", "Gas", "Wind Solar Etc",
+                         "Biofuels and Waste", "Electricity", "Heat", "Total"])
     # Collate TFC data.
     for year in tfc_years:
         with open("iea" + str(year) + ".json") as iea:
             iea_data = js.load(iea)
         if jp.search(f"balances[?(short == {country_upper})].value", iea_data):
-            tf_consumption_PJ["Country"] = country
+
             tf_consumption_PJ.at[year, "Coal"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper}\
+                np.array(jp.search(f"(balances[?(short == {country_upper}\
                                    && flow == 'TFC' && \
-                                   product == 'COAL')].value", iea_data),
+                                   product == 'COAL')].value)", iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
+            if not tf_consumption_PJ.at[year, "Coal"]:
+                tf_consumption_PJ.at[year, "Coal"] = 0
+
+            # "MTOTOIL" is the addition of Crude Oil and Oil Products.
             tf_consumption_PJ.at[year, "Oil"] = \
                 np.array(jp.search(f"balances[?(short == {country_upper} && \
                                    flow == 'TFC' && \
@@ -197,66 +195,77 @@ def populate_energy_system(country):
                                    iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
-            # MTOTOIL is the addition of Crude Oil and Oil Products.
+            if not tf_consumption_PJ.at[year, "Oil"]:
+                tf_consumption_PJ.at[year, "Oil"] = 0
+
             tf_consumption_PJ.at[year, "Gas"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
-                                   flow == 'TFC' && \
-                                   product == 'NATGAS')].value",
-                                   iea_data),
-                                   dtype = float) * \
+                np.array(jp.search(f"(balances[?(short == {country_upper}\
+                                   && flow == 'TFC' && \
+                                   product == 'NATGAS')].value)", iea_data),
+                                   dtype = float) *\
                                    user_globals.Constant.TJ_TO_PJ.value
-            tf_consumption_PJ.at[year, "Wind solar etc"] = \
+            if not tf_consumption_PJ.at[year, "Gas"]:
+                tf_consumption_PJ.at[year, "Gas"] = 0
+
+            tf_consumption_PJ.at[year, "Wind Solar Etc"] = \
                 np.array(jp.search(f"balances[?(short == {country_upper} && \
                                    flow == 'TFC' && \
                                    product == 'GEOTHERM')].value",
                                    iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
-            tf_consumption_PJ.at[year, "Bio and Waste"] = \
+            if not tf_consumption_PJ.at[year, "Wind Solar Etc"]:
+                tf_consumption_PJ.at[year, "Wind Solar Etc"] = 0
+
+            tf_consumption_PJ.at[year, "Biofuels and Waste"] = \
                 np.array(jp.search(f"balances[?(short == {country_upper} && \
                                    flow == 'TFC' && \
                                    product == 'COMRENEW')].value",
                                    iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
+            if not tf_consumption_PJ.at[year, "Biofuels and Waste"]:
+                tf_consumption_PJ.at[year, "Biofuels and Waste"] = 0
+
             tf_consumption_PJ.at[year, "Electricity"] = \
                 np.array(jp.search(f"balances[?(short == {country_upper} && \
                                    flow == 'TFC' && \
                                    product == 'ELECTR')].value", iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
+            if not tf_consumption_PJ.at[year, "Electricity"]:
+                tf_consumption_PJ.at[year, "Electricity"] = 0
+
             tf_consumption_PJ.at[year, "Heat"] = \
                 np.array(jp.search(f"balances[?(short == {country_upper} && \
                                    flow == 'TFC' && \
-                                   product == 'NATGAS')].value", iea_data),
+                                   product == 'HEAT')].value", iea_data),
                                    dtype = float) * \
                                    user_globals.Constant.TJ_TO_PJ.value
+            if not tf_consumption_PJ.at[year, "Heat"]:
+                tf_consumption_PJ.at[year, "Heat"] = 0
+
             tf_consumption_PJ.at[year, "Total"] = \
-             np.array(jp.search(f"balances[?(short == {country_upper} && \
-                                flow == 'TFC' && \
-                                product == 'TOTAL')].value", iea_data),
-                                dtype = float) * \
-                                user_globals.Constant.TJ_TO_PJ.value
+                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                                   flow == 'TFC' && \
+                                   product == 'TOTAL')].value", iea_data),
+                                   dtype = float) * \
+                                   user_globals.Constant.TJ_TO_PJ.value
+            if not tf_consumption_PJ.at[year, "Total"]:
+                tf_consumption_PJ.at[year, "Total"] = 0
         else:
             print("Country not in IEA data.\n")
             break
-        
+
     ###########################################################################
     # Return national energy system data.
     ###########################################################################
     return (user_globals.Energy_System(
             country,
-            co2_combust_mtco2,
+            co2_combust_Mt,
             coalprod_Mt,
             oilprod_Mbpd,
             gasprod_bcm,
-            total_primary_PJ,
-            coal_primary_PJ,
-            oil_primary_PJ,
-            gas_primary_PJ,
-            nuclear_primary_PJ,
-            hydro_primary_PJ,
-            wind_primary_PJ,
-            solar_primary_PJ,
-            geo_bio_other_primary_PJ,
+            primary_PJ,
+            elec_gen_TWh,
             tf_consumption_PJ))

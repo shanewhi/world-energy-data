@@ -18,54 +18,6 @@ import user_globals
 
 ###############################################################################
 #
-# Function: scale()
-#
-# Description:
-# Determines suitable y-axis scale based on input value. This function acts as
-# an alternative to Matplotlib"s autoscale() that can sometimes be inadequate.
-#
-# Input(s): Single float value.
-# Output(s): Scaled single float value.
-#
-###############################################################################
-def scale(val):
-    if val < 10:
-        rounded = round(val, 0)
-        if rounded < val:
-            return rounded + 0.25
-        else:
-            return(rounded)
-    elif val < 100:
-        val /= 10
-        rounded = round(val, 0)
-        if rounded < val:
-            return((rounded + 1) * 10)
-        else:
-            return(rounded) * 10
-    elif val < 1000:
-        val /= 100
-        rounded = round(val, 0)
-        if rounded < val:
-            return((rounded + 0.5) * 100)
-        else:
-            return(rounded) * 100
-    elif val < 10000:
-        val /= 1000
-        rounded = round(val, 0)
-        if rounded < val:
-            return((rounded + 0.5) * 1000)
-        else:
-            return(rounded) * 1000
-    else:
-        val /= 10000
-        rounded = round(val, 0)
-        if rounded < val:
-            return((rounded + 0.5) * 10000)
-        else:
-            return(rounded) * 10000
-
-###############################################################################
-#
 # Function: line_plot()
 #
 # Description:
@@ -76,11 +28,6 @@ def scale(val):
 #
 ###############################################################################
 def line_plot(x, y, country_name, color, title, ylabel, footer_text):
-    plt.style.use(user_globals.Constant.CHART_STYLE.value)
-    plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
-    # Font weight of axis values.
-    plt.rcParams["font.weight"] = "regular"
-
     # Create list x_ticks and fill with start of each decade.
     x_ticks = []
     for year in x:
@@ -150,7 +97,6 @@ def line_plot(x, y, country_name, color, title, ylabel, footer_text):
 #
 ###############################################################################
 def column_subplot(
-        primary_energy,
         df1,
         df2,
         df3,
@@ -167,18 +113,13 @@ def column_subplot(
         ylabel3,
         footer_text):
 
-    plt.style.use(user_globals.Constant.CHART_STYLE.value)
-    plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
-    # Font weight of axis values.
-    plt.rcParams["font.weight"] = "regular"
-
     # Create list x_ticks and fill with start of each decade.
     x_ticks = []
-    for year in primary_energy.index:
+    for year in df1.index:
         if year % 10 == 0: # Modulus.
             x_ticks.append(year)
     # Replace final value with most recent year.
-    x_ticks[len(x_ticks) - 1] = max(primary_energy.index)
+    x_ticks[len(x_ticks) - 1] = max(df1.index)
 
     # Create figure and axes
     fig, ax = plt.subplots(1, 3,
@@ -229,15 +170,15 @@ def column_subplot(
     ax[0].set_box_aspect(1)
 
     # If nil data remove y-axis detail, else plot bar chart.
-    if max(df1["Value"]) == 0:
+    if max(df1) == 0:
         ax[0].set(yticklabels = [])
         ax[0].tick_params(left = False)
         # Place 0 line at bottom.
         ax[0].set_ylim(0, 1)
-        ax[0].plot(df1.index, df1["Value"], color1, linewidth =
+        ax[0].plot(df1.index, df1, color1, linewidth =
                       user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
-        ax[0].bar(df1.index, df1["Value"], width = 1, color = color1,
+        ax[0].bar(df1.index, df1, width = 1, color = color1,
                   edgecolor = edge_color, linewidth = 0.2)
 
     # Place grid behind columns.
@@ -252,14 +193,14 @@ def column_subplot(
     ax[1].set_xticks(x_ticks)
     ax[1].set_xlabel("Year")
     ax[1].set_box_aspect(1)
-    if  max(df2["Value"]) == 0:
+    if  max(df2) == 0:
         ax[1].set(yticklabels = [])
         ax[1].tick_params(left = False)
         ax[1].set_ylim(0, 1)
-        ax[1].plot(df2.index, df2["Value"], color2, linewidth =
+        ax[1].plot(df2.index, df2, color2, linewidth =
                    user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
-        ax[1].bar(df2.index, df2["Value"], width = 1, color = color2,
+        ax[1].bar(df2.index, df2, width = 1, color = color2,
                   edgecolor = edge_color, linewidth = 0.2)
     ax[1].set_axisbelow(True)
 
@@ -272,14 +213,14 @@ def column_subplot(
     ax[2].set_xlabel("Year")
     ax[2].set_box_aspect(1)
     # If nil data remove y-axis detail, else plot bar chart.
-    if max(df3["Value"]) == 0:
+    if max(df3) == 0:
         ax[2].set(yticklabels = [])
         ax[2].tick_params(left = False)
         ax[2].set_ylim(0, 1)
-        ax[2].plot(df3.index, df3["Value"], color3, linewidth =
+        ax[2].plot(df3.index, df3, color3, linewidth =
                    user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
-        ax[2].bar(df3.index, df3["Value"], width = 1, color = color3,
+        ax[2].bar(df3.index, df3, width = 1, color = color3,
                   edgecolor = edge_color, linewidth = 0.2)
     ax[2].set_axisbelow(True)
 
@@ -297,7 +238,6 @@ def column_subplot(
 #
 ###############################################################################
 def column_subplot_equiv_units(
-        primary_energy,
         df1,
         df2,
         df3,
@@ -312,32 +252,25 @@ def column_subplot_equiv_units(
         ylabels,
         footer_text):
 
-    plt.style.use(user_globals.Constant.CHART_STYLE.value)
-    plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
-    # Font weight of axis values.
-    plt.rcParams["font.weight"] = "regular"
-
     # Set range of y axes for all subplots based on largest.
     if country_name == 'WORLD':
-        maxdf1 = np.nanmax(df1["Value"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        maxdf2 = np.nanmax(df2["Value"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        maxdf3 = np.nanmax(df3["Value"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
+        maxdf1 = np.nanmax(df1 * user_globals.Constant.PJ_TO_EJ.value)
+        maxdf2 = np.nanmax(df2 * user_globals.Constant.PJ_TO_EJ.value)
+        maxdf3 = np.nanmax(df3 * user_globals.Constant.PJ_TO_EJ.value)
     else:
-        maxdf1 = np.nanmax(df1["Value"])
-        maxdf2 = np.nanmax(df2["Value"])
-        maxdf3 = np.nanmax(df3["Value"])
+        maxdf1 = np.nanmax(df1)
+        maxdf2 = np.nanmax(df2)
+        maxdf3 = np.nanmax(df3)
+
     y_top  = scale(max(maxdf1, maxdf2, maxdf3))
 
     # Create list x_ticks and fill with start of each decade.
     x_ticks = []
-    for year in primary_energy.index:
+    for year in df1.index:
         if year % 10 == 0: # Modulus.
             x_ticks.append(year)
     # Replace final value with most recent year.
-    x_ticks[len(x_ticks) - 1] = max(primary_energy.index)
+    x_ticks[len(x_ticks) - 1] = max(df1.index)
 
     # Create figure and axes.
     fig, ax = plt.subplots(1, 3,
@@ -387,19 +320,19 @@ def column_subplot_equiv_units(
     ax[0].set_xlabel("Year")
     ax[0].set_box_aspect(1)
     # If nil data remove y-axis detail, else plot bar chart.
-    if max(df1["Value"]) == 0:
+    if max(df1) == 0:
         ax[0].set(yticklabels = [])
         ax[0].tick_params(left = False)
         ax[0].set_ylim(0, 1)
-        ax[0].plot(df1.index, df1["Value"], color1, linewidth =
+        ax[0].plot(df1.index, df1, color1, linewidth =
                       user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
         if country_name == "WORLD":
-            ax[0].bar(df1.index, df1["Value"] * \
+            ax[0].bar(df1.index, df1 * \
                       user_globals.Constant.PJ_TO_EJ.value, width = 1,
                       color = color1, edgecolor = edge_color, linewidth = 0.2)
         else:
-            ax[0].bar(df1.index, df1["Value"], width = 1, color = color1,
+            ax[0].bar(df1.index, df1, width = 1, color = color1,
                   edgecolor = edge_color, linewidth = 0.2)
     # Place grid behind columns.
     ax[0].set_axisbelow(True)
@@ -407,50 +340,48 @@ def column_subplot_equiv_units(
     # Repeat above for second and third suboplots.
     ax[1].set_ylim(0, y_top)
     ax[1].set_title(subplot2_title, weight = "demibold")
-    ax[1].set_ylabel(ylabels)
     ax[1].yaxis.grid(True)
     ax[1].set_xlim(min(df2.index) - 1, max(df2.index) + 1)
     ax[1].set_xticks(x_ticks)
     ax[1].set_xlabel("Year")
     ax[1].set_box_aspect(1)
-    if  max(df2["Value"]) == 0:
+    if  max(df2) == 0:
         ax[1].set(yticklabels = [])
         ax[1].tick_params(left = False)
         ax[1].set_ylim(0, 1) #force 0 line to appear at bottom
-        ax[1].plot(df2.index, df2["Value"], color2, linewidth =
+        ax[1].plot(df2.index, df2, color2, linewidth =
                    user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
         if country_name == "WORLD":
-            ax[1].bar(df2.index, df2["Value"] * \
+            ax[1].bar(df2.index, df2 * \
                       user_globals.Constant.PJ_TO_EJ.value, width = 1,
                       color = color2, edgecolor = edge_color, linewidth = 0.2)
         else:
-            ax[1].bar(df2.index, df2["Value"], width = 1, color = color2,
+            ax[1].bar(df2.index, df2, width = 1, color = color2,
                   edgecolor = edge_color, linewidth = 0.2)
     ax[1].set_axisbelow(True)
 
     ax[2].set_ylim(0, y_top)
     ax[2].set_title(subplot3_title, weight = "demibold")
-    ax[2].set_ylabel(ylabels)
     ax[2].yaxis.grid(True)
     ax[2].set_xlim(min(df3.index) - 1, max(df3.index) + 1)
     ax[2].set_xticks(x_ticks)
     ax[2].set_xlabel("Year")
     ax[2].set_box_aspect(1)
     # If nil data remove y-axis detail, else plot bar chart.
-    if max(df3["Value"]) == 0:
+    if max(df3) == 0:
         ax[2].set(yticklabels = [])
         ax[2].tick_params(left = False)
         ax[2].set_ylim(0, 1)
-        ax[2].plot(df3.index, df3["Value"], color3, linewidth =
+        ax[2].plot(df3.index, df3, color3, linewidth =
                    user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     else:
         if country_name == "WORLD":
-            ax[2].bar(df3.index, df3["Value"] * \
+            ax[2].bar(df3.index, df3 * \
                       user_globals.Constant.PJ_TO_EJ.value, width = 1,
                       color = color3, edgecolor = edge_color, linewidth = 0.2)
         else:
-            ax[2].bar(df3.index, df3["Value"], width = 1, color = color3,
+            ax[2].bar(df3.index, df3, width = 1, color = color3,
                   edgecolor = edge_color, linewidth = 0.2)
     ax[2].set_axisbelow(True)
 
@@ -468,7 +399,6 @@ def column_subplot_equiv_units(
 #
 ###############################################################################
 def line_subplot(
-        primary_energy,
         df1, df2, df3, df4, df5, df6, # Six dataframes to plot.
         color1, color2, color3, color4, color5, color6,
         country_name, title,
@@ -481,19 +411,19 @@ def line_subplot(
 
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = []
-    for year in primary_energy.index:
+    for year in df1.index:
         if year % 10 == 0:
             x_ticks.append(year)
     # Replace final with most recent year.
-    x_ticks[len(x_ticks) - 1] = max(primary_energy.index)
+    x_ticks[len(x_ticks) - 1] = max(df1.index)
 
     # Set range of y axes for all subplots based on largest share of any fuel.
-    maxdf1 = np.nanmax(df1["Share"])
-    maxdf2 = np.nanmax(df2["Share"])
-    maxdf3 = np.nanmax(df3["Share"])
-    maxdf4 = np.nanmax(df4["Share"])
-    maxdf5 = np.nanmax(df5["Share"])
-    maxdf6 = np.nanmax(df6["Share"])
+    maxdf1 = np.nanmax(df1)
+    maxdf2 = np.nanmax(df2)
+    maxdf3 = np.nanmax(df3)
+    maxdf4 = np.nanmax(df4)
+    maxdf5 = np.nanmax(df5)
+    maxdf6 = np.nanmax(df6)
     y_top = scale(max(maxdf1, maxdf2, maxdf3, maxdf4, maxdf5, maxdf6))
 
     fig, ax = plt.subplots(2, 3, sharex = False, sharey = False,
@@ -521,7 +451,7 @@ def line_subplot(
         fontweight = "regular",
         horizontalalignment = "left",
         fontsize = "small")
-    ax[0, 0].plot(df1.index, df1["Share"], color1, linewidth = \
+    ax[0, 0].plot(df1.index, df1, color1, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[0, 0].set_ylim(0, y_top)
     ax[0, 0].set_title(subplot1_title, weight = "demibold")
@@ -530,7 +460,7 @@ def line_subplot(
     ax[0, 0].set_xlim(min(df1.index), max(df1.index))
     ax[0, 0].set_xticks(x_ticks)
     ax[0, 0].set_box_aspect(1)
-    ax[0, 1].plot(df2.index, df2["Share"], color2, linewidth = \
+    ax[0, 1].plot(df2.index, df2, color2, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[0, 1].set_ylim(0, y_top)
     ax[0, 1].set_title(subplot2_title, weight = "demibold")
@@ -538,7 +468,7 @@ def line_subplot(
     ax[0, 1].set_xlim(min(df2.index), max(df2.index))
     ax[0, 1].set_xticks(x_ticks)
     ax[0, 1].set_box_aspect(1)
-    ax[0, 2].plot(df3.index, df3["Share"], color3, linewidth = \
+    ax[0, 2].plot(df3.index, df3, color3, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[0, 2].set_ylim(0, y_top)
     ax[0, 2].set_title(subplot3_title, weight = "demibold")
@@ -546,7 +476,7 @@ def line_subplot(
     ax[0, 2].set_xlim(min(df3.index), max(df3.index))
     ax[0, 2].set_xticks(x_ticks)
     ax[0, 2].set_box_aspect(1)
-    ax[1, 0].plot(df4.index, df4["Share"], color4, linewidth = \
+    ax[1, 0].plot(df4.index, df4, color4, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[1, 0].set_ylim(0, y_top)
     ax[1, 0].set_title(subplot4_title, weight = "demibold")
@@ -556,7 +486,7 @@ def line_subplot(
     ax[1, 0].set_xlim(min(df4.index), max(df4.index))
     ax[1, 0].set_xticks(x_ticks)
     ax[1, 0].set_box_aspect(1)
-    ax[1, 1].plot(df5.index, df5["Share"], color5, linewidth = \
+    ax[1, 1].plot(df5.index, df5, color5, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[1, 1].set_ylim(0, y_top)
     ax[1, 1].set_title(subplot5_title, weight = "demibold")
@@ -565,13 +495,13 @@ def line_subplot(
     ax[1, 1].set_xlim(min(df5.index), max(df5.index))
     ax[1, 1].set_xticks(x_ticks)
     ax[1, 1].set_box_aspect(1)
-    ax[1, 2].plot(df6.index, df6["Share"], color6, linewidth = \
+    ax[1, 2].plot(df6.index, df6, color6, linewidth = \
                   user_globals.Constant.LINE_WIDTH_SUBPOLT.value)
     ax[1, 2].set_ylim(0, y_top)
     ax[1, 2].set_title(subplot6_title, weight = "demibold")
     ax[1, 2].set_xlabel("Year")
     ax[1, 2].yaxis.grid(True)
-    ax[1, 2].set_xlim(min(df5.index), max(df5.index))
+    ax[1, 2].set_xlim(min(df6.index), max(df6.index))
     ax[1, 2].set_xticks(x_ticks)
     ax[1, 2].set_box_aspect(1)
 
@@ -596,8 +526,6 @@ def treemap(
         title,
         footer_text):
 
-    plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
-    plt.rcParams["font.weight"] = "regular"
     fig, ax = plt.subplots(1, 2, figsize = (
                            user_globals.Constant.FIG_HSIZE_TREE_1X2.value,
                            user_globals.Constant.FIG_VSIZE_TREE_1X2.value),
@@ -621,7 +549,7 @@ def treemap(
         loc = "upper left", bbox_to_anchor=(0, 0),
         frameon = False,
         handlelength = 2,
-        ncol = 2,
+        ncol = 3,
         fontsize = "large")
     ax[0].axis("off")
     ax[0].set_title(subplot1_title, fontsize = "large",
@@ -679,7 +607,7 @@ def column_grouped(
         footer_text,
         start_yr,
         *colors,
-        **dataframes):
+        **series):
     plt.style.use(user_globals.Constant.CHART_STYLE.value)
     plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
     # Font weight of axis values.
@@ -690,25 +618,25 @@ def column_grouped(
                           (user_globals.Constant.FIG_HSIZE_COLUMN_PLOT.value,
                            user_globals.Constant.FIG_VSIZE_COLUMN_PLOT.value))
     label_pad = 2
-    df_qty = (len(dataframes))
+    df_qty = (len(series))
     column_width = 1 / df_qty
     multiplier = 0
     offset = column_width * multiplier
     plot_names = []
 
     # Cycle through and plot input dataframes.
-    for key, value in dataframes.items():
-        dataframe = value
+    for key, value in series.items():
+        series = value
         offset = column_width * multiplier
         if country_name == "WORLD":
-             p = ax.bar(dataframe.truncate(before = start_yr).index.astype \
-                    ("float") + offset, value["Change"].truncate(before = \
+             p = ax.bar(series.truncate(before = start_yr).index.astype \
+                    ("float") + offset, series.truncate(before = \
                     start_yr) * user_globals.Constant.PJ_TO_EJ.value,
                     width = column_width, color = colors[multiplier],
                     edgecolor = "black", linewidth = 0.2)
         else:
-            p = ax.bar(dataframe.truncate(before = start_yr).index.astype \
-                   ("float") + offset, value["Change"].truncate(before = \
+            p = ax.bar(series.truncate(before = start_yr).index.astype \
+                   ("float") + offset, series.truncate(before = \
                    start_yr), width = column_width,
                    color = colors[multiplier], edgecolor = "black",
                    linewidth = 0.2)
@@ -717,14 +645,13 @@ def column_grouped(
                   v.get_height() < -1 else "" for v in p]
         ax.bar_label(p, labels = labels, fmt = "%.0f", padding = label_pad)
         # Extract fuel names from each sataframe, for use in chart legend.
-        plot_names.append(dataframe.loc[min(dataframe.index), "Name"])
+        plot_names.append(series.name.replace(" Change", ""))
         multiplier += 1
 
     # Derive list of x_ticks from first dataframe and fill with start of each
     # decade.
     x_ticks_major = []
-    first_df_key = list(dataframes.keys())[0]
-    end_yr = dataframes[first_df_key].index.max()
+    end_yr = series.index[-1]
     for year in range(start_yr, end_yr):
         if year % 5 == 0: # Modulus.
             x_ticks_major.append(year)
@@ -778,4 +705,53 @@ def column_grouped(
         fontsize = "large")
     # Show x axis line.
     plt.axhline(0, color="black", lw = 0.4)
+
+
+###############################################################################
+#
+# Function: scale()
+#
+# Description:
+# Determines suitable y-axis scale based on input value. This function acts as
+# an alternative to Matplotlib"s autoscale() that can sometimes be inadequate.
+#
+# Input(s): Single float value.
+# Output(s): Scaled single float value.
+#
+###############################################################################
+def scale(val):
+    if val < 10:
+        rounded = round(val, 0)
+        if rounded < val:
+            return rounded + 0.25
+        else:
+            return(rounded)
+    elif val < 100:
+        val /= 10
+        rounded = round(val, 0)
+        if rounded < val:
+            return((rounded + 1) * 10)
+        else:
+            return(rounded) * 10
+    elif val < 1000:
+        val /= 100
+        rounded = round(val, 0)
+        if rounded < val:
+            return((rounded + 0.5) * 100)
+        else:
+            return(rounded) * 100
+    elif val < 10000:
+        val /= 1000
+        rounded = round(val, 0)
+        if rounded < val:
+            return((rounded + 0.5) * 1000)
+        else:
+            return(rounded) * 1000
+    else:
+        val /= 10000
+        rounded = round(val, 0)
+        if rounded < val:
+            return((rounded + 0.5) * 10000)
+        else:
+            return(rounded) * 10000
 
