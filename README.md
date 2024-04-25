@@ -9,7 +9,7 @@ Required Input:
 -
 https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
 (from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
-IEA annual energy balances in JSON format.
+and IEA annual energy balances in JSON format.
 
 
 Consists of the following files:
