@@ -14,6 +14,28 @@ import numpy as np
 
 # Import user modules.
 import user_globals
+import process
+import countries
+
+
+###############################################################################
+#
+# Function: profile(country)
+#
+# Description:
+# Calls all functions required to profile a national enegry system.
+#
+# Input(s): Country name, string.
+# Output(s): None.
+#
+###############################################################################
+def profile(country):
+    country_energy_system = populate_energy_system(country)
+    process.co2_emissions(country_energy_system)
+    process.production(country_energy_system)
+    process.primary_energy(country_energy_system)
+    process.consumption(country_energy_system)
+    process.electricity(country_energy_system)
 
 
 ###############################################################################
@@ -43,17 +65,6 @@ def populate_energy_system(country):
         #######################################################################
         co2_combust_Mt = country_data.loc[country_data["Var"] ==
                                           "co2_combust_mtco2", "Value"]
-
-        #######################################################################
-        # Production
-        #######################################################################
-        coalprod_Mt = country_data.loc[country_data["Var"] ==
-                                       "coalprod_mt", "Value"]
-        oilprod_kbpd = country_data.loc[country_data["Var"] ==
-                                        "oilprod_kbd", "Value"]
-        oilprod_Mbpd = oilprod_kbpd * user_globals.Constant.k_TO_M.value
-        gasprod_bcm = country_data.loc[country_data["Var"] ==
-                                       "gasprod_bcm", "Value"]
 
         #######################################################################
         # Primary Energy
@@ -104,13 +115,31 @@ def populate_energy_system(country):
         primary_PJ["Total"] = total_primary_EJ * \
                               user_globals.Constant.EJ_TO_PJ.value
 
-        # Make years production consistent and fill any missing values with 0.
-        coalprod_Mt = \
-            coalprod_Mt.reindex(primary_PJ.index, fill_value = 0)
-        oilprod_Mbpd = \
-            oilprod_Mbpd.reindex(primary_PJ.index, fill_value = 0)
-        gasprod_bcm = \
-            gasprod_bcm.reindex(primary_PJ.index, fill_value = 0)
+        #######################################################################
+        # Production
+        #######################################################################
+        coalprod_Mt = country_data.loc[country_data["Var"] ==
+                                       "coalprod_mt", "Value"]
+        oilprod_kbpd = country_data.loc[country_data["Var"] ==
+                                        "oilprod_kbd", "Value"]
+        oilprod_Mbpd = oilprod_kbpd * user_globals.Constant.k_TO_M.value
+        gasprod_bcm = country_data.loc[country_data["Var"] ==
+                                       "gasprod_bcm", "Value"]
+
+        # If nil production, create 0 series in order for chart column
+        # function to plot correctly.
+        if coalprod_Mt.empty:
+            coalprod_Mt = pd.Series(data = 0, index = \
+                range(user_globals.Constant.COAL_PROD_START_YEAR.value,
+                      max(primary_PJ.index)))
+        if oilprod_Mbpd.empty:
+            oilprod_Mbpd = pd.Series(data = 0, index = \
+                range(user_globals.Constant.OIL_PROD_START_YEAR.value,
+                      max(primary_PJ.index)))
+        if gasprod_bcm.empty:
+            gasprod_bcm = pd.Series(data = 0, index = \
+                range(user_globals.Constant.GAS_PROD_START_YEAR.value,
+                      max(primary_PJ.index)))
 
         #######################################################################
         # Electricity
@@ -155,17 +184,8 @@ def populate_energy_system(country):
     ###########################################################################
     # Total Final Consumption
     ###########################################################################
-    # Make country name JSON compliant for use with IEA dataset.
-    country_upper = "'" + country.upper() + "'"
-
-    # Make country names compatible with IEA dataset when needed.
-    if country_upper == "'AUSTRALIA'":
-        country_upper = "'AUSTRALI'"
-    if country_upper == "'UNITED ARAB EMIRATES'":
-        country_upper = "'UAE'"
-    if country_upper == "'UNITED KINGDOM'":
-        country_upper = "'UK'"
-
+    # Convert country name to IEA JSON equivalent.
+    iea_country = countries.iea_country_name(country)
     # Create year array for new TFC dataframe derived from IEA Balances.
     tfc_years = np.array(range(user_globals.Constant.TFC_START_YEAR.value,
                          user_globals.Constant.TFC_END_YEAR.value + 1))
@@ -176,10 +196,10 @@ def populate_energy_system(country):
     for year in tfc_years:
         with open("iea" + str(year) + ".json") as iea:
             iea_data = js.load(iea)
-        if jp.search(f"balances[?(short == {country_upper})].value", iea_data):
+        if jp.search(f"balances[?(short == {iea_country})].value", iea_data):
 
             tf_consumption_PJ.at[year, "Coal"] = \
-                np.array(jp.search(f"(balances[?(short == {country_upper}\
+                np.array(jp.search(f"(balances[?(short == {iea_country}\
                                    && flow == 'TFC' && \
                                    product == 'COAL')].value)", iea_data),
                                    dtype = float) * \
@@ -189,7 +209,7 @@ def populate_energy_system(country):
 
             # "MTOTOIL" is the addition of Crude Oil and Oil Products.
             tf_consumption_PJ.at[year, "Oil"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'MTOTOIL')].value",
                                    iea_data),
@@ -199,7 +219,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Oil"] = 0
 
             tf_consumption_PJ.at[year, "Gas"] = \
-                np.array(jp.search(f"(balances[?(short == {country_upper}\
+                np.array(jp.search(f"(balances[?(short == {iea_country}\
                                    && flow == 'TFC' && \
                                    product == 'NATGAS')].value)", iea_data),
                                    dtype = float) *\
@@ -208,7 +228,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Gas"] = 0
 
             tf_consumption_PJ.at[year, "Wind Solar Etc"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'GEOTHERM')].value",
                                    iea_data),
@@ -218,7 +238,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Wind Solar Etc"] = 0
 
             tf_consumption_PJ.at[year, "Biofuels and Waste"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'COMRENEW')].value",
                                    iea_data),
@@ -228,7 +248,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Biofuels and Waste"] = 0
 
             tf_consumption_PJ.at[year, "Electricity"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'ELECTR')].value", iea_data),
                                    dtype = float) * \
@@ -237,7 +257,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Electricity"] = 0
 
             tf_consumption_PJ.at[year, "Heat"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'HEAT')].value", iea_data),
                                    dtype = float) * \
@@ -246,7 +266,7 @@ def populate_energy_system(country):
                 tf_consumption_PJ.at[year, "Heat"] = 0
 
             tf_consumption_PJ.at[year, "Total"] = \
-                np.array(jp.search(f"balances[?(short == {country_upper} && \
+                np.array(jp.search(f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'TOTAL')].value", iea_data),
                                    dtype = float) * \

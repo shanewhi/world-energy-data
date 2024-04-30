@@ -4,46 +4,14 @@
 #Created on Wed Mar 20 13:56:55 2024
 #@author: shanewhite
 
-
-# Import Python modules.
-import pandas as pd
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-
-
-# Import user modules.
-import user_globals
-import collate
-import process
-
-
 ###############################################################################
 #
-# Function: profile(country)
-#
-# Description:
-# Calls all functions required to profile a national enegry system.
-#
-# Input(s): Country name, string.
-# Output(s): None.
-#
-###############################################################################
-def profile(country):
-    country_energy_system = collate.populate_energy_system(country)
-    process.co2_emissions(country_energy_system)
-    process.production(country_energy_system)
-    process.primary_energy(country_energy_system)
-    process.consumption(country_energy_system)
-
-
-###############################################################################
-#
-# Function: Main
+# Application world_energy_data.py
 #
 # Description:
 # Creates charts of national energy systems.
 # Written by Shane White using Python v3.11.5 and Spyder IDE.
-# https://github.com/shanewhi
+# https://github.com/shanewhi/world-energy-data
 # https://www.worldenergydata.org
 #
 # Files:
@@ -83,6 +51,18 @@ def profile(country):
 #
 ###############################################################################
 
+
+# Import Python modules.
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+
+# Import user modules.
+import user_globals
+import collate
+
+
 # Import Energy Institute's dataset, once only.
 user_globals.ei_data_import = pd.read_csv(
     "Statistical Review of World Energy Narrow File.csv",
@@ -99,12 +79,12 @@ plt.rcParams["font.weight"] = "regular"
 mpl.rcParams['figure.dpi']= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
-#profile("Mexico")
-#profile("Germany")
-#profile("United Arab Emirates")
-#profile("United Kingdom")
-#profile("Sweden")
-#profile("Australia")
-profile("Total World")
-#profile("Algeria")
-#profile("Vietnam")
+#collate.profile("Mexico")
+#collate.profile("Germany")
+#collate.profile("United Arab Emirates")
+collate.profile("United Kingdom")
+#collate.profile("Sweden")
+#collate.profile("Australia")
+#collate.profile("Total World")
+#collate.profile("Algeria")
+#collate.profile("Vietnam")
