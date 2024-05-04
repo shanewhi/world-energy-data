@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+#Created on Wed Mar 20 13:56:43 2024
 
-#Created on Wed Mar 20 13:56:55 2024
 #@author: shanewhite
+"""
+
 
 ###############################################################################
 #
@@ -76,15 +79,15 @@ user_globals.ei_data_import = pd.read_csv(
 plt.style.use(user_globals.Constant.CHART_STYLE.value)
 plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
 plt.rcParams["font.weight"] = "regular"
-mpl.rcParams['figure.dpi']= user_globals.Constant.CHART_DPI.value
+mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
+collate.profile("Total World")
 #collate.profile("Mexico")
 #collate.profile("Germany")
 #collate.profile("United Arab Emirates")
-collate.profile("United Kingdom")
+#collate.profile("United Kingdom")
 #collate.profile("Sweden")
 #collate.profile("Australia")
-#collate.profile("Total World")
 #collate.profile("Algeria")
 #collate.profile("Vietnam")

@@ -8,13 +8,10 @@ Created on Fri Apr 26 14:25:39 2024
 
 ###############################################################################
 #
-# Function: iea_country_name()
+# Module: countries.py
 #
 # Description:
 # Converts country name to version compliant with IEA JSON dataset.
-#
-# Input(s): Country name, string.
-# Output(s): Country name, string.
 #
 ###############################################################################
 def iea_country_name(country_in):
