@@ -20,8 +20,10 @@ Consists of the following files:
 1. world_energy_data.py (main executable)
 2. user_globals.py (global definitions)
 3. collate.py (extracts and arranges country specific data from input dataset)
-4. process.py (data processing)
-5. chart.py (generic chart functions)
+4. process.py (calculations)
+5. output.py (chart calls)
+6. chart.py (generic chart functions)
+7. countries.py (country name translations to make them compatible with IEA dataset)
 
 
 
