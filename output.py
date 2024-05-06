@@ -251,7 +251,7 @@ By shanewhite@worldenergydata.org using Python \
         suptitle_addition,
         footer_text)
     plt.show()
-    
+
     # FINAL ENERGY: Annual quantities over time.
     if title == "World":
          ylabel = "Exajoules"
@@ -336,24 +336,24 @@ By shanewhite@worldenergydata.org using Python \
              user_globals.Constant.PJ_TO_EJ.value)
         s2 = pd.Series(energy_system.consumption_PJ["Oil Change"] * \
             user_globals.Constant.PJ_TO_EJ.value)
-        s3 = pd.Series(energy_system.consumption_PJ["Gas Share"] * \
+        s3 = pd.Series(energy_system.consumption_PJ["Gas Change"] * \
             user_globals.Constant.PJ_TO_EJ.value)
         s4 = pd.Series( \
-                   energy_system.consumption_PJ["Biofuels and Waste Share"] * \
+                   energy_system.consumption_PJ["Biofuels and Waste Change"] * \
              user_globals.Constant.PJ_TO_EJ.value)
-        s5 = pd.Series(energy_system.consumption_PJ["Electricity Share"] * \
+        s5 = pd.Series(energy_system.consumption_PJ["Electricity Change"] * \
             user_globals.Constant.PJ_TO_EJ.value)
-        s6 = pd.Series(energy_system.consumption_PJ["Heat Share"] * \
+        s6 = pd.Series(energy_system.consumption_PJ["Heat Change"] * \
             user_globals.Constant.PJ_TO_EJ.value)
     else:
         ylabel = "Petajoule/year"
         s1 = pd.Series(energy_system.consumption_PJ["Coal Change"])
         s2 = pd.Series(energy_system.consumption_PJ["Oil Change"])
-        s3 = pd.Series(energy_system.consumption_PJ["Gas Share"])
+        s3 = pd.Series(energy_system.consumption_PJ["Gas Change"])
         s4 = pd.Series( \
-                   energy_system.consumption_PJ["Biofuels and Waste Share"])
-        s5 = pd.Series(energy_system.consumption_PJ["Electricity Share"])
-        s6 = pd.Series(energy_system.consumption_PJ["Heat Share"])
+                   energy_system.consumption_PJ["Biofuels and Waste Change"])
+        s5 = pd.Series(energy_system.consumption_PJ["Electricity Change"])
+        s6 = pd.Series(energy_system.consumption_PJ["Heat Change"])
 
     title_addition = "Annual Additions and Subtractions of Energy Consumption \
 - final forms of consumed energy"
