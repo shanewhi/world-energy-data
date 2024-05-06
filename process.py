@@ -12,7 +12,7 @@
 # Module: process.py
 #
 # Description:
-# DPerforms processing of collated data, such as calcuating shares and changes.
+# Performs processing of collated data, such as calcuating shares and changes.
 #
 ###############################################################################
 
@@ -42,6 +42,7 @@ def primary_energy(energy_system):
     max_year = max(energy_system.primary_PJ.index)
     change_yrs = range(min_year + 1, max_year + 1)
 
+    # Coal.
     if not energy_system.primary_PJ["Coal"].empty:
         energy_system.primary_PJ["Coal Share"] = \
             (energy_system.primary_PJ["Coal"] /
@@ -105,6 +106,7 @@ def primary_energy(energy_system):
                 energy_system.primary_PJ.loc[yr, "Solar Change"] = \
                     energy_system.primary_PJ.loc[yr, "Solar"] - \
                     energy_system.primary_PJ.loc[yr - 1, "Solar"]
+
     # Bio Geo and Other.
     if not energy_system.primary_PJ["Bio Geo and Other"].empty:
         energy_system.primary_PJ["Bio Geo and Other Share"] = \
@@ -134,7 +136,6 @@ def primary_energy(energy_system):
                 energy_system.primary_PJ.loc[yr, "Renewables Change"] = \
                     energy_system.primary_PJ.loc[yr, "Renewables"] - \
                     energy_system.primary_PJ.loc[yr - 1, "Renewables"]
-
 
     print("Sum of Primary Energy shares: \n",
         energy_system.primary_PJ["Coal Share"] + \
@@ -173,7 +174,8 @@ def primary_energy(energy_system):
         "Fossil Fuels",
         "Nuclear",
         "Renewables",
-        "Bio Geo and Other"]
+        "Bio Geo and Other"
+        ]
     fuel_name = [
         "Coal",
         "Oil",
@@ -182,12 +184,14 @@ def primary_energy(energy_system):
         "Hydro",
         "Wind",
         "Solar",
-        "Bio Geo and Other"]
+        "Bio Geo and Other"
+        ]
     final_category_share = [
         final_ff_primary_share,
         final_nuclear_primary_share,
         final_renewables_primary_share,
-        final_bio_geo_other_primary_share]
+        final_bio_geo_other_primary_share
+        ]
     final_fuel_share = [
         final_coal_primary_share,
         final_oil_primary_share,
@@ -196,12 +200,14 @@ def primary_energy(energy_system):
         final_hydro_primary_share,
         final_wind_primary_share,
         final_solar_primary_share,
-        final_bio_geo_other_primary_share]
+        final_bio_geo_other_primary_share
+        ]
     category_color = [
         user_globals.Color.FOSSIL_FUELS.value,
         user_globals.Color.NUCLEAR.value,
         user_globals.Color.RENEWABLES.value,
-        user_globals.Color.OTHER.value]
+        user_globals.Color.OTHER.value
+        ]
     fuel_color = [
         user_globals.Color.COAL.value,
         user_globals.Color.OIL.value,
@@ -210,7 +216,8 @@ def primary_energy(energy_system):
         user_globals.Color.HYDRO.value,
         user_globals.Color.WIND.value,
         user_globals.Color.SOLAR.value,
-        user_globals.Color.OTHER.value]
+        user_globals.Color.OTHER.value
+        ]
 
     # Filter out shares that are NaN or < 1%.
     filtered_final_category_share = []
@@ -221,7 +228,7 @@ def primary_energy(energy_system):
     filtered_fuel_color = []
     for i in range(len(final_category_share)):
         if not (math.isnan(final_category_share[i]) or
-        final_category_share[i] < 1):
+                final_category_share[i] < 1):
             filtered_category_name.append(category_name[i])
             filtered_final_category_share.append \
                 (int(round(final_category_share[i], 0)))
@@ -290,16 +297,15 @@ def primary_energy(energy_system):
 #
 ###############################################################################
 def electricity(energy_system):
-    ###########################################################################
-    # Calculate shares and changes.
-    ###########################################################################
     if energy_system.elecprod_TWh.empty:
         print("No electricity data.\n")
         return()
+    
     min_year = min(energy_system.elecprod_TWh.index)
     max_year = max(energy_system.elecprod_TWh.index)
     change_yrs = range(min_year + 1, max_year + 1)
 
+    # Coal.
     if not energy_system.elecprod_TWh["Coal"].empty:
         energy_system.elecprod_TWh["Coal Share"] = \
             (energy_system.elecprod_TWh["Coal"] /
@@ -308,6 +314,7 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Coal Change"] = \
                     (energy_system.elecprod_TWh.loc[yr, "Coal"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Coal"])
+
     # Oil.
     if not energy_system.elecprod_TWh["Oil"].empty:
         energy_system.elecprod_TWh["Oil Share"] = \
@@ -317,6 +324,7 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Oil Change"] = \
                     energy_system.elecprod_TWh.loc[yr, "Oil"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Oil"]
+
     # Gas.
     if not energy_system.elecprod_TWh["Gas"].empty:
         energy_system.elecprod_TWh["Gas Share"] = \
@@ -326,6 +334,7 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Gas Change"] = \
                     energy_system.elecprod_TWh.loc[yr, "Gas"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Gas"]
+
     # Nuclear.
     if not energy_system.elecprod_TWh["Nuclear"].empty:
         energy_system.elecprod_TWh["Nuclear Share"] = \
@@ -336,6 +345,7 @@ def electricity(energy_system):
                     energy_system.elecprod_TWh.loc[yr, "Nuclear"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Nuclear"]
 
+
     # Hydro.
     if not energy_system.elecprod_TWh["Hydro"].empty:
         energy_system.elecprod_TWh["Hydro Share"] = \
@@ -345,7 +355,8 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Hydro Change"] = \
                     energy_system.elecprod_TWh.loc[yr, "Hydro"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Hydro"]
-   # Wind.
+
+    # Wind.
     if not energy_system.elecprod_TWh["Wind"].empty:
         energy_system.elecprod_TWh["Wind Share"] = \
             (energy_system.elecprod_TWh["Wind"] /
@@ -354,7 +365,8 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Wind Change"] = \
                     energy_system.elecprod_TWh.loc[yr, "Wind"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Wind"]
-   # Solar.
+
+    # Solar.
     if not energy_system.elecprod_TWh["Solar"].empty:
         energy_system.elecprod_TWh["Solar Share"] = \
             (energy_system.elecprod_TWh["Solar"] /
@@ -363,6 +375,7 @@ def electricity(energy_system):
                 energy_system.elecprod_TWh.loc[yr, "Solar Change"] = \
                     energy_system.elecprod_TWh.loc[yr, "Solar"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Solar"]
+
     # Bio Geo and Other.
     if not energy_system.elecprod_TWh["Bio Geo and Other"].empty:
         energy_system.elecprod_TWh["Bio Geo and Other Share"] = \
@@ -438,7 +451,8 @@ def electricity(energy_system):
         "Fossil Fuels",
         "Nuclear",
         "Renewables",
-        "Bio Geo and Other"]
+        "Bio Geo and Other"
+        ]
     fuel_name = [
         "Coal",
         "Oil",
@@ -446,12 +460,14 @@ def electricity(energy_system):
         "Nuclear",
         "Hydro",
         "Wind & Solar",
-        "Bio Geo and Other"]
+        "Bio Geo and Other"
+        ]
     final_category_share = [
         final_ff_elec_share,
         final_nuclear_elec_share,
         final_renewables_elec_share,
-        final_bio_geo_other_elec_share]
+        final_bio_geo_other_elec_share
+        ]
     final_fuel_share = [
         final_coal_elec_share,
         final_oil_elec_share,
@@ -459,12 +475,14 @@ def electricity(energy_system):
         final_nuclear_elec_share,
         final_hydro_elec_share,
         final_wind_solar_elec_share,
-        final_bio_geo_other_elec_share]
+        final_bio_geo_other_elec_share
+        ]
     category_color = [
         user_globals.Color.FOSSIL_FUELS.value,
         user_globals.Color.NUCLEAR.value,
         user_globals.Color.RENEWABLES.value,
-        user_globals.Color.OTHER.value]
+        user_globals.Color.OTHER.value
+        ]
     fuel_color = [
         user_globals.Color.COAL.value,
         user_globals.Color.OIL.value,
@@ -472,7 +490,8 @@ def electricity(energy_system):
         user_globals.Color.NUCLEAR.value,
         user_globals.Color.HYDRO.value,
         user_globals.Color.WIND_AND_SOLAR.value,
-        user_globals.Color.OTHER.value]
+        user_globals.Color.OTHER.value
+        ]
 
     # Filter out shares that are NaN or < 1%.
     filtered_final_category_share = []
@@ -483,7 +502,7 @@ def electricity(energy_system):
     filtered_fuel_color = []
     for i in range(len(final_category_share)):
         if not (math.isnan(final_category_share[i]) or
-        final_category_share[i] < 1):
+                final_category_share[i] < 1):
             filtered_category_name.append(category_name[i])
             filtered_final_category_share.append \
                 (int(round(final_category_share[i], 0)))
@@ -499,7 +518,8 @@ def electricity(energy_system):
         "Name",
         "Value",
         "Color"
-        "Label"])
+        "Label"]
+        )
     df_category["Name"] = filtered_category_name
     df_category["Value"] = filtered_final_category_share
     df_category["Color"] = filtered_category_color
@@ -508,7 +528,8 @@ def electricity(energy_system):
         "Name",
         "Value",
         "Color"
-        "Label"])
+        "Label"]
+        )
     df_fuel["Name"] = filtered_fuel_name
     df_fuel["Value"] = filtered_final_fuel_share
     df_fuel["Color"] = filtered_fuel_color
@@ -552,9 +573,6 @@ def electricity(energy_system):
 #
 ###############################################################################
 def consumption(energy_system):
-    ###########################################################################
-    # Calculate TFC shares and changes.
-    ###########################################################################
     energy_system.consumption_PJ["Coal Share"] = \
         energy_system.consumption_PJ["Coal"] / \
         energy_system.consumption_PJ["Total"] * 100
@@ -576,7 +594,7 @@ def consumption(energy_system):
     energy_system.consumption_PJ["Heat Share"] = \
         energy_system.consumption_PJ["Heat"] / \
         energy_system.consumption_PJ["Total"] * 100
-    print("TFC Shares:\n",
+    print("Total Final Energy Shares:\n",
           energy_system.consumption_PJ["Coal Share"] +
           energy_system.consumption_PJ["Oil Share"] +
           energy_system.consumption_PJ["Gas Share"] +
@@ -636,7 +654,8 @@ def consumption(energy_system):
         "Wind Solar Etc Share",
         "Biofuels & Waste",
         "Electricity",
-        "Heat"]
+        "Heat"
+        ]
     final_share = [
         final_coal_consumption_share,
         final_oil_consumption_share,
@@ -644,7 +663,8 @@ def consumption(energy_system):
         final_wse_consumption_share,
         final_bio_waste_consumption_share,
         final_elec_consumption_share,
-        final_heat_consumption_share]
+        final_heat_consumption_share
+        ]
     color = [
         user_globals.Color.COAL.value,
         user_globals.Color.OIL.value,
@@ -652,13 +672,13 @@ def consumption(energy_system):
         user_globals.Color.WIND_AND_SOLAR.value,
         user_globals.Color.BIOFUELS_AND_WASTE.value,
         user_globals.Color.ELECTRICITY.value,
-        user_globals.Color.HEAT.value]
+        user_globals.Color.HEAT.value
+        ]
     
     # Filter out shares that are NaN or < 1%.
     filtered_share = []
     filtered_name = []
     filtered_color = []
-
     for i in range(len(final_share)):
         if not (math.isnan(final_share[i]) or final_share[i] < 1):
             filtered_name.append(name[i])
@@ -669,11 +689,11 @@ def consumption(energy_system):
         "Name",
         "Value",
         "Color"
-        "Label"])
+        "Label"]
+        )
     df["Name"] = filtered_name
     df["Value"] = filtered_share
     df["Color"] = filtered_color
-
 
     # Configure labels to suit narrow treemap leafs caused by large ratios
     # of data Values.
@@ -687,6 +707,5 @@ def consumption(energy_system):
         df["Label"] = \
             df["Name"].astype(str) + " " + \
             df["Value"].astype(str) + "%"
-
 
     energy_system.consumption_final_shares = df

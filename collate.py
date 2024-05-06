@@ -74,7 +74,7 @@ def populate_energy_system(country):
         co2_Mt = country_data.loc[country_data["Var"] ==
                                           "co2_combust_mtco2", "Value"]
 
-        # Fossil Fuel Production.
+        # FOSSIL FUEL PRODUCTION.
         ffprod_EJ = pd.DataFrame(index = total_primary_EJ.index,
             columns = ["coal", "oil", "gas"])
 
@@ -102,8 +102,7 @@ def populate_energy_system(country):
             ffprod_EJ["gas"] = pd.Series(data = 0, index = \
                 total_primary_EJ.index)
 
-        # Primary Energy.
-
+        # PRIMARY ENERGY.
         primary_PJ = pd.DataFrame(index = total_primary_EJ.index,
             columns = \
             ["Coal", "Oil", "Gas", "Nuclear", "Hydro", "Wind", "Solar",
@@ -149,7 +148,7 @@ def populate_energy_system(country):
         primary_PJ["Total"] = total_primary_EJ * \
                               user_globals.Constant.EJ_TO_PJ.value
 
-        # Electricity.
+        # ELECTRICITY.
         total_elecprod_TWh = country_data.loc[country_data["Var"] ==
                                               "electbyfuel_total"]
 
@@ -208,7 +207,7 @@ def populate_energy_system(country):
     else:
         print("Country not in EI data.\n")
 
-    # Total Final Consumption.
+    # FINAL ENERGY.
     # Convert country name to IEA JSON equivalent.
     iea_country = countries.iea_country_name(country)
     # Create year array for new TFC dataframe derived from IEA Balances.
@@ -217,7 +216,7 @@ def populate_energy_system(country):
     consumption_PJ = pd.DataFrame(index = tfc_years, columns = \
                         ["Coal", "Oil", "Gas", "Wind Solar Etc",
                          "Biofuels and Waste", "Electricity", "Heat", "Total"])
-    # Collate TFC data.
+    # Collate data.
     for year in tfc_years:
         with open("iea" + str(year) + ".json") as iea:
             iea_data = js.load(iea)
@@ -303,7 +302,6 @@ def populate_energy_system(country):
             break
 
     # Return national energy system data as object.
-
     return (user_globals.Energy_System(
             country,
             co2_Mt,
@@ -315,4 +313,5 @@ def populate_energy_system(country):
             pd.DataFrame(), # Populated in process.py
             pd.DataFrame(), # Populated in process.py
             consumption_PJ,
-            pd.DataFrame())) # Populated in process.py
+            pd.DataFrame()) # Populated in process.py
+            )

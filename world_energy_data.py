@@ -70,10 +70,11 @@ import collate
 user_globals.ei_data_import = pd.read_csv(
     "Statistical Review of World Energy Narrow File.csv",
 	index_col = ["Year"],
-    usecols = ["Country", "Year", "Var", "Value"])
+    usecols = ["Country", "Year", "Var", "Value"]
+    )
 # IEA's dataset is imported in collate.populate_energy_system(). This is
 # because it's imported as annual Energy Balances stored in separate JSON
-# files, because their Highlights dataset omits some countries.
+# files. Their alternative Highlights dataset omits some countries.
 
 # Set plot globals
 plt.style.use(user_globals.Constant.CHART_STYLE.value)
@@ -82,7 +83,8 @@ plt.rcParams["font.weight"] = "regular"
 mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
-collate.profile("Total World")
+#collate.profile("Total World")
+collate.profile("France")
 #collate.profile("Mexico")
 #collate.profile("Germany")
 #collate.profile("United Arab Emirates")

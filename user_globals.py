@@ -35,7 +35,8 @@ class Energy_System:
             elecprod_final_category_shares,
             elecprod_final_fuel_shares,
             consumption_PJ,
-            consumption_final_shares):
+            consumption_final_shares
+            ):
         self.name = name
         self.co2_Mt = co2_Mt
         self.ffprod_EJ = ffprod_EJ
@@ -67,23 +68,23 @@ class Constant(Enum):
     SUPTITLE_FONT_SIZE = "large"
     SUPTITLE_FONT_WEIGHT = "normal"
     SUPTITLE_ADDITION_FONT_SIZE = "x-large"
-    SUPTITLE_ADDITION_FONT_WEIGHT = "bold"
+    SUPTITLE_ADDITION_FONT_WEIGHT = "demibold"
     TITLE_FONT_SIZE = "normal"
     TITLE_FONT_WEIGHT = "medium"
     FOOTER_TEXT_FONT_SIZE = "small"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
-    FIG_VSIZE = 8.2
-    FIG_HSIZE = 8
-    FIG_VSIZE_SUBPLOT_1X3 = 6
+    FIG_VSIZE_1x1 = 8.2
+    FIG_HSIZE_1x1 = 8
+    FIG_VSIZE_SUBPLOT_1X3 = 5.5
     FIG_HSIZE_SUBPLOT_1X3 = 15
-    FIG_VSIZE_SUBPLOT_1X4 = 6
-    FIG_HSIZE_SUBPLOT_1X4 = 15
+    FIG_VSIZE_SUBPLOT_1X4 = 5
+    FIG_HSIZE_SUBPLOT_1X4 = 18
     FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_HSIZE_SUBPLOT_2X3 = 15
     FIG_VSIZE_SUBPLOT_2X4 = 10
     FIG_HSIZE_SUBPLOT_2X4 = 15
-    FIG_VSIZE_COLUMN_PLOT = 8
-    FIG_HSIZE_COLUMN_PLOT = 18
+    FIG_VSIZE_GROUPED_COLUMN_PLOT = 8.5
+    FIG_HSIZE_GROUPED_COLUMN_PLOT = 18
     FIG_VSIZE_TREE_1X2 = 7
     FIG_HSIZE_TREE_1X2 = 12
     LINE_WIDTH_PLOT_1x1 = 4
@@ -98,23 +99,23 @@ class Constant(Enum):
 
 # Define fuel colors for charts.
 class Color(Enum):
-     CO2 = "black"
-     COAL = "black"
-     OIL = "brown"
-     GAS = "darkorange"
-     NUCLEAR = "darkviolet"
-     HYDRO = "dodgerblue"
-     WIND = "blue"
-     SOLAR = "crimson"
-     BIOFUELS_AND_WASTE = "sienna"
-     OTHER = "peru"
-     HEAT = "darkmagenta"
-     RENEWABLES = "limegreen"
-     WIND_AND_SOLAR = "lime"
-     ELECTRICITY = "teal"
-     FOSSIL_FUELS = "dimgray"
+    BOLD = '\033[1m'
+    CO2 = "black"
+    COAL = "black"
+    OIL = "brown"
+    GAS = "darkorange"
+    NUCLEAR = "darkviolet"
+    HYDRO = "dodgerblue"
+    WIND = "blue"
+    SOLAR = "crimson"
+    BIOFUELS_AND_WASTE = "sienna"
+    OTHER = "peru"
+    HEAT = "darkmagenta"
+    RENEWABLES = "limegreen"
+    WIND_AND_SOLAR = "lime"
+    ELECTRICITY = "teal"
+    FOSSIL_FUELS = "dimgray"
 # Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
-
 
 
 # Define dataset as global.
