@@ -20,13 +20,15 @@
 # Files:
 # world_energy_data.py (this file)
 # user_globals.py (defs)
-# collate.py (called by world_energy_data.py)
-# process.py (called by world_energy_data.py)
-# chart.py (called by process.py)
+# countries.py (translates country name to IEA equivs, called in collate.py)
+# collate.py (called in world_energy_data.py)
+# process.py (called in collate.py)
+# output.py (controls sequence of chart functions, called in collate.py)
+# chart.py (generic chart functons, called in process.py)
 #
 # Choose a country at bottom of script.
-# Name must match that used by The Energry Institute's (EI) dataset and or
-# IEA's.
+# Country name must match that used by The Energry Institute's (EI) dataset.
+# If required, update countries.py to translate country name to IEA equiv.
 #
 # Input(s):
 # 1. Country name, string.
@@ -50,7 +52,7 @@
 # 11. Add to start of file: {"balances":
 # 12. Add to the end of the file: }
 #
-# Output(s): Charts.
+# Output(s): Charts and debug text to std out.
 #
 ###############################################################################
 
@@ -59,7 +61,6 @@
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-
 
 # Import user modules.
 import user_globals
@@ -84,10 +85,10 @@ mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
 #collate.profile("Total World")
-collate.profile("France")
+#collate.profile("France")
 #collate.profile("Mexico")
 #collate.profile("Germany")
-#collate.profile("United Arab Emirates")
+collate.profile("United Arab Emirates")
 #collate.profile("United Kingdom")
 #collate.profile("Sweden")
 #collate.profile("Australia")

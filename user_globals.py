@@ -65,33 +65,49 @@ class Constant(Enum):
     ELEC_CHANGE_START_YEAR = 1995
     TFC_START_YEAR = 1990
     TFC_END_YEAR = 2021
+
+    # FONT SIZES:
+    # 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
     SUPTITLE_FONT_SIZE = "large"
-    SUPTITLE_FONT_WEIGHT = "normal"
-    SUPTITLE_ADDITION_FONT_SIZE = "x-large"
-    SUPTITLE_ADDITION_FONT_WEIGHT = "demibold"
-    TITLE_FONT_SIZE = "normal"
-    TITLE_FONT_WEIGHT = "medium"
+    TITLE_FONT_SIZE = "xx-large"
+    TITLE_ADDITION_FONT_SIZE = "medium"
+    SUBPLOT_TITLE_FONT_SIZE = "large"
     FOOTER_TEXT_FONT_SIZE = "small"
+
+    # FONT WEIGHTS:
+    #'ultralight', 'light', 'normal', 'regular', 'book', 'medium', 'roman',
+    #'semibold', 'demibold', 'demi', 'bold', 'heavy', 'extra bold', 'black'
+    SUPTITLE_FONT_WEIGHT = "normal"
+    TITLE_FONT_WEIGHT = "bold"
+    TITLE_ADDITION_FONT_WEIGHT = "normal"
+    SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
-    FIG_VSIZE_1x1 = 8.2
+
     FIG_HSIZE_1x1 = 8
-    FIG_VSIZE_SUBPLOT_1X3 = 5.5
     FIG_HSIZE_SUBPLOT_1X3 = 15
-    FIG_VSIZE_SUBPLOT_1X4 = 5
-    FIG_HSIZE_SUBPLOT_1X4 = 18
-    FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_HSIZE_SUBPLOT_2X3 = 15
-    FIG_VSIZE_SUBPLOT_2X4 = 10
-    FIG_HSIZE_SUBPLOT_2X4 = 15
-    FIG_VSIZE_GROUPED_COLUMN_PLOT = 8.5
+    FIG_HSIZE_SUBPLOT_1X4 = 18
+    FIG_HSIZE_SUBPLOT_2X4 = 18
+    FIG_HSIZE_TREE_1X2 = 15
+
+    FIG_VSIZE_1x1 = 8
+    FIG_VSIZE_SUBPLOT_1X3 = 6
+    FIG_VSIZE_SUBPLOT_2X3 = 10
+    FIG_VSIZE_SUBPLOT_1X4 = 5
+    FIG_VSIZE_SUBPLOT_2X4 = 9
+    FIG_VSIZE_TREE_1X2 = 9.2
+
+    FIG_VSIZE_GROUPED_COLUMN_PLOT = 9
     FIG_HSIZE_GROUPED_COLUMN_PLOT = 18
-    FIG_VSIZE_TREE_1X2 = 7
-    FIG_HSIZE_TREE_1X2 = 12
+
     LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_DPI = 100
-    CHART_FONT = "Open Sans" #all: matplotlib.font_manager.get_font_names()
+
+    # IBM Plex Sans font installed manually by copying Google font ttf files to
+    # Python's font directory.
+    CHART_FONT = "IBM Plex Sans" #all: matplotlib.font_manager.get_font_names()
     CHART_STYLE = "bmh"     #"default", "seaborn-darkgrid"
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
 # Python chart gallery: https://python-graph-gallery.com/
@@ -100,7 +116,7 @@ class Constant(Enum):
 # Define fuel colors for charts.
 class Color(Enum):
     BOLD = '\033[1m'
-    CO2 = "black"
+    CO2 = "slategrey"#"lightsteelblue"
     COAL = "black"
     OIL = "brown"
     GAS = "darkorange"
@@ -111,8 +127,8 @@ class Color(Enum):
     BIOFUELS_AND_WASTE = "sienna"
     OTHER = "peru"
     HEAT = "darkmagenta"
-    RENEWABLES = "limegreen"
-    WIND_AND_SOLAR = "lime"
+    RENEWABLES = "green"
+    WIND_AND_SOLAR = "limegreen"
     ELECTRICITY = "teal"
     FOSSIL_FUELS = "dimgray"
 # Color library: https://matplotlib.org/stable/gallery/color/named_colors.html

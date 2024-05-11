@@ -12,17 +12,7 @@
 # Module: chart.py
 #
 # Description:
-# Generic chart drawing functions -
-# line()
-# line_1x4()
-# line_2x3()
-# line 2x4()
-# column_1x3()
-# column_1x4()
-# column_2x3()
-# column_2x4()
-# column_grouped()
-# treemap()
+# Generic chart drawing functions.
 #
 ###############################################################################
 
@@ -46,7 +36,7 @@ import user_globals
 # Plots a single series.
 #
 ###############################################################################
-def line(x, y, country_name, color, title, ylabel, footer_text):
+def line(x, y, country, color, title, ylabel, footer_text):
 
     # Create list x_ticks and fill with start of each decade.
     x_ticks = []
@@ -69,7 +59,7 @@ def line(x, y, country_name, color, title, ylabel, footer_text):
     ax.yaxis.set_major_formatter( \
              matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
     ax.autoscale(axis = "y")
-    ax.set_ylim(bottom = 0)
+    ax.set_ylim(0, max(ax.get_yticks()))
     ax.set_ylabel(ylabel)
     ax.set_xticks(x_ticks)
     ax.set_xlabel("Year")
@@ -77,25 +67,22 @@ def line(x, y, country_name, color, title, ylabel, footer_text):
     # Set aspect ratio 1:1.
     ax.set_box_aspect(1)
 
-    # Figure title.
     fig.suptitle(
-        country_name,
+        country,
         x = 0.13,
         y = 0.95,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
         )
-    # Text beneath figure title.
     fig.text(
         0.13,
         0.905,
         title,
         horizontalalignment = "left",
-       fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-       fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value,
+       fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+       fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
        )
-   # Text in footer.
     fig.text(
         0.125,
         0.005,
@@ -104,7 +91,8 @@ def line(x, y, country_name, color, title, ylabel, footer_text):
        fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
        fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
        )
-    plt.subplots_adjust(bottom=0.14)
+
+    plt.subplots_adjust(bottom = 0.12)
 
 
 ###############################################################################
@@ -124,7 +112,7 @@ def line_1x4(
         color2,
         color3,
         color4,
-        country_name,
+        country,
         title,
         subplot1_title,
         subplot2_title,
@@ -148,25 +136,26 @@ def line_1x4(
                 user_globals.Constant.FIG_VSIZE_SUBPLOT_1X4.value))
     plt.subplots_adjust(wspace = 0.2, hspace = 0.2)
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
-        y = 0.96,
+        y = 0.94,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.925,
+        0.865,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.005,
+        0.12,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -181,7 +170,7 @@ def line_1x4(
     ax[0].set_title(
             subplot1_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0].set_xlabel("Year")
     ax[0].set_ylabel(ylabel)
@@ -201,7 +190,7 @@ def line_1x4(
     ax[1].set_title(
             subplot2_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1].set_xlabel("Year")
     ax[1].yaxis.grid(True)
@@ -220,7 +209,7 @@ def line_1x4(
     ax[2].set_title(
             subplot3_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[2].set_xlabel("Year")
     ax[2].yaxis.grid(True)
@@ -239,7 +228,7 @@ def line_1x4(
     ax[3].set_title(
             subplot4_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[3].set_xlabel("Year")
     ax[3].yaxis.grid(True)
@@ -256,8 +245,13 @@ def line_1x4(
         ax[1].set_ylim(0, y_max)
         ax[2].set_ylim(0, y_max)
         ax[3].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0].set_ylim(0, max(ax[0].get_yticks()))
+        ax[1].set_ylim(0, max(ax[1].get_yticks()))
+        ax[2].set_ylim(0, max(ax[2].get_yticks()))
+        ax[3].set_ylim(0, max(ax[3].get_yticks()))
 
-    plt.subplots_adjust(bottom=0.13)
+    plt.subplots_adjust(bottom = 0.13)
 
 
 ###############################################################################
@@ -281,8 +275,9 @@ def line_2x3(
         color4,
         color5,
         color6,
-        country_name,
+        country,
         title,
+        title_addition,
         subplot1_title,
         subplot2_title,
         subplot3_title,
@@ -307,25 +302,34 @@ def line_2x3(
                 user_globals.Constant.FIG_VSIZE_SUBPLOT_2X3.value))
     plt.subplots_adjust(wspace = 0.2, hspace = 0.2)
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
-        y = 0.96,
+        y = 0.97,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.925,
+        0.935,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.005,
+        0.915,
+        title_addition,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.125,
+        0.09,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -339,7 +343,7 @@ def line_2x3(
     ax[0, 0].set_title(
             subplot1_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].yaxis.grid(True)
@@ -358,7 +362,7 @@ def line_2x3(
     ax[0, 1].set_title(
             subplot2_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 1].yaxis.grid(True)
     ax[0, 1].margins(x = 0, tight = True)
@@ -376,7 +380,7 @@ def line_2x3(
     ax[0, 2].set_title(
             subplot3_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 2].yaxis.grid(True)
     ax[0, 2].margins(x = 0, tight = True)
@@ -394,7 +398,7 @@ def line_2x3(
     ax[1, 0].set_title(
             subplot4_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 0].set_ylabel(ylabel)
     ax[1, 0].set_xlabel("Year")
@@ -414,7 +418,7 @@ def line_2x3(
     ax[1, 1].set_title(
             subplot5_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 1].set_xlabel("Year")
     ax[1, 1].yaxis.grid(True)
@@ -433,7 +437,7 @@ def line_2x3(
     ax[1, 2].set_title(
             subplot6_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 2].set_xlabel("Year")
     ax[1, 2].yaxis.grid(True)
@@ -452,8 +456,16 @@ def line_2x3(
         ax[1, 0].set_ylim(0, y_max)
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
+        ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
+        ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
+        ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
+        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
-    plt.subplots_adjust(bottom = 0.14)
+    # Set space between subplots.
+    plt.subplots_adjust(hspace = 0.15, bottom = 0.13)
 
 
 ###############################################################################
@@ -481,7 +493,7 @@ def line_2x4(
         color6,
         color7,
         color8,
-        country_name,
+        country,
         title,
         subplot1_title,
         subplot2_title,
@@ -509,25 +521,26 @@ def line_2x4(
                 user_globals.Constant.FIG_VSIZE_SUBPLOT_2X4.value))
     plt.subplots_adjust(wspace = 0.2, hspace = 0.2)
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
-        y = 0.96,
+        y = 0.94,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.925,
+        0.895,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.005,
+        0.07,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -541,7 +554,7 @@ def line_2x4(
     ax[0, 0].set_title(
             subplot1_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].margins(x = 0, tight = True)
@@ -559,7 +572,7 @@ def line_2x4(
     ax[0, 1].set_title(
             subplot2_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 1].margins(x = 0, tight = True)
     ax[0, 1].set_xticks(x_ticks)
@@ -576,7 +589,7 @@ def line_2x4(
     ax[0, 2].set_title(
             subplot3_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 2].margins(x = 0, tight = True)
     ax[0, 2].set_xticks(x_ticks)
@@ -593,9 +606,8 @@ def line_2x4(
     ax[0, 3].set_title(
             subplot4_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
-    ax[0, 3].set_xlabel("Year")
     ax[0, 3].margins(x = 0, tight = True)
     ax[0, 3].set_xticks(x_ticks)
     ax[0, 3].set_box_aspect(1)
@@ -611,7 +623,7 @@ def line_2x4(
     ax[1, 0].set_title(
             subplot5_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 0].set_ylabel(ylabel)
     ax[1, 0].set_xlabel("Year")
@@ -630,7 +642,7 @@ def line_2x4(
     ax[1, 1].set_title(
             subplot6_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 1].set_xlabel("Year")
     ax[1, 1].margins(x = 0, tight = True)
@@ -648,7 +660,7 @@ def line_2x4(
     ax[1, 2].set_title(
             subplot7_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 2].set_xlabel("Year")
     ax[1, 2].margins(x = 0, tight = True)
@@ -666,7 +678,7 @@ def line_2x4(
     ax[1, 3].set_title(
             subplot8_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[1, 3].set_xlabel("Year")
     ax[1, 3].margins(x = 0, tight = True)
@@ -686,8 +698,118 @@ def line_2x4(
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
         ax[1, 3].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
+        ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
+        ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[0, 3].set_ylim(0, max(ax[0, 3].get_yticks()))
+        ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
+        ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
+        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
+        ax[1, 3].set_ylim(0, max(ax[1, 3].get_yticks()))
 
-    plt.subplots_adjust(bottom=0.13)
+    # Set space between subplots.
+    plt.subplots_adjust(wspace = 0.16, hspace = 0.1, bottom = 0.1)
+
+
+###############################################################################
+#
+# Function: column_1x1()
+#
+# Description:
+# 1x1 column plot.
+#
+###############################################################################
+def column_1x1(
+        series,
+        color,
+        country,
+        title,
+        ylabel,
+        footer_text,
+        ):
+
+    # Create figure and axes.
+    fig, ax = plt.subplots(1, 1,
+                figsize = (user_globals.Constant.FIG_VSIZE_1x1.value,
+                           user_globals.Constant.FIG_VSIZE_1x1.value))
+    fig.suptitle(
+        country,
+        x = 0.135,
+        y = 0.945,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.135,
+        0.9,
+        title,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.135,
+        0.015,
+        footer_text,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
+        )
+
+    # Add comma thousands seperator.
+    ax.yaxis.set_major_formatter( \
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
+
+    # Grey edges for black columns.
+    if color == "black":
+        edge_color = "dimgrey"
+    else:
+        edge_color = "black"
+
+    # x_ticks only for start of each decade.
+    x_ticks = []
+    for year in series.index:
+        if year % 10 == 0: # Modulus.
+            x_ticks.append(year)
+    # Replace final value with most recent year.
+    x_ticks[len(x_ticks) - 1] = max(series.index)
+    ax.set_xticks(x_ticks)
+
+
+    # If nil data remove y-axis detail, else plot bar chart.
+    if max(series) == 0:
+        ax.plot(
+            series.index,
+            series, color,
+            linewidth = user_globals.Constant.LINE_WIDTH_SUBPOLT.value
+            )
+    else:
+        ax.bar(
+            series.index,
+            series,
+            width = 1,
+            align = 'edge',
+            color = color,
+            edgecolor = edge_color,
+            linewidth = 0.2
+            )
+
+    ax.set_xlabel("Year")
+    ax.set_ylabel(ylabel)
+    ax.yaxis.grid(True)
+    ax.set_box_aspect(1)
+    # Place grid behind columns.
+    ax.set_axisbelow(True)
+    ax.autoscale(axis = "y")
+    # Force uppermost tick to be equal to autoscale max + grid interval
+    ax.set_ylim(0, max(ax.get_yticks()))
+    # Remove margins.
+    ax.margins(x = 0, tight = True)
+
+    # Move subplots up on page to provide space for footer text.
+    plt.subplots_adjust(bottom = 0.13)
 
 
 ###############################################################################
@@ -705,8 +827,9 @@ def column_1x3(
         color1,
         color2,
         color3,
-        country_name,
+        country,
         title,
+        title_addition,
         subplot1_title,
         subplot2_title,
         subplot3_title,
@@ -719,34 +842,36 @@ def column_1x3(
     fig, ax = plt.subplots(1, 3,
                 figsize = (user_globals.Constant.FIG_HSIZE_SUBPLOT_1X3.value,
                            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X3.value))
-
-    # Set space between subplots.
-    plt.subplots_adjust(wspace = 0.25, hspace = 0.4)
-
-    # Figure title.
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
         y = 0.94,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
-    # Text beneath figure title.
     fig.text(
         0.125,
         0.875,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
-    # Text in footer.
     fig.text(
         0.125,
-        0.007,
+        0.84,
+        title_addition,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.125,
+        0.14,
         footer_text,
         horizontalalignment = "left",
+        verticalalignment = "top",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
         )
@@ -816,7 +941,7 @@ def column_1x3(
             )
     ax[0].set_title(
         subplot1_title,
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc = "left"
         )
     ax[0].set_xlabel("Year")
@@ -850,7 +975,7 @@ def column_1x3(
             )
     ax[1].set_title(
             subplot2_title,
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
             loc = "left"
             )
     ax[1].set_xlabel("Year")
@@ -880,7 +1005,7 @@ def column_1x3(
             )
     ax[2].set_title(
             subplot3_title,
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
             loc = "left")
     ax[2].set_xlabel("Year")
     ax[2].yaxis.grid(True)
@@ -896,9 +1021,13 @@ def column_1x3(
         ax[0].set_ylim(0, y_max)
         ax[1].set_ylim(0, y_max)
         ax[2].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0].set_ylim(0, max(ax[0].get_yticks()))
+        ax[1].set_ylim(0, max(ax[1].get_yticks()))
+        ax[2].set_ylim(0, max(ax[2].get_yticks()))
 
-    # Move subplots up on page to provide space for footer text.
-    plt.subplots_adjust(bottom = 0.13)
+    # Set space between subplots.
+    plt.subplots_adjust(wspace = 0.25, top = 0.86, bottom = 0.13)
 
 
 ###############################################################################
@@ -918,7 +1047,7 @@ def column_1x4(
         color2,
         color3,
         color4,
-        country_name,
+        country,
         title,
         subplot1_title,
         subplot2_title,
@@ -939,9 +1068,9 @@ def column_1x4(
 
     # Figure title.
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
-        y = 0.93,
+        y = 0.9,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
@@ -949,17 +1078,18 @@ def column_1x4(
     # Text beneath figure title.
     fig.text(
         0.125,
-        0.865,
+        0.825,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     # Text in footer.
     fig.text(
         0.125,
-        0.007,
+        0.09,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -1044,7 +1174,7 @@ def column_1x4(
             )
     ax[0].set_title(
         subplot1_title,
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc = "left"
         )
     ax[0].set_xlabel("Year")
@@ -1055,6 +1185,7 @@ def column_1x4(
     ax[0].set_axisbelow(True)
     # Autoscale and get max y for setting equiv y scale at end of function.
     ax[0].autoscale(axis = "y")
+    ax[0].tick_params(labelsize = 8)
     ax[0].margins(x = 0, tight = True)
     ylim1 = ax[0].get_ylim()[1]
 
@@ -1076,7 +1207,7 @@ def column_1x4(
                   )
     ax[1].set_title(
             subplot2_title,
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
             loc = "left"
             )
     ax[1].set_xlabel("Year")
@@ -1084,6 +1215,7 @@ def column_1x4(
     ax[1].set_box_aspect(1)
     ax[1].set_axisbelow(True)
     ax[1].autoscale(axis = "y")
+    ax[1].tick_params(labelsize = 8)
     ax[1].margins(x = 0, tight = True)
     ylim2 = ax[1].get_ylim()[1]
 
@@ -1106,7 +1238,7 @@ def column_1x4(
             )
     ax[2].set_title(
         subplot3_title,
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc = "left"
         )
     ax[2].yaxis.grid(True)
@@ -1114,6 +1246,7 @@ def column_1x4(
     ax[2].set_box_aspect(1)
     ax[2].set_axisbelow(True)
     ax[2].autoscale(axis = "y")
+    ax[2].tick_params(labelsize = 8)
     ax[2].margins(x = 0, tight = True)
     ylim3 = ax[2].get_ylim()[1]
 
@@ -1136,7 +1269,7 @@ def column_1x4(
             )
     ax[3].set_title(
             subplot4_title,
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value,
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
             loc = "left"
             )
     ax[3].set_xlabel("Year")
@@ -1144,6 +1277,7 @@ def column_1x4(
     ax[3].set_box_aspect(1)
     ax[3].set_axisbelow(True)
     ax[3].autoscale(axis = "y")
+    ax[3].tick_params(labelsize = 8)
     ax[3].margins(x = 0, tight = True)
     ylim4 = ax[3].get_ylim()[1]
 
@@ -1154,9 +1288,14 @@ def column_1x4(
         ax[1].set_ylim(0, y_max)
         ax[2].set_ylim(0, y_max)
         ax[3].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0].set_ylim(0, max(ax[0].get_yticks()))
+        ax[1].set_ylim(0, max(ax[1].get_yticks()))
+        ax[2].set_ylim(0, max(ax[2].get_yticks()))
+        ax[3].set_ylim(0, max(ax[3].get_yticks()))
 
     # Move subplots up on page to provide space for footer text.
-    plt.subplots_adjust(bottom=0.13)
+    plt.subplots_adjust(bottom = 0.05)
 
 
 ###############################################################################
@@ -1180,8 +1319,9 @@ def column_2x3(
         color4,
         color5,
         color6,
-        country_name,
+        country,
         title,
+        title_addition,
         subplot1_title,
         subplot2_title,
         subplot3_title,
@@ -1232,7 +1372,7 @@ def column_2x3(
                 user_globals.Constant.FIG_VSIZE_SUBPLOT_2X3.value))
     plt.subplots_adjust(wspace = 0.2, hspace = 0.2)
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
         y = 0.96,
         horizontalalignment = "left",
@@ -1244,13 +1384,22 @@ def column_2x3(
         0.925,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.005,
+        0.905,
+        title_addition,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.125,
+        0.08,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -1291,7 +1440,7 @@ def column_2x3(
     ax[0, 0].set_title(
             subplot1_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].yaxis.grid(True)
@@ -1322,7 +1471,7 @@ def column_2x3(
     ax[0, 1].set_title(
             subplot2_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 1].yaxis.grid(True)
     ax[0, 1].set_xticks(x_ticks)
@@ -1352,7 +1501,7 @@ def column_2x3(
     ax[0, 2].set_title(
             subplot3_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 2].yaxis.grid(True)
     ax[0, 2].set_xticks(x_ticks)
@@ -1381,7 +1530,7 @@ def column_2x3(
     ax[1, 0].set_title(
         subplot4_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 0].set_ylabel(ylabel)
     ax[1, 0].set_xlabel("Year")
@@ -1413,7 +1562,7 @@ def column_2x3(
     ax[1, 1].set_title(
         subplot5_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 1].set_xlabel("Year")
     ax[1, 1].yaxis.grid(True)
@@ -1444,7 +1593,7 @@ def column_2x3(
     ax[1, 2].set_title(
         subplot6_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 2].set_xlabel("Year")
     ax[1, 2].yaxis.grid(True)
@@ -1463,8 +1612,16 @@ def column_2x3(
         ax[1, 0].set_ylim(0, y_max)
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
+        ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
+        ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
+        ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
+        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
-    plt.subplots_adjust(bottom=0.13)
+    # Set space between subplots.
+    plt.subplots_adjust(hspace = 0, bottom = 0.1)
 
 
 ###############################################################################
@@ -1492,7 +1649,7 @@ def column_2x4(
         color6,
         color7,
         color8,
-        country_name,
+        country,
         title,
         subplot1_title,
         subplot2_title,
@@ -1552,28 +1709,27 @@ def column_2x4(
     fig, ax = plt.subplots(2, 4, sharex = False, sharey = False,
                 figsize=(user_globals.Constant.FIG_HSIZE_SUBPLOT_2X4.value,
                 user_globals.Constant.FIG_VSIZE_SUBPLOT_2X4.value))
-
-    plt.subplots_adjust(wspace = 0.2, hspace = 0.2)
     fig.suptitle(
-        country_name,
+        country,
         x = 0.125,
-        y = 0.96,
+        y = 0.94,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.925,
+        0.895,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.005,
+        0.07,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
@@ -1618,11 +1774,12 @@ def column_2x4(
     ax[0, 0].set_title(
             subplot1_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].yaxis.grid(True)
     ax[0, 0].set_xticks(x_ticks)
+    ax[0, 0].tick_params(labelsize = 8)
     ax[0, 0].margins(x = 0, tight = True)
     ax[0, 0].set_box_aspect(1)
     ax[0, 0].autoscale(axis = "y")
@@ -1649,10 +1806,11 @@ def column_2x4(
     ax[0, 1].set_title(
             subplot2_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 1].yaxis.grid(True)
     ax[0, 1].set_xticks(x_ticks)
+    ax[0, 1].tick_params(labelsize = 8)
     ax[0, 1].margins(x = 0, tight = True)
     ax[0, 1].set_box_aspect(1)
     ax[0, 1].autoscale(axis = "y")
@@ -1679,10 +1837,11 @@ def column_2x4(
     ax[0, 2].set_title(
             subplot3_title,
             loc = "left",
-            weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+            weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
             )
     ax[0, 2].yaxis.grid(True)
     ax[0, 2].set_xticks(x_ticks)
+    ax[0, 2].tick_params(labelsize = 8)
     ax[0, 2].margins(x = 0, tight = True)
     ax[0, 2].set_box_aspect(1)
     ax[0, 2].autoscale(axis = "y")
@@ -1708,11 +1867,11 @@ def column_2x4(
     ax[0, 3].set_title(
         subplot4_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
-    ax[0, 3].set_xlabel("Year")
     ax[0, 3].yaxis.grid(True)
     ax[0, 3].set_xticks(x_ticks)
+    ax[0, 3].tick_params(labelsize = 8)
     ax[0, 3].margins(x = 0, tight = True)
     ax[0, 3].set_box_aspect(1)
     ax[0, 3].autoscale(axis = "y")
@@ -1739,12 +1898,13 @@ def column_2x4(
     ax[1, 0].set_title(
         subplot5_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 0].set_xlabel("Year")
     ax[1, 0].set_ylabel(ylabel)
     ax[1, 0].yaxis.grid(True)
     ax[1, 0].set_xticks(x_ticks)
+    ax[1, 0].tick_params(labelsize = 8)
     ax[1, 0].margins(x = 0, tight = True)
     ax[1, 0].set_box_aspect(1)
     ax[1, 0].autoscale(axis = "y")
@@ -1771,11 +1931,12 @@ def column_2x4(
     ax[1, 1].set_title(
         subplot6_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 1].set_xlabel("Year")
     ax[1, 1].yaxis.grid(True)
     ax[1, 1].set_xticks(x_ticks)
+    ax[1, 1].tick_params(labelsize = 8)
     ax[1, 1].margins(x = 0, tight = True)
     ax[1, 1].set_box_aspect(1)
     ax[1, 1].autoscale(axis = "y")
@@ -1785,7 +1946,7 @@ def column_2x4(
         ax[1, 2].plot(
             series7.index,
             series7,
-            color6,
+            color7,
             linewidth = user_globals.Constant.LINE_WIDTH_SUBPOLT.value
             )
     else:
@@ -1800,13 +1961,14 @@ def column_2x4(
             )
     ax[1, 2].set_axisbelow(True)
     ax[1, 2].set_title(
-        subplot6_title,
+        subplot7_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 2].set_xlabel("Year")
     ax[1, 2].yaxis.grid(True)
     ax[1, 2].set_xticks(x_ticks)
+    ax[1, 2].tick_params(labelsize = 8)
     ax[1, 2].margins(x = 0, tight = True)
     ax[1, 2].set_box_aspect(1)
     ax[1, 2].autoscale(axis = "y")
@@ -1816,7 +1978,7 @@ def column_2x4(
         ax[1, 3].plot(
             series8.index,
             series8,
-            color6,
+            color8,
             linewidth = user_globals.Constant.LINE_WIDTH_SUBPOLT.value
             )
     else:
@@ -1831,13 +1993,14 @@ def column_2x4(
             )
     ax[1, 3].set_axisbelow(True)
     ax[1, 3].set_title(
-        subplot6_title,
+        subplot8_title,
         loc = "left",
-        weight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        weight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value
         )
     ax[1, 3].set_xlabel("Year")
     ax[1, 3].yaxis.grid(True)
     ax[1, 3].set_xticks(x_ticks)
+    ax[1, 3].tick_params(labelsize = 8)
     ax[1, 3].margins(x = 0, tight = True)
     ax[1, 3].set_box_aspect(1)
     ax[1, 3].autoscale(axis = "y")
@@ -1854,8 +2017,18 @@ def column_2x4(
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
         ax[1, 3].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
+        ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
+        ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[0, 3].set_ylim(0, max(ax[0, 3].get_yticks()))
+        ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
+        ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
+        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
+        ax[1, 3].set_ylim(0, max(ax[1, 3].get_yticks()))
 
-    plt.subplots_adjust(bottom=0.13)
+    # Set space between subplots.
+    plt.subplots_adjust(wspace = 0.16, hspace = 0.1, bottom = 0.1)
 
 
 ###############################################################################
@@ -1868,8 +2041,9 @@ def column_2x4(
 #
 ###############################################################################
 def column_grouped(
-        country_name,
+        country,
         title,
+        title_addition,
         y_label,
         footer_text,
         start_yr,
@@ -1929,32 +2103,42 @@ def column_grouped(
     plt.tight_layout(pad = 6)
     # Figure text.
     fig.suptitle(
-        country_name,
+        country,
         x = 0.065,
         y = 0.96,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
-    # Text beneath figure title.
+    # Text beneath figure suptitle.
     fig.text(
         0.065,
         0.915,
         title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
+        )
+    fig.text(
+        0.065,
+        0.89,
+        title_addition,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value
         )
     # Text in footer.
     fig.text(
         0.065,
-        0.005,
+        0.1,
         footer_text,
+        verticalalignment = "top",
         horizontalalignment = "left",
         fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value
         )
     ax.autoscale(axis = "y")
+    ax.set_ylim(min(ax.get_yticks()), max(ax.get_yticks()))
     ax.set_ylabel(y_label)
     ax.yaxis.grid(False)
     ax.set_xlabel("Year")
@@ -1969,8 +2153,7 @@ def column_grouped(
     # Show x axis line.
     plt.axhline(0, color="black", lw = 0.4)
 
-    # Insert space at bottom of plot.
-    plt.subplots_adjust(bottom=0.15)
+    plt.subplots_adjust(top = 0.87, bottom = 0.15)
 
     plt.margins(x = 0, tight = True)
 
@@ -1988,8 +2171,9 @@ def treemap(
         df2, # Dataframe 2
         subplot1_title, # Title above LH plot
         subplot2_title, # Title above RH plot
-        country_name,
+        country,
         title,
+        title_addition,
         footer_text
         ):
 
@@ -2006,7 +2190,7 @@ def treemap(
         labels ="Label",
         cmap = df1["Color"].to_list(),
         fill = "Name",
-        rectprops = dict(ec = "#eeeeee", lw = 1),
+        rectprops = dict(ec = "darkslategray", lw = 0.4),
         textprops = dict(c = "white",
                          place = "top left",
                          reflow = True,
@@ -2021,8 +2205,12 @@ def treemap(
         fontsize = "large"
         )
     ax[0].axis("off")
-    ax[0].set_title(subplot1_title, fontsize = "large",
-                    fontweight = "demibold", loc = 'left')
+    ax[0].set_title(
+        subplot1_title,
+        fontsize = user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc = 'left'
+        )
 
     # Plot righthand treemap.
     tr.treemap(ax[1],
@@ -2031,7 +2219,7 @@ def treemap(
                labels ="Label",
                cmap = df2["Color"].to_list(),
                fill = "Name",
-               rectprops = dict(ec = "#eeeeee", lw = 1),
+               rectprops = dict(ec = "darkslategray", lw = 0.4),
                textprops = dict(
                    c = "white",
                    place = "top left",
@@ -2047,19 +2235,39 @@ def treemap(
         fontsize = "large"
         )
     ax[1].axis("off")
-    ax[1].set_title(subplot2_title, fontsize = "large",
-                    fontweight = "demibold", loc = 'left')
-    fig.suptitle(country_name, x = 0.125, y = 0.98,
+    if "Electricity Generation" in subplot2_title:
+        ax[1].set_title(
+            subplot2_title,
+            fontsize = user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+            fontweight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+            loc = 'left',
+            color = 'white',
+            backgroundcolor = "teal",
+            position = (0.012, 1.2)
+            )
+    else:
+        ax[1].set_title(
+            subplot2_title,
+            fontsize = user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+            fontweight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+            loc = 'left'
+            )
+    fig.suptitle(country, x = 0.125, y = 0.96,
              horizontalalignment = "left",
              fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
              fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value)
-    fig.text(0.125, 0.93, title,
+    fig.text(0.125, 0.92, title,
         horizontalalignment = "left",
-        fontsize = user_globals.Constant.SUPTITLE_ADDITION_FONT_SIZE.value,
-        fontweight = user_globals.Constant.SUPTITLE_ADDITION_FONT_WEIGHT.value)
-    fig.text(0.125, 0, footer_text,
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value)
+    fig.text(0.125, 0.9, title_addition,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value)
+    fig.text(0.125, 0.025, footer_text,
              horizontalalignment = "left",
              fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
              fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value)
-    plt.subplots_adjust(bottom=0.19)
+    plt.subplots_adjust(top = 0.86, bottom = 0.18)
+
 

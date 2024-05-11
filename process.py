@@ -137,16 +137,6 @@ def primary_energy(energy_system):
                     energy_system.primary_PJ.loc[yr, "Renewables"] - \
                     energy_system.primary_PJ.loc[yr - 1, "Renewables"]
 
-    print("Sum of Primary Energy shares: \n",
-        energy_system.primary_PJ["Coal Share"] + \
-        energy_system.primary_PJ["Oil Share"] + \
-        energy_system.primary_PJ["Gas Share"] + \
-        energy_system.primary_PJ["Nuclear Share"] + \
-        energy_system.primary_PJ["Hydro Share"] + \
-        energy_system.primary_PJ["Wind Share"] + \
-        energy_system.primary_PJ["Solar Share"] + \
-        energy_system.primary_PJ["Bio Geo and Other Share"])
-
     # To enable plotting of shares for most recent year, organise into
     # dataframes.
     final_ff_primary_share = \
@@ -416,16 +406,6 @@ def electricity(energy_system):
                     energy_system.elecprod_TWh.loc[yr, "Renewables"] - \
                     energy_system.elecprod_TWh.loc[yr - 1, "Renewables"]
 
-    print("Sum of Electricity shares: \n",
-        energy_system.elecprod_TWh["Coal Share"] + \
-        energy_system.elecprod_TWh["Oil Share"] + \
-        energy_system.elecprod_TWh["Gas Share"] + \
-        energy_system.elecprod_TWh["Nuclear Share"] + \
-        energy_system.elecprod_TWh["Hydro Share"] + \
-        energy_system.elecprod_TWh["Wind Share"] + \
-        energy_system.elecprod_TWh["Solar Share"] + \
-        energy_system.elecprod_TWh["Bio Geo and Other Share"])
-
     # To enable plotting of shares for most recent year, organise into
     # dataframes.
     final_ff_elec_share = \
@@ -594,14 +574,6 @@ def consumption(energy_system):
     energy_system.consumption_PJ["Heat Share"] = \
         energy_system.consumption_PJ["Heat"] / \
         energy_system.consumption_PJ["Total"] * 100
-    print("Total Final Energy Shares:\n",
-          energy_system.consumption_PJ["Coal Share"] +
-          energy_system.consumption_PJ["Oil Share"] +
-          energy_system.consumption_PJ["Gas Share"] +
-          energy_system.consumption_PJ["Wind Solar Etc Share"] +
-          energy_system.consumption_PJ["Biofuels and Waste Share"] +
-          energy_system.consumption_PJ["Electricity Share"] +
-          energy_system.consumption_PJ["Heat Share"])
 
     change_yrs = range(user_globals.Constant.TFC_START_YEAR.value + 1,
                        user_globals.Constant.TFC_END_YEAR.value + 1)

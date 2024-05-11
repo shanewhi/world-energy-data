@@ -173,7 +173,9 @@ def populate_energy_system(country):
         elecprod_TWh["Solar"] = country_data.loc[country_data["Var"] ==
                                               "solar_twh", "Value"]
         elecprod_TWh["Bio Geo and Other"] = \
-            country_data.loc[country_data["Var"] == "biogeo_twh", "Value"]
+            country_data.loc[country_data["Var"] == "biogeo_twh", "Value"] + \
+            country_data.loc[country_data["Var"] == \
+                             "electbyfuel_other", "Value"]
         elecprod_TWh["Fossil Fuels"] = elecprod_TWh["Coal"] + \
                                        elecprod_TWh["Oil"] + \
                                        elecprod_TWh["Gas"]
