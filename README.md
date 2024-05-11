@@ -1,4 +1,4 @@
-May 4, 2024: Under development
+May 12, 2024: First functional version
 -
 
 Purpose:
