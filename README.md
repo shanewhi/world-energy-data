@@ -1,6 +1,3 @@
-May 12, 2024: First functional version, v1.0
--
-
 Purpose:
 -
 Python script to create charts of the trends of fuels in energy systems
@@ -25,5 +22,7 @@ Consists of the following files:
 6. chart.py (generic chart functions)
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
-
+Notes:
+-
+1. To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR
 
