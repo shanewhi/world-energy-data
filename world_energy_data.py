@@ -85,10 +85,11 @@ mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
 #collate.profile("Total World")
+collate.profile("US")
 #collate.profile("France")
 #collate.profile("Mexico")
 #collate.profile("Germany")
-collate.profile("United Arab Emirates")
+#collate.profile("United Arab Emirates")
 #collate.profile("United Kingdom")
 #collate.profile("Sweden")
 #collate.profile("Australia")

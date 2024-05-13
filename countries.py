@@ -22,5 +22,7 @@ def iea_country_name(country_in):
         return("'UAE'")
     if country == "'UNITED KINGDOM'":
         return("'UK'")
+    if country == "'US'":
+        return("'USA'")
     else:
         return(country)

@@ -304,14 +304,14 @@ def line_2x3(
     fig.suptitle(
         country,
         x = 0.125,
-        y = 0.97,
+        y = 0.98,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value
         )
     fig.text(
         0.125,
-        0.935,
+        0.945,
         title,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -319,9 +319,10 @@ def line_2x3(
         )
     fig.text(
         0.125,
-        0.915,
+        0.935,
         title_addition,
         horizontalalignment = "left",
+        verticalalignment = "top",
         fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
         fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value
         )
@@ -2104,7 +2105,7 @@ def column_grouped(
     # Figure text.
     fig.suptitle(
         country,
-        x = 0.065,
+        x = 0.07,
         y = 0.96,
         horizontalalignment = "left",
         fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
@@ -2112,7 +2113,7 @@ def column_grouped(
         )
     # Text beneath figure suptitle.
     fig.text(
-        0.065,
+        0.07,
         0.915,
         title,
         horizontalalignment = "left",
@@ -2120,7 +2121,7 @@ def column_grouped(
         fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value
         )
     fig.text(
-        0.065,
+        0.07,
         0.89,
         title_addition,
         horizontalalignment = "left",
@@ -2129,7 +2130,7 @@ def column_grouped(
         )
     # Text in footer.
     fig.text(
-        0.065,
+        0.07,
         0.1,
         footer_text,
         verticalalignment = "top",
@@ -2260,8 +2261,9 @@ def treemap(
         horizontalalignment = "left",
         fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value)
-    fig.text(0.125, 0.9, title_addition,
+    fig.text(0.125, 0.91, title_addition,
         horizontalalignment = "left",
+        verticalalignment = "top",
         fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
         fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value)
     fig.text(0.125, 0.025, footer_text,

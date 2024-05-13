@@ -27,7 +27,7 @@ class Energy_System:
             self,
             name, # Country name.
             co2_Mt,
-            ffprod_EJ,
+            ffprod_PJ,
             primary_PJ,
             primary_final_category_shares,
             primary_final_fuel_shares,
@@ -39,7 +39,7 @@ class Energy_System:
             ):
         self.name = name
         self.co2_Mt = co2_Mt
-        self.ffprod_EJ = ffprod_EJ
+        self.ffprod_PJ = ffprod_PJ
         self.primary_PJ = primary_PJ
         self.primary_final_category_shares = primary_final_category_shares
         self.primary_final_fuel_shares = primary_final_fuel_shares

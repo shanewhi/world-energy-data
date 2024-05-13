@@ -75,31 +75,34 @@ def populate_energy_system(country):
                                           "co2_combust_mtco2", "Value"]
 
         # FOSSIL FUEL PRODUCTION.
-        ffprod_EJ = pd.DataFrame(index = total_primary_EJ.index,
+        ffprod_PJ = pd.DataFrame(index = total_primary_EJ.index,
             columns = ["coal", "oil", "gas"])
 
-        ffprod_EJ["coal"] = country_data.loc[country_data["Var"] ==
-                                    "coalprod_ej", "Value"]
+        ffprod_PJ["coal"] = country_data.loc[country_data["Var"] ==
+                                    "coalprod_ej", "Value"]* \
+                                    user_globals.Constant.EJ_TO_PJ.value
         oil_Mt = country_data.loc[country_data["Var"] ==
                                     "oilprod_mt", "Value"]
-        ffprod_EJ["oil"] = oil_Mt * 1E6 * \
+        ffprod_PJ["oil"] = oil_Mt * 1E6 * \
                     user_globals.Constant.TONNES_TO_GJ.value * \
-                    user_globals.Constant.GJ_TO_EJ.value
-        ffprod_EJ["gas"] = country_data.loc[country_data["Var"] ==
-                                    "gasprod_ej", "Value"]
+                    user_globals.Constant.GJ_TO_EJ.value * \
+                    user_globals.Constant.EJ_TO_PJ.value
+        ffprod_PJ["gas"] = country_data.loc[country_data["Var"] ==
+                                    "gasprod_ej", "Value"]* \
+                                    user_globals.Constant.EJ_TO_PJ.value
         # If nil production, create 0 series in order for chart function to
         # plot correctly.
-        if ffprod_EJ["coal"].empty  or \
-                ffprod_EJ["coal"].dropna().empty:
-            ffprod_EJ["coal"] = pd.Series(data = 0, index = \
+        if ffprod_PJ["coal"].empty  or \
+                ffprod_PJ["coal"].dropna().empty:
+            ffprod_PJ["coal"] = pd.Series(data = 0, index = \
                 total_primary_EJ.index)
-        if ffprod_EJ["oil"].empty or \
-                ffprod_EJ["oil"].dropna().empty:
-            ffprod_EJ["oil"] = pd.Series(data = 0, index = \
+        if ffprod_PJ["oil"].empty or \
+                ffprod_PJ["oil"].dropna().empty:
+            ffprod_PJ["oil"] = pd.Series(data = 0, index = \
                 total_primary_EJ.index)
-        if ffprod_EJ["gas"].empty or \
-                ffprod_EJ["gas"].dropna().empty:
-            ffprod_EJ["gas"] = pd.Series(data = 0, index = \
+        if ffprod_PJ["gas"].empty or \
+                ffprod_PJ["gas"].dropna().empty:
+            ffprod_PJ["gas"] = pd.Series(data = 0, index = \
                 total_primary_EJ.index)
 
         # PRIMARY ENERGY.
@@ -307,7 +310,7 @@ def populate_energy_system(country):
     return (user_globals.Energy_System(
             country,
             co2_Mt,
-            ffprod_EJ,
+            ffprod_PJ,
             primary_PJ,
             pd.DataFrame(), # Populated in process.py
             pd.DataFrame(), # Populated in process.py
