@@ -2161,13 +2161,83 @@ def column_grouped(
 
 ###############################################################################
 #
-# Function: treemap()
+# Function: treemap_1x1()
+#
+# Description:
+# Single treemap plot
+#
+###############################################################################
+def treemap_1x1(
+        df, # Dataframe
+        subplot_title,
+        country,
+        title,
+        title_addition,
+        footer_text
+        ):
+
+    fig, ax = plt.subplots(1, 1, figsize = (
+                           user_globals.Constant.FIG_HSIZE_TREE_1X1.value,
+                           user_globals.Constant.FIG_VSIZE_TREE_1X1.value),
+                           subplot_kw = dict(aspect = 1.1))
+
+    tr.treemap(
+        ax,
+        df,
+        area = "Value",
+        labels ="Label",
+        cmap = df["Color"].to_list(),
+        fill = "Name",
+        rectprops = dict(ec = "darkslategray", lw = 0.4),
+        textprops = dict(c = "white",
+                         place = "top left",
+                         reflow = True,
+                         max_fontsize = 80)
+        )
+    ax.legend(
+        df["Name"],
+        loc = "upper left", bbox_to_anchor=(0, 0),
+        frameon = False,
+        handlelength = 2,
+        ncol = 2,
+        fontsize = "large"
+        )
+    ax.axis("off")
+    ax.set_title(
+        subplot_title,
+        fontsize = user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc = 'left'
+        )
+    fig.suptitle(country, x = 0.125, y = 0.96,
+             horizontalalignment = "left",
+             fontsize = user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+             fontweight = user_globals.Constant.SUPTITLE_FONT_WEIGHT.value)
+    fig.text(0.125, 0.92, title,
+        horizontalalignment = "left",
+        fontsize = user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_FONT_WEIGHT.value)
+    fig.text(0.125, 0.91, title_addition,
+        horizontalalignment = "left",
+        verticalalignment = "top",
+        fontsize = user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight = user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value)
+    fig.text(0.125, 0.025, footer_text,
+             horizontalalignment = "left",
+             fontsize = user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+             fontweight = user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value)
+    plt.subplots_adjust(top = 0.83, bottom = 0.22)
+
+
+###############################################################################
+#
+# Function: treemap_1x2()
 #
 # Description:
 # 1x2 treemap subplots.
 #
 ###############################################################################
-def treemap(
+def treemap_1x2(
         df1, # Dataframe 1
         df2, # Dataframe 2
         subplot1_title, # Title above LH plot

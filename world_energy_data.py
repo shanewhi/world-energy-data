@@ -84,8 +84,8 @@ plt.rcParams["font.weight"] = "regular"
 mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
 
 # Profile following countries or "Total World".
-#collate.profile("Total World")
-collate.profile("US")
+collate.profile("Total World")
+#collate.profile("US")
 #collate.profile("France")
 #collate.profile("Mexico")
 #collate.profile("Germany")
@@ -95,3 +95,4 @@ collate.profile("US")
 #collate.profile("Australia")
 #collate.profile("Algeria")
 #collate.profile("Vietnam")
+#collate.profile("Azerbaijan")

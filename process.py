@@ -287,8 +287,9 @@ def primary_energy(energy_system):
 #
 ###############################################################################
 def electricity(energy_system):
-    if energy_system.elecprod_TWh.empty:
-        print("No electricity data.\n")
+    if energy_system.elecprod_TWh.empty or \
+        energy_system.elecprod_TWh["Total"].iloc[-1] == 0:
+        print("Inadequate or nill electricity data in EI dataset.\n")
         return()
     
     min_year = min(energy_system.elecprod_TWh.index)
