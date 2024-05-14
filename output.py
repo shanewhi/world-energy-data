@@ -57,11 +57,25 @@ https://github.com/shanewhi/world-energy-data\n"
 ###############################################################################
 # PRODUCTION: Annual Fossil Fuel production.
 ###############################################################################
+    
+    if country == "World":
+         ylabel = "Exajoule"
+         ffprod_coal = energy_system.ffprod_PJ["coal"] * \
+             user_globals.Constant.PJ_TO_EJ.value
+         ffprod_oil = energy_system.ffprod_PJ["oil"] * \
+             user_globals.Constant.PJ_TO_EJ.value
+         ffprod_gas = energy_system.ffprod_PJ["gas"] * \
+             user_globals.Constant.PJ_TO_EJ.value
+    else:
+         ylabel = "Petajoule"
+         ffprod_coal = energy_system.ffprod_PJ["coal"]
+         ffprod_oil = energy_system.ffprod_PJ["oil"]
+         ffprod_gas = energy_system.ffprod_PJ["gas"]
+
     title = "Fossil Fuel Production - Annual quantities"
     subplot1_title = "Coal"
     subplot2_title = "Oil"
     subplot3_title = "Gas"
-    ylabel = "Petajoule"
 
     if country == "World":
         footer_text = "Data: The Energy Institute Statistical Review of \
@@ -92,9 +106,9 @@ https://github.com/shanewhi/world-energy-data\n"
     equiv_scale = True
 
     chart.column_1x3(
-        energy_system.ffprod_PJ["coal"],
-        energy_system.ffprod_PJ["oil"],
-        energy_system.ffprod_PJ["gas"],
+        ffprod_coal,
+        ffprod_oil,
+        ffprod_gas,
         color1,
         color2,
         color3,
