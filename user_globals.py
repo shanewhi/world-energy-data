@@ -16,27 +16,44 @@
 #
 ###############################################################################
 
-
 # Import Python modules.
 from enum import Enum
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+# Define custom class of an energy system.
+class Global_Carbon:
+    def __init__(
+                self,
+                name,
+                data,
+                final_category_shares,
+                final_emission_shares
+                ):
+                    self.name = name
+                    self.data = data
+                    self.final_category_shares = final_category_shares
+                    self.final_emission_shares = final_emission_shares
+    # Final share dataframes are required by treemap function.
+    # Better to seperate in this class than to place within another dataframe.
 
 
 # Define custom class of an energy system.
 class Energy_System:
     def __init__(
-            self,
-            name, # Country name.
-            co2_Mt,
-            ffprod_PJ,
-            primary_PJ,
-            primary_final_category_shares,
-            primary_final_fuel_shares,
-            elecprod_TWh,
-            elecprod_final_category_shares,
-            elecprod_final_fuel_shares,
-            consumption_PJ,
-            consumption_final_shares
-            ):
+                self,
+                name, # Country name.
+                co2_Mt,
+                ffprod_PJ,
+                primary_PJ,
+                primary_final_category_shares,
+                primary_final_fuel_shares,
+                elecprod_TWh,
+                elecprod_final_category_shares,
+                elecprod_final_fuel_shares,
+                consumption_PJ,
+                consumption_final_shares
+                ):
         self.name = name
         self.co2_Mt = co2_Mt
         self.ffprod_PJ = ffprod_PJ
@@ -48,23 +65,27 @@ class Energy_System:
         self.elecprod_final_fuel_shares = elecprod_final_fuel_shares
         self.consumption_PJ = consumption_PJ
         self.consumption_final_shares = consumption_final_shares
-        # Final share dataframes are required by treemap function.
-        # Better to seperate than place within primary_PJ dataframe.
+    # Final share dataframes are required by treemap function.
+    # Better to seperate than to place within primary_PJ dataframe.
 
 
 # Define conversion coefficeints (multiply for conversion).
 class Constant(Enum):
+    C_TO_CO2 = 44/12
     k_TO_M = 1E-3
+    G_TO_M = 1E+3
     TJ_TO_PJ = 1E-3
     EJ_TO_PJ = 1E3
     PJ_TO_EJ = 1 / EJ_TO_PJ
     GJ_TO_PJ = 1E-6
     GJ_TO_EJ = 1E-9
     TONNES_TO_GJ = 41.868 # EI Conversion Factors sheet.
+    CO2_RECENT_YEAR = 1980
+    CO2_CHANGE_START_YEAR = 1950
     PRIMARY_ENERGY_CHANGE_START_YEAR = 1966
     ELEC_CHANGE_START_YEAR = 1995
     TFC_START_YEAR = 1990
-    TFC_END_YEAR = 2021
+    TFC_END_YEAR = 1991
 
     # FONT SIZES:
     # 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
@@ -83,24 +104,25 @@ class Constant(Enum):
     SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
 
-    FIG_HSIZE_1x1 = 8
-    FIG_HSIZE_SUBPLOT_1X3 = 15
-    FIG_HSIZE_SUBPLOT_2X3 = 15
-    FIG_HSIZE_SUBPLOT_1X4 = 18
-    FIG_HSIZE_SUBPLOT_2X4 = 18
+    FIG_HSIZE_1x1 = 10
+    FIG_HSIZE_SUBPLOT_1X2 = 17
+    FIG_HSIZE_SUBPLOT_1X3 = 17
+    FIG_HSIZE_SUBPLOT_2X3 = 17
+    FIG_HSIZE_SUBPLOT_1X4 = 17
+    FIG_HSIZE_SUBPLOT_2X4 = 17
     FIG_HSIZE_TREE_1X1 = 8
     FIG_HSIZE_TREE_1X2 = 15
+    FIG_HSIZE_GROUPED_COLUMN_PLOT = 17
 
     FIG_VSIZE_1x1 = 8
-    FIG_VSIZE_SUBPLOT_1X3 = 6
+    FIG_VSIZE_SUBPLOT_1X2 = 6.8
+    FIG_VSIZE_SUBPLOT_1X3 = 6.8
     FIG_VSIZE_SUBPLOT_2X3 = 10
-    FIG_VSIZE_SUBPLOT_1X4 = 5
+    FIG_VSIZE_SUBPLOT_1X4 = 5.5
     FIG_VSIZE_SUBPLOT_2X4 = 9
     FIG_VSIZE_TREE_1X1 = 9.2
     FIG_VSIZE_TREE_1X2 = 9.2
-
     FIG_VSIZE_GROUPED_COLUMN_PLOT = 9
-    FIG_HSIZE_GROUPED_COLUMN_PLOT = 18
 
     LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
@@ -117,28 +139,28 @@ class Constant(Enum):
 
 # Define fuel colors for charts.
 class Color(Enum):
-    BOLD = '\033[1m'
     CO2 = "slategrey"#"lightsteelblue"
     COAL = "black"
     OIL = "brown"
-    GAS = "darkorange"
+    GAS = "orange"
+    FLARING = "violet"
     NUCLEAR = "darkviolet"
     HYDRO = "dodgerblue"
     WIND = "blue"
     SOLAR = "crimson"
-    BIOFUELS_AND_WASTE = "sienna"
-    OTHER = "peru"
+    BIOFUELS_AND_WASTE = "saddlebrown"
+    OTHER = "goldenrod"
     HEAT = "darkmagenta"
     RENEWABLES = "green"
     WIND_AND_SOLAR = "limegreen"
     ELECTRICITY = "teal"
     FOSSIL_FUELS = "dimgray"
+    CEMENT = "lightslategrey"
+    LUC = "olive"#"saddlebrown"
 # Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
 
-
-# Define dataset as global.
-global ei_data_import
-ei_data_import = []
-
-
-
+# Set plot globals
+plt.style.use(Constant.CHART_STYLE.value)
+plt.rcParams["font.family"] = Constant.CHART_FONT.value
+plt.rcParams["font.weight"] = "regular"
+mpl.rcParams["figure.dpi"]= Constant.CHART_DPI.value

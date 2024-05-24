@@ -6,6 +6,9 @@
 #@author: shanewhite
 """
 
+# Import user modules.
+import collate
+import output
 
 ###############################################################################
 #
@@ -56,43 +59,35 @@
 #
 ###############################################################################
 
+# Import data.
+# Data importation differs between sources:
+# Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
+# as single files below.
+# The Internaitonal Energy Agency (IEA) dataset is stored in multiple JSON
+# files, and therefore country specific data is searched for within these,
+# rather than imported as a single file. This is done within the function
+# populate_energy_system().
+ei_data, gcp_data = collate.import_data()
 
-# Import Python modules.
-import pandas as pd
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+# Generate charts of GCP data.
+global_carbon = collate.organise_gcp_data(gcp_data)
+output.global_carbon_charts(global_carbon)
 
-# Import user modules.
-import user_globals
-import collate
-
-
-# Import Energy Institute's dataset, once only.
-user_globals.ei_data_import = pd.read_csv(
-    "Statistical Review of World Energy Narrow File.csv",
-	index_col = ["Year"],
-    usecols = ["Country", "Year", "Var", "Value"]
-    )
-# IEA's dataset is imported in collate.populate_energy_system(). This is
-# because it's imported as annual Energy Balances stored in separate JSON
-# files. Their alternative Highlights dataset omits some countries.
-
-# Set plot globals
-plt.style.use(user_globals.Constant.CHART_STYLE.value)
-plt.rcParams["font.family"] = user_globals.Constant.CHART_FONT.value
-plt.rcParams["font.weight"] = "regular"
-mpl.rcParams["figure.dpi"]= user_globals.Constant.CHART_DPI.value
+# Generate charts of energy system data.
+def profile(country):
+    energy_system = collate.organise_energy(country, ei_data)
+    output.energy_charts(energy_system)
 
 # Profile following countries or "Total World".
-collate.profile("Total World")
-#collate.profile("US")
-#collate.profile("France")
-#collate.profile("Mexico")
-#collate.profile("Germany")
-#collate.profile("United Arab Emirates")
-#collate.profile("United Kingdom")
-#collate.profile("Sweden")
-#collate.profile("Australia")
-#collate.profile("Algeria")
-#collate.profile("Vietnam")
-#collate.profile("Azerbaijan")
+profile("Total World")
+#profile("US")
+#profile("France")
+#profile("Mexico")
+#profile("Germany")
+#profile("United Arab Emirates")
+#profile("United Kingdom")
+#profile("Sweden")
+#profile("Australia")
+#profile("Algeria")
+#profile("Vietnam")
+#profile("Azerbaijan")

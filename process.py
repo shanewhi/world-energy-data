@@ -6,7 +6,6 @@
 #@author: shanewhite
 """
 
-
 ###############################################################################
 #
 # Module: process.py
@@ -16,15 +15,141 @@
 #
 ###############################################################################
 
-
 # Import Python modules.
 import math
 import pandas as pd
 
-
 # Import user modules.
 import user_globals
+###############################################################################
+#
+# Function: carbon_emissions()
+#
+# Description:
+# Calculate carbon emission annual shares and change.
+#
+###############################################################################
+def carbon_emissions(cdata):
+    # Calculate shares and changes.
+    min_year = min(cdata.index)
+    max_year = max(cdata.index)
+    change_yrs = range(min_year + 1, max_year + 1)
+    for yr in change_yrs:
+            cdata.loc[yr, "FF And Cement Change"] = \
+            cdata.loc[yr, "FF And Cement"] - cdata.loc[yr - 1, "FF And Cement"]
+    cdata["Total"] = cdata["FF And Cement"] + cdata["Land Use Change"]
 
+    cdata["Fossil Fuel Share"] = (cdata["Coal"] + cdata["Oil"] + \
+                                       cdata["Gas"] + cdata["Flaring"]) / \
+                                       cdata["Total"] * 100
+    cdata["Cement Share"] = cdata["Cement"] / cdata["Total"] * 100
+    cdata["Other Share"] = cdata["Other"] / cdata["Total"] * 100
+    cdata["Land Use Change Share"] = cdata["Land Use Change"] / \
+                                           cdata["Total"] * 100
+    cdata["Coal Share"] = cdata["Coal"] / cdata["Total"] * 100
+    cdata["Oil Share"] = cdata["Oil"] / cdata["Total"] * 100
+    cdata["Gas Share"] = cdata["Gas"] / cdata["Total"] * 100
+    cdata["Flaring Share"] = cdata["Flaring"] / cdata["Total"] * 100
+
+    # Display sum of carbon budget sum for every year; not just a summary.
+    print("Annual Total of Carbon Budget Shares = \n")
+    with pd.option_context(
+            'display.max_rows',
+            None,
+            'display.max_columns',
+            None
+            ):
+        print(cdata["Fossil Fuel Share"] + cdata["Cement Share"] + \
+              cdata["Other Share"] + cdata["Land Use Change Share"])
+
+    final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-1])
+    final_cement_co2_share = round(cdata["Cement Share"].iloc[-1])
+    final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-1])
+    final_other_co2_share = round(cdata["Other Share"].iloc[-1])
+
+    # Generate dataframe reuired for treemap plot.
+    emission_category = pd.DataFrame(columns = [
+                                               "Name",
+                                               "Value",
+                                               "Color",
+                                               "Label"
+                                               ])
+
+    emission_category["Name"] = [
+                                "Fossil Fuels",
+                                "Cement",
+                                "Land Use Change",
+                                "Other"
+                                ]
+
+    emission_category["Value"] = [
+                                 final_ff_co2_share,
+                                 final_cement_co2_share,
+                                 final_luc_co2_share,
+                                 final_other_co2_share
+                                 ]
+    emission_category["Color"] = [
+                                 user_globals.Color.FOSSIL_FUELS.value,
+                                 user_globals.Color.CEMENT.value,
+                                 user_globals.Color.LUC.value,
+                                 user_globals.Color.OTHER.value
+                                 ]
+    emission_category["Label"] = get_treemap_labels(
+                                                   emission_category["Name"],
+                                                   emission_category["Value"],
+                                                   ratio = 20
+                                                   )
+
+    final_coal_co2_share = round(cdata["Coal Share"].iloc[-1])
+    final_oil_co2_share = round(cdata["Oil Share"].iloc[-1])
+    final_gas_co2_share = round(cdata["Gas Share"].iloc[-1])
+    final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-1])
+
+    # Generate dataframe reuired for treemap plot.
+    emission = pd.DataFrame(columns = [
+                                      "Name",
+                                      "Value",
+                                      "Color",
+                                      "Label"
+                                      ])
+
+    emission["Name"] = [
+                       "Coal",
+                       "Oil",
+                       "Gas",
+                       "Flaring",
+                       "Cement",
+                       "Land Use Change",
+                       "Other"
+                       ]
+
+    emission["Value"] = [
+                        final_coal_co2_share,
+                        final_oil_co2_share,
+                        final_gas_co2_share,
+                        final_flaring_co2_share,
+                        final_cement_co2_share,
+                        final_luc_co2_share,
+                        final_other_co2_share
+                        ]
+    emission["Color"] = [
+                        user_globals.Color.COAL.value,
+                        user_globals.Color.OIL.value,
+                        user_globals.Color.GAS.value,
+                        user_globals.Color.FLARING.value,
+                        user_globals.Color.CEMENT.value,
+                        user_globals.Color.LUC.value,
+                        user_globals.Color.OTHER.value
+                        ]
+    #print(emission["Name"])
+  #  print(emission_category["Value"])
+
+    emission["Label"] = get_treemap_labels(
+                                          emission["Name"],
+                                          emission["Value"],
+                                          ratio = 5
+                                          )
+    return(emission_category, emission)
 
 ###############################################################################
 #
@@ -108,14 +233,14 @@ def primary_energy(energy_system):
                     energy_system.primary_PJ.loc[yr - 1, "Solar"]
 
     # Bio Geo and Other.
-    if not energy_system.primary_PJ["Bio Geo and Other"].empty:
-        energy_system.primary_PJ["Bio Geo and Other Share"] = \
-            (energy_system.primary_PJ["Bio Geo and Other"] /
+    if not energy_system.primary_PJ["Bio, Geo and Other"].empty:
+        energy_system.primary_PJ["Bio, Geo and Other Share"] = \
+            (energy_system.primary_PJ["Bio, Geo and Other"] /
             energy_system.primary_PJ["Total"]) * 100
         for yr in change_yrs:
-            energy_system.primary_PJ.loc[yr, "Bio Geo and Other Change"] = \
-                energy_system.primary_PJ.loc[yr, "Bio Geo and Other"] - \
-                energy_system.primary_PJ.loc[yr - 1, "Bio Geo and Other"]
+            energy_system.primary_PJ.loc[yr, "Bio, Geo and Other Change"] = \
+                energy_system.primary_PJ.loc[yr, "Bio, Geo and Other"] - \
+                energy_system.primary_PJ.loc[yr - 1, "Bio, Geo and Other"]
 
     # Fossil Fuels.
     if not energy_system.primary_PJ["Fossil Fuels"].empty:
@@ -140,139 +265,127 @@ def primary_energy(energy_system):
     # To enable plotting of shares for most recent year, organise into
     # dataframes.
     final_ff_primary_share = \
-        energy_system.primary_PJ["Fossil Fuels Share"].iloc[-1]
+                    energy_system.primary_PJ["Fossil Fuels Share"].iloc[-1]
     final_renewables_primary_share = \
-        energy_system.primary_PJ["Renewables Share"].iloc[-1]
+                    energy_system.primary_PJ["Renewables Share"].iloc[-1]
     final_coal_primary_share = \
-        energy_system.primary_PJ["Coal Share"].iloc[-1]
+                    energy_system.primary_PJ["Coal Share"].iloc[-1]
     final_oil_primary_share = \
-        energy_system.primary_PJ["Oil Share"].iloc[-1]
+                    energy_system.primary_PJ["Oil Share"].iloc[-1]
     final_gas_primary_share = \
-        energy_system.primary_PJ["Gas Share"].iloc[-1]
+                    energy_system.primary_PJ["Gas Share"].iloc[-1]
     final_nuclear_primary_share = \
-        energy_system.primary_PJ["Nuclear Share"].iloc[-1]
+                    energy_system.primary_PJ["Nuclear Share"].iloc[-1]
     final_hydro_primary_share = \
-        energy_system.primary_PJ["Hydro Share"].iloc[-1]
+                    energy_system.primary_PJ["Hydro Share"].iloc[-1]
     final_wind_primary_share = \
-        energy_system.primary_PJ["Wind Share"].iloc[-1]
+                    energy_system.primary_PJ["Wind Share"].iloc[-1]
     final_solar_primary_share = \
-        energy_system.primary_PJ["Solar Share"].iloc[-1]
+                    energy_system.primary_PJ["Solar Share"].iloc[-1]
     final_bio_geo_other_primary_share = \
-        energy_system.primary_PJ["Bio Geo and Other Share"].iloc[-1]
+        energy_system.primary_PJ["Bio, Geo and Other Share"].iloc[-1]
 
     category_name = [
-        "Fossil Fuels",
-        "Nuclear",
-        "Renewables",
-        "Bio Geo and Other"
-        ]
+                    "Fossil Fuels",
+                    "Nuclear",
+                    "Renewables",
+                    "Bio, Geo and Other"
+                    ]
     fuel_name = [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Bio Geo and Other"
-        ]
+                "Coal",
+                "Oil",
+                "Gas",
+                "Nuclear",
+                "Hydro",
+                "Wind",
+                "Solar",
+                "Bio, Geo and Other"
+                ]
+    # Process categories.
     final_category_share = [
-        final_ff_primary_share,
-        final_nuclear_primary_share,
-        final_renewables_primary_share,
-        final_bio_geo_other_primary_share
-        ]
-    final_fuel_share = [
-        final_coal_primary_share,
-        final_oil_primary_share,
-        final_gas_primary_share,
-        final_nuclear_primary_share,
-        final_hydro_primary_share,
-        final_wind_primary_share,
-        final_solar_primary_share,
-        final_bio_geo_other_primary_share
-        ]
+                           final_ff_primary_share,
+                           final_nuclear_primary_share,
+                           final_renewables_primary_share,
+                           final_bio_geo_other_primary_share
+                           ]
     category_color = [
-        user_globals.Color.FOSSIL_FUELS.value,
-        user_globals.Color.NUCLEAR.value,
-        user_globals.Color.RENEWABLES.value,
-        user_globals.Color.OTHER.value
-        ]
-    fuel_color = [
-        user_globals.Color.COAL.value,
-        user_globals.Color.OIL.value,
-        user_globals.Color.GAS.value,
-        user_globals.Color.NUCLEAR.value,
-        user_globals.Color.HYDRO.value,
-        user_globals.Color.WIND.value,
-        user_globals.Color.SOLAR.value,
-        user_globals.Color.OTHER.value
-        ]
-
-    # Filter out shares that are NaN or < 1%.
+                     user_globals.Color.FOSSIL_FUELS.value,
+                     user_globals.Color.NUCLEAR.value,
+                     user_globals.Color.RENEWABLES.value,
+                     user_globals.Color.OTHER.value
+                     ]
+    # Filter out shares that are NaN or < 1%, and round values for plotting.
     filtered_final_category_share = []
     filtered_category_name = []
     filtered_category_color = []
-    filtered_final_fuel_share = []
-    filtered_fuel_name = []
-    filtered_fuel_color = []
     for i in range(len(final_category_share)):
         if not (math.isnan(final_category_share[i]) or
                 final_category_share[i] < 1):
             filtered_category_name.append(category_name[i])
-            filtered_final_category_share.append \
-                (int(round(final_category_share[i], 0)))
+            filtered_final_category_share.append(round(
+                                                      final_category_share[i]))
             filtered_category_color.append(category_color[i])
-    for i in range(len(final_fuel_share)):
-        if not (math.isnan(final_fuel_share[i]) or final_fuel_share[i] < 1):
-            filtered_fuel_name.append(fuel_name[i])
-            filtered_final_fuel_share.append(int(round(final_fuel_share[i],
-                                                       0)))
-            filtered_fuel_color.append(fuel_color[i])
-
+    # Generate dataframe reuired for treemap plot.
     df_category = pd.DataFrame(columns = [
-        "Name",
-        "Value",
-        "Color"
-        "Label"])
+                                         "Name",
+                                         "Value",
+                                         "Color"
+                                         "Label"
+                                         ])
     df_category["Name"] = filtered_category_name
     df_category["Value"] = filtered_final_category_share
     df_category["Color"] = filtered_category_color
-
+    df_category["Label"] = get_treemap_labels(
+                                             df_category["Name"],
+                                             df_category["Value"],
+                                             20
+                                             )
+    # Process fuels.
+    final_fuel_share = [
+                       final_coal_primary_share,
+                       final_oil_primary_share,
+                       final_gas_primary_share,
+                       final_nuclear_primary_share,
+                       final_hydro_primary_share,
+                       final_wind_primary_share,
+                       final_solar_primary_share,
+                       final_bio_geo_other_primary_share
+                       ]
+    fuel_color = [
+                 user_globals.Color.COAL.value,
+                 user_globals.Color.OIL.value,
+                 user_globals.Color.GAS.value,
+                 user_globals.Color.NUCLEAR.value,
+                 user_globals.Color.HYDRO.value,
+                 user_globals.Color.WIND.value,
+                 user_globals.Color.SOLAR.value,
+                 user_globals.Color.OTHER.value
+                 ]
+    # Filter out shares that are NaN or < 1%.
+    filtered_final_fuel_share = []
+    filtered_fuel_name = []
+    filtered_fuel_color = []
+    for i in range(len(final_fuel_share)):
+        if not (math.isnan(final_fuel_share[i]) or
+                final_fuel_share[i] < 1):
+            filtered_fuel_name.append(fuel_name[i])
+            filtered_final_fuel_share.append(round(final_fuel_share[i]))
+            filtered_fuel_color.append(fuel_color[i])
+    # Generate dataframe reuired for treemap plot.
     df_fuel = pd.DataFrame(columns = [
-        "Name",
-        "Value",
-        "Color"
-        "Label"])
+                                     "Name",
+                                     "Value",
+                                     "Color"
+                                     "Label"
+                                     ])
     df_fuel["Name"] = filtered_fuel_name
     df_fuel["Value"] = filtered_final_fuel_share
     df_fuel["Color"] = filtered_fuel_color
-
-    # Configure labels to suit narrow treemap leafs caused by large ratios
-    # of data Values.
-    if (df_category["Value"].max() / df_category["Value"].min()) >= 20:
-        df_category.loc[df_category["Value"] < 20, ["Label"]] = \
-            df_category["Value"].astype(str) + "%"
-        df_category.loc[df_category["Value"] >= 20, ["Label"]] = \
-            df_category["Name"].astype(str) + " " + \
-            df_category["Value"].astype(str) + "%"
-    else:
-        df_category["Label"] = \
-            df_category["Name"].astype(str) + " " + \
-            df_category["Value"].astype(str) + "%"
-
-    # Configure labels to suit narrow treemap leafs caused by large ratios
-    # of data Values.
-    if (df_fuel["Value"].max() / df_fuel["Value"].min()) >= 5:
-        df_fuel.loc[df_fuel["Value"] < 5, ["Label"]] = \
-            df_fuel["Value"].astype(str) + "%"
-        df_fuel.loc[df_fuel["Value"] >= 5, ["Label"]] = \
-            df_fuel["Name"].astype(str) + " " + \
-            df_fuel["Value"].astype(str) + "%"
-    else:
-        df_fuel["Label"] = \
-            df_fuel["Name"].astype(str) + " " + \
-            df_fuel["Value"].astype(str) + "%"
+    df_fuel["Label"] = get_treemap_labels(
+                                         df_fuel["Name"],
+                                         df_fuel["Value"],
+                                         5
+                                         )
 
     energy_system.primary_category_shares = df_category
     energy_system.primary_fuel_shares = df_fuel
@@ -368,14 +481,14 @@ def electricity(energy_system):
                     energy_system.elecprod_TWh.loc[yr - 1, "Solar"]
 
     # Bio Geo and Other.
-    if not energy_system.elecprod_TWh["Bio Geo and Other"].empty:
-        energy_system.elecprod_TWh["Bio Geo and Other Share"] = \
-            (energy_system.elecprod_TWh["Bio Geo and Other"] /
+    if not energy_system.elecprod_TWh["Bio, Geo and Other"].empty:
+        energy_system.elecprod_TWh["Bio, Geo and Other Share"] = \
+            (energy_system.elecprod_TWh["Bio, Geo and Other"] /
             energy_system.elecprod_TWh["Total"]) * 100
         for yr in change_yrs:
-            energy_system.elecprod_TWh.loc[yr, "Bio Geo and Other Change"] = \
-                energy_system.elecprod_TWh.loc[yr, "Bio Geo and Other"] - \
-                energy_system.elecprod_TWh.loc[yr - 1, "Bio Geo and Other"]
+            energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other Change"] = \
+                energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other"] - \
+                energy_system.elecprod_TWh.loc[yr - 1, "Bio, Geo and Other"]
 
     # Fossil Fuels.
     if not energy_system.elecprod_TWh["Fossil Fuels"].empty:
@@ -410,136 +523,121 @@ def electricity(energy_system):
     # To enable plotting of shares for most recent year, organise into
     # dataframes.
     final_ff_elec_share = \
-        energy_system.elecprod_TWh["Fossil Fuels Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Fossil Fuels Share"].iloc[-1]
     final_renewables_elec_share = \
-        energy_system.elecprod_TWh["Renewables Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Renewables Share"].iloc[-1]
     final_coal_elec_share = \
-        energy_system.elecprod_TWh["Coal Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Coal Share"].iloc[-1]
     final_oil_elec_share = \
-        energy_system.elecprod_TWh["Oil Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Oil Share"].iloc[-1]
     final_gas_elec_share = \
-        energy_system.elecprod_TWh["Gas Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Gas Share"].iloc[-1]
     final_nuclear_elec_share = \
-        energy_system.elecprod_TWh["Nuclear Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Nuclear Share"].iloc[-1]
     final_hydro_elec_share = \
-        energy_system.elecprod_TWh["Hydro Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Hydro Share"].iloc[-1]
     final_wind_solar_elec_share = \
-        energy_system.elecprod_TWh["Wind and Solar Share"].iloc[-1]
+                    energy_system.elecprod_TWh["Wind and Solar Share"].iloc[-1]
     final_bio_geo_other_elec_share = \
-        energy_system.elecprod_TWh["Bio Geo and Other Share"].iloc[-1]
+                energy_system.elecprod_TWh["Bio, Geo and Other Share"].iloc[-1]
 
+    # Process categories.
     category_name = [
-        "Fossil Fuels",
-        "Nuclear",
-        "Renewables",
-        "Bio Geo and Other"
-        ]
-    fuel_name = [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind & Solar",
-        "Bio Geo and Other"
-        ]
+                    "Fossil Fuels",
+                    "Nuclear",
+                    "Renewables",
+                    "Bio, Geo and Other"
+                    ]
     final_category_share = [
-        final_ff_elec_share,
-        final_nuclear_elec_share,
-        final_renewables_elec_share,
-        final_bio_geo_other_elec_share
-        ]
-    final_fuel_share = [
-        final_coal_elec_share,
-        final_oil_elec_share,
-        final_gas_elec_share,
-        final_nuclear_elec_share,
-        final_hydro_elec_share,
-        final_wind_solar_elec_share,
-        final_bio_geo_other_elec_share
-        ]
+                           final_ff_elec_share,
+                           final_nuclear_elec_share,
+                           final_renewables_elec_share,
+                           final_bio_geo_other_elec_share
+                           ]
     category_color = [
-        user_globals.Color.FOSSIL_FUELS.value,
-        user_globals.Color.NUCLEAR.value,
-        user_globals.Color.RENEWABLES.value,
-        user_globals.Color.OTHER.value
-        ]
-    fuel_color = [
-        user_globals.Color.COAL.value,
-        user_globals.Color.OIL.value,
-        user_globals.Color.GAS.value,
-        user_globals.Color.NUCLEAR.value,
-        user_globals.Color.HYDRO.value,
-        user_globals.Color.WIND_AND_SOLAR.value,
-        user_globals.Color.OTHER.value
-        ]
-
-    # Filter out shares that are NaN or < 1%.
+                     user_globals.Color.FOSSIL_FUELS.value,
+                     user_globals.Color.NUCLEAR.value,
+                     user_globals.Color.RENEWABLES.value,
+                     user_globals.Color.OTHER.value
+                     ]
+    # Filter out shares that are NaN or < 1%. Round values for plotting.
     filtered_final_category_share = []
     filtered_category_name = []
     filtered_category_color = []
-    filtered_final_fuel_share = []
-    filtered_fuel_name = []
-    filtered_fuel_color = []
     for i in range(len(final_category_share)):
         if not (math.isnan(final_category_share[i]) or
                 final_category_share[i] < 1):
             filtered_category_name.append(category_name[i])
-            filtered_final_category_share.append \
-                (int(round(final_category_share[i], 0)))
+            filtered_final_category_share.append(
+                                                round(final_category_share[i]))
             filtered_category_color.append(category_color[i])
-    for i in range(len(final_fuel_share)):
-        if not (math.isnan(final_fuel_share[i]) or final_fuel_share[i] < 1):
-            filtered_fuel_name.append(fuel_name[i])
-            filtered_final_fuel_share.append(int(round(final_fuel_share[i],
-                                                       0)))
-            filtered_fuel_color.append(fuel_color[i])
-
+    # Generate dataframe reuired for treemap plot.
     df_category = pd.DataFrame(columns = [
-        "Name",
-        "Value",
-        "Color"
-        "Label"]
-        )
+                                         "Name",
+                                         "Value",
+                                         "Color"
+                                         "Label"
+                                         ])
     df_category["Name"] = filtered_category_name
     df_category["Value"] = filtered_final_category_share
     df_category["Color"] = filtered_category_color
-
+    df_category["Label"] = get_treemap_labels(
+                                             df_category["Name"],
+                                             df_category["Value"],
+                                             20
+                                             )
+    # Process fuels.
+    fuel_name = [
+                "Coal",
+                "Oil",
+                "Gas",
+                "Nuclear",
+                "Hydro",
+                "Wind & Solar",
+                "Bio, Geo and Other"
+                ]
+    final_fuel_share = [
+                       final_coal_elec_share,
+                       final_oil_elec_share,
+                       final_gas_elec_share,
+                       final_nuclear_elec_share,
+                       final_hydro_elec_share,
+                       final_wind_solar_elec_share,
+                       final_bio_geo_other_elec_share
+                       ]
+    fuel_color = [
+                 user_globals.Color.COAL.value,
+                 user_globals.Color.OIL.value,
+                 user_globals.Color.GAS.value,
+                 user_globals.Color.NUCLEAR.value,
+                 user_globals.Color.HYDRO.value,
+                 user_globals.Color.WIND_AND_SOLAR.value,
+                 user_globals.Color.OTHER.value
+                 ]
+    # Filter out shares that are NaN or < 1%. Round values for plotting.
+    filtered_final_fuel_share = []
+    filtered_fuel_name = []
+    filtered_fuel_color = []
+    for i in range(len(final_fuel_share)):
+        if not (math.isnan(final_fuel_share[i]) or final_fuel_share[i] < 1):
+            filtered_fuel_name.append(fuel_name[i])
+            filtered_final_fuel_share.append(round(final_fuel_share[i]))
+            filtered_fuel_color.append(fuel_color[i])
+    # Generate dataframe reuired for treemap plot.
     df_fuel = pd.DataFrame(columns = [
-        "Name",
-        "Value",
-        "Color"
-        "Label"]
-        )
+                                     "Name",
+                                     "Value",
+                                     "Color"
+                                     "Label"
+                                     ])
     df_fuel["Name"] = filtered_fuel_name
     df_fuel["Value"] = filtered_final_fuel_share
     df_fuel["Color"] = filtered_fuel_color
-
-    # Configure labels to suit narrow treemap leafs caused by large ratios
-    # of data Values.
-    if (df_category["Value"].max() / df_category["Value"].min()) >= 20:
-        df_category.loc[df_category["Value"] < 20, ["Label"]] = \
-            df_category["Value"].astype(str) + "%"
-        df_category.loc[df_category["Value"] >= 20, ["Label"]] = \
-            df_category["Name"].astype(str) + " " + \
-            df_category["Value"].astype(str) + "%"
-    else:
-        df_category["Label"] = \
-            df_category["Name"].astype(str) + " " + \
-            df_category["Value"].astype(str) + "%"
-
-    # Configure labels to suit narrow treemap leafs caused by large ratios
-    # of data Values.
-    if (df_fuel["Value"].max() / df_fuel["Value"].min()) >= 5:
-        df_fuel.loc[df_fuel["Value"] < 5, ["Label"]] = \
-            df_fuel["Value"].astype(str) + "%"
-        df_fuel.loc[df_fuel["Value"] >= 5, ["Label"]] = \
-            df_fuel["Name"].astype(str) + " " + \
-            df_fuel["Value"].astype(str) + "%"
-    else:
-        df_fuel["Label"] = \
-            df_fuel["Name"].astype(str) + " " + \
-            df_fuel["Value"].astype(str) + "%"
+    df_fuel["Label"] = get_treemap_labels(
+                                             df_fuel["Name"],
+                                             df_fuel["Value"],
+                                             5
+                                             )
 
     energy_system.elecprod_final_category_shares = df_category
     energy_system.elecprod_final_fuel_shares = df_fuel
@@ -576,6 +674,10 @@ def consumption(energy_system):
         energy_system.consumption_PJ["Heat"] / \
         energy_system.consumption_PJ["Total"] * 100
 
+    print("Most recent year Total Energy Consumption (IEA) = " + \
+          str(int(energy_system.consumption_PJ["Total"].iloc[-1])) + \
+          "PJ\n")
+
     change_yrs = range(user_globals.Constant.TFC_START_YEAR.value + 1,
                        user_globals.Constant.TFC_END_YEAR.value + 1)
 
@@ -604,7 +706,6 @@ def consumption(energy_system):
 
    # To enable plotting of shares for most recent year, organise into
    # dataframes.
-
     final_coal_consumption_share = \
         energy_system.consumption_PJ["Coal Share"].iloc[-1]
     final_oil_consumption_share = \
@@ -619,35 +720,33 @@ def consumption(energy_system):
         energy_system.consumption_PJ["Electricity Share"].iloc[-1]
     final_heat_consumption_share = \
         energy_system.consumption_PJ["Heat Share"].iloc[-1]
-
     name = [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Wind Solar Etc Share",
-        "Biofuels & Waste",
-        "Electricity",
-        "Heat"
-        ]
+           "Coal",
+           "Oil",
+           "Gas",
+           "Wind Solar Etc Share",
+           "Biofuels & Waste",
+           "Electricity",
+           "Heat"
+           ]
     final_share = [
-        final_coal_consumption_share,
-        final_oil_consumption_share,
-        final_gas_consumption_share,
-        final_wse_consumption_share,
-        final_bio_waste_consumption_share,
-        final_elec_consumption_share,
-        final_heat_consumption_share
-        ]
+                  final_coal_consumption_share,
+                  final_oil_consumption_share,
+                  final_gas_consumption_share,
+                  final_wse_consumption_share,
+                  final_bio_waste_consumption_share,
+                  final_elec_consumption_share,
+                  final_heat_consumption_share
+                  ]
     color = [
-        user_globals.Color.COAL.value,
-        user_globals.Color.OIL.value,
-        user_globals.Color.GAS.value,
-        user_globals.Color.WIND_AND_SOLAR.value,
-        user_globals.Color.BIOFUELS_AND_WASTE.value,
-        user_globals.Color.ELECTRICITY.value,
-        user_globals.Color.HEAT.value
-        ]
-    
+            user_globals.Color.COAL.value,
+            user_globals.Color.OIL.value,
+            user_globals.Color.GAS.value,
+            user_globals.Color.WIND_AND_SOLAR.value,
+            user_globals.Color.BIOFUELS_AND_WASTE.value,
+            user_globals.Color.ELECTRICITY.value,
+            user_globals.Color.HEAT.value
+            ]
     # Filter out shares that are NaN or < 1%.
     filtered_share = []
     filtered_name = []
@@ -655,9 +754,9 @@ def consumption(energy_system):
     for i in range(len(final_share)):
         if not (math.isnan(final_share[i]) or final_share[i] < 1):
             filtered_name.append(name[i])
-            filtered_share.append(int(round(final_share[i], 0)))
+            filtered_share.append(round(final_share[i]))
             filtered_color.append(color[i])
-    
+    # Generate dataframe reuired for treemap plot.
     df = pd.DataFrame(columns = [
         "Name",
         "Value",
@@ -667,18 +766,34 @@ def consumption(energy_system):
     df["Name"] = filtered_name
     df["Value"] = filtered_share
     df["Color"] = filtered_color
-
-    # Configure labels to suit narrow treemap leafs caused by large ratios
-    # of data Values.
-    if (df["Value"].max() / df["Value"].min()) >= 20:
-        df.loc[df["Value"] < 20, ["Label"]] = \
-            df["Value"].astype(str) + "%"
-        df.loc[df["Value"] >= 20, ["Label"]] = \
-            df["Name"].astype(str) + " " + \
-            df["Value"].astype(str) + "%"
-    else:
-        df["Label"] = \
-            df["Name"].astype(str) + " " + \
-            df["Value"].astype(str) + "%"
-
+    df["Label"] = get_treemap_labels(
+                                    df["Name"],
+                                    df["Value"],
+                                    20
+                                    )
     energy_system.consumption_final_shares = df
+
+
+###############################################################################
+#
+# Function: get_treemap_labels()
+#
+# Description:
+# Configures label to suit narrow treemap leafs caused by large ratios
+# of data values.
+#
+###############################################################################
+def get_treemap_labels(names, values, ratio):
+    labels = []
+    if (max(values) / min(values)) >= ratio:
+        for i in range(len(values)):
+            if values[i] < ratio:
+                labels.append(str(values[i]) + "%")
+            else:
+                labels.append(names[i] + " " + \
+                              str(values[i]) + "%")
+    else:
+        for i in range(len(values)):
+            labels.append(names[i] + " " + \
+                          str(values[i]) + "%")
+    return(labels)

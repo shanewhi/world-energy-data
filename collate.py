@@ -6,7 +6,6 @@
 #@author: shanewhite
 """
 
-
 ###############################################################################
 #
 # Module: collate.py
@@ -16,37 +15,98 @@
 #
 ###############################################################################
 
-
 # Import Python modules.
 import pandas as pd
 import json as js
 import jmespath as jp
 import numpy as np
 
-
 # Import user modules.
 import user_globals
 import countries
 import process
-import output
 
 
 ###############################################################################
 #
-# Function: profile(country)
+# Function: import_data()
 #
 # Description:
-# Calls all functions required to profile a national enegry system.
+# Data importation differs between sources:
+# Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
+# as single files by this function.
+# The Internaitonal Energy Agency (IEA) dataset is stored in multiple JSON
+# files, and therefore country specific data is searched for within these,
+# rather than imported as a single file. This is done within the function
+# populate_energy_system().
 #
 ###############################################################################
-def profile(country):
-    country_energy_system = populate_energy_system(country)
-    # CO2 and Production don't require any processing.
+def import_data():
+    # Import Energy Institute's dataset.
+    imported_ei_data = pd.read_csv(
+        "Statistical Review of World Energy Narrow File.csv",
+    	index_col = ["Year"],
+        usecols = ["Country", "Year", "Var", "Value"]
+        )
+    
+    # Import Gobal Carbon Project dataset.
+    gcp_ff_emissions = pd.read_excel(
+        io = "Global_Carbon_Budget_2023v1.1.xlsx",
+        sheet_name = "Fossil Emissions by Category",
+        header = 8,
+        names = ["FF And Cement", "Coal", "Oil", "Gas", "Cement",
+                 "Flaring", "Other", "Per Capita"],
+        index_col = 0,
+        )
+    gcp_budget = pd.read_excel(
+        io = "Global_Carbon_Budget_2023v1.1.xlsx",
+        sheet_name = "Global Carbon Budget",
+        header = 21,
+        names = ["FF And Cement", "Land Use Change",
+                 "Atmospheric Growth", "Ocean Sink", "Land Sink",
+                 "Cement Carbonation Sink", "Budget Imbalance"],
+        index_col = 0,
+        )
+    gcp_budget = gcp_budget.mul(user_globals.Constant.G_TO_M.value)
+
+    gcp_ff_emissions = gcp_ff_emissions.drop(columns = ["Per Capita"])
+    gcp_budget = gcp_budget.drop(columns = ["FF And Cement"])
+    gcp_expanded_budget = gcp_ff_emissions.join(gcp_budget)
+
+    return(imported_ei_data, gcp_expanded_budget)
+
+###############################################################################
+#
+# Function: organise_gcp_data()
+#
+# Description:
+# Organises Global Carbon Project data into a user defined class.
+#
+###############################################################################
+def organise_gcp_data(data):
+    emission_categories, emissions = process.carbon_emissions(data)
+    country = "World"
+    return(user_globals.Global_Carbon(
+                                     country,
+                                     data,
+                                     emission_categories,
+                                     emissions)
+                                     )
+
+###############################################################################
+#
+# Function: organise_energy()
+#
+# Description:
+# Calls all functions required to organise data for a specified energy system.
+#
+###############################################################################
+def organise_energy(country, ei_data):
+    country_energy_system = populate_energy_system(country, ei_data)
     process.primary_energy(country_energy_system)
     process.electricity(country_energy_system)
     process.consumption(country_energy_system)
-    output.charts(country_energy_system)
-
+    return(country_energy_system)
 
 ###############################################################################
 #
@@ -58,8 +118,7 @@ def profile(country):
 # Collates total final consumption data using the IEA's dataset.
 #
 ###############################################################################
-def populate_energy_system(country):
-    ei_data = user_globals.ei_data_import
+def populate_energy_system(country, ei_data):
     if country in ei_data["Country"].values:
         country_data = ei_data.loc[ei_data["Country"] == country]
 
@@ -109,7 +168,7 @@ def populate_energy_system(country):
         primary_PJ = pd.DataFrame(index = total_primary_EJ.index,
             columns = \
             ["Coal", "Oil", "Gas", "Nuclear", "Hydro", "Wind", "Solar",
-             "Bio Geo and Other", "Fossil Fuels", "Renewables", "Total"])
+             "Bio, Geo and Other", "Fossil Fuels", "Renewables", "Total"])
 
         primary_PJ["Coal"] = country_data.loc[country_data["Var"] ==
                                         "coalcons_ej", "Value"] * \
@@ -132,7 +191,7 @@ def populate_energy_system(country):
         primary_PJ["Solar"] = country_data.loc[country_data["Var"] ==
                                         "solar_ej", "Value"] * \
                                         user_globals.Constant.EJ_TO_PJ.value
-        primary_PJ["Bio Geo and Other"] = \
+        primary_PJ["Bio, Geo and Other"] = \
             country_data.loc[country_data["Var"] == "biogeo_ej", "Value"] * \
                                     user_globals.Constant.EJ_TO_PJ.value + \
                                     country_data.loc[country_data["Var"] ==
@@ -158,7 +217,7 @@ def populate_energy_system(country):
         elecprod_TWh = pd.DataFrame(index = total_elecprod_TWh.index,
             columns = \
             ["Coal", "Oil", "Gas", "Nuclear", "Hydro", "Wind", "Solar",
-             "Bio Geo Other", "Fossil Fuels", "Wind and Solar",
+             "Bio, Geo Other", "Fossil Fuels", "Wind and Solar",
              "Renewables", "Total"])
 
         elecprod_TWh["Coal"] = country_data.loc[country_data["Var"] ==
@@ -175,7 +234,7 @@ def populate_energy_system(country):
                                               "wind_twh", "Value"]
         elecprod_TWh["Solar"] = country_data.loc[country_data["Var"] ==
                                               "solar_twh", "Value"]
-        elecprod_TWh["Bio Geo and Other"] = \
+        elecprod_TWh["Bio, Geo and Other"] = \
             country_data.loc[country_data["Var"] == "biogeo_twh", "Value"] + \
             country_data.loc[country_data["Var"] == \
                              "electbyfuel_other", "Value"]
@@ -206,9 +265,9 @@ def populate_energy_system(country):
                                        0, elecprod_TWh["Wind"])
         elecprod_TWh["Solar"] = np.where(elecprod_TWh["Solar"] < 0.1,
                                        0, elecprod_TWh["Solar"])
-        elecprod_TWh["Bio Geo and Other"] = \
-            np.where(elecprod_TWh["Bio Geo and Other"] < 0.1,
-            0, elecprod_TWh["Bio Geo and Other"])
+        elecprod_TWh["Bio, Geo and Other"] = \
+            np.where(elecprod_TWh["Bio, Geo and Other"] < 0.1,
+            0, elecprod_TWh["Bio, Geo and Other"])
     else:
         print("Country not in EI data.\n")
 
@@ -308,15 +367,15 @@ def populate_energy_system(country):
 
     # Return national energy system data as object.
     return (user_globals.Energy_System(
-            country,
-            co2_Mt,
-            ffprod_PJ,
-            primary_PJ,
-            pd.DataFrame(), # Populated in process.py
-            pd.DataFrame(), # Populated in process.py
-            elecprod_TWh,
-            pd.DataFrame(), # Populated in process.py
-            pd.DataFrame(), # Populated in process.py
-            consumption_PJ,
-            pd.DataFrame()) # Populated in process.py
-            )
+                                    country,
+                                    co2_Mt,
+                                    ffprod_PJ,
+                                    primary_PJ,
+                                    pd.DataFrame(), # Populated in process.py
+                                    pd.DataFrame(), # Populated in process.py
+                                    elecprod_TWh,
+                                    pd.DataFrame(), # Populated in process.py
+                                    pd.DataFrame(), # Populated in process.py
+                                    consumption_PJ,
+                                    pd.DataFrame()) # Populated in process.py
+                                    )
