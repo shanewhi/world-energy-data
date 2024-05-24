@@ -85,7 +85,7 @@ class Constant(Enum):
     PRIMARY_ENERGY_CHANGE_START_YEAR = 1966
     ELEC_CHANGE_START_YEAR = 1995
     TFC_START_YEAR = 1990
-    TFC_END_YEAR = 1991
+    TFC_END_YEAR = 2021
 
     # FONT SIZES:
     # 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
