@@ -1,15 +1,18 @@
 Purpose:
 -
-Python script to create charts of the trends of fuels in energy systems
-of countries and the world. This will be used to generate content at 
-https://www.worldenergydata.org, and replace the spreadsheet currently
-used.
+Python script to create charts of the trends of global carbon dioxide
+emissions, and energy systems of countries and the world. This will be
+used to generate content at https://www.worldenergydata.org,
+replacing the spreadsheet currently used.
 
 Required Input:
 -
-https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
+1. https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
 (from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
-and IEA annual energy balances in JSON format.
+2. IEA annual energy balances in JSON format (included in the latest release of this code)
+3. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
+   (included in the latest release of this code).
+
 
 
 Consists of the following files:
