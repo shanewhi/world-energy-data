@@ -10,7 +10,7 @@
 import collate
 import output
 
-###############################################################################
+########################################################################################
 #
 # Application world_energy_data.py
 #
@@ -57,7 +57,7 @@ import output
 #
 # Output(s): Charts and debug text to std out.
 #
-###############################################################################
+########################################################################################
 
 # Import data.
 # Data importation differs between sources:
@@ -73,30 +73,31 @@ ei_data, gcp_data = collate.import_data()
 global_carbon = collate.organise_gcp_data(gcp_data)
 output.global_carbon_charts(global_carbon)
 
-# Generate charts of energy system data.
+
+# Generate charts of energy system data in the following sequence:
 def profile(country):
     energy_system = collate.organise_energy(country, ei_data)
-    if energy_system.incl_ei_flag == True:
+    if energy_system.incl_ei_flag is True:
         output.ei_energy_charts(energy_system)
-    if energy_system.incl_ei_flag == True and \
-       energy_system.incl_iea_flag == True:
+    if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
         output.ei_iea_combination_charts(energy_system)
-    if energy_system.incl_iea_flag == True:
+    if energy_system.incl_iea_flag is True:
         output.iea_charts(energy_system)
-    if energy_system.incl_ei_flag == True:
+    if energy_system.incl_ei_flag is True:
         output.ei_electricity_charts(energy_system)
 
+
 # Profile following countries or "Total World".
-#profile("Total World")
-#profile("US")
+# profile("Total World")
+# profile("US")
 profile("Kenya")
-#profile("France")
-#profile("Mexico")
-#profile("Germany")
-#profile("United Arab Emirates")
-#profile("United Kingdom")
-#profile("Sweden")
-#profile("Australia")
-#profile("Algeria")
-#profile("Vietnam")
-#profile("Azerbaijan")
+# profile("France")
+# profile("Mexico")
+# profile("Germany")
+# profile("United Arab Emirates")
+# profile("United Kingdom")
+# profile("Sweden")
+# profile("Australia")
+# profile("Algeria")
+# profile("Vietnam")
+# profile("Azerbaijan")

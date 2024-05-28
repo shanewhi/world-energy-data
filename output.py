@@ -6,14 +6,14 @@ Created on Wed May  1 14:20:13 2024
 @author: shanewhite
 """
 
-###############################################################################
+########################################################################################
 #
 # Module: output.py
 #
 # Description:
 # Controls chart plotting sequence.
 #
-###############################################################################
+########################################################################################
 
 # Import Python modules.
 import matplotlib.pyplot as plt
@@ -24,18 +24,18 @@ import user_globals
 import chart
 
 
-###############################################################################
+########################################################################################
 #
 # Function: global_carbon_project_charts()
 #
 # Description:
 # Controls chart plotting of global carbon project data.
 #
-###############################################################################
+########################################################################################
 def global_carbon_charts(global_carbon):
-###############################################################################
-# CO2: Shares of most recent year.
-###############################################################################
+    ####################################################################################
+    # CO2: Shares of most recent year.
+    ####################################################################################
 
     print("\nCO2 emission treemap, most recent year sum of category shares = ")
     print(sum(global_carbon.final_category_shares["Value"]))
@@ -43,8 +43,9 @@ def global_carbon_charts(global_carbon):
     print(sum(global_carbon.final_emission_shares["Value"]))
 
     country = global_carbon.name
-    title = "Annual shares of Carbon Emissions, Year " \
-            + str(global_carbon.data["Total"].index[-1])
+    title = "Annual shares of Carbon Emissions, Year " + str(
+        global_carbon.data["Total"].index[-1]
+    )
     title_addition = ""
     title1 = "By Category"
     title2 = "By Emission Source"
@@ -60,32 +61,33 @@ the legend.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
     chart.treemap1x2(
-                    global_carbon.final_category_shares,
-                    global_carbon.final_emission_shares,
-                    title1,
-                    title2,
-                    country,
-                    title,
-                    title_addition,
-                    footer_text
-                    )
+        global_carbon.final_category_shares,
+        global_carbon.final_emission_shares,
+        title1,
+        title2,
+        country,
+        title,
+        title_addition,
+        footer_text,
+    )
     plt.show()
 
-###############################################################################
-# CO2: Fossil Fuels annual emissions
-###############################################################################
-    ffc_co2 = global_carbon.data["FF And Cement"] * \
-                user_globals.Constant.C_TO_CO2.value
-    recent_ffc_co2 = ffc_co2.loc[\
-                        user_globals.Constant.CO2_RECENT_YEAR.value : \
-                        max(ffc_co2.index)]
+    ####################################################################################
+    # CO2: Fossil Fuels annual emissions
+    ####################################################################################
+    ffc_co2 = global_carbon.data["FF And Cement"] * user_globals.Constant.C_TO_CO2.value
+    recent_ffc_co2 = ffc_co2.loc[
+        user_globals.Constant.CO2_RECENT_YEAR.value : max(ffc_co2.index)
+    ]
     co2_color = user_globals.Color.CO2.value
     country = "World"
     title = "Annual CO\u2082 Emissions from Fossil Fuels and Cement"
-    title1 = str(min(ffc_co2.index)) + \
-        " - " + str(max(ffc_co2.index))
-    title2 = str(user_globals.Constant.CO2_RECENT_YEAR.value) + \
-        " - " + str(max(recent_ffc_co2.index))
+    title1 = str(min(ffc_co2.index)) + " - " + str(max(ffc_co2.index))
+    title2 = (
+        str(user_globals.Constant.CO2_RECENT_YEAR.value)
+        + " - "
+        + str(max(recent_ffc_co2.index))
+    )
     x_axis1_interval = 50
     x_axis2_interval = 10
     ylabel = "Megatonne"
@@ -109,28 +111,32 @@ https://github.com/shanewhi/world-energy-data\n"
         x_axis2_interval,
         ylabel,
         footer_text,
-        False
-        )
+        False,
+    )
     plt.show()
 
-###############################################################################
-# CO2: Annual change.
-###############################################################################
+    ####################################################################################
+    # CO2: Annual change.
+    ####################################################################################
     series = global_carbon.data["FF And Cement Change"]
-    title = "Annual change of CO\u2082 Emissions from Fossil Fuels and \
-Cement, " + str(user_globals.Constant.CO2_CHANGE_START_YEAR.value) + \
-" - " + str(max(series.index))
+    title = (
+        "Annual change of CO\u2082 Emissions from Fossil Fuels and \
+Cement, "
+        + str(user_globals.Constant.CO2_CHANGE_START_YEAR.value)
+        + " - "
+        + str(max(series.index))
+    )
     ylabel = "Megatonnes/yr"
-    footer_text = \
-    footer_text = "Data: Global Carbon Project, Friedlingstein et al (2023), \
+    footer_text = footer_text = (
+        "Data: Global Carbon Project, Friedlingstein et al (2023), \
 https://globalcarbonbudgetdata.org/latest-data.html\n\
 Total CO\u2082 Emissions are the sum of emissions from coal, oil, gas, \
 cement, flaring, and 'other'.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
+    )
 
-    plot_start_yr = \
-        user_globals.Constant.CO2_CHANGE_START_YEAR.value
+    plot_start_yr = user_globals.Constant.CO2_CHANGE_START_YEAR.value
     color = user_globals.Color.CO2.value
 
     chart.columngrouped(
@@ -140,19 +146,16 @@ https://github.com/shanewhi/world-energy-data\n"
         footer_text,
         plot_start_yr,
         color,
-        series1 = series
-        )
+        series1=series,
+    )
     plt.show()
 
-###############################################################################
-# CO2: Coal, Oil, and Gas annual emissions.
-###############################################################################
-    coalco2 = global_carbon.data["Coal"] * \
-                user_globals.Constant.C_TO_CO2.value
-    oilco2 =  global_carbon.data["Oil"] * \
-                user_globals.Constant.C_TO_CO2.value
-    gasco2 = global_carbon.data["Gas"] * \
-                user_globals.Constant.C_TO_CO2.value
+    ####################################################################################
+    # CO2: Coal, Oil, and Gas annual emissions.
+    ####################################################################################
+    coalco2 = global_carbon.data["Coal"] * user_globals.Constant.C_TO_CO2.value
+    oilco2 = global_carbon.data["Oil"] * user_globals.Constant.C_TO_CO2.value
+    gasco2 = global_carbon.data["Gas"] * user_globals.Constant.C_TO_CO2.value
     color1 = user_globals.Color.COAL.value
     color2 = user_globals.Color.OIL.value
     color3 = user_globals.Color.GAS.value
@@ -184,35 +187,40 @@ https://github.com/shanewhi/world-energy-data\n"
         x_axis_interval,
         ylabels,
         footer_text,
-        equiv_yscale)
+        equiv_yscale,
+    )
     plt.show()
 
-###############################################################################
+
+########################################################################################
 #
 # Function: ei_energy_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only EI energy data.
 #
-###############################################################################
+########################################################################################
 def ei_energy_charts(energy_system):
     country = energy_system.name
-###############################################################################
-# PRODUCTION: Annual Fossil Fuel Production.
-###############################################################################
+    ####################################################################################
+    # PRODUCTION: Annual Fossil Fuel Production.
+    ####################################################################################
     if country == "World":
-         ylabel = "Exajoule"
-         ffprod_coal = energy_system.ffprod_PJ["coal"] * \
-             user_globals.Constant.PJ_TO_EJ.value
-         ffprod_oil = energy_system.ffprod_PJ["oil"] * \
-             user_globals.Constant.PJ_TO_EJ.value
-         ffprod_gas = energy_system.ffprod_PJ["gas"] * \
-             user_globals.Constant.PJ_TO_EJ.value
+        ylabel = "Exajoule"
+        ffprod_coal = (
+            energy_system.ffprod_PJ["coal"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        ffprod_oil = (
+            energy_system.ffprod_PJ["oil"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        ffprod_gas = (
+            energy_system.ffprod_PJ["gas"] * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
-         ylabel = "Petajoule"
-         ffprod_coal = energy_system.ffprod_PJ["coal"]
-         ffprod_oil = energy_system.ffprod_PJ["oil"]
-         ffprod_gas = energy_system.ffprod_PJ["gas"]
+        ylabel = "Petajoule"
+        ffprod_coal = energy_system.ffprod_PJ["coal"]
+        ffprod_oil = energy_system.ffprod_PJ["oil"]
+        ffprod_gas = energy_system.ffprod_PJ["gas"]
 
     title = "Annual Production of Fossil Fuels"
     subplot1_title = "Coal"
@@ -263,30 +271,32 @@ https://github.com/shanewhi/world-energy-data\n"
         x_axis_interval,
         ylabel,
         footer_text,
-        equiv_scale
-        )
+        equiv_scale,
+    )
     plt.show()
 
-
-###############################################################################
-# PRIMARY ENERGY: Annual quantity of fossil fuels.
-###############################################################################
+    ####################################################################################
+    # PRIMARY ENERGY: Annual quantity of fossil fuels.
+    ####################################################################################
     title = "Annual quantity of Fossil Fuels in Energy Supply \
 (Primary Energy)"
 
     if country == "World":
-         ylabel = "Exajoule"
-         peq1 = pd.Series(energy_system.primary_PJ["Coal"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         peq2 = pd.Series(energy_system.primary_PJ["Oil"] * \
-                 user_globals.Constant.PJ_TO_EJ.value)
-         peq3 = pd.Series(energy_system.primary_PJ["Gas"] * \
-                 user_globals.Constant.PJ_TO_EJ.value)
+        ylabel = "Exajoule"
+        peq1 = pd.Series(
+            energy_system.primary_PJ["Coal"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        peq2 = pd.Series(
+            energy_system.primary_PJ["Oil"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        peq3 = pd.Series(
+            energy_system.primary_PJ["Gas"] * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
-         ylabel = "Petajoule"
-         peq1 = pd.Series(energy_system.primary_PJ["Coal"])
-         peq2 = pd.Series(energy_system.primary_PJ["Oil"])
-         peq3 = pd.Series(energy_system.primary_PJ["Gas"])
+        ylabel = "Petajoule"
+        peq1 = pd.Series(energy_system.primary_PJ["Coal"])
+        peq2 = pd.Series(energy_system.primary_PJ["Oil"])
+        peq3 = pd.Series(energy_system.primary_PJ["Gas"])
 
     subplot1_title = "Coal"
     subplot2_title = "Oil"
@@ -322,29 +332,32 @@ https://github.com/shanewhi/world-energy-data"
         x_axis_interval,
         ylabel,
         footer_text,
-        equiv_yscale
-        )
+        equiv_yscale,
+    )
     plt.show()
 
-
-###############################################################################
-# PRIMARY ENERGY: Annual change of fossil fuel category.
-###############################################################################
-    title = "Annual change of the sum of Fossil Fuels in Energy Supply \
-(Primary Energy), " + \
-    str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value) + \
-    " - " + str(energy_system.primary_PJ["Total"].idxmax())
+    ####################################################################################
+    # PRIMARY ENERGY: Annual change of fossil fuel category.
+    ####################################################################################
+    title = (
+        "Annual change of the sum of Fossil Fuels in Energy Supply \
+(Primary Energy), "
+        + str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value)
+        + " - "
+        + str(energy_system.primary_PJ["Total"].idxmax())
+    )
 
     if country == "World":
-         ylabel = "Exajoule/year"
-         series = pd.Series(energy_system.primary_PJ["Fossil Fuels Change"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
+        ylabel = "Exajoule/year"
+        series = pd.Series(
+            energy_system.primary_PJ["Fossil Fuels Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
-         ylabel = "Petajoule/year"
-         series = pd.Series(energy_system.primary_PJ["Fossil Fuels Change"])
+        ylabel = "Petajoule/year"
+        series = pd.Series(energy_system.primary_PJ["Fossil Fuels Change"])
 
-    footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -356,8 +369,7 @@ see https://www.worldenergydata.org/introduction/\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
 
-    plot_start_yr = \
-        user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value
+    plot_start_yr = user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value
     color = user_globals.Color.FOSSIL_FUELS.value
 
     chart.columngrouped(
@@ -367,35 +379,42 @@ https://github.com/shanewhi/world-energy-data"
         footer_text,
         plot_start_yr,
         color,
-        series1 = series
-        )
+        series1=series,
+    )
     plt.show()
 
-
-###############################################################################
-# PRIMARY ENERGY: Annual change of fossil fuels.
-###############################################################################
-    title = "Annual change of Fossil Fuels in Energy Supply \
-(Primary Energy), " + \
-        str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value) + \
-        " - " + str(energy_system.primary_PJ["Total"].idxmax())
+    ####################################################################################
+    # PRIMARY ENERGY: Annual change of fossil fuels.
+    ####################################################################################
+    title = (
+        "Annual change of Fossil Fuels in Energy Supply \
+(Primary Energy), "
+        + str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value)
+        + " - "
+        + str(energy_system.primary_PJ["Total"].idxmax())
+    )
 
     if country == "World":
         ylabel = "Exajoule/year"
-        pe1 = pd.Series(energy_system.primary_PJ["Coal Change"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-        pe2 = pd.Series(energy_system.primary_PJ["Oil Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        pe3 = pd.Series(energy_system.primary_PJ["Gas Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
+        pe1 = pd.Series(
+            energy_system.primary_PJ["Coal Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        pe2 = pd.Series(
+            energy_system.primary_PJ["Oil Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        pe3 = pd.Series(
+            energy_system.primary_PJ["Gas Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
-         ylabel = "Petajoule/year"
-         pe1 = pd.Series(energy_system.primary_PJ["Coal Change"])
-         pe2 = pd.Series(energy_system.primary_PJ["Oil Change"])
-         pe3 = pd.Series(energy_system.primary_PJ["Gas Change"])
+        ylabel = "Petajoule/year"
+        pe1 = pd.Series(energy_system.primary_PJ["Coal Change"])
+        pe2 = pd.Series(energy_system.primary_PJ["Oil Change"])
+        pe3 = pd.Series(energy_system.primary_PJ["Gas Change"])
 
-    footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -407,31 +426,29 @@ see https://www.worldenergydata.org/introduction/\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
 
-    plot_start_yr = \
-        user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value
+    plot_start_yr = user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value
     color1 = user_globals.Color.COAL.value
     color2 = user_globals.Color.OIL.value
     color3 = user_globals.Color.GAS.value
 
     chart.columngrouped(
-         country,
-         title,
-         ylabel,
-         footer_text,
-         plot_start_yr,
-         color1,
-         color2,
-         color3,
-         series1 = pe1,
-         series2 = pe2,
-         series3 = pe3
-         )
+        country,
+        title,
+        ylabel,
+        footer_text,
+        plot_start_yr,
+        color1,
+        color2,
+        color3,
+        series1=pe1,
+        series2=pe2,
+        series3=pe3,
+    )
     plt.show()
 
-
-###############################################################################
-# PRIMARY ENERGY: Annual shares.
-###############################################################################
+    ####################################################################################
+    # PRIMARY ENERGY: Annual shares.
+    ####################################################################################
     title = "Annual shares of fuels in Energy Supply (Primary Energy)"
 
     # Subplot titles.
@@ -450,9 +467,8 @@ https://github.com/shanewhi/world-energy-data"
     pes6 = pd.Series(energy_system.primary_PJ["Bio, Geo and Other Share"])
 
     # Additional text.
-    ylabel = ("Annual Share (%)")
-    footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+    ylabel = "Annual Share (%)"
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Renewables is the sum of hydro, wind and solar.\n\
 Primary Energy accounts for fuels input to a \
@@ -462,7 +478,7 @@ see https://www.worldenergydata.org/introduction/ \
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
 
-    #Plot
+    # Plot
     chart.line2x3(
         pes1,
         pes2,
@@ -486,16 +502,16 @@ https://github.com/shanewhi/world-energy-data"
         title6,
         ylabel,
         footer_text,
-        True
-        )
+        True,
+    )
     plt.show()
 
-
-###############################################################################
-# PRIMARY ENERGY: Annual shares of most recent year.
-###############################################################################
-    title = "Annual shares of fuels in Energy Supply (Primary Energy), Year " \
-        + str(energy_system.primary_PJ.index[-1])
+    ####################################################################################
+    # PRIMARY ENERGY: Annual shares of most recent year.
+    ####################################################################################
+    title = "Annual shares of fuels in Energy Supply (Primary Energy), Year " + str(
+        energy_system.primary_PJ.index[-1]
+    )
     title_addition = "Primary Energy accounts for fuels input to a \
 national, or the world energy system, prior to conversion to electricity or \
 combusted for non-electric purposes."
@@ -514,16 +530,19 @@ see https://www.worldenergydata.org/introduction/ \
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
     print(
-        "Annual sum of primary energy shares = \n" + \
-        str(energy_system.primary_PJ["Coal Share"] + \
-            energy_system.primary_PJ["Oil Share"] + \
-            energy_system.primary_PJ["Gas Share"] + \
-            energy_system.primary_PJ["Nuclear Share"] + \
-            energy_system.primary_PJ["Hydro Share"] + \
-            energy_system.primary_PJ["Wind Share"] + \
-            energy_system.primary_PJ["Solar Share"] + \
-            energy_system.primary_PJ["Bio, Geo and Other Share"] \
-            ) + "%\n")
+        "Annual sum of primary energy shares = \n"
+        + str(
+            energy_system.primary_PJ["Coal Share"]
+            + energy_system.primary_PJ["Oil Share"]
+            + energy_system.primary_PJ["Gas Share"]
+            + energy_system.primary_PJ["Nuclear Share"]
+            + energy_system.primary_PJ["Hydro Share"]
+            + energy_system.primary_PJ["Wind Share"]
+            + energy_system.primary_PJ["Solar Share"]
+            + energy_system.primary_PJ["Bio, Geo and Other Share"]
+        )
+        + "%\n"
+    )
 
     chart.treemap1x2(
         energy_system.primary_category_shares,
@@ -533,34 +552,37 @@ https://github.com/shanewhi/world-energy-data"
         country,
         title,
         title_addition,
-        footer_text
-        )
+        footer_text,
+    )
     plt.show()
 
-###############################################################################
+
+####################################################################################
 #
 # Function: ei_iea_combination_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying both EI and IEA data.
 #
-###############################################################################
+####################################################################################
 def ei_iea_combination_charts(energy_system):
     country = energy_system.name
-###############################################################################
-# FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
-###############################################################################
-# Plot only Final Energy if electricity data is unavailable.
-    if energy_system.elecprod_TWh.empty or \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] == 0:
+    ####################################################################################
+    # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
+    ####################################################################################
+    # Plot only Final Energy if electricity data is unavailable.
+    if (
+        energy_system.elecprod_TWh.empty
+        or energy_system.elecprod_TWh["Total"].iloc[-1] == 0
+    ):
         title = "Energy Consumption by share for most recent year of data"
         title_addition = "Energy Consumption is also known as Total Final \
 Consumption or Final Energy.\n\
 This accounts for energy in the form that it's consumed."
-        title1 = "Energy Consumption by share in year "+ \
-             str(energy_system.consumption_PJ.index[-1])
-        footer_text = \
-"Data: IEA 2023 World Energy Balances,\n\
+        title1 = "Energy Consumption by share in year " + str(
+            energy_system.consumption_PJ.index[-1]
+        )
+        footer_text = "Data: IEA 2023 World Energy Balances,\n\
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances\n\
 Latest years of data shown as of May 2024. For clarity: \
@@ -575,28 +597,30 @@ Data labelled 'Wind, solar etc' were for purposes other than electricity \
 generation, small and omitted for clarity.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
-    
+
         chart.treemap1x1(
             energy_system.consumption_final_shares,
             title1,
             country,
             title,
             title_addition,
-            footer_text
-            )
+            footer_text,
+        )
     else:
         title = "Energy Consumption and Electricity Generation by share for \
 most recent year of data"
         title_addition = "Energy Consumption is also known as Total Final \
 Consumption or Final Energy. This accounts for energy in the form that it's \
 consumed."
-        title1 = "Energy Consumption by share in year "+ \
-            str(energy_system.consumption_PJ.index[-1]) + \
-            "\n(Electricity shares are shown in the righthand chart)"
-        title2 = "Electricity Generation by share in year " + \
-    str(energy_system.elecprod_TWh.index[-1])
-        footer_text = \
-"Energy Consumption data: IEA 2023 World Energy Balances, \
+        title1 = (
+            "Energy Consumption by share in year "
+            + str(energy_system.consumption_PJ.index[-1])
+            + "\n(Electricity shares are shown in the righthand chart)"
+        )
+        title2 = "Electricity Generation by share in year " + str(
+            energy_system.elecprod_TWh.index[-1]
+        )
+        footer_text = "Energy Consumption data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances\n\
 Electricity Generation data: The Energy Institute Statistical Review of World \
@@ -624,39 +648,47 @@ https://github.com/shanewhi/world-energy-data."
             country,
             title,
             title_addition,
-            footer_text
-            )
+            footer_text,
+        )
     plt.show()
 
-###############################################################################
+
+####################################################################################
 #
 # Function: iea_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only IEA data.
 #
-###############################################################################
+####################################################################################
 def iea_charts(energy_system):
     country = energy_system.name
-###############################################################################
-# FINAL ENERGY: Annual quantities.
-###############################################################################
+    ####################################################################################
+    # FINAL ENERGY: Annual quantities.
+    ####################################################################################
     title = "Annual Energy Consumption"
     if country == "World":
-         ylabel = "Exajoules"
-         feq1 = pd.Series(energy_system.consumption_PJ["Coal"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         feq2 = pd.Series(energy_system.consumption_PJ["Oil"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         feq3 = pd.Series(energy_system.consumption_PJ["Gas"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         feq4 = \
-             pd.Series(energy_system.consumption_PJ["Biofuels and Waste"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         feq5 = pd.Series(energy_system.consumption_PJ["Electricity"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-         feq6 = pd.Series(energy_system.consumption_PJ["Heat"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
+        ylabel = "Exajoules"
+        feq1 = pd.Series(
+            energy_system.consumption_PJ["Coal"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        feq2 = pd.Series(
+            energy_system.consumption_PJ["Oil"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        feq3 = pd.Series(
+            energy_system.consumption_PJ["Gas"] * user_globals.Constant.PJ_TO_EJ.value
+        )
+        feq4 = pd.Series(
+            energy_system.consumption_PJ["Biofuels and Waste"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        feq5 = pd.Series(
+            energy_system.consumption_PJ["Electricity"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        feq6 = pd.Series(
+            energy_system.consumption_PJ["Heat"] * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
         ylabel = "Petajoule"
         feq1 = energy_system.consumption_PJ["Coal"]
@@ -673,8 +705,7 @@ def iea_charts(energy_system):
     title5 = "Electricity"
     title6 = "Heat"
 
-    footer_text = \
-"Data: IEA 2023 World Energy Balances, \
+    footer_text = "Data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown were consumed for \
@@ -711,52 +742,68 @@ https://github.com/shanewhi/world-energy-data\n"
         title6,
         ylabel,
         footer_text,
-        True
-        )
+        True,
+    )
     plt.show()
 
-
-###############################################################################
-# FINAL ENERGY: Annual change.
-###############################################################################
-    title = "Annual changes of Energy Consumption, " + \
-            str(user_globals.Constant.TFC_START_YEAR.value) + \
-            " - " + str(user_globals.Constant.TFC_END_YEAR.value)
+    ####################################################################################
+    # FINAL ENERGY: Annual change.
+    ####################################################################################
+    title = (
+        "Annual changes of Energy Consumption, "
+        + str(user_globals.Constant.TFC_START_YEAR.value)
+        + " - "
+        + str(user_globals.Constant.TFC_END_YEAR.value)
+    )
     if country == "World":
         ylabel = "Exajoule/year"
-        fec1 = pd.Series(energy_system.consumption_PJ["Coal Change"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-        fec2 = pd.Series(energy_system.consumption_PJ["Oil Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        fec3 = pd.Series(energy_system.consumption_PJ["Gas Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        fec4 = pd.Series( \
-                   energy_system.consumption_PJ["Biofuels and Waste Change"] * \
-             user_globals.Constant.PJ_TO_EJ.value)
-        fec5 = pd.Series(energy_system.consumption_PJ["Electricity Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
-        fec6 = pd.Series(energy_system.consumption_PJ["Heat Change"] * \
-            user_globals.Constant.PJ_TO_EJ.value)
+        fec1 = pd.Series(
+            energy_system.consumption_PJ["Coal Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        fec2 = pd.Series(
+            energy_system.consumption_PJ["Oil Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        fec3 = pd.Series(
+            energy_system.consumption_PJ["Gas Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        fec4 = pd.Series(
+            energy_system.consumption_PJ["Biofuels and Waste Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        fec5 = pd.Series(
+            energy_system.consumption_PJ["Electricity Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
+        fec6 = pd.Series(
+            energy_system.consumption_PJ["Heat Change"]
+            * user_globals.Constant.PJ_TO_EJ.value
+        )
     else:
         ylabel = "Petajoule/year"
         fec1 = pd.Series(energy_system.consumption_PJ["Coal Change"])
         fec2 = pd.Series(energy_system.consumption_PJ["Oil Change"])
         fec3 = pd.Series(energy_system.consumption_PJ["Gas Change"])
-        fec4 = pd.Series( \
-                   energy_system.consumption_PJ["Biofuels and Waste Change"])
+        fec4 = pd.Series(energy_system.consumption_PJ["Biofuels and Waste Change"])
         fec5 = pd.Series(energy_system.consumption_PJ["Electricity Change"])
         fec6 = pd.Series(energy_system.consumption_PJ["Heat Change"])
 
     if energy_system.name == "World":
-        footer_text = \
-"Data: IEA 2023 World Energy Balances, \
+        footer_text = (
+            "Data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
-statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n" + \
-            energy_system.name + \
-" most recent year Total Energy Consumption (IEA, Total TFC) = " + \
-            str(int(energy_system.consumption_PJ["Total"].iloc[-1] * \
-                    user_globals.Constant.PJ_TO_EJ.value)) + \
-" EJ.\n\
+statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n"
+            + energy_system.name
+            + " most recent year Total Energy Consumption (IEA, Total TFC) = "
+            + str(
+                int(
+                    energy_system.consumption_PJ["Total"].iloc[-1]
+                    * user_globals.Constant.PJ_TO_EJ.value
+                )
+            )
+            + " EJ.\n\
 For clarity: (1) Values of change at tops of columns are \
 rounded to nearest whole number; (2) Values that round to zero are not shown; \
 (3) When the value of a column is zero, the column is not \
@@ -771,15 +818,16 @@ Consumption or Final Energy. This accounts for energy in the form that it's \
 consumed (see https://www.worldenergydata.org/introduction/).\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data.\n"
+        )
     else:
-        footer_text = \
-"Data: IEA 2023 World Energy Balances, \
+        footer_text = (
+            "Data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
-statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n" + \
-            energy_system.name + \
-" most recent year Total Energy Consumption (IEA, Total TFC) = " + \
-            str(int(energy_system.consumption_PJ["Total"].iloc[-1])) + \
-" PJ.\n\
+statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n"
+            + energy_system.name
+            + " most recent year Total Energy Consumption (IEA, Total TFC) = "
+            + str(int(energy_system.consumption_PJ["Total"].iloc[-1]))
+            + " PJ.\n\
 For clarity: (1) Values of change at tops of columns are \
 rounded to nearest whole number; (2) Values that round to zero are not shown; \
 (3) When the value of a column is zero, the column is not \
@@ -794,6 +842,7 @@ Consumption or Final Energy. This accounts for energy in the form that it's \
 consumed (see https://www.worldenergydata.org/introduction/).\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data.\n"
+        )
 
     chart.columngrouped(
         country,
@@ -807,23 +856,21 @@ https://github.com/shanewhi/world-energy-data.\n"
         user_globals.Color.BIOFUELS_AND_WASTE.value,
         user_globals.Color.ELECTRICITY.value,
         user_globals.Color.HEAT.value,
-        series1 = fec1,
-        series2 = fec2,
-        series3 = fec3,
-        series4 = fec4,
-        series5 = fec5,
-        series6 = fec6
-        )
+        series1=fec1,
+        series2=fec2,
+        series3=fec3,
+        series4=fec4,
+        series5=fec5,
+        series6=fec6,
+    )
     plt.show()
 
-
-###############################################################################
-# FINAL ENERGY: Annual shares.
-###############################################################################
+    ####################################################################################
+    # FINAL ENERGY: Annual shares.
+    ####################################################################################
     title = "Annual Energy Consumption by share"
-    ylabel = ("Annual Share (%)")
-    footer_text = \
-"Data: IEA 2023 World Energy Balances, \
+    ylabel = "Annual Share (%)"
+    footer_text = "Data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances. Latest year of data as of 4/2024 is 2021.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown \
@@ -845,92 +892,97 @@ https://github.com/shanewhi/world-energy-data.\n"
     fes6 = energy_system.consumption_PJ["Heat Share"]
 
     print(
-        "Annual sum of IEA energy consumption shares = \n" +
-        str(fes1 + fes2 + fes3 + fes4 + fes5 + fes6)
-        + "\n")
-    
+        "Annual sum of IEA energy consumption shares = \n"
+        + str(fes1 + fes2 + fes3 + fes4 + fes5 + fes6)
+        + "\n"
+    )
+
     chart.line2x3(
-                   fes1,
-                   fes2,
-                   fes3,
-                   fes4,
-                   fes5,
-                   fes6,
-                   user_globals.Color.COAL.value,
-                   user_globals.Color.OIL.value,
-                   user_globals.Color.GAS.value,
-                   user_globals.Color.BIOFUELS_AND_WASTE.value,
-                   user_globals.Color.ELECTRICITY.value,
-                   user_globals.Color.HEAT.value,
-                   country,
-                   title,
-                   title1,
-                   title2,
-                   title3,
-                   title4,
-                   title5,
-                   title6,
-                   ylabel,
-                   footer_text,
-                   True
-                   )
+        fes1,
+        fes2,
+        fes3,
+        fes4,
+        fes5,
+        fes6,
+        user_globals.Color.COAL.value,
+        user_globals.Color.OIL.value,
+        user_globals.Color.GAS.value,
+        user_globals.Color.BIOFUELS_AND_WASTE.value,
+        user_globals.Color.ELECTRICITY.value,
+        user_globals.Color.HEAT.value,
+        country,
+        title,
+        title1,
+        title2,
+        title3,
+        title4,
+        title5,
+        title6,
+        ylabel,
+        footer_text,
+        True,
+    )
     plt.show()
 
-###############################################################################
+
+####################################################################################
 #
 # Function: ei_electricity_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only EI electricity data.
 #
-###############################################################################
+####################################################################################
 def ei_electricity_charts(energy_system):
     country = energy_system.name
-###############################################################################
-# ELECTRICITY: Annual generation quantity by category.
-###############################################################################
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
+    ####################################################################################
+    # ELECTRICITY: Annual generation quantity by category.
+    ####################################################################################
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
         title = "Annual Electricity Generation by category"
         title1 = "Fossil Fuels"
         title2 = "Nuclear"
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Renewables is the sum of hydro, wind and solar. Quantities are gross \
 generation that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
-    
-        chart.column1x4(energy_system.elecprod_TWh["Fossil Fuels"],
-                        energy_system.elecprod_TWh["Nuclear"],
-                        energy_system.elecprod_TWh["Renewables"],
-                        energy_system.elecprod_TWh["Bio, Geo and Other"],
-                        user_globals.Color.FOSSIL_FUELS.value,
-                        user_globals.Color.NUCLEAR.value,
-                        user_globals.Color.RENEWABLES.value,
-                        user_globals.Color.OTHER.value,
-                        country,
-                        title,
-                        title1,
-                        title2,
-                        title3,
-                        title4,
-                        ylabel,
-                        footer_text,
-                        True
-                        )
+
+        chart.column1x4(
+            energy_system.elecprod_TWh["Fossil Fuels"],
+            energy_system.elecprod_TWh["Nuclear"],
+            energy_system.elecprod_TWh["Renewables"],
+            energy_system.elecprod_TWh["Bio, Geo and Other"],
+            user_globals.Color.FOSSIL_FUELS.value,
+            user_globals.Color.NUCLEAR.value,
+            user_globals.Color.RENEWABLES.value,
+            user_globals.Color.OTHER.value,
+            country,
+            title,
+            title1,
+            title2,
+            title3,
+            title4,
+            ylabel,
+            footer_text,
+            True,
+        )
         plt.show()
 
-
-###############################################################################
-# ELECTRICITY: Annual generation quantity by fuel.
-###############################################################################
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
+    ####################################################################################
+    # ELECTRICITY: Annual generation quantity by fuel.
+    ####################################################################################
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
         title = "Annual Electricity Generation by fuel"
         title1 = "Coal"
         title2 = "Oil"
@@ -941,8 +993,7 @@ https://github.com/shanewhi/world-energy-data\n"
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Quantities are gross generation that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
@@ -977,22 +1028,25 @@ https://github.com/shanewhi/world-energy-data\n"
             title8,
             ylabel,
             footer_text,
-            True
-            )
+            True,
+        )
         plt.show()
 
-
-###############################################################################
-# ELECTRICITY: Annual change of generation by category.
-###############################################################################
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
-        title = "Annual change of categories in Electricity Generation, "+ \
-            str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value) + \
-            " - " + str(energy_system.elecprod_TWh["Total"].idxmax())
+    ####################################################################################
+    # ELECTRICITY: Annual change of generation by category.
+    ####################################################################################
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
+        title = (
+            "Annual change of categories in Electricity Generation, "
+            + str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value)
+            + " - "
+            + str(energy_system.elecprod_TWh["Total"].idxmax())
+        )
         ylabel = "TWh/year"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -1001,7 +1055,7 @@ a gap between plotted columns.\nRenewables is the sum of hydro, wind and \
 solar.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
-    
+
         chart.columngrouped(
             country,
             title,
@@ -1012,25 +1066,28 @@ https://github.com/shanewhi/world-energy-data"
             user_globals.Color.NUCLEAR.value,
             user_globals.Color.RENEWABLES.value,
             user_globals.Color.OTHER.value,
-            series1 = energy_system.elecprod_TWh["Fossil Fuels Change"],
-            series2 = energy_system.elecprod_TWh["Nuclear Change"],
-            series3 = energy_system.elecprod_TWh["Renewables Change"],
-            series4 = energy_system.elecprod_TWh["Bio, Geo and Other Change"]
-            )
+            series1=energy_system.elecprod_TWh["Fossil Fuels Change"],
+            series2=energy_system.elecprod_TWh["Nuclear Change"],
+            series3=energy_system.elecprod_TWh["Renewables Change"],
+            series4=energy_system.elecprod_TWh["Bio, Geo and Other Change"],
+        )
         plt.show()
 
-
-###############################################################################
-# ELECTRICITY: Annual change of generation by fuel.
-###############################################################################
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
-        title = "Annual change of fuels in Electricity Generation, " + \
-            str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value) + \
-            " - " + str(energy_system.elecprod_TWh["Total"].idxmax())
+    ####################################################################################
+    # ELECTRICITY: Annual change of generation by fuel.
+    ####################################################################################
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
+        title = (
+            "Annual change of fuels in Electricity Generation, "
+            + str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value)
+            + " - "
+            + str(energy_system.elecprod_TWh["Total"].idxmax())
+        )
         ylabel = "TWh/year"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -1038,7 +1095,7 @@ whole number; (2) Values that round to zero are not shown; \
 shown resulting in a gap between plotted columns.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
-    
+
         chart.columngrouped(
             country,
             title,
@@ -1052,47 +1109,47 @@ https://github.com/shanewhi/world-energy-data"
             user_globals.Color.HYDRO.value,
             user_globals.Color.WIND_AND_SOLAR.value,
             user_globals.Color.OTHER.value,
-            series1 = energy_system.elecprod_TWh["Coal Change"],
-            series2 = energy_system.elecprod_TWh["Oil Change"],
-            series3 = energy_system.elecprod_TWh["Gas Change"],
-            series4 = energy_system.elecprod_TWh["Nuclear Change"],
-            series5 = energy_system.elecprod_TWh["Hydro Change"],
-            series6 = energy_system.elecprod_TWh["Wind and Solar Change"],
-            series8 = energy_system.elecprod_TWh["Bio, Geo and Other Change"]
-            )
+            series1=energy_system.elecprod_TWh["Coal Change"],
+            series2=energy_system.elecprod_TWh["Oil Change"],
+            series3=energy_system.elecprod_TWh["Gas Change"],
+            series4=energy_system.elecprod_TWh["Nuclear Change"],
+            series5=energy_system.elecprod_TWh["Hydro Change"],
+            series6=energy_system.elecprod_TWh["Wind and Solar Change"],
+            series8=energy_system.elecprod_TWh["Bio, Geo and Other Change"],
+        )
         plt.show()
 
-
-###############################################################################
-# ELECTRICITY: Annual share of generation by category.
-###############################################################################\
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
+    ####################################################################################
+    # ELECTRICITY: Annual share of generation by category.
+    ####################################################################################\
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
         title = "Annual shares of categories in Electricity Generation"
         ylabel = "Annual Share (%)"
         title1 = "Fossil Fuels"
         title2 = "Nuclear"
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Renewables is the sum of hydro, wind and solar.\nShares are calculated using \
 gross generation quantities that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
-    
+
         esc1 = energy_system.elecprod_TWh["Fossil Fuels Share"]
         esc2 = energy_system.elecprod_TWh["Nuclear Share"]
         esc3 = energy_system.elecprod_TWh["Renewables Share"]
         esc4 = energy_system.elecprod_TWh["Bio, Geo and Other Share"]
-    
+
         print(
-            "Annual sum of electricity generation category shares = \n" +
-            str(esc1 + esc2 + esc3 + esc4)
+            "Annual sum of electricity generation category shares = \n"
+            + str(esc1 + esc2 + esc3 + esc4)
             + "\n"
-            )
-    
+        )
+
         chart.line1x4(
             esc1,
             esc2,
@@ -1110,16 +1167,17 @@ https://github.com/shanewhi/world-energy-data\n"
             title4,
             ylabel,
             footer_text,
-            True
-            )
+            True,
+        )
         plt.show()
-    
 
-###############################################################################
-# ELECTRICITY: Annual share of generation by fuel.
-###############################################################################
-    if not energy_system.elecprod_TWh.empty and \
-                            energy_system.elecprod_TWh["Total"].iloc[-1] != 0:
+    ####################################################################################
+    # ELECTRICITY: Annual share of generation by fuel.
+    ####################################################################################
+    if (
+        not energy_system.elecprod_TWh.empty
+        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+    ):
         title = "Annual shares of fuels in Electricity Generation"
         title1 = "Coal"
         title2 = "Oil"
@@ -1130,14 +1188,13 @@ https://github.com/shanewhi/world-energy-data\n"
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "Annual Share (%)"
-        footer_text = \
-"Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Shares are calculated using gross generation quantities that don't account \
 for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
-    
+
         esf1 = energy_system.elecprod_TWh["Coal Share"]
         esf2 = energy_system.elecprod_TWh["Oil Share"]
         esf3 = energy_system.elecprod_TWh["Gas Share"]
@@ -1146,42 +1203,42 @@ https://github.com/shanewhi/world-energy-data\n"
         esf6 = energy_system.elecprod_TWh["Wind Share"]
         esf7 = energy_system.elecprod_TWh["Solar Share"]
         esf8 = energy_system.elecprod_TWh["Bio, Geo and Other Share"]
-    
+
         print(
-            "Annual sum of electricity generation fuel shares = \n" +
-            str(esf1 + esf2 + esf3 + esf4 + esf5 + esf6 + esf7 + esf8)
+            "Annual sum of electricity generation fuel shares = \n"
+            + str(esf1 + esf2 + esf3 + esf4 + esf5 + esf6 + esf7 + esf8)
             + "\n"
-            )
-    
+        )
+
         chart.line2x4(
-                       esf1,
-                       esf2,
-                       esf3,
-                       esf4,
-                       esf5,
-                       esf6,
-                       esf7,
-                       esf8,
-                       user_globals.Color.COAL.value,
-                       user_globals.Color.OIL.value,
-                       user_globals.Color.GAS.value,
-                       user_globals.Color.NUCLEAR.value,
-                       user_globals.Color.HYDRO.value,
-                       user_globals.Color.WIND.value,
-                       user_globals.Color.SOLAR.value,
-                       user_globals.Color.OTHER.value,
-                       country,
-                       title,
-                       title1,
-                       title2,
-                       title3,
-                       title4,
-                       title5,
-                       title6,
-                       title7,
-                       title8,
-                       ylabel,
-                       footer_text,
-                       True
-                       )
+            esf1,
+            esf2,
+            esf3,
+            esf4,
+            esf5,
+            esf6,
+            esf7,
+            esf8,
+            user_globals.Color.COAL.value,
+            user_globals.Color.OIL.value,
+            user_globals.Color.GAS.value,
+            user_globals.Color.NUCLEAR.value,
+            user_globals.Color.HYDRO.value,
+            user_globals.Color.WIND.value,
+            user_globals.Color.SOLAR.value,
+            user_globals.Color.OTHER.value,
+            country,
+            title,
+            title1,
+            title2,
+            title3,
+            title4,
+            title5,
+            title6,
+            title7,
+            title8,
+            ylabel,
+            footer_text,
+            True,
+        )
         plt.show()
