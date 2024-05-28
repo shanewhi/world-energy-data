@@ -76,11 +76,20 @@ output.global_carbon_charts(global_carbon)
 # Generate charts of energy system data.
 def profile(country):
     energy_system = collate.organise_energy(country, ei_data)
-    output.energy_charts(energy_system)
+    if energy_system.incl_ei_flag == True:
+        output.ei_energy_charts(energy_system)
+    if energy_system.incl_ei_flag == True and \
+       energy_system.incl_iea_flag == True:
+        output.ei_iea_combination_charts(energy_system)
+    if energy_system.incl_iea_flag == True:
+        output.iea_charts(energy_system)
+    if energy_system.incl_ei_flag == True:
+        output.ei_electricity_charts(energy_system)
 
 # Profile following countries or "Total World".
-profile("Total World")
+#profile("Total World")
 #profile("US")
+profile("Kenya")
 #profile("France")
 #profile("Mexico")
 #profile("Germany")

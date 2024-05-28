@@ -37,9 +37,9 @@ def global_carbon_charts(global_carbon):
 # CO2: Shares of most recent year.
 ###############################################################################
 
-    print("\nMost recent year sum of emission category shares = ")
+    print("\nCO2 emission treemap, most recent year sum of category shares = ")
     print(sum(global_carbon.final_category_shares["Value"]))
-    print("\nMost recent year sum of emission source shares = ")
+    print("\nCO2 emission treemap, most recent year sum of emission shares = ")
     print(sum(global_carbon.final_emission_shares["Value"]))
 
     country = global_carbon.name
@@ -189,14 +189,13 @@ https://github.com/shanewhi/world-energy-data\n"
 
 ###############################################################################
 #
-# Function: energy_charts()
+# Function: ei_energy_charts()
 #
 # Description:
-# Controls chart plotting sequence of all energy charts.
+# Controls plotting sequence of all charts displaying only EI energy data.
 #
 ###############################################################################
-
-def energy_charts(energy_system):
+def ei_energy_charts(energy_system):
     country = energy_system.name
 ###############################################################################
 # PRODUCTION: Annual Fossil Fuel Production.
@@ -515,7 +514,7 @@ see https://www.worldenergydata.org/introduction/ \
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
     print(
-        "Sum of primary energy shares = \n" + \
+        "Annual sum of primary energy shares = \n" + \
         str(energy_system.primary_PJ["Coal Share"] + \
             energy_system.primary_PJ["Oil Share"] + \
             energy_system.primary_PJ["Gas Share"] + \
@@ -538,7 +537,16 @@ https://github.com/shanewhi/world-energy-data"
         )
     plt.show()
 
-
+###############################################################################
+#
+# Function: ei_iea_combination_charts()
+#
+# Description:
+# Controls plotting sequence of all charts displaying both EI and IEA data.
+#
+###############################################################################
+def ei_iea_combination_charts(energy_system):
+    country = energy_system.name
 ###############################################################################
 # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
 ###############################################################################
@@ -620,7 +628,16 @@ https://github.com/shanewhi/world-energy-data."
             )
     plt.show()
 
-
+###############################################################################
+#
+# Function: iea_charts()
+#
+# Description:
+# Controls plotting sequence of all charts displaying only IEA data.
+#
+###############################################################################
+def iea_charts(energy_system):
+    country = energy_system.name
 ###############################################################################
 # FINAL ENERGY: Annual quantities.
 ###############################################################################
@@ -828,7 +845,7 @@ https://github.com/shanewhi/world-energy-data.\n"
     fes6 = energy_system.consumption_PJ["Heat Share"]
 
     print(
-        "Sum of annual consumption shares = \n" +
+        "Annual sum of IEA energy consumption shares = \n" +
         str(fes1 + fes2 + fes3 + fes4 + fes5 + fes6)
         + "\n")
     
@@ -859,7 +876,16 @@ https://github.com/shanewhi/world-energy-data.\n"
                    )
     plt.show()
 
-
+###############################################################################
+#
+# Function: ei_electricity_charts()
+#
+# Description:
+# Controls plotting sequence of all charts displaying only EI electricity data.
+#
+###############################################################################
+def ei_electricity_charts(energy_system):
+    country = energy_system.name
 ###############################################################################
 # ELECTRICITY: Annual generation quantity by category.
 ###############################################################################
@@ -1062,7 +1088,7 @@ https://github.com/shanewhi/world-energy-data\n"
         esc4 = energy_system.elecprod_TWh["Bio, Geo and Other Share"]
     
         print(
-            "Sum of annual electricity generation category shares = \n" +
+            "Annual sum of electricity generation category shares = \n" +
             str(esc1 + esc2 + esc3 + esc4)
             + "\n"
             )
@@ -1122,7 +1148,7 @@ https://github.com/shanewhi/world-energy-data\n"
         esf8 = energy_system.elecprod_TWh["Bio, Geo and Other Share"]
     
         print(
-            "Sum of annual electricity generation fuel shares = \n" +
+            "Annual sum of electricity generation fuel shares = \n" +
             str(esf1 + esf2 + esf3 + esf4 + esf5 + esf6 + esf7 + esf8)
             + "\n"
             )

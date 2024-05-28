@@ -52,7 +52,7 @@ def carbon_emissions(cdata):
     cdata["Flaring Share"] = cdata["Flaring"] / cdata["Total"] * 100
 
     # Display sum of carbon budget sum for every year; not just a summary.
-    print("Annual Total of Carbon Budget Shares = \n")
+    print("Annual Total of Carbon Budget Shares =")
     with pd.option_context(
             'display.max_rows',
             None,
@@ -141,8 +141,6 @@ def carbon_emissions(cdata):
                         user_globals.Color.LUC.value,
                         user_globals.Color.OTHER.value
                         ]
-    #print(emission["Name"])
-  #  print(emission_category["Value"])
 
     emission["Label"] = get_treemap_labels(
                                           emission["Name"],
@@ -634,10 +632,10 @@ def electricity(energy_system):
     df_fuel["Value"] = filtered_final_fuel_share
     df_fuel["Color"] = filtered_fuel_color
     df_fuel["Label"] = get_treemap_labels(
-                                             df_fuel["Name"],
-                                             df_fuel["Value"],
-                                             5
-                                             )
+                                         df_fuel["Name"],
+                                         df_fuel["Value"],
+                                         5
+                                         )
 
     energy_system.elecprod_final_category_shares = df_category
     energy_system.elecprod_final_fuel_shares = df_fuel
@@ -674,7 +672,7 @@ def consumption(energy_system):
         energy_system.consumption_PJ["Heat"] / \
         energy_system.consumption_PJ["Total"] * 100
 
-    print("Most recent year Total Energy Consumption (IEA) = " + \
+    print("\nMost recent year Total Energy Consumption (IEA) = " + \
           str(int(energy_system.consumption_PJ["Total"].iloc[-1])) + \
           "PJ\n")
 

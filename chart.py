@@ -18,7 +18,11 @@
 # Import Python modules.
 import matplotlib.pyplot as plt
 import numpy as np
-import mpl_extra.treemap as tr #https://github.com/chenyulue/matplotlib-extra
+import mpl_extra.treemap as tr
+# Location:
+# https://github.com/chenyulue/matplotlib-extra
+# Install command:
+# pip3 install git+https://github.com/chenyulue/matplotlib-extra/
 import matplotlib.ticker
 
 # Import user modules.

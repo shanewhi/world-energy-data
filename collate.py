@@ -103,9 +103,11 @@ def organise_gcp_data(data):
 ###############################################################################
 def organise_energy(country, ei_data):
     country_energy_system = populate_energy_system(country, ei_data)
-    process.primary_energy(country_energy_system)
-    process.electricity(country_energy_system)
-    process.consumption(country_energy_system)
+    if country_energy_system.incl_ei_flag == True:
+        process.primary_energy(country_energy_system)
+        process.electricity(country_energy_system)
+    if country_energy_system.incl_iea_flag == True:
+        process.consumption(country_energy_system)
     return(country_energy_system)
 
 ###############################################################################
@@ -120,6 +122,7 @@ def organise_energy(country, ei_data):
 ###############################################################################
 def populate_energy_system(country, ei_data):
     if country in ei_data["Country"].values:
+        incl_ei_flag = True
         country_data = ei_data.loc[ei_data["Country"] == country]
 
         # Replace "Total World" label for chart titles.
@@ -198,7 +201,8 @@ def populate_energy_system(country, ei_data):
                                     "biofuels_cons_pj", "Value"]
 
         # Replace any NaNs with 0 in fields imported into primary_PJ.
-        primary_PJ.fillna(0, inplace = True)
+        with pd.option_context("future.no_silent_downcasting", True):
+            primary_PJ.fillna(0, inplace = True)
 
         # Calculate categories.
         primary_PJ["Fossil Fuels"] = primary_PJ["Coal"] + \
@@ -249,7 +253,8 @@ def populate_energy_system(country, ei_data):
         elecprod_TWh["Total"] = country_data.loc[country_data["Var"] ==
                                               "electbyfuel_total", "Value"]
 
-        elecprod_TWh.fillna(0, inplace = True)
+        with pd.option_context("future.no_silent_downcasting", True):
+            elecprod_TWh.fillna(0, inplace = True)
 
         elecprod_TWh["Coal"] = np.where(elecprod_TWh["Coal"] < 0.1,
                                        0, elecprod_TWh["Coal"])
@@ -270,6 +275,11 @@ def populate_energy_system(country, ei_data):
             0, elecprod_TWh["Bio, Geo and Other"])
     else:
         print("Country not in EI data.\n")
+        incl_ei_flag = False
+        co2_Mt = None
+        ffprod_PJ = None
+        primary_PJ = None
+        elecprod_TWh = None
 
     # FINAL ENERGY.
     # Convert country name to IEA JSON equivalent.
@@ -285,7 +295,7 @@ def populate_energy_system(country, ei_data):
         with open("iea" + str(year) + ".json") as iea:
             iea_data = js.load(iea)
         if jp.search(f"balances[?(short == {iea_country})].value", iea_data):
-
+            incl_iea_flag = True
             consumption_PJ.at[year, "Coal"] = \
                 np.array(jp.search(f"(balances[?(short == {iea_country}\
                                    && flow == 'TFC' && \
@@ -363,11 +373,14 @@ def populate_energy_system(country, ei_data):
                 consumption_PJ.at[year, "Total"] = 0
         else:
             print("Country not in IEA data.\n")
-            break
+            incl_iea_flag = False
+            consumption_PJ = None
 
     # Return national energy system data as object.
     return (user_globals.Energy_System(
                                     country,
+                                    incl_ei_flag,
+                                    incl_iea_flag,
                                     co2_Mt,
                                     ffprod_PJ,
                                     primary_PJ,

@@ -43,6 +43,8 @@ class Energy_System:
     def __init__(
                 self,
                 name, # Country name.
+                incl_ei_flag, # True if country appears in EI data
+                incl_iea_flag, # True if country appears in IEA data
                 co2_Mt,
                 ffprod_PJ,
                 primary_PJ,
@@ -55,6 +57,8 @@ class Energy_System:
                 consumption_final_shares
                 ):
         self.name = name
+        self.incl_ei_flag = incl_ei_flag
+        self.incl_iea_flag = incl_iea_flag
         self.co2_Mt = co2_Mt
         self.ffprod_PJ = ffprod_PJ
         self.primary_PJ = primary_PJ
@@ -139,24 +143,24 @@ class Constant(Enum):
 
 # Define fuel colors for charts.
 class Color(Enum):
-    CO2 = "slategrey"#"lightsteelblue"
+    CO2 = "dimgray"#"slategrey"#"lightsteelblue"
     COAL = "black"
     OIL = "brown"
-    GAS = "orange"
-    FLARING = "violet"
+    GAS = "darkorange"
+    FLARING = "hotpink"#"violet"
     NUCLEAR = "darkviolet"
     HYDRO = "dodgerblue"
     WIND = "blue"
     SOLAR = "crimson"
     BIOFUELS_AND_WASTE = "saddlebrown"
-    OTHER = "goldenrod"
+    OTHER = "peru"
     HEAT = "darkmagenta"
     RENEWABLES = "green"
     WIND_AND_SOLAR = "limegreen"
     ELECTRICITY = "teal"
-    FOSSIL_FUELS = "dimgray"
-    CEMENT = "lightslategrey"
-    LUC = "olive"#"saddlebrown"
+    FOSSIL_FUELS = "grey"#"dimgray"
+    CEMENT = "cadetblue"#"lightslategrey"
+    LUC = "olivedrab"#"saddlebrown"
 # Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
 
 # Set plot globals
