@@ -67,10 +67,10 @@ import output
 # files, and therefore country specific data is searched for within these,
 # rather than imported as a single file. This is done within the function
 # populate_energy_system().
-ei_data, gcp_data = collate.import_data()
+ei_data, gcp_data, esrl_data = collate.import_data()
 
 # Generate charts of GCP data.
-global_carbon = collate.organise_gcp_data(gcp_data)
+global_carbon = collate.organise_gcp_data(gcp_data, esrl_data)
 output.global_carbon_charts(global_carbon)
 
 
@@ -78,19 +78,22 @@ output.global_carbon_charts(global_carbon)
 def profile(country):
     energy_system = collate.organise_energy(country, ei_data)
     if energy_system.incl_ei_flag is True:
-        output.ei_energy_charts(energy_system)
+        output.country_prod_primary_energy_charts(energy_system)
+
     if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
-        output.ei_iea_combination_charts(energy_system)
+        output.country_consumption_elec_charts(energy_system)
+
     if energy_system.incl_iea_flag is True:
-        output.iea_charts(energy_system)
+        output.country_consumption_charts(energy_system)
+
     if energy_system.incl_ei_flag is True:
-        output.ei_electricity_charts(energy_system)
+        output.country_elec_charts(energy_system)
 
 
-# Profile following countries or "Total World".
-# profile("Total World")
+# Profile following co`untries or "Total World".
+profile("Total World")
 # profile("US")
-profile("Kenya")
+# profile("Kenya")
 # profile("France")
 # profile("Mexico")
 # profile("Germany")

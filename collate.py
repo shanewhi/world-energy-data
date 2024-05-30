@@ -85,9 +85,23 @@ def import_data():
 
     gcp_ff_emissions = gcp_ff_emissions.drop(columns=["Per Capita"])
     gcp_budget = gcp_budget.drop(columns=["FF And Cement"])
-    gcp_expanded_budget = gcp_ff_emissions.join(gcp_budget)
+    imported_gcp_data = gcp_ff_emissions.join(gcp_budget)
 
-    return (imported_ei_data, gcp_expanded_budget)
+    esrl_co2_conc = pd.read_csv(
+        "co2_annmean_gl.csv", header=37, index_col=["year"], usecols=["year", "mean"]
+    )
+
+    esrl_co2_growth = pd.read_csv(
+        "co2_gr_gl.csv", header=43, index_col=["year"], usecols=["year", "ann inc"]
+    )
+
+    imported_esrl_data = esrl_co2_conc.join(esrl_co2_growth)
+    imported_esrl_data = imported_esrl_data.rename(
+        columns={"mean": "Mean", "ann inc": "Ann Inc"}
+    )
+    imported_esrl_data.index.names = ["Year"]
+
+    return (imported_ei_data, imported_gcp_data, imported_esrl_data)
 
 
 ########################################################################################
@@ -98,10 +112,12 @@ def import_data():
 # Organises Global Carbon Project data into a user defined class.
 #
 ########################################################################################
-def organise_gcp_data(data):
-    emission_categories, emissions = process.carbon_emissions(data)
+def organise_gcp_data(emissions_data, conc_data):
+    emission_categories, emissions = process.carbon_emissions(emissions_data)
     country = "World"
-    return user_globals.Global_Carbon(country, data, emission_categories, emissions)
+    return user_globals.Global_Carbon(
+        country, emissions_data, emission_categories, emissions, conc_data
+    )
 
 
 ########################################################################################
@@ -150,33 +166,33 @@ def populate_energy_system(country, ei_data):
 
         # FOSSIL FUEL PRODUCTION.
         ffprod_PJ = pd.DataFrame(
-            index=total_primary_EJ.index, columns=["coal", "oil", "gas"]
+            index=total_primary_EJ.index, columns=["Coal", "Oil", "Gas"]
         )
 
-        ffprod_PJ["coal"] = (
+        ffprod_PJ["Coal"] = (
             country_data.loc[country_data["Var"] == "coalprod_ej", "Value"]
             * user_globals.Constant.EJ_TO_PJ.value
         )
         oil_Mt = country_data.loc[country_data["Var"] == "oilprod_mt", "Value"]
-        ffprod_PJ["oil"] = (
+        ffprod_PJ["Oil"] = (
             oil_Mt
             * 1e6
             * user_globals.Constant.TONNES_TO_GJ.value
             * user_globals.Constant.GJ_TO_EJ.value
             * user_globals.Constant.EJ_TO_PJ.value
         )
-        ffprod_PJ["gas"] = (
+        ffprod_PJ["Gas"] = (
             country_data.loc[country_data["Var"] == "gasprod_ej", "Value"]
             * user_globals.Constant.EJ_TO_PJ.value
         )
         # If nil production, create 0 series in order for chart function to
         # plot correctly.
-        if ffprod_PJ["coal"].empty or ffprod_PJ["coal"].dropna().empty:
-            ffprod_PJ["coal"] = pd.Series(data=0, index=total_primary_EJ.index)
-        if ffprod_PJ["oil"].empty or ffprod_PJ["oil"].dropna().empty:
-            ffprod_PJ["oil"] = pd.Series(data=0, index=total_primary_EJ.index)
-        if ffprod_PJ["gas"].empty or ffprod_PJ["gas"].dropna().empty:
-            ffprod_PJ["gas"] = pd.Series(data=0, index=total_primary_EJ.index)
+        if ffprod_PJ["Coal"].empty or ffprod_PJ["Coal"].dropna().empty:
+            ffprod_PJ["Coal"] = pd.Series(data=0, index=total_primary_EJ.index)
+        if ffprod_PJ["Oil"].empty or ffprod_PJ["Oil"].dropna().empty:
+            ffprod_PJ["Oil"] = pd.Series(data=0, index=total_primary_EJ.index)
+        if ffprod_PJ["Gas"].empty or ffprod_PJ["Gas"].dropna().empty:
+            ffprod_PJ["Gas"] = pd.Series(data=0, index=total_primary_EJ.index)
 
         # PRIMARY ENERGY.
         primary_PJ = pd.DataFrame(

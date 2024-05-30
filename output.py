@@ -34,16 +34,60 @@ import chart
 ########################################################################################
 def global_carbon_charts(global_carbon):
     ####################################################################################
-    # CO2: Shares of most recent year.
+    # Atmospheric CO2: Concentration and growth.
+    ####################################################################################
+    co2_ppm = global_carbon.co2_conc["Mean"]
+    co2_change = global_carbon.co2_conc["Ann Inc"]
+    color1 = user_globals.Color.CO2_CONC.value
+    color2 = user_globals.Color.CO2_CONC.value
+    country = "Global"
+    title = "Atmospheric CO\u2082"
+    subplot1_title = "Annual Concentration"
+    subplot2_title = "Annual Change"
+    x_axis1_interval = 10
+    x_axis2_interval = 10
+    ylabel1 = "parts per million (ppm)"
+    ylabel2 = "ppm/year"
+    concentration_text = (
+        "Value in "
+        + str(global_carbon.co2_conc.index[-1])
+        + " = "
+        + str(global_carbon.co2_conc["Mean"].iloc[-1])
+        + "ppm"
+    )
+    footer_text = "Lan, X., Tans, P. and K.W. Thoning: Trends in globally-averaged \
+CO\u2082 determined from NOAA Global Monitoring Laboratory measurements. Version \
+2024-05 https://doi.org/10.15138/9N0H-ZH07\n\
+Obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html"
+    chart.line_column1x2(
+        co2_ppm,
+        co2_change,
+        color1,
+        color2,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        x_axis1_interval,
+        x_axis2_interval,
+        ylabel1,
+        ylabel2,
+        concentration_text,
+        footer_text,
+    )
+    plt.show()
+
+    ####################################################################################
+    # CO2 Emissions: Shares of most recent year.
     ####################################################################################
 
     print("\nCO2 emission treemap, most recent year sum of category shares = ")
-    print(sum(global_carbon.final_category_shares["Value"]))
+    print(sum(global_carbon.final_emission_category_shares["Value"]))
     print("\nCO2 emission treemap, most recent year sum of emission shares = ")
     print(sum(global_carbon.final_emission_shares["Value"]))
 
     country = global_carbon.name
-    title = "Annual shares of Carbon Emissions, Year " + str(
+    title = "Annual shares of CO\u2082 Emissions, Year " + str(
         global_carbon.data["Total"].index[-1]
     )
     title_addition = ""
@@ -61,7 +105,7 @@ the legend.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
     chart.treemap1x2(
-        global_carbon.final_category_shares,
+        global_carbon.final_emission_category_shares,
         global_carbon.final_emission_shares,
         title1,
         title2,
@@ -73,13 +117,13 @@ https://github.com/shanewhi/world-energy-data"
     plt.show()
 
     ####################################################################################
-    # CO2: Fossil Fuels annual emissions
+    # CO2 Emissions: Annual Fossil Fuels
     ####################################################################################
     ffc_co2 = global_carbon.data["FF And Cement"] * user_globals.Constant.C_TO_CO2.value
     recent_ffc_co2 = ffc_co2.loc[
         user_globals.Constant.CO2_RECENT_YEAR.value : max(ffc_co2.index)
     ]
-    co2_color = user_globals.Color.CO2.value
+    co2_color = user_globals.Color.CO2_EMISSION.value
     country = "World"
     title = "Annual CO\u2082 Emissions from Fossil Fuels and Cement"
     title1 = str(min(ffc_co2.index)) + " - " + str(max(ffc_co2.index))
@@ -116,7 +160,7 @@ https://github.com/shanewhi/world-energy-data\n"
     plt.show()
 
     ####################################################################################
-    # CO2: Annual change.
+    # CO2 Emissons: Annual change.
     ####################################################################################
     series = global_carbon.data["FF And Cement Change"]
     title = (
@@ -137,7 +181,7 @@ https://github.com/shanewhi/world-energy-data\n"
     )
 
     plot_start_yr = user_globals.Constant.CO2_CHANGE_START_YEAR.value
-    color = user_globals.Color.CO2.value
+    color = user_globals.Color.CO2_EMISSION.value
 
     chart.columngrouped(
         country,
@@ -151,7 +195,7 @@ https://github.com/shanewhi/world-energy-data\n"
     plt.show()
 
     ####################################################################################
-    # CO2: Coal, Oil, and Gas annual emissions.
+    # CO2 Emissions: Annual Coal, Oil, and Gas.
     ####################################################################################
     coalco2 = global_carbon.data["Coal"] * user_globals.Constant.C_TO_CO2.value
     oilco2 = global_carbon.data["Oil"] * user_globals.Constant.C_TO_CO2.value
@@ -194,13 +238,13 @@ https://github.com/shanewhi/world-energy-data\n"
 
 ########################################################################################
 #
-# Function: ei_energy_charts()
+# Function: country_prod_primary_energy_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only EI energy data.
 #
 ########################################################################################
-def ei_energy_charts(energy_system):
+def country_prod_primary_energy_charts(energy_system):
     country = energy_system.name
     ####################################################################################
     # PRODUCTION: Annual Fossil Fuel Production.
@@ -208,19 +252,19 @@ def ei_energy_charts(energy_system):
     if country == "World":
         ylabel = "Exajoule"
         ffprod_coal = (
-            energy_system.ffprod_PJ["coal"] * user_globals.Constant.PJ_TO_EJ.value
+            energy_system.ffprod_PJ["Coal"] * user_globals.Constant.PJ_TO_EJ.value
         )
         ffprod_oil = (
-            energy_system.ffprod_PJ["oil"] * user_globals.Constant.PJ_TO_EJ.value
+            energy_system.ffprod_PJ["Oil"] * user_globals.Constant.PJ_TO_EJ.value
         )
         ffprod_gas = (
-            energy_system.ffprod_PJ["gas"] * user_globals.Constant.PJ_TO_EJ.value
+            energy_system.ffprod_PJ["Gas"] * user_globals.Constant.PJ_TO_EJ.value
         )
     else:
         ylabel = "Petajoule"
-        ffprod_coal = energy_system.ffprod_PJ["coal"]
-        ffprod_oil = energy_system.ffprod_PJ["oil"]
-        ffprod_gas = energy_system.ffprod_PJ["gas"]
+        ffprod_coal = energy_system.ffprod_PJ["Coal"]
+        ffprod_oil = energy_system.ffprod_PJ["Oil"]
+        ffprod_gas = energy_system.ffprod_PJ["Gas"]
 
     title = "Annual Production of Fossil Fuels"
     subplot1_title = "Coal"
@@ -559,13 +603,13 @@ https://github.com/shanewhi/world-energy-data"
 
 ####################################################################################
 #
-# Function: ei_iea_combination_charts()
+# Function: country_consump_elec_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying both EI and IEA data.
 #
 ####################################################################################
-def ei_iea_combination_charts(energy_system):
+def country_consumption_elec_charts(energy_system):
     country = energy_system.name
     ####################################################################################
     # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
@@ -655,13 +699,13 @@ https://github.com/shanewhi/world-energy-data."
 
 ####################################################################################
 #
-# Function: iea_charts()
+# Function: country_consumption_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only IEA data.
 #
 ####################################################################################
-def iea_charts(energy_system):
+def country_consumption_charts(energy_system):
     country = energy_system.name
     ####################################################################################
     # FINAL ENERGY: Annual quantities.
@@ -927,13 +971,13 @@ https://github.com/shanewhi/world-energy-data.\n"
 
 ####################################################################################
 #
-# Function: ei_electricity_charts()
+# Function: country_elec_charts()
 #
 # Description:
 # Controls plotting sequence of all charts displaying only EI electricity data.
 #
 ####################################################################################
-def ei_electricity_charts(energy_system):
+def country_elec_charts(energy_system):
     country = energy_system.name
     ####################################################################################
     # ELECTRICITY: Annual generation quantity by category.
@@ -948,11 +992,11 @@ def ei_electricity_charts(energy_system):
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
-Renewables is the sum of hydro, wind and solar. Quantities are gross \
-generation that don't account for imports or exports.\n\
-By shanewhite@worldenergydata.org using Python, \
+Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
+don't account for imports or exports.\nBy shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
 
         chart.column1x4(
@@ -993,7 +1037,8 @@ https://github.com/shanewhi/world-energy-data\n"
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
 Quantities are gross generation that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
@@ -1046,13 +1091,13 @@ https://github.com/shanewhi/world-energy-data\n"
             + str(energy_system.elecprod_TWh["Total"].idxmax())
         )
         ylabel = "TWh/year"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
-For clarity: (1) Values of change at tops of columns are rounded to nearest \
-whole number; (2) Values that round to zero are not shown; \
+For clarity: (1) Values of change at tops of columns are rounded to nearest whole \
+number; (2) Values that round to zero are not shown; \
 (3) When the value of a column is zero, the column is not shown resulting in \
-a gap between plotted columns.\nRenewables is the sum of hydro, wind and \
-solar.\n\
+a gap between plotted columns.\nRenewables is the sum of hydro, wind and solar.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
 
@@ -1087,12 +1132,13 @@ https://github.com/shanewhi/world-energy-data"
             + str(energy_system.elecprod_TWh["Total"].idxmax())
         )
         ylabel = "TWh/year"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
-For clarity: (1) Values of change at tops of columns are rounded to nearest \
-whole number; (2) Values that round to zero are not shown; \
-(3) When the value of a column is zero, the column is not \
-shown resulting in a gap between plotted columns.\n\
+For clarity: (1) Values of change at tops of columns are rounded to nearest whole \
+number; (2) Values that round to zero are not shown; \
+(3) When the value of a column is zero, the column is not shown resulting in a gap \
+between plotted columns.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data"
 
@@ -1121,7 +1167,7 @@ https://github.com/shanewhi/world-energy-data"
 
     ####################################################################################
     # ELECTRICITY: Annual share of generation by category.
-    ####################################################################################\
+    ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
         and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
@@ -1132,10 +1178,11 @@ https://github.com/shanewhi/world-energy-data"
         title2 = "Nuclear"
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
-Renewables is the sum of hydro, wind and solar.\nShares are calculated using \
-gross generation quantities that don't account for imports or exports.\n\
+Renewables is the sum of hydro, wind and solar.\nShares are calculated using gross \
+generation quantities that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
 
@@ -1188,10 +1235,11 @@ https://github.com/shanewhi/world-energy-data\n"
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "Annual Share (%)"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads\n\
-Shares are calculated using gross generation quantities that don't account \
-for imports or exports.\n\
+Shares are calculated using gross generation quantities that don't account for imports \
+or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
 

@@ -420,6 +420,7 @@ def line_column1x2(
     x_axis2_interval,
     ylabel1,
     ylabel2,
+    chart_text,
     footer_text,
 ):
     fig, ax = plt.subplots(
@@ -429,14 +430,6 @@ def line_column1x2(
             user_globals.Constant.FIG_HSIZE_SUBPLOT_1X2.value,
             user_globals.Constant.FIG_VSIZE_SUBPLOT_1X2.value,
         ),
-    )
-
-    # Add comma thousands seperator.
-    ax[0].yaxis.set_major_formatter(
-        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-    )
-    ax[1].yaxis.set_major_formatter(
-        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
     )
 
     # Grey edges for black columns.
@@ -481,13 +474,19 @@ def line_column1x2(
         markeredgecolor="black",
         markeredgewidth=0.3,
     )
+    ax[0].set_title(
+        subplot1_title,
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
     # Set aspect ratio 1:1.
     ax[0].set_box_aspect(1)
     ax[0].set_xlabel("Year")
     ax[0].autoscale(axis="y")
     ax[0].set_ylim(0, max(ax[0].get_yticks()))
     ax[0].set_ylabel(ylabel1)
-
+    # Add text to chart
+    ax[0].text(2005, 425, chart_text)
     # Subplot 2
     # If nil data remove y-axis detail, else plot bar chart.
     if max(series1) == 0:
@@ -498,17 +497,18 @@ def line_column1x2(
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
     else:
-        ax[1].bar(
+        p = ax[1].bar(
             series2.index,
             series2,
             width=1,
-            align="edge",
             color=color2,
             edgecolor=edge_color,
             linewidth=0.2,
         )
+    ax[1].bar_label(p, fmt="%.1f", padding=2)
+
     ax[1].set_title(
-        subplot1_title,
+        subplot2_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc="left",
     )
@@ -518,10 +518,13 @@ def line_column1x2(
     ax[1].set_box_aspect(1)
     # Place grid behind columns.
     ax[1].set_axisbelow(True)
-    # Autoscale and get max y for setting equiv y scale at end of function.
     ax[1].autoscale(axis="y")
     # Remove margins.
     ax[1].margins(x=0, tight=True)
+
+    # Force uppermost tick to be equal to autoscale max + grid interval
+    ax[0].set_ylim(0, max(ax[0].get_yticks()))
+    ax[1].set_ylim(0, max(ax[1].get_yticks()))
 
     plt.subplots_adjust(left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02)
     fig.suptitle(
@@ -2482,7 +2485,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
             for v in p
         ]
         ax.bar_label(p, labels=labels, fmt="%.0f", padding=label_pad)
-        # Extract fuel names from each sataframe, for use in chart legend.
+        # Extract fuel names from each dataframe, for use in chart legend.
         plot_names.append(value.name.replace(" Change", ""))
         series_number += 1
 
