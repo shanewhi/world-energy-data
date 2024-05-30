@@ -58,7 +58,9 @@ def global_carbon_charts(global_carbon):
     footer_text = "Lan, X., Tans, P. and K.W. Thoning: Trends in globally-averaged \
 CO\u2082 determined from NOAA Global Monitoring Laboratory measurements. Version \
 2024-05 https://doi.org/10.15138/9N0H-ZH07\n\
-Obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html"
+Obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html\n\
+By shanewhite@worldenergydata.org using Python, \
+https://github.com/shanewhi/world-energy-data"
     chart.line_column1x2(
         co2_ppm,
         co2_change,
