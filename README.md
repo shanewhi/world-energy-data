@@ -1,9 +1,12 @@
-Purpose:
+Description:
 -
-Python script to create charts of the trends of global carbon dioxide
-emissions, and energy systems of countries and the world. This will be
-used to generate content at https://www.worldenergydata.org,
-replacing the spreadsheet currently used.
+Python program that generates charts of:
+1. Global CO2 emissions;
+2. Global fossil fuel production;
+3. National CO2 emissons;
+4. National fossil fuel prouction; and
+5. National energy systems (fossil fuel production, primary energy, final energy and electricity.
+Written by Shane White using Python v3.12.2 for the site https://www.worldenergydata.org
 
 Required Input:
 -
@@ -11,7 +14,8 @@ Required Input:
 (from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
 2. IEA annual energy balances in JSON format (included in the latest release of this code)
 3. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
-   (included in the latest release of this code).
+   (included in the latest release of this code)
+4. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
 
 
 
