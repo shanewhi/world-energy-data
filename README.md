@@ -6,6 +6,7 @@ Python program that generates charts of:
 3. National CO2 emissons;
 4. National fossil fuel prouction; and
 5. National energy systems (fossil fuel production, primary energy, final energy and electricity.
+   
 Written by Shane White using Python v3.12.2 for the site https://www.worldenergydata.org
 
 Required Input:
