@@ -26,7 +26,7 @@ import chart
 
 ########################################################################################
 #
-# Function: global_carbon_project_charts()
+# Function: global_carbon_charts()
 #
 # Description:
 # Controls chart plotting of global carbon project data.
@@ -83,10 +83,16 @@ https://github.com/shanewhi/world-energy-data"
     # CO2 Emissions: Shares of most recent year.
     ####################################################################################
 
-    print("\nCO2 emission treemap, most recent year sum of category shares = ")
-    print(sum(global_carbon.final_emission_category_shares["Value"]))
-    print("\nCO2 emission treemap, most recent year sum of emission shares = ")
-    print(sum(global_carbon.final_emission_shares["Value"]))
+    print(
+        "CO2 emission treemap, most recent year sum of category shares = "
+        + str(sum(global_carbon.final_emission_category_shares["Value"]))
+        + "%"
+    )
+    print(
+        "CO2 emission treemap, most recent year sum of emission shares = "
+        + str(sum(global_carbon.final_emission_shares["Value"]))
+        + "%"
+    )
 
     country = global_carbon.name
     title = "Annual shares of CO\u2082 Emissions, Year " + str(
@@ -234,6 +240,62 @@ https://github.com/shanewhi/world-energy-data\n"
         ylabels,
         footer_text,
         equiv_yscale,
+    )
+    plt.show()
+
+
+########################################################################################
+#
+# Function: world_ffprod()
+#
+# Description:
+# Controls plotting of global fossil fuel production shares by country.
+#
+########################################################################################
+def world_ffprod(coal_prods, oil_prods, gas_prods):
+    print(
+        "Sum of most recent year coal producer shares = "
+        + str(sum(coal_prods["Value"]))
+        + "%"
+    )
+    print(
+        "Sum of most recent year oil producer shares = "
+        + str(sum(oil_prods["Value"]))
+        + "%"
+    )
+    print(
+        "Sum of most recent year gas producer shares = "
+        + str(sum(gas_prods["Value"]))
+        + "%"
+    )
+    subplot1_title = "Coal Producers"  # Title above LH plot
+    subplot2_title = "Oil Producers"  # Title above centre plot
+    subplot3_title = "Gas Producers"  # Title above RH plot
+    country = "World"
+    title = "Shares of National Fossil Fuel Production"
+    title_addition = "Year " + str(coal_prods.loc[0, "Year"])
+    footer_text = "Data: The Energy Institute Statistical Review of \
+World Energy 2023, \
+https://www.energyinst.org/statistical-review/resources-and-data-downloads \n\
+Ranking of producers determined using fossil fuel production data in following units: \
+Coal EJ, Oil Mt, and Gas EJ.\nOil production in units of Mt is used instead of kbd \
+because it's in closer agreement with IEA data. Oil production in units of Joules \
+isn't avaialble.\n\
+Share labelled Other is the tally of all countries producing less than a 4% share of \
+the respective fossil fuel.\n\
+By shanewhite@worldenergydata.org using Python, \
+https://github.com/shanewhi/world-energy-data\n"
+    chart.treemap1x3(
+        coal_prods,  # Dataframe 1
+        oil_prods,  # Dataframe 2
+        gas_prods,  # Dataframe 3
+        subplot1_title,  # Title above LH plot
+        subplot2_title,  # Title above centre plot
+        subplot3_title,  # Title above RH plot
+        country,
+        title,
+        title_addition,
+        footer_text,
     )
     plt.show()
 
@@ -591,8 +653,8 @@ https://github.com/shanewhi/world-energy-data"
     )
 
     chart.treemap1x2(
-        energy_system.primary_category_shares,
-        energy_system.primary_fuel_shares,
+        energy_system.primary_final_category_shares,
+        energy_system.primary_final_fuel_shares,
         title1,
         title2,
         country,
@@ -621,6 +683,11 @@ def country_consumption_elec_charts(energy_system):
         energy_system.elecprod_TWh.empty
         or energy_system.elecprod_TWh["Total"].iloc[-1] == 0
     ):
+        print(
+            "Sum of Final Energy = "
+            + str(sum(energy_system.consumption_final_shares["Value"]))
+        )
+
         title = "Energy Consumption by share for most recent year of data"
         title_addition = "Energy Consumption is also known as Total Final \
 Consumption or Final Energy.\n\
@@ -653,6 +720,14 @@ https://github.com/shanewhi/world-energy-data."
             footer_text,
         )
     else:
+        print(
+            "Sum of most recent year plotted IEA Energy Consumption shares = "
+            + str(sum(energy_system.consumption_final_shares["Value"]))
+        )
+        print(
+            "Sum of most recent year plotted Electricity shares = "
+            + str(sum(energy_system.elecprod_final_fuel_shares["Value"]))
+        )
         title = "Energy Consumption and Electricity Generation by share for \
 most recent year of data"
         title_addition = "Energy Consumption is also known as Total Final \

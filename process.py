@@ -21,6 +21,7 @@ import pandas as pd
 
 # Import user modules.
 import user_globals
+import countries
 
 
 ########################################################################################
@@ -130,6 +131,125 @@ def carbon_emissions(cdata):
 
     emission["Label"] = get_treemap_labels(emission["Name"], emission["Value"], ratio=5)
     return (emission_category, emission)
+
+
+########################################################################################
+#
+# Function: world_ffprod()
+#
+# Description:
+# Calculate shares of fossil fuel production by country, and construct dataframes for
+# each fossil fuel suitable to chart.treemap1x3().
+#
+########################################################################################
+def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
+
+    # Drop all rows with Country value "Total", leaving only countries. Identify latest
+    # production values, rank them, and calculate shares.
+    # 1. Coal
+    coal_producers = coal[~coal.Country.str.contains("Total")]
+    coal_producers_fy = coal_producers.loc[
+        coal_producers.index == max(coal_producers.index)
+    ]
+    coal_producer_shares = coal_producers_fy.copy()
+    coal_producer_shares["Value"] = round(
+        coal_producer_shares["Value"] / total_coal * 100, 1
+    )
+
+    coal_producer_shares = coal_producer_shares.sort_values(
+        by=["Value"], ascending=False
+    )
+    large_coal_producers = coal_producer_shares[
+        coal_producer_shares["Value"]
+        >= user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value
+    ]
+    other_coal_producers = pd.DataFrame(
+        index=[max(coal_producers.index)], columns=["Country", "Var", "Value", "Year"]
+    )
+    other_coal_producers.index.name = "Year"
+    other_coal_producers["Country"] = "Other"
+    other_coal_producers["Var"] = "coalprod_ej"
+    other_coal_producers["Value"] = round(100 - sum(large_coal_producers["Value"]), 1)
+    all_coal_producers = pd.concat([large_coal_producers, other_coal_producers])
+
+    # 2. Oil
+    oil_producers = oil[~oil.Country.str.contains("Total")]
+    oil_producers_fy = oil_producers.loc[
+        oil_producers.index == max(oil_producers.index)
+    ]
+    oil_producer_shares = oil_producers_fy.copy()
+    oil_producer_shares["Value"] = round(oil_producers_fy["Value"] / total_oil * 100, 1)
+    oil_producer_shares = oil_producer_shares.sort_values(by=["Value"], ascending=False)
+    large_oil_producers = oil_producer_shares[
+        oil_producer_shares["Value"]
+        >= user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value
+    ]
+    other_oil_producers = pd.DataFrame(
+        index=[max(oil_producers.index)], columns=["Country", "Var", "Value", "Year"]
+    )
+    other_oil_producers.index.name = "Year"
+    other_oil_producers["Country"] = "Other"
+    other_oil_producers["Var"] = "oilprod_ej"
+    other_oil_producers["Value"] = round(100 - sum(large_oil_producers["Value"]), 1)
+    all_oil_producers = pd.concat([large_oil_producers, other_oil_producers])
+
+    # 3. Gas
+    gas_producers = gas[~gas.Country.str.contains("Total")]
+    gas_producers_fy = gas_producers.loc[
+        gas_producers.index == max(gas_producers.index)
+    ]
+    gas_producer_shares = gas_producers_fy.copy()
+    gas_producer_shares["Value"] = round(gas_producers_fy["Value"] / total_gas * 100, 1)
+    gas_producer_shares = gas_producer_shares.sort_values(by=["Value"], ascending=False)
+    large_gas_producers = gas_producer_shares[
+        gas_producer_shares["Value"]
+        >= user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value
+    ]
+    other_gas_producers = pd.DataFrame(
+        index=[max(gas_producers.index)], columns=["Country", "Var", "Value", "Year"]
+    )
+    other_gas_producers.index.name = "Year"
+    other_gas_producers["Country"] = "Other"
+    other_gas_producers["Var"] = "gasprod_ej"
+    other_gas_producers["Value"] = round(100 - sum(large_gas_producers["Value"]), 1)
+    all_gas_producers = pd.concat([large_gas_producers, other_gas_producers])
+    all_coal_producers, all_oil_producers, all_gas_producers = (
+        countries.ffprod_shorten_country(
+            all_coal_producers, all_oil_producers, all_gas_producers
+        )
+    )
+
+    # Generate dataframes reuired for treemap charts.
+    coal_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
+    oil_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
+    gas_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
+
+    coal_prod_shares["Name"] = all_coal_producers["Country"].values
+    oil_prod_shares["Name"] = all_oil_producers["Country"].values
+    gas_prod_shares["Name"] = all_gas_producers["Country"].values
+
+    coal_prod_shares["Value"] = all_coal_producers["Value"].values
+    oil_prod_shares["Value"] = all_oil_producers["Value"].values
+    gas_prod_shares["Value"] = all_gas_producers["Value"].values
+
+    coal_prod_shares["Color"] = user_globals.Color.COAL.value
+    oil_prod_shares["Color"] = user_globals.Color.OIL.value
+    gas_prod_shares["Color"] = user_globals.Color.GAS.value
+
+    coal_prod_shares["Label"] = get_treemap_labels(
+        coal_prod_shares["Name"], coal_prod_shares["Value"], ratio=1
+    )
+    oil_prod_shares["Label"] = get_treemap_labels(
+        oil_prod_shares["Name"], oil_prod_shares["Value"], ratio=1
+    )
+    gas_prod_shares["Label"] = get_treemap_labels(
+        gas_prod_shares["Name"], gas_prod_shares["Value"], ratio=1
+    )
+    coal_prod_shares["Year"] = max(coal.index)
+    oil_prod_shares["Year"] = max(coal.index)
+    gas_prod_shares["Year"] = max(coal.index)
+
+    return (coal_prod_shares, oil_prod_shares, gas_prod_shares)
 
 
 ########################################################################################
@@ -349,8 +469,8 @@ def primary_energy(energy_system):
     df_fuel["Color"] = filtered_fuel_color
     df_fuel["Label"] = get_treemap_labels(df_fuel["Name"], df_fuel["Value"], 5)
 
-    energy_system.primary_category_shares = df_category
-    energy_system.primary_fuel_shares = df_fuel
+    energy_system.primary_final_category_shares = df_category
+    energy_system.primary_final_fuel_shares = df_fuel
 
 
 ########################################################################################
@@ -757,8 +877,8 @@ def get_treemap_labels(names, values, ratio):
             if values[i] < ratio:
                 labels.append(str(values[i]) + "%")
             else:
-                labels.append(names[i] + " " + str(values[i]) + "%")
+                labels.append(names[i] + "\n" + str(values[i]) + "%")
     else:
         for i in range(len(values)):
-            labels.append(names[i] + " " + str(values[i]) + "%")
+            labels.append(names[i] + "\n" + str(values[i]) + "%")
     return labels

@@ -91,6 +91,9 @@ class Constant(Enum):
     TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
     CO2_RECENT_YEAR = 1980
     CO2_CHANGE_START_YEAR = 1950
+    COAL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large coal producer.
+    OIL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large oil producer.
+    GAS_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large gas producer.
     PRIMARY_ENERGY_CHANGE_START_YEAR = 1966
     ELEC_CHANGE_START_YEAR = 1995
     TFC_START_YEAR = 1990
@@ -116,6 +119,7 @@ class Constant(Enum):
     FIG_HSIZE_1x1 = 10
     FIG_HSIZE_SUBPLOT_1X2 = 17
     FIG_HSIZE_SUBPLOT_1X3 = 17
+    FIG_HSIZE_TREE_1X3 = 17
     FIG_HSIZE_SUBPLOT_2X3 = 17
     FIG_HSIZE_SUBPLOT_1X4 = 17
     FIG_HSIZE_SUBPLOT_2X4 = 17
@@ -126,6 +130,7 @@ class Constant(Enum):
     FIG_VSIZE_1x1 = 8
     FIG_VSIZE_SUBPLOT_1X2 = 6.8
     FIG_VSIZE_SUBPLOT_1X3 = 6.8
+    FIG_VSIZE_TREE_1X3 = 6.4
     FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_VSIZE_SUBPLOT_1X4 = 5.5
     FIG_VSIZE_SUBPLOT_2X4 = 9

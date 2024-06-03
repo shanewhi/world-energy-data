@@ -2712,7 +2712,7 @@ def treemap1x2(
         cmap=df2["Color"].to_list(),
         fill="Name",
         rectprops=dict(ec="darkslategray", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=True, max_fontsize=50),
+        textprops=dict(c="white", place="top left", reflow=True, max_fontsize=80),
     )
     ax[1].legend(
         df2["Name"],
@@ -2762,6 +2762,131 @@ def treemap1x2(
     fig.text(
         0.125,
         0.91,
+        title_addition,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.125,
+        0.025,
+        footer_text,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+###############################################################################
+#
+# Function: treemap1x3()
+#
+# Description:
+# 1x3 treemap subplots, without legend.
+#
+###############################################################################
+
+
+def treemap1x3(
+    df1,  # Dataframe 1
+    df2,  # Dataframe 2
+    df3,  # Dataframe 3
+    subplot1_title,  # Title above LH plot
+    subplot2_title,  # Title above centre plot
+    subplot3_title,  # Title above RH plot
+    country,
+    title,
+    title_addition,
+    footer_text,
+):
+    fig, ax = plt.subplots(
+        1,
+        3,
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_TREE_1X3.value,
+            user_globals.Constant.FIG_VSIZE_TREE_1X3.value,
+        ),
+        subplot_kw=dict(aspect=1.1),
+    )
+
+    # Plot lefthand treemap.
+    tr.treemap(
+        ax[0],
+        df1,
+        area="Value",
+        labels="Label",
+        cmap=df1["Color"].to_list(),
+        fill="Name",
+        rectprops=dict(ec="white", lw=0.4),
+        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+    )
+    ax[0].axis("off")
+    ax[0].set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+
+    # Plot centre treemap.
+    tr.treemap(
+        ax[1],
+        df2,
+        area="Value",
+        labels="Label",
+        cmap=df2["Color"].to_list(),
+        fill="Name",
+        rectprops=dict(ec="white", lw=0.4),
+        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+    )
+    ax[1].axis("off")
+    ax[1].set_title(
+        subplot2_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+
+    # Plot RH treemap.
+    tr.treemap(
+        ax[2],
+        df3,
+        area="Value",
+        labels="Label",
+        cmap=df3["Color"].to_list(),
+        fill="Name",
+        rectprops=dict(ec="darkslategray", lw=0.4),
+        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+    )
+    ax[2].axis("off")
+    ax[2].set_title(
+        subplot3_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+
+    plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
+    fig.suptitle(
+        country,
+        x=0.125,
+        y=0.965,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.125,
+        0.91,
+        title,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.125,
+        0.9,
         title_addition,
         horizontalalignment="left",
         verticalalignment="top",

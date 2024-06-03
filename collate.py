@@ -106,13 +106,13 @@ def import_data():
 
 ########################################################################################
 #
-# Function: organise_gcp_data()
+# Function: co2_data()
 #
 # Description:
 # Organises Global Carbon Project data into a user defined class.
 #
 ########################################################################################
-def organise_gcp_data(emissions_data, conc_data):
+def co2_data(emissions_data, conc_data):
     emission_categories, emissions = process.carbon_emissions(emissions_data)
     country = "World"
     return user_globals.Global_Carbon(
@@ -122,13 +122,57 @@ def organise_gcp_data(emissions_data, conc_data):
 
 ########################################################################################
 #
-# Function: organise_energy()
+# Function: ffprod_country_shares()
+#
+# Description:
+# Identifies and oragnises the major fossil fuel producers.
+#
+########################################################################################
+def ffproducer_shares(data):
+    # coal_producers, oil_producers, gas_producers = process.id_ffprods(ei_data)
+
+    # Extract fossil fuel production data.
+    coal_prod = data.loc[data["Var"] == "coalprod_ej"]
+    oil_prod = data.loc[data["Var"] == "oilprod_mt"]
+    gas_prod = data.loc[data["Var"] == "gasprod_ej"]
+
+    # Obtain latest global production value of each fossil fuel,
+    # in order to calculate shares.
+    # 1. Coal
+    world_coal_prod = coal_prod.loc[coal_prod["Country"] == "Total World"]
+    world_coal_prod_latest = world_coal_prod.loc[
+        world_coal_prod.index == max(world_coal_prod.index), "Value"
+    ]
+    total_coal = float(world_coal_prod_latest.values)
+    # 2. Oil
+    world_oil_prod = oil_prod.loc[oil_prod["Country"] == "Total World"]
+    world_oil_prod_latest = world_oil_prod.loc[
+        world_oil_prod.index == max(world_oil_prod.index), "Value"
+    ]
+    total_oil = float(world_oil_prod_latest.values)
+    # 3. Gas
+    world_gas_prod = gas_prod.loc[gas_prod["Country"] == "Total World"]
+    world_gas_prod_latest = world_gas_prod.loc[
+        world_gas_prod.index == max(world_gas_prod.index), "Value"
+    ]
+    total_gas = float(world_gas_prod_latest.values)
+
+    coal_producers, oil_producers, gas_producers = process.world_ffprod(
+        coal_prod, oil_prod, gas_prod, total_coal, total_oil, total_gas
+    )
+
+    return (coal_producers, oil_producers, gas_producers)
+
+
+########################################################################################
+#
+# Function: energy()
 #
 # Description:
 # Calls all functions required to organise data for a specified energy system.
 #
 ########################################################################################
-def organise_energy(country, ei_data):
+def energy(country, ei_data):
     country_energy_system = populate_energy_system(country, ei_data)
     if country_energy_system.incl_ei_flag is True:
         process.primary_energy(country_energy_system)
@@ -173,13 +217,12 @@ def populate_energy_system(country, ei_data):
             country_data.loc[country_data["Var"] == "coalprod_ej", "Value"]
             * user_globals.Constant.EJ_TO_PJ.value
         )
-        oil_Mt = country_data.loc[country_data["Var"] == "oilprod_mt", "Value"]
+        oil_mt = country_data.loc[country_data["Var"] == "oilprod_mt", "Value"]
         ffprod_PJ["Oil"] = (
-            oil_Mt
+            oil_mt
             * 1e6
             * user_globals.Constant.TONNES_TO_GJ.value
-            * user_globals.Constant.GJ_TO_EJ.value
-            * user_globals.Constant.EJ_TO_PJ.value
+            * user_globals.Constant.GJ_TO_PJ.value
         )
         ffprod_PJ["Gas"] = (
             country_data.loc[country_data["Var"] == "gasprod_ej", "Value"]
@@ -523,5 +566,5 @@ def populate_energy_system(country, ei_data):
         pd.DataFrame(),  # Populated in process.py
         pd.DataFrame(),  # Populated in process.py
         consumption_PJ,
-        pd.DataFrame(),
-    )  # Populated in process.py
+        pd.DataFrame(),  # Populated in process.py
+    )

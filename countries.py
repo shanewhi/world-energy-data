@@ -27,3 +27,22 @@ def iea_country_name(country_in):
         return "'USA'"
     else:
         return country
+
+
+########################################################################################
+#
+# Module: ffprod_shorten_country.py
+#
+# Description:
+# Shortens country name for chart.treemap().
+#
+########################################################################################
+def ffprod_shorten_country(df1, df2, df3):
+
+    df1.replace("Russian Federation", "Russia", inplace=True)
+    df2.replace("Russian Federation", "Russia", inplace=True)
+    df3.replace("Russian Federation", "Russia", inplace=True)
+    df1.replace("United Arab Emirates", "UAE", inplace=True)
+    df2.replace("United Arab Emirates", "UAE", inplace=True)
+    df3.replace("United Arab Emirates", "UAE", inplace=True)
+    return (df1, df2, df3)

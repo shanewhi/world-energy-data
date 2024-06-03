@@ -70,13 +70,17 @@ import output
 ei_data, gcp_data, esrl_data = collate.import_data()
 
 # Generate charts of GCP data.
-global_carbon = collate.organise_gcp_data(gcp_data, esrl_data)
+global_carbon = collate.co2_data(gcp_data, esrl_data)
 output.global_carbon_charts(global_carbon)
 
+# Generate global fossul fuel production charts using EI data.
+coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
+output.world_ffprod(coal_producers, oil_producers, gas_producers)
 
-# Generate charts of energy system data in the following sequence:
+
+# Generate energy system charts in the following order:
 def profile(country):
-    energy_system = collate.organise_energy(country, ei_data)
+    energy_system = collate.energy(country, ei_data)
     if energy_system.incl_ei_flag is True:
         output.country_prod_primary_energy_charts(energy_system)
 
