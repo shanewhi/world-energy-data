@@ -15,7 +15,13 @@ import output
 # Application world_energy_data.py
 #
 # Description:
-# Creates charts of national energy systems.
+# Creates charts of -
+# 1. Global CO2 emissions;
+# 2. Global fossil fuel production;
+# 3. National CO2 emissons;
+# 4. National fossil fuel prouction; and
+# 5. National energy systems (fossil fuel production, primary energy, final energy and
+# electricity.
 # Written by Shane White using Python v3.11.5 and Spyder IDE.
 # https://github.com/shanewhi/world-energy-data
 # https://www.worldenergydata.org
@@ -23,37 +29,41 @@ import output
 # Files:
 # world_energy_data.py (this file)
 # user_globals.py (defs)
-# countries.py (translates country name to IEA equivs, called in collate.py)
 # collate.py (called in world_energy_data.py)
 # process.py (called in collate.py)
 # output.py (controls sequence of chart functions, called in collate.py)
 # chart.py (generic chart functons, called in process.py)
+# countries.py (translates country name to IEA equivs, called in collate.py)
 #
 # Choose a country at bottom of script.
 # Country name must match that used by The Energry Institute's (EI) dataset.
 # If required, update countries.py to translate country name to IEA equiv.
 #
 # Input(s):
-# 1. Country name, string.
-# 2. EI's dataset. Download from -
+# 1. Global Carbon Budget in .xlsx format from
+# https://globalcarbonbudgetdata.org/latest-data.html
+# 2. NOAA ESRL CO2 data in CSV format from
+# https://gml.noaa.gov/ccgg/trends/gl_data.html
+# 3. Country name, string.
+# 4. EI's dataset. Download from -
 # https://www.energyinst.org/statistical-review/resources-and-data-downloads
-# 3. IEA's annual energy balances. To download an annual IEA World Energy
+# 5. IEA's annual energy balances. To download an annual IEA World Energy
 # Balance -
-# Load https://www.iea.org/data-and-statistics/data-tools/ \
+# a) Load https://www.iea.org/data-and-statistics/data-tools/ \
 #      energy-statistics-data-browser?country=WORLD&fuel= \
 #      Energy%20supply&indicator=TESbySource
-# 2. Right click on chart -> Inspect
-# 3. Select Network tab
-# 5. Click XHR button
-# 6. Select Browse as Tables
-# 7. Select year from dropdown (ensure this is done manually)
-# 8. Reload page
-# 9. Double click on the following result (using 2021 as an example)
+# b) Right click on chart -> Inspect
+# c) Select Network tab
+# d) Click XHR button
+# e) Select Browse as Tables
+# f) Select year from dropdown (ensure this is done manually)
+# g) Reload page
+# h) Double click on the following result (using 2021 as an example)
 # https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
-# 10. Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
+# i) Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
 # year.
-# 11. Add to start of file: {"balances":
-# 12. Add to the end of the file: }
+# k) Add to start of file: {"balances":
+# l) Add to the end of the file: }
 #
 # Output(s): Charts and debug text to std out.
 #
@@ -71,17 +81,18 @@ ei_data, gcp_data, esrl_data = collate.import_data()
 
 # Generate charts of GCP data.
 global_carbon = collate.co2_data(gcp_data, esrl_data)
-output.global_carbon_charts(global_carbon)
+output.world_co2_charts(global_carbon)
 
 # Generate global fossul fuel production charts using EI data.
 coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
-output.world_ffprod(coal_producers, oil_producers, gas_producers)
+output.world_ffprod_charts(coal_producers, oil_producers, gas_producers)
 
 
 # Generate energy system charts in the following order:
 def profile(country):
     energy_system = collate.energy(country, ei_data)
     if energy_system.incl_ei_flag is True:
+        output.country_co2_charts(energy_system)
         output.country_prod_primary_energy_charts(energy_system)
 
     if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
