@@ -95,7 +95,7 @@ https://github.com/shanewhi/world-energy-data"
     )
 
     country = global_carbon.name
-    title = "Annual shares of CO\u2082 Emissions, Year " + str(
+    title = "Sources of CO\u2082 Emissions by share, Year " + str(
         global_carbon.data["Total"].index[-1]
     )
     title_addition = ""
@@ -310,43 +310,42 @@ https://github.com/shanewhi/world-energy-data\n"
 ########################################################################################
 def country_co2_charts(energy_system):
     country = energy_system.name
-    if country != "World":
-        ff_co2 = energy_system.co2_Mt
-        recent_ff_co2 = ff_co2.loc[
-            user_globals.Constant.CO2_RECENT_YEAR.value : max(ff_co2.index)
-        ]
-        co2_color = user_globals.Color.CO2_EMISSION.value
-        title = "Annual CO\u2082 Emissions from Fossil Fuel combustion"
-        title1 = str(min(ff_co2.index)) + " - " + str(max(ff_co2.index))
-        title2 = (
-            str(user_globals.Constant.CO2_RECENT_YEAR.value)
-            + " - "
-            + str(max(recent_ff_co2.index))
-        )
-        x_axis1_interval = 10
-        x_axis2_interval = 5
-        ylabel = "Megatonne"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+    ff_co2 = energy_system.co2_Mt
+    recent_ff_co2 = ff_co2.loc[
+        user_globals.Constant.CO2_RECENT_YEAR.value : max(ff_co2.index)
+    ]
+    co2_color = user_globals.Color.CO2_EMISSION.value
+    title = "Annual CO\u2082 Emissions from Fossil Fuel combustion"
+    title1 = str(min(ff_co2.index)) + " - " + str(max(ff_co2.index))
+    title2 = (
+        str(user_globals.Constant.CO2_RECENT_YEAR.value)
+        + " - "
+        + str(max(recent_ff_co2.index))
+    )
+    x_axis1_interval = 10
+    x_axis2_interval = 5
+    ylabel = "Megatonne"
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy \
 2023, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads \n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data\n"
 
-        chart.column1x2(
-            ff_co2,
-            recent_ff_co2,
-            co2_color,
-            co2_color,
-            country,
-            title,
-            title1,
-            title2,
-            x_axis1_interval,
-            x_axis2_interval,
-            ylabel,
-            footer_text,
-            True,
-        )
+    chart.column1x2(
+        ff_co2,
+        recent_ff_co2,
+        co2_color,
+        co2_color,
+        country,
+        title,
+        title1,
+        title2,
+        x_axis1_interval,
+        x_axis2_interval,
+        ylabel,
+        footer_text,
+        True,
+    )
     plt.show()
 
 
