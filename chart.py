@@ -755,14 +755,14 @@ def column1x3(
     fig.suptitle(
         country,
         x=0.06,
-        y=0.93,
+        y=0.935,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.06,
-        0.88,
+        0.885,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -1991,14 +1991,14 @@ def line2x4(
     fig.suptitle(
         country,
         x=0.08,
-        y=0.94,
+        y=0.945,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.08,
-        0.9,
+        0.905,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -2702,7 +2702,7 @@ def treemap1x2(
         bbox_to_anchor=(0, 0),
         frameon=False,
         handlelength=2,
-        ncol=2,
+        ncol=3,
         fontsize="large",
     )
     ax[0].axis("off")

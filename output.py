@@ -274,7 +274,7 @@ def world_ffprod_charts(coal_prods, oil_prods, gas_prods):
     title = "Shares of National Fossil Fuel Production"
     title_addition = "Year " + str(coal_prods.loc[0, "Year"])
     footer_text = "Data: The Energy Institute Statistical Review of \
-World Energy 2023, \
+World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Ranking of producers determined using fossil fuel production data in following units: \
 Coal EJ, Oil Mt, and Gas EJ.\nOil production in units of Mt is used instead of kbd \
@@ -315,7 +315,7 @@ def country_co2_charts(energy_system):
     x_interval = 10
     ylabel = "Megatonne"
     footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023,\n\
+2024,\n\
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
@@ -368,7 +368,7 @@ def country_prod_primary_energy_charts(energy_system):
 
     if country == "World":
         footer_text = "Data: The Energy Institute Statistical Review of \
-World Energy 2023, \
+World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\
 \nOil production calculated by converting units of Mt to \
 Joules using EI's approximate conversion factor of 41.868 GJ/toe. \
@@ -378,7 +378,7 @@ By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
     else:
         footer_text = "Data: The Energy Institute Statistical Review of \
-World Energy 2023, \
+World Energy 2024 (EI(2024)), \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\
 \nOil production calculated by converting units of Mt to \
 Joules using EI's approximate conversion factor of 41.868 GJ/toe. \
@@ -428,7 +428,7 @@ conversion to electricity or combusted for non-electric purposes."
     title1 = "By Category"
     title2 = "By Fuel"
     footer_text = "Data: The Energy Institute Statistical Review of World \
-Energy 2023, \
+Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
@@ -487,7 +487,7 @@ https://github.com/shanewhi/world-energy-data."
 
     # Additional text.
     ylabel = "Annual Share (%)"
-    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads. \
 Renewables is the sum of hydro, wind and solar.\n\
 Primary Energy accounts for fuels input to a national, or the world energy system, \
@@ -551,7 +551,7 @@ https://github.com/shanewhi/world-energy-data."
     subplot2_title = "Oil"
     subplot3_title = "Gas"
     footer_text = "Data: The Energy Institute Statistical Review of \
-World Energy 2023, \
+World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Primary Energy accounts for fuels input to a national, \
 or the world energy system, prior to conversion to electricity or combusted \
@@ -606,7 +606,7 @@ https://github.com/shanewhi/world-energy-data."
         ylabel = "Petajoule/year"
         series = pd.Series(energy_system.primary_PJ["Fossil Fuels Change"])
 
-    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -663,7 +663,7 @@ https://github.com/shanewhi/world-energy-data."
         pe2 = pd.Series(energy_system.primary_PJ["Oil Change"])
         pe3 = pd.Series(energy_system.primary_PJ["Gas Change"])
 
-    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2023, \
+    footer_text = "Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest \
 whole number; (2) Values that round to zero are not shown; \
@@ -735,9 +735,9 @@ For clarity: \
 (2) Labels may not be shown due to a lack of space, in which case refer to \
 the legend.\n\
 For an explanation of Energy Consumption, see \
-https://www.worldenergydata.org/introduction/.\n\
-Data labelled 'Wind, solar etc' represent purposes other than electricity \
-generation, is small and omitted for clarity.\n\
+https://www.worldenergydata.org/introduction/. Consumption data labelled \
+'Wind, solar etc' is a non-electric form of consumption, and may be too small \
+to show.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
@@ -776,16 +776,16 @@ data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances.\n\
 Electricity Generation data: The Energy Institute Statistical Review of World \
-Energy 2023, \
+Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to \
 the legend.\n\
 For an explanation of Energy Consumption, see \
-https://www.worldenergydata.org/introduction/.\n\
-Energy Consumption data labelled 'Wind, solar etc' represent consumption for purposes \
-other than electricity generation, is small and omitted for clarity.\n\
+https://www.worldenergydata.org/introduction/. Consumption data labelled \
+'Wind, solar etc' is a non-electric form of consumption, and may be too small \
+to show.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
@@ -832,10 +832,9 @@ were consumed for purposes other than electricity generation, such as steel \
 maufacture or internal combustion etc.\nAdditional fossil fuels were combusted \
 to produce electricity. For an explantion of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
-Energy Consumption data labelled 'Wind, solar etc' represent \
-consumption for purposes other than electricity generation, is small and omitted for \
-clarity.\nBy shanewhite@worldenergydata.org using Python, \
-https://github.com/shanewhi/world-energy-data."
+Consumption data labelled 'Wind, solar etc' is a non-electric form of consumption, \
+usually small, and omitted for clarity.\nBy shanewhite@worldenergydata.org using \
+Python, https://github.com/shanewhi/world-energy-data."
 
     fes1 = energy_system.consumption_PJ["Coal Share"]
     fes2 = energy_system.consumption_PJ["Oil Share"]
@@ -928,8 +927,8 @@ purposes other than electricity generation, such as steel maufacture or \
 internal combustion etc.\nAdditional fossil fuels were combusted to produce \
 electricity. For an explantion of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
-Energy Consumption data labelled 'Wind, solar etc' represent consumption \
-for purposes other than electricity generation, is small and omitted for clarity.\n\
+Consumption data labelled 'Wind, solar etc' is a non-electric form of consumption, \
+usually small, and omitted for clarity.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
@@ -1027,8 +1026,8 @@ purposes other than electricity generation, such as steel maufacture or \
 internal combustion etc.\nAdditional fossil fuels were combusted to produce \
 electricity. For an explantion of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
-Energy Consumption data labelled 'Wind, solar etc' represent consumption \
-for purposes other than electricity generation, is small and omitted for clarity.\n\
+Consumption data labelled 'Wind, solar etc' is a non-electric form of consumption, \
+usually small, and omitted for clarity.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
         )
@@ -1050,8 +1049,8 @@ purposes other than electricity generation, such as steel maufacture or \
 internal combustion etc.\nAdditional fossil fuels were combusted to produce \
 electricity. For an explantion of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
-Energy Consumption data labelled 'Wind, solar etc' represent consumption \
-for purposes other than electricity generation, is small and omitted for clarity.\n\
+Consumption data labelled 'Wind, solar etc' is a non-electric form of consumption, \
+usually small, and omitted for clarity.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
         )
@@ -1102,7 +1101,7 @@ def country_elec_charts(energy_system):
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Shares are calculated using gross \
 generation quantities that don't account for imports or exports.\n\
@@ -1163,7 +1162,7 @@ https://github.com/shanewhi/world-energy-data."
         title8 = "Bio, Geo and Other"
         ylabel = "Annual Share (%)"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Shares are calculated using gross generation quantities that don't account for imports \
 or exports.\n\
@@ -1232,7 +1231,7 @@ https://github.com/shanewhi/world-energy-data."
         title4 = "Bio, Geo and Other"
         ylabel = "TWh"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
 don't account for imports or exports.\nBy shanewhite@worldenergydata.org using Python, \
@@ -1277,7 +1276,7 @@ https://github.com/shanewhi/world-energy-data."
         title8 = "Bio, Geo and Other"
         ylabel = "TWh"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Quantities are gross generation that don't account for imports or exports.\n\
 By shanewhite@worldenergydata.org using Python, \
@@ -1331,7 +1330,7 @@ https://github.com/shanewhi/world-energy-data."
         )
         ylabel = "TWh/year"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest whole \
 number; (2) Values that round to zero are not shown; \
@@ -1372,7 +1371,7 @@ https://github.com/shanewhi/world-energy-data."
         )
         ylabel = "TWh/year"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2023, \
+2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 For clarity: (1) Values of change at tops of columns are rounded to nearest whole \
 number; (2) Values that round to zero are not shown; \

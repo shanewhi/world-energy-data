@@ -820,7 +820,7 @@ def consumption(energy_system):
         "Coal",
         "Oil",
         "Gas",
-        "Wind Solar Etc Share",
+        "Wind Solar Etc",
         "Biofuels & Waste",
         "Electricity",
         "Heat",
