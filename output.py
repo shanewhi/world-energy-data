@@ -384,8 +384,8 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.\
 Joules using EI's approximate conversion factor of 41.868 GJ/toe. \
 Initial year of data for each fuel differs: Coal 1981, Oil 1965, and Gas \
 1970.\n\
-For comparison, EI(2023) listed 2022 World production values as: \
-Coal 175,000 PJ, Oil 185,000 PJ, and Gas 146,000 PJ.\n\
+For comparison, EI(2024) listed 2023 World production values as: \
+Coal 179,000 PJ, Oil 197,000 PJ, and Gas 146,000 PJ.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
