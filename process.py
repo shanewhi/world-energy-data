@@ -38,10 +38,10 @@ def carbon_emissions(cdata):
     max_year = max(cdata.index)
     change_yrs = range(min_year + 1, max_year + 1)
     for yr in change_yrs:
-        cdata.loc[yr, "FF And Cement Change"] = (
-            cdata.loc[yr, "FF And Cement"] - cdata.loc[yr - 1, "FF And Cement"]
+        cdata.loc[yr, "FF and Cement Change"] = (
+            cdata.loc[yr, "FF and Cement"] - cdata.loc[yr - 1, "FF and Cement"]
         )
-    cdata["Total"] = cdata["FF And Cement"] + cdata["Land Use Change"]
+    cdata["Total"] = cdata["FF and Cement"] + cdata["Land Use Change"]
 
     cdata["Fossil Fuel Share"] = (
         (cdata["Coal"] + cdata["Oil"] + cdata["Gas"] + cdata["Flaring"])

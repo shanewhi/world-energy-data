@@ -108,6 +108,7 @@ def profile(country):
 # Profile following co`untries or "Total World".
 profile("Total World")
 # profile("US")
+# profile("Azerbaijan")
 # profile("Kenya")
 # profile("France")
 # profile("Mexico")

@@ -82,17 +82,17 @@ def line1x1(x, y, country, color, title, ylabel, footer_text):
     ax.set_ylim(0, max(ax.get_yticks()))
     ax.set_ylabel(ylabel)
 
-    plt.subplots_adjust(left=0.06, right=1, top=0.89, bottom=0.13)
+    plt.subplots_adjust(left=0.03, right=1, top=0.89, bottom=0.13)
     fig.suptitle(
         country,
-        x=0.135,
-        y=0.945,
+        x=0.358,
+        y=0.95,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.135,
+        0.358,
         0.9,
         title,
         horizontalalignment="left",
@@ -100,8 +100,8 @@ def line1x1(x, y, country, color, title, ylabel, footer_text):
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.135,
-        0.005,
+        0.358,
+        0.07,
         footer_text,
         horizontalalignment="left",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
@@ -132,7 +132,7 @@ def column1x1(
         1,
         1,
         figsize=(
-            user_globals.Constant.FIG_VSIZE_1x1.value,
+            user_globals.Constant.FIG_HSIZE_1x1.value,
             user_globals.Constant.FIG_VSIZE_1x1.value,
         ),
     )
@@ -192,23 +192,23 @@ def column1x1(
     plt.subplots_adjust(left=0.03, right=1, top=0.89, bottom=0.13)
     fig.suptitle(
         country,
-        x=0.135,
-        y=0.95,
+        x=0.354,
+        y=0.96,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.135,
-        0.905,
+        0.354,
+        0.91,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.135,
-        0.075,
+        0.354,
+        0.07,
         footer_text,
         horizontalalignment="left",
         verticalalignment="top",
@@ -373,14 +373,14 @@ def column1x2(
     fig.suptitle(
         country,
         x=0.18,
-        y=0.975,
+        y=0.965,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.18,
-        0.925,
+        0.915,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -530,14 +530,14 @@ def line_column1x2(
     fig.suptitle(
         country,
         x=0.18,
-        y=0.975,
+        y=0.97,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.18,
-        0.925,
+        0.92,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -755,14 +755,14 @@ def column1x3(
     fig.suptitle(
         country,
         x=0.06,
-        y=0.96,
+        y=0.93,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.06,
-        0.9,
+        0.88,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -1752,7 +1752,7 @@ def column2x3(
     )
     fig.text(
         0.145,
-        0.075,
+        0.08,
         footer_text,
         verticalalignment="top",
         horizontalalignment="left",
@@ -2413,14 +2413,14 @@ def column2x4(
     fig.suptitle(
         country,
         x=0.08,
-        y=0.95,
+        y=0.945,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.08,
-        0.91,
+        0.905,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -2522,7 +2522,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     ax.set_xlabel("Year")
     ax.legend(
         plot_names,
-        loc="best",
+        loc="lower left",
         frameon=False,
         handlelength=2,
         ncol=6,
@@ -2532,7 +2532,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     plt.axhline(0, color="black", lw=0.4)
     plt.margins(x=0, tight=True)
 
-    plt.subplots_adjust(left=0.05, right=0.97, top=0.9, bottom=0.16)
+    plt.subplots_adjust(left=0.05, right=0.97, top=0.9, bottom=0.18)
     fig.suptitle(
         country,
         x=0.05,
@@ -2543,7 +2543,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     )
     fig.text(
         0.05,
-        0.92,
+        0.91,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -2551,7 +2551,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     )
     fig.text(
         0.05,
-        0.105,
+        0.12,
         footer_text,
         verticalalignment="top",
         horizontalalignment="left",
@@ -2589,8 +2589,10 @@ def treemap1x1(
         labels="Label",
         cmap=df["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="darkslategray", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=True, max_fontsize=80),
+        rectprops=dict(ec="darkslategray", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=3, pady=6, reflow=True, max_fontsize=60
+        ),
     )
     ax.legend(
         df["Name"],
@@ -2683,8 +2685,16 @@ def treemap1x2(
         labels="Label",
         cmap=df1["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="darkslategray", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=True, max_fontsize=80),
+        rectprops=dict(ec="darkslategray", lw=0.6),
+        textprops=dict(
+            c="white",
+            place="top left",
+            padx=3,
+            pady=6,
+            reflow=True,
+            max_fontsize=60,
+            grow=True,
+        ),
     )
     ax[0].legend(
         df1["Name"],
@@ -2711,8 +2721,15 @@ def treemap1x2(
         labels="Label",
         cmap=df2["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="darkslategray", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=True, max_fontsize=80),
+        rectprops=dict(ec="black", lw=0.4),
+        textprops=dict(
+            c="white",
+            place="top left",
+            padx=3,
+            pady=6,
+            reflow=True,
+            max_fontsize=60,
+        ),
     )
     ax[1].legend(
         df2["Name"],
@@ -2732,7 +2749,8 @@ def treemap1x2(
             loc="left",
             color="white",
             backgroundcolor="teal",
-            position=(0.012, 1.2),
+            position=(0.011, 1),
+            pad=7.5,
         )
     else:
         ax[1].set_title(
@@ -2818,8 +2836,10 @@ def treemap1x3(
         labels="Label",
         cmap=df1["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="white", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+        rectprops=dict(ec="white", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=2, pady=5, reflow=False, max_fontsize=60
+        ),
     )
     ax[0].axis("off")
     ax[0].set_title(
@@ -2837,8 +2857,10 @@ def treemap1x3(
         labels="Label",
         cmap=df2["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="white", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+        rectprops=dict(ec="white", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=2, pady=5, reflow=False, max_fontsize=60
+        ),
     )
     ax[1].axis("off")
     ax[1].set_title(
@@ -2856,8 +2878,10 @@ def treemap1x3(
         labels="Label",
         cmap=df3["Color"].to_list(),
         fill="Name",
-        rectprops=dict(ec="darkslategray", lw=0.4),
-        textprops=dict(c="white", place="top left", reflow=False, max_fontsize=80),
+        rectprops=dict(ec="darkslategray", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=2, pady=5, reflow=False, max_fontsize=60
+        ),
     )
     ax[2].axis("off")
     ax[2].set_title(
@@ -2871,14 +2895,14 @@ def treemap1x3(
     fig.suptitle(
         country,
         x=0.125,
-        y=0.965,
+        y=0.95,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.125,
-        0.91,
+        0.895,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -2886,7 +2910,7 @@ def treemap1x3(
     )
     fig.text(
         0.125,
-        0.9,
+        0.885,
         title_addition,
         horizontalalignment="left",
         verticalalignment="top",
@@ -2895,7 +2919,7 @@ def treemap1x3(
     )
     fig.text(
         0.125,
-        0.025,
+        0.04,
         footer_text,
         horizontalalignment="left",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,

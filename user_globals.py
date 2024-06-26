@@ -47,8 +47,8 @@ class Energy_System:
     def __init__(
         self,
         name,  # Country name.
-        incl_ei_flag,  # True if country appears in EI data
-        incl_iea_flag,  # True if country appears in IEA data
+        incl_ei_flag,  # True if country appears in EI data.
+        incl_iea_flag,  # True if country appears in IEA data.
         co2_Mt,
         ffprod_PJ,
         primary_PJ,
@@ -116,7 +116,7 @@ class Constant(Enum):
     SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
 
-    FIG_HSIZE_1x1 = 10
+    FIG_HSIZE_1x1 = 17
     FIG_HSIZE_SUBPLOT_1X2 = 17
     FIG_HSIZE_SUBPLOT_1X3 = 17
     FIG_HSIZE_TREE_1X3 = 17
@@ -127,33 +127,44 @@ class Constant(Enum):
     FIG_HSIZE_TREE_1X2 = 15
     FIG_HSIZE_GROUPED_COLUMN_PLOT = 17
 
-    FIG_VSIZE_1x1 = 8
-    FIG_VSIZE_SUBPLOT_1X2 = 6.8
-    FIG_VSIZE_SUBPLOT_1X3 = 6.8
+    FIG_VSIZE_1x1 = 7
+    FIG_VSIZE_SUBPLOT_1X2 = 7
+    FIG_VSIZE_SUBPLOT_1X3 = 7
     FIG_VSIZE_TREE_1X3 = 6.4
     FIG_VSIZE_SUBPLOT_2X3 = 10
     FIG_VSIZE_SUBPLOT_1X4 = 5.5
     FIG_VSIZE_SUBPLOT_2X4 = 9
     FIG_VSIZE_TREE_1X1 = 9.2
     FIG_VSIZE_TREE_1X2 = 9.2
-    FIG_VSIZE_GROUPED_COLUMN_PLOT = 9
+    FIG_VSIZE_GROUPED_COLUMN_PLOT = 7
 
     LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
     CHART_DPI = 100
 
-    # IBM Plex Sans font installed manually by copying Google font ttf files to
-    # Python's font directory.
-    CHART_FONT = "IBM Plex Sans"  # all: matplotlib.font_manager.get_font_names()
-    CHART_STYLE = "bmh"  # "default", "seaborn-darkgrid"
+    # To install a font:
+    # Copy .ttf files to ~/Library/Fonts
+    # Then delete matplotlib's font cache using rm ~/.matplotlib/fontlist-v330.json
+    # Finally restart IDE.
+    #
+    # To view all accessible fonts, enter:
+    # sorted(matplotlib.font_manager.get_font_names())
+    #
+    # Not all fonts support Unicode subscript '2' and have a bold style.
+    # To view fonts that support a subscript '2':
+    # https://www.fileformat.info/info/unicode/char/2082/fontsupport.htm
+    # Path to FreeSans:
+    # https://ftp.gnu.org/gnu/freefont/
+    CHART_FONT = "FreeSans"
 
-
-# All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
-# Python chart gallery: https://python-graph-gallery.com/
+    # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
+    # Python chart gallery: https://python-graph-gallery.com/
+    CHART_STYLE = "bmh"
 
 
 # Define fuel colors for charts.
+# Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
 class Color(Enum):
     CO2_EMISSION = "dimgray"  # "slategrey"#"lightsteelblue"
     CO2_CONC = "cornflowerblue"
@@ -167,7 +178,7 @@ class Color(Enum):
     SOLAR = "crimson"
     BIOFUELS_AND_WASTE = "saddlebrown"
     OTHER = "peru"
-    HEAT = "darkmagenta"
+    HEAT = "rebeccapurple"
     RENEWABLES = "green"
     WIND_AND_SOLAR = "limegreen"
     ELECTRICITY = "teal"
@@ -176,10 +187,7 @@ class Color(Enum):
     LUC = "olivedrab"  # "saddlebrown"
 
 
-# Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
-
-# Set plot globals
+# Set global font parameters.
 plt.style.use(Constant.CHART_STYLE.value)
 plt.rcParams["font.family"] = Constant.CHART_FONT.value
-plt.rcParams["font.weight"] = "regular"
 mpl.rcParams["figure.dpi"] = Constant.CHART_DPI.value

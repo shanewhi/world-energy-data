@@ -55,7 +55,7 @@ def import_data():
         sheet_name="Fossil Emissions by Category",
         header=8,
         names=[
-            "FF And Cement",
+            "FF and Cement",
             "Coal",
             "Oil",
             "Gas",
@@ -71,7 +71,7 @@ def import_data():
         sheet_name="Global Carbon Budget",
         header=21,
         names=[
-            "FF And Cement",
+            "FF and Cement",
             "Land Use Change",
             "Atmospheric Growth",
             "Ocean Sink",
@@ -84,7 +84,7 @@ def import_data():
     gcp_budget = gcp_budget.mul(user_globals.Constant.G_TO_M.value)
 
     gcp_ff_emissions = gcp_ff_emissions.drop(columns=["Per Capita"])
-    gcp_budget = gcp_budget.drop(columns=["FF And Cement"])
+    gcp_budget = gcp_budget.drop(columns=["FF and Cement"])
     imported_gcp_data = gcp_ff_emissions.join(gcp_budget)
 
     esrl_co2_conc = pd.read_csv(
@@ -551,6 +551,7 @@ def populate_energy_system(country, ei_data):
             print("Country not in IEA data.\n")
             incl_iea_flag = False
             consumption_PJ = None
+    consumption_PJ = consumption_PJ.astype(float)
 
     # Return national energy system data as object.
     return user_globals.Energy_System(
