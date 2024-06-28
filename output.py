@@ -188,7 +188,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "3 co2 eannual emissions.svg"),
+        os.path.join(fig_dir, "3 co2 annual emissions.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -346,7 +346,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "prod ff shares.svg"),
+        os.path.join(fig_dir, "0 prod ff shares.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -389,7 +389,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "1 prod ff.svg"),
+        os.path.join(fig_dir, "1 ff co2.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
