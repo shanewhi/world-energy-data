@@ -18,6 +18,7 @@ Created on Wed May  1 14:20:13 2024
 # Import Python modules.
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
 
 # Import user modules.
 import user_globals
@@ -33,6 +34,8 @@ import chart
 #
 ########################################################################################
 def world_co2_charts(global_carbon):
+    fig_dir = "charts co2/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # Atmospheric CO2: Concentration and growth.
     ####################################################################################
@@ -77,10 +80,18 @@ https://github.com/shanewhi/world-energy-data."
         concentration_text,
         footer_text,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "1 co2 conc.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
-    # CO2 Emissions: Shares of most recent year.
+    # CO2 Emissions: Shares of sources for most recent year.
     ####################################################################################
 
     print(
@@ -119,10 +130,18 @@ https://github.com/shanewhi/world-energy-data."
         title_addition,
         footer_text,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "2 co2 emission sources.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
-    # CO2 Emissions: Annual Fossil Fuels
+    # CO2 Emissions: Annual Fossil Fuels + Cement
     ####################################################################################
     ffc_co2 = global_carbon.data["FF and Cement"] * user_globals.Constant.C_TO_CO2.value
     recent_ffc_co2 = ffc_co2.loc[
@@ -166,7 +185,15 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         False,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "3 co2 eannual emissions.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # CO2 Emissons: Annual change.
@@ -199,7 +226,15 @@ https://github.com/shanewhi/world-energy-data."
         color,
         series1=series,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "4 co2 emissions change.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # CO2 Emissions: Annual Coal, Oil, and Gas.
@@ -240,7 +275,16 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         equiv_yscale,
     )
-    plt.show()
+
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "5 co2 sep emissions.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -252,6 +296,8 @@ https://github.com/shanewhi/world-energy-data."
 #
 ########################################################################################
 def world_ffprod_charts(coal_prods, oil_prods, gas_prods):
+    fig_dir = "charts world/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     print(
         "Sum of most recent year coal producer shares = "
         + str(sum(coal_prods["Value"]))
@@ -296,7 +342,16 @@ https://github.com/shanewhi/world-energy-data."
         title_addition,
         footer_text,
     )
-    plt.show()
+
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "prod ff shares.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -308,7 +363,10 @@ https://github.com/shanewhi/world-energy-data."
 #
 ########################################################################################
 def country_co2_charts(energy_system):
+
     country = energy_system.name
+    fig_dir = "charts " + country + "/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ff_co2 = energy_system.co2_Mt
     co2_color = user_globals.Color.CO2_EMISSION.value
     title = "Annual CO\u2082 Emissions from Fossil Fuels"
@@ -328,7 +386,15 @@ https://github.com/shanewhi/world-energy-data."
         ylabel,
         footer_text,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "1 prod ff.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -341,6 +407,8 @@ https://github.com/shanewhi/world-energy-data."
 ########################################################################################
 def country_prod_primary_energy_charts(energy_system):
     country = energy_system.name
+    fig_dir = "charts " + country + "/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # PRODUCTION: Annual Fossil Fuel Production.
     ####################################################################################
@@ -412,7 +480,15 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         equiv_scale,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "2 prod ff sep.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # PRIMARY ENERGY: Annual shares of most recent year.
@@ -463,7 +539,15 @@ https://github.com/shanewhi/world-energy-data."
         title_addition,
         footer_text,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "3 pe shares.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # PRIMARY ENERGY: Annual shares.
@@ -522,7 +606,15 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         True,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "4 pe share trends.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # PRIMARY ENERGY: Annual quantity of fossil fuels.
@@ -583,7 +675,15 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         equiv_yscale,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "5 pe ff qty.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # PRIMARY ENERGY: Annual change of fossil fuel category.
@@ -630,7 +730,15 @@ https://github.com/shanewhi/world-energy-data."
         color,
         series1=series,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "6 pe ff change.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # PRIMARY ENERGY: Annual change of fossil fuels.
@@ -693,7 +801,15 @@ https://github.com/shanewhi/world-energy-data."
         series2=pe2,
         series3=pe3,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "7 pe sep ff change.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -706,6 +822,8 @@ https://github.com/shanewhi/world-energy-data."
 ########################################################################################
 def country_consumption_elec_charts(energy_system):
     country = energy_system.name
+    fig_dir = "charts " + country + "/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
     ####################################################################################
@@ -799,7 +917,15 @@ https://github.com/shanewhi/world-energy-data."
             title_addition,
             footer_text,
         )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "8 fe elec shares.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -812,6 +938,8 @@ https://github.com/shanewhi/world-energy-data."
 ########################################################################################
 def country_consumption_charts(energy_system):
     country = energy_system.name
+    fig_dir = "charts " + country + "/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # FINAL ENERGY: Annual shares.
     ####################################################################################
@@ -881,7 +1009,15 @@ Python, https://github.com/shanewhi/world-energy-data."
         footer_text,
         True,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "9 fe share trends.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # FINAL ENERGY: Annual quantities.
@@ -957,7 +1093,15 @@ https://github.com/shanewhi/world-energy-data."
         footer_text,
         True,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "10 fe qty.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
     ####################################################################################
     # FINAL ENERGY: Annual change.
@@ -1074,7 +1218,15 @@ https://github.com/shanewhi/world-energy-data."
         series5=fec5,
         series6=fec6,
     )
-    plt.show()
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.savefig(
+        os.path.join(fig_dir, "11 fe change.svg"),
+        format="svg",
+        bbox_inches="tight",
+        pad_inches=0.2,
+    )
+    plt.close()
 
 
 ########################################################################################
@@ -1087,6 +1239,8 @@ https://github.com/shanewhi/world-energy-data."
 ########################################################################################
 def country_elec_charts(energy_system):
     country = energy_system.name
+    fig_dir = "charts " + country + "/"
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # ELECTRICITY: Annual share of generation by category.
     ####################################################################################
@@ -1142,7 +1296,15 @@ https://github.com/shanewhi/world-energy-data."
             footer_text,
             True,
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+        plt.savefig(
+            os.path.join(fig_dir, "12 elec cat share trends.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()
 
     ####################################################################################
     # ELECTRICITY: Annual share of generation by fuel.
@@ -1215,7 +1377,15 @@ https://github.com/shanewhi/world-energy-data."
             footer_text,
             True,
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+        plt.savefig(
+            os.path.join(fig_dir, "13 elec fuel share trends.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()
 
     ####################################################################################
     # ELECTRICITY: Annual generation quantity by category.
@@ -1256,8 +1426,16 @@ https://github.com/shanewhi/world-energy-data."
             footer_text,
             True,
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
 
+        plt.savefig(
+            os.path.join(fig_dir, "14 elec cat qty.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()
     ####################################################################################
     # ELECTRICITY: Annual generation quantity by fuel.
     ####################################################################################
@@ -1313,7 +1491,16 @@ https://github.com/shanewhi/world-energy-data."
             footer_text,
             True,
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+
+        plt.savefig(
+            os.path.join(fig_dir, "15 elec fuel qty.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()
 
     ####################################################################################
     # ELECTRICITY: Annual change of generation by category.
@@ -1354,7 +1541,15 @@ https://github.com/shanewhi/world-energy-data."
             series3=energy_system.elecprod_TWh["Renewables Change"],
             series4=energy_system.elecprod_TWh["Bio, Geo and Other Change"],
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+        plt.savefig(
+            os.path.join(fig_dir, "16 elec cat change.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()
 
     ####################################################################################
     # ELECTRICITY: Annual change of generation by fuel.
@@ -1401,4 +1596,12 @@ https://github.com/shanewhi/world-energy-data."
             series6=energy_system.elecprod_TWh["Wind and Solar Change"],
             series8=energy_system.elecprod_TWh["Bio, Geo and Other Change"],
         )
-        plt.show()
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+        plt.savefig(
+            os.path.join(fig_dir, "17 elec fuel change.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        plt.close()

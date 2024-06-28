@@ -141,7 +141,7 @@ class Constant(Enum):
     LINE_WIDTH_PLOT_1x1 = 4
     LINE_WIDTH_SUBPOLT = 2.5
     LINE_MARKER_SIZE = 5
-    CHART_DPI = 100
+    DISPLAY_CHARTS = False
 
     # To install a font:
     # Copy .ttf files to ~/Library/Fonts
@@ -190,4 +190,3 @@ class Color(Enum):
 # Set global font parameters.
 plt.style.use(Constant.CHART_STYLE.value)
 plt.rcParams["font.family"] = Constant.CHART_FONT.value
-mpl.rcParams["figure.dpi"] = Constant.CHART_DPI.value
