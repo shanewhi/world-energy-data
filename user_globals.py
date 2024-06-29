@@ -97,7 +97,7 @@ class Constant(Enum):
     PRIMARY_ENERGY_CHANGE_START_YEAR = 1966
     ELEC_CHANGE_START_YEAR = 1995
     TFC_START_YEAR = 1990
-    TFC_END_YEAR = 2021
+    TFC_END_YEAR = 2021  # Final year of IEA data.
 
     # FONT SIZES:
     # 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
@@ -116,7 +116,7 @@ class Constant(Enum):
     SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
 
-    FIG_HSIZE_1x1 = 17
+    FIG_HSIZE_1x1 = 10
     FIG_HSIZE_SUBPLOT_1X2 = 17
     FIG_HSIZE_SUBPLOT_1X3 = 17
     FIG_HSIZE_TREE_1X3 = 17
@@ -127,7 +127,7 @@ class Constant(Enum):
     FIG_HSIZE_TREE_1X2 = 15
     FIG_HSIZE_GROUPED_COLUMN_PLOT = 17
 
-    FIG_VSIZE_1x1 = 7
+    FIG_VSIZE_1x1 = 6
     FIG_VSIZE_SUBPLOT_1X2 = 7
     FIG_VSIZE_SUBPLOT_1X3 = 7
     FIG_VSIZE_TREE_1X3 = 6.4
