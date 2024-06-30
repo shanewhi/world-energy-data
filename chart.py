@@ -1991,33 +1991,35 @@ def line2x4(
         ax[1, 3].set_ylim(0, max(ax[1, 3].get_yticks()))
 
     plt.subplots_adjust(
-        left=0.08, right=0.9, wspace=0.1, hspace=0, top=0.9, bottom=0.07
+        left=0.09, right=0.91, top=0.92, bottom=0.06, wspace=0.12, hspace=0
     )
     fig.suptitle(
         country,
-        x=0.08,
-        y=0.945,
+        x=0.09,
+        y=0.955,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.08,
-        0.905,
+        0.09,
+        0.915,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.08,
+        0.09,
         0.05,
         footer_text,
-        verticalalignment="top",
         horizontalalignment="left",
+        verticalalignment="top",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
+    fig.text(0, 0, " ")  # Ensure left and right padding is included.
+    fig.text(1, 0, " ")
 
 
 ########################################################################################
@@ -2414,32 +2416,36 @@ def column2x4(
         ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
         ax[1, 3].set_ylim(0, max(ax[1, 3].get_yticks()))
 
-    plt.subplots_adjust(left=0.08, wspace=0.15, top=0.87, bottom=0.12)
+    plt.subplots_adjust(
+        left=0.09, right=0.91, top=0.92, bottom=0.06, wspace=0.12, hspace=0
+    )
     fig.suptitle(
         country,
-        x=0.08,
-        y=0.945,
+        x=0.09,
+        y=0.955,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.08,
-        0.905,
+        0.09,
+        0.915,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.08,
-        0.07,
+        0.09,
+        0.05,
         footer_text,
-        verticalalignment="top",
         horizontalalignment="left",
+        verticalalignment="top",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
+    fig.text(0, 0, " ")  # Ensure left and right padding is included.
+    fig.text(1, 0, " ")
 
 
 # Other charts.
