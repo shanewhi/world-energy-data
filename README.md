@@ -4,17 +4,9 @@ Python program that generates charts of:
 2. Global fossil fuel production;
 3. National CO2 emissons;
 4. National fossil fuel prouction; and
-5. National energy systems (fossil fuel production, primary energy, final energy and electricity.
+5. National energy systems (fossil fuel production, primary energy, final energy and electricity where available).
    
 Written by Shane White using Python v3.12.2 for the site https://www.worldenergydata.org
-
-Required Input:
-1. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
-   (included in the latest release of this code)
-2. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
-3. https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
-(from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
-4. IEA annual energy balances in JSON format (included in the latest release of this code)
 
 Consists of the following files:
 1. world_energy_data.py (main executable)
@@ -25,5 +17,12 @@ Consists of the following files:
 6. chart.py (generic chart functions)
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
-To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR.
+Required Input:
+1. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
+   (included in the latest release of this code)
+2. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
+3. https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
+(from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
+4. IEA annual energy balances in JSON format (included in the latest release of this code)
 
+To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR.
