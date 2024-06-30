@@ -34,7 +34,7 @@ import chart
 #
 ########################################################################################
 def world_co2_charts(global_carbon):
-    fig_dir = "charts co2/"
+    fig_dir = "charts CO2/"
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     ####################################################################################
     # Atmospheric CO2: Concentration and growth.
@@ -296,7 +296,7 @@ https://github.com/shanewhi/world-energy-data."
 #
 ########################################################################################
 def world_ffprod_charts(coal_prods, oil_prods, gas_prods):
-    fig_dir = "charts world/"
+    fig_dir = "charts World/"
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
     print(
         "Sum of most recent year coal producer shares = "
