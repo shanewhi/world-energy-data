@@ -83,17 +83,20 @@ ei_data, gcp_data, esrl_data = collate.import_data()
 global_carbon = collate.co2_data(gcp_data, esrl_data)
 output.world_co2_charts(global_carbon)
 
-# Generate global fossul fuel production charts using EI data.
-coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
-output.world_ffprod_charts(coal_producers, oil_producers, gas_producers)
-
 
 # Generate energy system charts in the following order:
 def profile(country):
     energy_system = collate.energy(country, ei_data)
+
+    # Generate global fossil fuel production charts using EI data.
     if energy_system.incl_ei_flag is True:
         output.country_co2_charts(energy_system)
         output.country_prod_primary_energy_charts(energy_system)
+
+    coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
+    output.world_ffprod_charts(
+        coal_producers, oil_producers, gas_producers, energy_system.name
+    )
 
     if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
         output.country_consumption_elec_charts(energy_system)
@@ -105,7 +108,7 @@ def profile(country):
         output.country_elec_charts(energy_system)
 
 
-# Profile following co`untries or "Total World".
+# Profile following countries or "Total World". Name must match that used by EI data.
 profile("Total World")
 # profile("China")
 # profile("US")
@@ -118,6 +121,7 @@ profile("Total World")
 # profile("United Kingdom")
 # profile("Sweden")
 # profile("Australia")
+# profile("Singapore")
 # profile("Algeria")
 # profile("Vietnam")
 # profile("Azerbaijan")
