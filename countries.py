@@ -25,6 +25,8 @@ def iea_country_name(country_in):
         return "'UK'"
     if country == "'US'":
         return "'USA'"
+    if country == "'RUSSIAN FEDERATION'":
+        return "'RUSSIA'"
     else:
         return country
 

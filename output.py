@@ -690,9 +690,9 @@ https://github.com/shanewhi/world-energy-data."
     title = (
         "Annual change of the sum of Fossil Fuels in Energy Supply \
 (Primary Energy), "
-        + str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value)
+        + str(energy_system.primary_PJ.first_valid_index())
         + " - "
-        + str(energy_system.primary_PJ["Total"].index[-1])
+        + str(energy_system.primary_PJ.last_valid_index())
     )
 
     if country == "World":
@@ -745,9 +745,9 @@ https://github.com/shanewhi/world-energy-data."
     title = (
         "Annual change of Fossil Fuels in Energy Supply \
 (Primary Energy), "
-        + str(user_globals.Constant.PRIMARY_ENERGY_CHANGE_START_YEAR.value)
+        + str(energy_system.primary_PJ.first_valid_index())
         + " - "
-        + str(energy_system.primary_PJ["Total"].index[-1])
+        + str(energy_system.primary_PJ.last_valid_index())
     )
 
     if country == "World":
@@ -1512,7 +1512,7 @@ https://github.com/shanewhi/world-energy-data."
             "Annual change of categories in Electricity Generation, "
             + str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value)
             + " - "
-            + str(energy_system.elecprod_TWh["Total"].index[-1])
+            + str(energy_system.elecprod_TWh.last_valid_index())
         )
         ylabel = "TWh/year"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
@@ -1561,7 +1561,7 @@ https://github.com/shanewhi/world-energy-data."
             "Annual change of fuels in Electricity Generation, "
             + str(user_globals.Constant.ELEC_CHANGE_START_YEAR.value)
             + " - "
-            + str(energy_system.elecprod_TWh["Total"].index[-1])
+            + str(energy_system.elecprod_TWh.last_valid_index())
         )
         ylabel = "TWh/year"
         footer_text = "Data: The Energy Institute Statistical Review of World Energy \
