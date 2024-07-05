@@ -205,8 +205,11 @@ def populate_energy_system(country, ei_data):
             country_data["Var"] == "primary_ej", "Value"
         ]
 
-        # CO2.
-        co2_Mt = country_data.loc[country_data["Var"] == "co2_combust_mtco2", "Value"]
+        # Fossil Fuel CO2
+        ffco2_Mt = country_data.loc[country_data["Var"] == "co2_combust_mtco2", "Value"]
+        ffco2 = pd.DataFrame(index=ffco2_Mt.index, columns=["Value", "Change"])
+        ffco2["Value"] = ffco2_Mt
+        process.ffco2_change(ffco2)
 
         # FOSSIL FUEL PRODUCTION.
         ffprod_PJ = pd.DataFrame(
@@ -563,7 +566,7 @@ def populate_energy_system(country, ei_data):
         country,
         incl_ei_flag,
         incl_iea_flag,
-        co2_Mt,
+        ffco2,
         ffprod_PJ,
         primary_PJ,
         pd.DataFrame(),  # Populated in process.py

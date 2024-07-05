@@ -254,6 +254,24 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
 
 ########################################################################################
 #
+# Function: ffco2_change()
+#
+# Description:
+# Calculate change of CO2 from fossil fuel combustion.
+#
+########################################################################################
+def ffco2_change(df):
+    # Calculate shares and changes.
+    min_year = min(df.index)
+    max_year = max(df.index)
+    change_yrs = range(min_year + 1, max_year + 1)
+
+    for yr in change_yrs:
+        df.loc[yr, "Change"] = df.loc[yr, "Value"] - df.loc[yr - 1, "Value"]
+
+
+########################################################################################
+#
 # Function: primary_energy()
 #
 # Description:

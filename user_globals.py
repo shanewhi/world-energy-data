@@ -49,7 +49,7 @@ class Energy_System:
         name,  # Country name.
         incl_ei_flag,  # True if country appears in EI data.
         incl_iea_flag,  # True if country appears in IEA data.
-        co2_Mt,
+        ffco2,
         ffprod_PJ,
         primary_PJ,
         primary_final_category_shares,
@@ -63,7 +63,7 @@ class Energy_System:
         self.name = name
         self.incl_ei_flag = incl_ei_flag
         self.incl_iea_flag = incl_iea_flag
-        self.co2_Mt = co2_Mt
+        self.ffco2 = ffco2
         self.ffprod_PJ = ffprod_PJ
         self.primary_PJ = primary_PJ
         self.primary_final_category_shares = primary_final_category_shares
