@@ -17,12 +17,24 @@ Consists of the following files:
 6. chart.py (generic chart functions)
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
-Required Input:
+Required input (all are provided in this repository):
 1. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
-   (included in the latest release of this code)
 2. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
-3. https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv
-(from https://www.energyinst.org/statistical-review/resources-and-data-downloads)
-4. IEA annual energy balances in JSON format (included in the latest release of this code)
+3. Energy Institute Statistical Review of World Energy data from
+   https://www.energyinst.org/statistical-review/resources-and-data-downloads
+(Direct link is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)
+4. IEA annual energy balances in JSON format. Instructions to obtain this are lengthy and listed in the comments of
+   world_energy_data.py, within this repository.
 
-To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR.
+Instructions for use (code below is within single quotes):
+1. Choose a country to profile from those listed in the Energy Institute's data listed above.
+2. Edit the existing profile commands in world_energy_data.py to include 'profile("Country_Name")', where Country_Name is an exact
+   duplicate of the name of the country selected in (1).
+3. Browse one of the IEA JSON files listed in (4) above to identify the IEA's equivalent country name.
+4. If the IEA version of Country_Name differs, edit countries.py to translate Country_Name to the IEA equivalent.
+5. Save all and using a terminal, enter the command 'python3 world_energy_data.py'
+6. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and
+   'charts Country_Name' for national, or World, energy charts.
+
+To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR. This will
+consequently shorten the time period for final energy (total final consumption) charts.
