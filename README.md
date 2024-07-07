@@ -1,16 +1,17 @@
 Python script that generates the following charts -
 
-Global:
+Global charts:
 1. Annual atmospheric CO₂ concentration and change
-2. CO₂ emissions sources by share
+2. CO₂ emission sources by share
 3. Annual CO₂ emissions from fossil fuels and cement
 4. Annual change of CO₂ emissions from fossil fuels and cement
 5. Annual coal, oil and gas CO₂ emissions
+6. Shares of national fossil fuel production
 
-Global or national (for the country or countries specified):
+
+Global or national charts (for the country or countries specified):
 1. Annual CO₂ emissions from fossil fuels
-2. Annual change of annual CO₂ emissions from fossil fuels
-3. Global shares of fossil fuel production
+2. Change of annual CO₂ emissions from fossil fuels
 4. Annual production of coal, oil and gas
 5. Shares of fuels in energy supply for latest year (primary energy)
 6. Annual shares of fuels in energy supply
