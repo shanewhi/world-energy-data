@@ -1,10 +1,34 @@
 Description:
-Python program that generates charts of:
-1. Global CO2 emissions;
-2. Global fossil fuel production;
-3. National CO2 emissons;
-4. National fossil fuel prouction; and
-5. National energy systems (fossil fuel production, primary energy, final energy and electricity where available).
+Python program that generates the following charts -
+
+Global:
+1. Annual atmospheric CO₂ concentration and change
+2. CO₂ emissions sources by share
+3. Annual CO₂ emissions from fossil fuels and cement
+4. Annual change of CO₂ emissions from fossil fuels and cement
+5. Annual coal, oil and gas CO₂ emissions
+
+Global or National (for the country specified as explained below):
+1. Annual CO₂ emissions from fossil fuels
+2. Annual change of annual CO₂ emissions from fossil fuels
+3. Global shares of fossil fuel production
+4. Annual production of coal, oil and gas
+5. Shares of fuels in energy supply for latest year (primary energy)
+6. Annual shares of fuels in energy supply
+7. Annual quantity of fossil fuels in energy supply
+8. Annual change of quantity of fossil fuels in energy supply
+9. Annual change of quantity of separate fossil fuels in energy supply
+10. Shares of fuels in final energy and electricity generation for latest year
+11. Annual shares of fuels in final energy
+12. Annual quantity of fuels in final energy
+13. Annual change of quantity of fuels in final energy
+14. Annual shares of categories in electricity generation
+15. Annual shares of fuels in electricity generation
+16. Annual quantity of categories in electricity generation
+17. Annual quantity of fuels in electricity generation
+18. Annual change of categories in electricity generation
+19. Annual change of fuels in electricity generation
+
    
 Written by Shane White using Python v3.12.2 for the site https://www.worldenergydata.org
 
