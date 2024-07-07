@@ -1,4 +1,3 @@
-Description:
 Python script that generates the following charts -
 
 Global:
