@@ -1,5 +1,5 @@
 Description:
-Python program that generates the following charts -
+Python script that generates the following charts -
 
 Global:
 1. Annual atmospheric CO₂ concentration and change
@@ -8,7 +8,7 @@ Global:
 4. Annual change of CO₂ emissions from fossil fuels and cement
 5. Annual coal, oil and gas CO₂ emissions
 
-Global or National (for the country specified as explained below):
+Global or national (for the country or countries specified):
 1. Annual CO₂ emissions from fossil fuels
 2. Annual change of annual CO₂ emissions from fossil fuels
 3. Global shares of fossil fuel production
