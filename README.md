@@ -55,7 +55,7 @@ Instructions for use (code below is within single quotes):
 2. Edit the existing profile commands in world_energy_data.py to include 'profile("Country_Name")', where Country_Name is an exact
    duplicate of the name of the country selected in (1).
 3. Browse one of the IEA JSON files listed in (4) above to identify the IEA's equivalent country name.
-4. If the IEA version of Country_Name differs, edit countries.py to translate Country_Name to the IEA equivalent.
+4. If the IEA version of Country_Name differs, edit countries.iea_country_name() to translate Country_Name to the IEA equivalent.
 5. Save all and using a terminal, enter the command 'python3 world_energy_data.py'
 6. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and
    'charts Country_Name' for national, or World, energy charts.
