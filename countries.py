@@ -6,10 +6,19 @@ Created on Fri Apr 26 14:25:39 2024
 @author: shanewhite
 """
 
-
 ########################################################################################
 #
 # Module: countries.py
+#
+# Description:
+# Functions that peform country name lookups and modifications.
+#
+########################################################################################
+
+
+########################################################################################
+#
+# Function: iea_country_name()
 #
 # Description:
 # Converts country name to version compliant with IEA JSON dataset.
@@ -35,7 +44,7 @@ def iea_country_name(country_in):
 
 ########################################################################################
 #
-# Module: ffprod_shorten_country.py
+# Function: ffprod_shorten_country()
 #
 # Description:
 # Shortens country name for chart.treemap().
