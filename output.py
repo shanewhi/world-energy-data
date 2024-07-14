@@ -935,10 +935,10 @@ statistics-and-balances.\n\
 Electricity Generation data: The Energy Institute Statistical Review of World \
 Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-For some small countries, The Energy Institute doesn't publish electrcity generation \
-data for all fuels, but they do publish the country's total. This enables calculation\
-of any unpublished share, labelled as such in the righthand chart, if \
-applicable.\n\
+Electricity generation shares may not total 100% because for some small countries \
+the Energy Institute doesn't publish this data for all fuels. \
+Total generation is published, so this unpublished share is calculated, & shown \
+in the RH chart if applicable.\n\
 For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to \
@@ -1302,9 +1302,9 @@ def country_elec_charts(energy_system):
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Shares are calculated using gross \
 generation quantities that don't account for imports or exports.\n\
-Shares may not total 100% for some small countries, because for such countries the \
-Energy Institute doesn't publish electrcity generation data for all fuels. But for all \
-countries, total generation is published, so this unpublished share can be calculated. \
+Shares may not total 100% because for some small countries the Energy Institute \
+doesn't publish electricity generation data for all fuels. \
+Total generation is published, so this unpublished share is calculated. \
 For "
             + country
             + ", the unpublished share in year "
@@ -1383,9 +1383,9 @@ https://github.com/shanewhi/world-energy-data."
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Shares are calculated using gross generation quantities that don't account for imports \
 or exports.\n\
-Shares may not total 100% for some small countries, because for such countries the \
-Energy Institute doesn't publish electrcity generation data for all fuels. But for all \
-countries, total generation is published, so this unpublished share can be calculated. \
+Shares may not total 100% because for some small countries the Energy Institute \
+doesn't publish electricity generation data for all fuels. \
+Total generation is published, so this unpublished share is calculated. \
 For "
             + country
             + ", the unpublished share in year "
