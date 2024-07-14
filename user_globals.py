@@ -143,21 +143,6 @@ class Constant(Enum):
     LINE_MARKER_SIZE = 5
     DISPLAY_CHARTS = False
 
-    # To install a font:
-    # Copy .ttf files to ~/Library/Fonts
-    # Then delete matplotlib's font cache using rm ~/.matplotlib/fontlist-v330.json
-    # Finally restart IDE.
-    #
-    # To view all accessible fonts, enter:
-    # sorted(matplotlib.font_manager.get_font_names())
-    #
-    # Not all fonts support Unicode subscript '2' and have a bold style.
-    # To view fonts that support a subscript '2':
-    # https://www.fileformat.info/info/unicode/char/2082/fontsupport.htm
-    # Path to FreeSans:
-    # https://ftp.gnu.org/gnu/freefont/
-    CHART_FONT = "FreeSans"
-
     # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
     # Python chart gallery: https://python-graph-gallery.com/
     CHART_STYLE = "bmh"
@@ -185,8 +170,12 @@ class Color(Enum):
     FOSSIL_FUELS = "grey"  # "dimgray"
     CEMENT = "cadetblue"  # "lightslategrey"
     LUC = "olivedrab"  # "saddlebrown"
+    UNPUBLISHED = "steelblue"
 
 
 # Set global font parameters.
+# If you add a font to the OS, be sure to delete all matplotlib's font cache files in
+# ~/.matplotlib.
 plt.style.use(Constant.CHART_STYLE.value)
-plt.rcParams["font.family"] = Constant.CHART_FONT.value
+plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["font.sans-serif"] = ["SF Pro Display"]

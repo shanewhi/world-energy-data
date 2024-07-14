@@ -2536,7 +2536,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
         loc="lower left",
         frameon=False,
         handlelength=2,
-        ncol=6,
+        ncol=7,
         fontsize="large",
     )
     # Show x axis line.

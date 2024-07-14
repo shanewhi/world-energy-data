@@ -502,9 +502,9 @@ def primary_energy(energy_system):
 def electricity(energy_system):
     if (
         energy_system.elecprod_TWh.empty
-        or energy_system.elecprod_TWh["Total"].iloc[-1] == 0
+        or energy_system.elecprod_TWh["Total Country"].iloc[-1] == 0
     ):
-        print("Inadequate or nill electricity data in EI dataset.\n")
+        print("No electricity data for country in EI dataset.\n")
         return ()
 
     min_year = min(energy_system.elecprod_TWh.index)
@@ -514,7 +514,8 @@ def electricity(energy_system):
     # Coal.
     if not energy_system.elecprod_TWh["Coal"].empty:
         energy_system.elecprod_TWh["Coal Share"] = (
-            energy_system.elecprod_TWh["Coal"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Coal"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Coal Change"] = (
@@ -525,7 +526,8 @@ def electricity(energy_system):
     # Oil.
     if not energy_system.elecprod_TWh["Oil"].empty:
         energy_system.elecprod_TWh["Oil Share"] = (
-            energy_system.elecprod_TWh["Oil"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Oil"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Oil Change"] = (
@@ -536,7 +538,8 @@ def electricity(energy_system):
     # Gas.
     if not energy_system.elecprod_TWh["Gas"].empty:
         energy_system.elecprod_TWh["Gas Share"] = (
-            energy_system.elecprod_TWh["Gas"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Gas"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Gas Change"] = (
@@ -547,7 +550,8 @@ def electricity(energy_system):
     # Nuclear.
     if not energy_system.elecprod_TWh["Nuclear"].empty:
         energy_system.elecprod_TWh["Nuclear Share"] = (
-            energy_system.elecprod_TWh["Nuclear"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Nuclear"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Nuclear Change"] = (
@@ -558,7 +562,8 @@ def electricity(energy_system):
     # Hydro.
     if not energy_system.elecprod_TWh["Hydro"].empty:
         energy_system.elecprod_TWh["Hydro Share"] = (
-            energy_system.elecprod_TWh["Hydro"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Hydro"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Hydro Change"] = (
@@ -569,7 +574,8 @@ def electricity(energy_system):
     # Wind.
     if not energy_system.elecprod_TWh["Wind"].empty:
         energy_system.elecprod_TWh["Wind Share"] = (
-            energy_system.elecprod_TWh["Wind"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Wind"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Wind Change"] = (
@@ -580,7 +586,8 @@ def electricity(energy_system):
     # Solar.
     if not energy_system.elecprod_TWh["Solar"].empty:
         energy_system.elecprod_TWh["Solar Share"] = (
-            energy_system.elecprod_TWh["Solar"] / energy_system.elecprod_TWh["Total"]
+            energy_system.elecprod_TWh["Solar"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Solar Change"] = (
@@ -592,7 +599,7 @@ def electricity(energy_system):
     if not energy_system.elecprod_TWh["Bio, Geo and Other"].empty:
         energy_system.elecprod_TWh["Bio, Geo and Other Share"] = (
             energy_system.elecprod_TWh["Bio, Geo and Other"]
-            / energy_system.elecprod_TWh["Total"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other Change"] = (
@@ -604,7 +611,7 @@ def electricity(energy_system):
     if not energy_system.elecprod_TWh["Fossil Fuels"].empty:
         energy_system.elecprod_TWh["Fossil Fuels Share"] = (
             energy_system.elecprod_TWh["Fossil Fuels"]
-            / energy_system.elecprod_TWh["Total"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Fossil Fuels Change"] = (
@@ -616,7 +623,7 @@ def electricity(energy_system):
     if not energy_system.elecprod_TWh["Wind and Solar"].empty:
         energy_system.elecprod_TWh["Wind and Solar Share"] = (
             energy_system.elecprod_TWh["Wind and Solar"]
-            / energy_system.elecprod_TWh["Total"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Wind and Solar Change"] = (
@@ -628,12 +635,24 @@ def electricity(energy_system):
     if not energy_system.elecprod_TWh["Renewables"].empty:
         energy_system.elecprod_TWh["Renewables Share"] = (
             energy_system.elecprod_TWh["Renewables"]
-            / energy_system.elecprod_TWh["Total"]
+            / energy_system.elecprod_TWh["Total Country"]
         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Renewables Change"] = (
                 energy_system.elecprod_TWh.loc[yr, "Renewables"]
                 - energy_system.elecprod_TWh.loc[yr - 1, "Renewables"]
+            )
+
+    # Unpublished.
+    if not energy_system.elecprod_TWh["Unpublished"].empty:
+        energy_system.elecprod_TWh["Unpublished Share"] = (
+            energy_system.elecprod_TWh["Unpublished"]
+            / energy_system.elecprod_TWh["Total Country"]
+        ) * 100
+        for yr in change_yrs:
+            energy_system.elecprod_TWh.loc[yr, "Unpublished Change"] = (
+                energy_system.elecprod_TWh.loc[yr, "Unpublished"]
+                - energy_system.elecprod_TWh.loc[yr - 1, "Unpublished"]
             )
 
     # To enable plotting of shares for most recent year, organise into
@@ -653,20 +672,31 @@ def electricity(energy_system):
     final_bio_geo_other_elec_share = energy_system.elecprod_TWh[
         "Bio, Geo and Other Share"
     ].iloc[-1]
+    final_Unpublished_elec_share = energy_system.elecprod_TWh["Unpublished Share"].iloc[
+        -1
+    ]
 
     # Process categories.
-    category_name = ["Fossil Fuels", "Nuclear", "Renewables", "Bio, Geo and Other"]
+    category_name = [
+        "Fossil Fuels",
+        "Nuclear",
+        "Renewables",
+        "Bio, Geo and Other",
+        "Unpublished",
+    ]
     final_category_share = [
         final_ff_elec_share,
         final_nuclear_elec_share,
         final_renewables_elec_share,
         final_bio_geo_other_elec_share,
+        final_Unpublished_elec_share,
     ]
     category_color = [
         user_globals.Color.FOSSIL_FUELS.value,
         user_globals.Color.NUCLEAR.value,
         user_globals.Color.RENEWABLES.value,
         user_globals.Color.OTHER.value,
+        user_globals.Color.UNPUBLISHED.value,
     ]
     # Filter out shares that are NaN or < 1%. Round values for plotting.
     filtered_final_category_share = []
@@ -694,6 +724,7 @@ def electricity(energy_system):
         "Hydro",
         "Wind & Solar",
         "Bio, Geo and Other",
+        "Unpublished",
     ]
     final_fuel_share = [
         final_coal_elec_share,
@@ -703,6 +734,7 @@ def electricity(energy_system):
         final_hydro_elec_share,
         final_wind_solar_elec_share,
         final_bio_geo_other_elec_share,
+        final_Unpublished_elec_share,
     ]
     fuel_color = [
         user_globals.Color.COAL.value,
@@ -712,6 +744,7 @@ def electricity(energy_system):
         user_globals.Color.HYDRO.value,
         user_globals.Color.WIND_AND_SOLAR.value,
         user_globals.Color.OTHER.value,
+        user_globals.Color.UNPUBLISHED.value,
     ]
     # Filter out shares that are NaN or < 1%. Round values for plotting.
     filtered_final_fuel_share = []

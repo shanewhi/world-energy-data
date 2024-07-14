@@ -306,9 +306,7 @@ def populate_energy_system(country, ei_data):
         primary_PJ["Total"] = total_primary_EJ * user_globals.Constant.EJ_TO_PJ.value
 
         # ELECTRICITY.
-        total_elecprod_TWh = country_data.loc[
-            country_data["Var"] == "electbyfuel_total"
-        ]
+        total_elecprod_TWh = country_data.loc[country_data["Var"] == "elect_twh"]
 
         elecprod_TWh = pd.DataFrame(
             index=total_elecprod_TWh.index,
@@ -320,11 +318,14 @@ def populate_energy_system(country, ei_data):
                 "Hydro",
                 "Wind",
                 "Solar",
-                "Bio, Geo Other",
+                "Bio, Geo and Other",
                 "Fossil Fuels",
                 "Wind and Solar",
                 "Renewables",
-                "Total",
+                "Sum Fuels",
+                "Total Fuels",
+                "Total Country",
+                "Unpublished",
             ],
         )
 
@@ -338,10 +339,10 @@ def populate_energy_system(country, ei_data):
             country_data["Var"] == "electbyfuel_gas", "Value"
         ]
         elecprod_TWh["Nuclear"] = country_data.loc[
-            country_data["Var"] == "electbyfuel_nuclear", "Value"
+            country_data["Var"] == "nuclear_twh", "Value"
         ]
         elecprod_TWh["Hydro"] = country_data.loc[
-            country_data["Var"] == "electbyfuel_hydro", "Value"
+            country_data["Var"] == "hydro_twh", "Value"
         ]
         elecprod_TWh["Wind"] = country_data.loc[
             country_data["Var"] == "wind_twh", "Value"
@@ -353,11 +354,6 @@ def populate_energy_system(country, ei_data):
             country_data.loc[country_data["Var"] == "biogeo_twh", "Value"]
             + country_data.loc[country_data["Var"] == "electbyfuel_other", "Value"]
         )
-
-        # Replace any NaNs with 0 in fields imported into elecprod_TWh.
-        with pd.option_context("future.no_silent_downcasting", True):
-            elecprod_TWh.fillna(0, inplace=True)
-
         elecprod_TWh["Fossil Fuels"] = (
             elecprod_TWh["Coal"] + elecprod_TWh["Oil"] + elecprod_TWh["Gas"]
         )
@@ -365,12 +361,36 @@ def populate_energy_system(country, ei_data):
         elecprod_TWh["Renewables"] = (
             elecprod_TWh["Wind"] + elecprod_TWh["Solar"] + elecprod_TWh["Hydro"]
         )
-        elecprod_TWh["Total"] = country_data.loc[
+        # For some countries (e.g Norway), EI data contains a total for the country,
+        # but not a value for each fuel. In such cases, "electbyfuel_total" will be
+        # zero, but "elect_twh" will have a value. Values may also be provided for
+        # non-combustibles, in which case these can be plotted. Any difference between
+        # "Sum_Fuels" and "elect_twh" will be classified as "Unpublished" (but is typically
+        # very small amounts of fossil fuels.
+        elecprod_TWh["Total Fuels"] = country_data.loc[
             country_data["Var"] == "electbyfuel_total", "Value"
         ]
-
+        elecprod_TWh["Total Country"] = country_data.loc[
+            country_data["Var"] == "elect_twh", "Value"
+        ]
+        # Replace any NaNs with 0
         with pd.option_context("future.no_silent_downcasting", True):
             elecprod_TWh.fillna(0, inplace=True)
+
+        elecprod_TWh["Sum Fuels"] = (
+            elecprod_TWh["Coal"]
+            + elecprod_TWh["Oil"]
+            + elecprod_TWh["Gas"]
+            + elecprod_TWh["Nuclear"]
+            + elecprod_TWh["Hydro"]
+            + elecprod_TWh["Wind"]
+            + elecprod_TWh["Solar"]
+            + elecprod_TWh["Bio, Geo and Other"]
+        )
+
+        elecprod_TWh["Unpublished"] = (
+            elecprod_TWh["Total Country"] - elecprod_TWh["Sum Fuels"]
+        )
 
         elecprod_TWh["Coal"] = np.where(
             elecprod_TWh["Coal"] < 0.1, 0, elecprod_TWh["Coal"]
@@ -397,6 +417,9 @@ def populate_energy_system(country, ei_data):
             elecprod_TWh["Bio, Geo and Other"] < 0.1,
             0,
             elecprod_TWh["Bio, Geo and Other"],
+        )
+        elecprod_TWh["Unpublished"] = np.where(
+            elecprod_TWh["Unpublished"] < 0.1, 0, elecprod_TWh["Unpublished"]
         )
     else:
         print("Country not in EI data.\n")

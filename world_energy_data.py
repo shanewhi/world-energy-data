@@ -22,7 +22,7 @@ import output
 # 4. National fossil fuel prouction; and
 # 5. National energy systems (fossil fuel production, primary energy, final energy and
 # electricity.
-# Written by Shane White using Python v3.11.5 and Spyder IDE.
+# Written by Shane White using Python v3.12.2 and Spyder IDE.
 # https://github.com/shanewhi/world-energy-data
 # https://www.worldenergydata.org
 #
@@ -108,22 +108,24 @@ def profile(country):
         output.country_elec_charts(energy_system)
 
 
-# Profile following countries or "Total World". Name must match that used by EI data.
+# Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")
 profile("China")
 profile("US")
 profile("Russian Federation")
+profile("India")
+profile("Saudi Arabia")
+profile("Germany")
+profile("Indonesia")
+profile("United Arab Emirates")
+profile("Australia")
+profile("Norway")
 # profile("Azerbaijan")
 # profile("Kenya")
 # profile("France")
 # profile("Mexico")
-profile("Germany")
-profile("India")
-# profile("United Arab Emirates")
-# profile("United Kingdom")
-# profile("Sweden")
-profile("Australia")
 # profile("Singapore")
 # profile("Algeria")
 # profile("Vietnam")
-profile("Saudi Arabia")
+# profile("United Kingdom")
+# profile("Sweden")

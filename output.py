@@ -869,7 +869,7 @@ def country_consumption_elec_charts(energy_system):
     # Plot only Final Energy if electricity data is unavailable.
     if (
         energy_system.elecprod_TWh.empty
-        or energy_system.elecprod_TWh["Total"].iloc[-1] == 0
+        or energy_system.elecprod_TWh["Total Country"].iloc[-1] == 0
     ):
         print(
             "Sum of Final Energy = "
@@ -928,13 +928,17 @@ consumed."
         title2 = "Electricity Generation by share in year " + str(
             energy_system.elecprod_TWh.index[-1]
         )
-        footer_text = "Latest years of data shown as of May 2024. Energy Consumption \
+        footer_text = "Latest years of data shown as of July 2024. Energy Consumption \
 data: IEA 2023 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances.\n\
 Electricity Generation data: The Energy Institute Statistical Review of World \
 Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
+For some small countries, The Energy Institute doesn't publish electrcity generation \
+data for all fuels, but they do publish the country's total. This enables calculation\
+of any unpublished share, labelled as such in the righthand chart, if \
+applicable.\n\
 For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to \
@@ -1285,7 +1289,7 @@ def country_elec_charts(energy_system):
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = "Annual shares of categories in Electricity Generation"
         ylabel = "Annual Share (%)"
@@ -1293,13 +1297,24 @@ def country_elec_charts(energy_system):
         title2 = "Nuclear"
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
-2024, \
+        footer_text = (
+            "Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Shares are calculated using gross \
 generation quantities that don't account for imports or exports.\n\
+Shares may not total 100% for some small countries, because for such countries the \
+Energy Institute doesn't publish electrcity generation data for all fuels. But for all \
+countries, total generation is published, so this unpublished share can be calculated. \
+For "
+            + country
+            + ", the unpublished share in year "
+            + str(energy_system.elecprod_TWh.index[-1])
+            + " was "
+            + str(round(energy_system.elecprod_TWh["Unpublished Share"].iloc[-1], 1))
+            + "%.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
+        )
 
         esc1 = energy_system.elecprod_TWh["Fossil Fuels Share"]
         esc2 = energy_system.elecprod_TWh["Nuclear Share"]
@@ -1350,7 +1365,7 @@ https://github.com/shanewhi/world-energy-data."
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = "Annual shares of fuels in Electricity Generation"
         title1 = "Coal"
@@ -1362,13 +1377,25 @@ https://github.com/shanewhi/world-energy-data."
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "Annual Share (%)"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+        footer_text = (
+            "Data: The Energy Institute Statistical Review of World Energy \
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Shares are calculated using gross generation quantities that don't account for imports \
 or exports.\n\
+Shares may not total 100% for some small countries, because for such countries the \
+Energy Institute doesn't publish electrcity generation data for all fuels. But for all \
+countries, total generation is published, so this unpublished share can be calculated. \
+For "
+            + country
+            + ", the unpublished share in year "
+            + str(energy_system.elecprod_TWh.index[-1])
+            + " was "
+            + str(round(energy_system.elecprod_TWh["Unpublished Share"].iloc[-1], 1))
+            + "%.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
+        )
 
         esf1 = energy_system.elecprod_TWh["Coal Share"]
         esf2 = energy_system.elecprod_TWh["Oil Share"]
@@ -1431,7 +1458,7 @@ https://github.com/shanewhi/world-energy-data."
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = "Annual Electricity Generation by category"
         title1 = "Fossil Fuels"
@@ -1439,12 +1466,23 @@ https://github.com/shanewhi/world-energy-data."
         title3 = "Renewables"
         title4 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+        footer_text = (
+            "Data: The Energy Institute Statistical Review of World Energy \
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
-don't account for imports or exports.\nBy shanewhite@worldenergydata.org using Python, \
+don't account for imports or exports.\n\
+For some small countries, the Energy Institute doesn't publish electrcity generation \
+data for all fuels. For "
+            + country
+            + ", the unpublished generation in year "
+            + str(energy_system.elecprod_TWh.index[-1])
+            + " was "
+            + str(round(energy_system.elecprod_TWh["Unpublished"].iloc[-1], 1))
+            + "TWh.\n\
+By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
+        )
 
         chart.column1x4(
             energy_system.elecprod_TWh["Fossil Fuels"],
@@ -1480,7 +1518,7 @@ https://github.com/shanewhi/world-energy-data."
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = "Annual Electricity Generation by fuel"
         title1 = "Coal"
@@ -1492,12 +1530,22 @@ https://github.com/shanewhi/world-energy-data."
         title7 = "Solar"
         title8 = "Bio, Geo and Other"
         ylabel = "TWh"
-        footer_text = "Data: The Energy Institute Statistical Review of World Energy \
+        footer_text = (
+            "Data: The Energy Institute Statistical Review of World Energy \
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Quantities are gross generation that don't account for imports or exports.\n\
+For some small countries, the Energy Institute doesn't publish electrcity generation \
+data for all fuels. For "
+            + country
+            + ", the unpublished generation in year "
+            + str(energy_system.elecprod_TWh.index[-1])
+            + " was "
+            + str(round(energy_system.elecprod_TWh["Unpublished"].iloc[-1], 1))
+            + "TWh.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
+        )
 
         chart.column2x4(
             energy_system.elecprod_TWh["Coal"],
@@ -1546,7 +1594,7 @@ https://github.com/shanewhi/world-energy-data."
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = (
             "Annual change of categories in Electricity Generation, "
@@ -1595,7 +1643,7 @@ https://github.com/shanewhi/world-energy-data."
     ####################################################################################
     if (
         not energy_system.elecprod_TWh.empty
-        and energy_system.elecprod_TWh["Total"].iloc[-1] != 0
+        and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
         title = (
             "Annual change of fuels in Electricity Generation, "
