@@ -354,6 +354,11 @@ def populate_energy_system(country, ei_data):
             country_data.loc[country_data["Var"] == "biogeo_twh", "Value"]
             + country_data.loc[country_data["Var"] == "electbyfuel_other", "Value"]
         )
+
+        # Replace any NaNs with 0
+        with pd.option_context("future.no_silent_downcasting", True):
+            elecprod_TWh.fillna(0, inplace=True)
+
         elecprod_TWh["Fossil Fuels"] = (
             elecprod_TWh["Coal"] + elecprod_TWh["Oil"] + elecprod_TWh["Gas"]
         )
@@ -365,17 +370,14 @@ def populate_energy_system(country, ei_data):
         # but not a value for each fuel. In such cases, "electbyfuel_total" will be
         # zero, but "elect_twh" will have a value. Values may also be provided for
         # non-combustibles, in which case these can be plotted. Any difference between
-        # "Sum_Fuels" and "elect_twh" will be classified as "Unpublished" (but is typically
-        # very small amounts of fossil fuels.
+        # "Sum_Fuels" and "elect_twh" will be classified as "Unpublished".
+
         elecprod_TWh["Total Fuels"] = country_data.loc[
             country_data["Var"] == "electbyfuel_total", "Value"
         ]
         elecprod_TWh["Total Country"] = country_data.loc[
             country_data["Var"] == "elect_twh", "Value"
         ]
-        # Replace any NaNs with 0
-        with pd.option_context("future.no_silent_downcasting", True):
-            elecprod_TWh.fillna(0, inplace=True)
 
         elecprod_TWh["Sum Fuels"] = (
             elecprod_TWh["Coal"]
