@@ -322,7 +322,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "1 ff co2.svg"),
+        os.path.join(fig_dir, "1 " + country + " ff co2.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -362,7 +362,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "2 ff co2 change.svg"),
+        os.path.join(fig_dir, "2 " + country + " ff co2 change.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -428,7 +428,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "3 prod ff shares.svg"),
+        os.path.join(fig_dir, "3 " + country + " prod ff shares.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -522,7 +522,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "4 prod ff sep.svg"),
+        os.path.join(fig_dir, "4 " + country + " prod ff sep.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -581,7 +581,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "5 pe shares.svg"),
+        os.path.join(fig_dir, "5 " + country + " pe shares.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -648,7 +648,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "6 pe share trends.svg"),
+        os.path.join(fig_dir, "6 " + country + " pe share trends.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -717,7 +717,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "7 pe ff qty.svg"),
+        os.path.join(fig_dir, "7 " + country + " pe ff qty.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -772,7 +772,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "8 pe ff change.svg"),
+        os.path.join(fig_dir, "8 " + country + " pe ff change.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -843,7 +843,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "9 pe sep ff change.svg"),
+        os.path.join(fig_dir, "9 " + country + " pe sep ff change.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -963,7 +963,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "10 fe elec shares.svg"),
+        os.path.join(fig_dir, "10 " + country + " fe elec shares.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -1055,7 +1055,7 @@ Python, https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "11 fe share trends.svg"),
+        os.path.join(fig_dir, "11 " + country + " fe share trends.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -1139,7 +1139,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "12 fe qty.svg"),
+        os.path.join(fig_dir, "12 " + country + " fe qty.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -1264,7 +1264,7 @@ https://github.com/shanewhi/world-energy-data."
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
     plt.savefig(
-        os.path.join(fig_dir, "13 fe change.svg"),
+        os.path.join(fig_dir, "13 " + country + " fe change.svg"),
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
@@ -1353,7 +1353,7 @@ https://github.com/shanewhi/world-energy-data."
         if user_globals.Constant.DISPLAY_CHARTS.value is True:
             plt.show()
         plt.savefig(
-            os.path.join(fig_dir, "14 elec cat share trends.svg"),
+            os.path.join(fig_dir, "14 " + country + " elec cat share trends.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
@@ -1446,7 +1446,7 @@ https://github.com/shanewhi/world-energy-data."
         if user_globals.Constant.DISPLAY_CHARTS.value is True:
             plt.show()
         plt.savefig(
-            os.path.join(fig_dir, "15 elec fuel share trends.svg"),
+            os.path.join(fig_dir, "15 " + country + " elec fuel share trends.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
@@ -1507,7 +1507,7 @@ https://github.com/shanewhi/world-energy-data."
             plt.show()
 
         plt.savefig(
-            os.path.join(fig_dir, "16 elec cat qty.svg"),
+            os.path.join(fig_dir, "16 " + country + " elec cat qty.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
@@ -1582,7 +1582,7 @@ https://github.com/shanewhi/world-energy-data."
             plt.show()
 
         plt.savefig(
-            os.path.join(fig_dir, "17 elec fuel qty.svg"),
+            os.path.join(fig_dir, "17 " + country + " elec fuel qty.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
@@ -1631,7 +1631,7 @@ https://github.com/shanewhi/world-energy-data."
         if user_globals.Constant.DISPLAY_CHARTS.value is True:
             plt.show()
         plt.savefig(
-            os.path.join(fig_dir, "18 elec cat change.svg"),
+            os.path.join(fig_dir, "18 " + country + " elec cat change.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
@@ -1686,7 +1686,7 @@ https://github.com/shanewhi/world-energy-data."
         if user_globals.Constant.DISPLAY_CHARTS.value is True:
             plt.show()
         plt.savefig(
-            os.path.join(fig_dir, "19 elec fuel change.svg"),
+            os.path.join(fig_dir, "19 " + country + " elec fuel change.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,
