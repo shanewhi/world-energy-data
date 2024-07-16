@@ -2530,6 +2530,10 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     ax.set_ylim(min(ax.get_yticks()), max(ax.get_yticks()))
     ax.set_ylabel(y_label)
     ax.yaxis.grid(False)
+    # Add comma thousands seperator.
+    ax.yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
     ax.set_xlabel("Year")
     ax.legend(
         plot_names,
