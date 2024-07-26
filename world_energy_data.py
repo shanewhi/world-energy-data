@@ -91,12 +91,14 @@ def profile(country):
     # Generate global fossil fuel production charts using EI data.
     if energy_system.incl_ei_flag is True:
         output.country_co2_charts(energy_system)
-        output.country_prod_primary_energy_charts(energy_system)
 
     coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
     output.world_ffprod_charts(
         coal_producers, oil_producers, gas_producers, energy_system.name
     )
+
+    if energy_system.incl_ei_flag is True:
+        output.country_prod_primary_energy_charts(energy_system)
 
     if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
         output.country_consumption_elec_charts(energy_system)
@@ -109,17 +111,17 @@ def profile(country):
 
 
 # Profile following countries or "Total World". Name must match in EI data.
-profile("Total World")
+# profile("Total World")
 profile("China")
-profile("US")
-profile("Russian Federation")
-profile("India")
-profile("Saudi Arabia")
-profile("Germany")
-profile("Indonesia")
-profile("United Arab Emirates")
-profile("Australia")
-profile("Norway")
+# profile("US")
+# profile("Russian Federation")
+# profile("India")
+# profile("Saudi Arabia")
+# profile("Germany")
+# profile("Indonesia")
+# profile("United Arab Emirates")
+# profile("Australia")
+# profile("Norway")
 # profile("Azerbaijan")
 # profile("Kenya")
 # profile("France")

@@ -50,7 +50,7 @@ def import_data():
     )
 
     # Import Gobal Carbon Project dataset.
-    gcp_ff_emissions = pd.read_excel(
+    gcp_ff_emissions_MtC = pd.read_excel(
         io="Global_Carbon_Budget_2023v1.1.xlsx",
         sheet_name="Fossil Emissions by Category",
         header=8,
@@ -66,7 +66,12 @@ def import_data():
         ],
         index_col=0,
     )
-    gcp_budget = pd.read_excel(
+    gcp_ff_emissions_MtCO2 = gcp_ff_emissions_MtC.mul(
+        user_globals.Constant.C_TO_CO2.value
+    )
+    gcp_ff_emissions_MtCO2 = gcp_ff_emissions_MtCO2.drop(columns=["Per Capita"])
+
+    gcp_budget_MtC = pd.read_excel(
         io="Global_Carbon_Budget_2023v1.1.xlsx",
         sheet_name="Global Carbon Budget",
         header=21,
@@ -81,11 +86,10 @@ def import_data():
         ],
         index_col=0,
     )
-    gcp_budget = gcp_budget.mul(user_globals.Constant.G_TO_M.value)
-
-    gcp_ff_emissions = gcp_ff_emissions.drop(columns=["Per Capita"])
-    gcp_budget = gcp_budget.drop(columns=["FF and Cement"])
-    imported_gcp_data = gcp_ff_emissions.join(gcp_budget)
+    gcp_budget_MtC = gcp_budget_MtC.mul(user_globals.Constant.G_TO_M.value)
+    gcp_budget_MtC02 = gcp_budget_MtC.mul(user_globals.Constant.C_TO_CO2.value)
+    gcp_budget_MtC02 = gcp_budget_MtC02.drop(columns=["FF and Cement"])
+    imported_gcp_data = gcp_ff_emissions_MtCO2.join(gcp_budget_MtC02)
 
     esrl_co2_conc = pd.read_csv(
         "co2_annmean_gl.csv", header=37, index_col=["year"], usecols=["year", "mean"]
@@ -109,7 +113,7 @@ def import_data():
 # Function: co2_data()
 #
 # Description:
-# Organises Global Carbon Project data into a user defined class.
+# Organises Global Carbon Project and NOAA ESRL data into a user defined class.
 #
 ########################################################################################
 def co2_data(emissions_data, conc_data):

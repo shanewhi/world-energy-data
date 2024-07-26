@@ -33,7 +33,7 @@ import countries
 #
 ########################################################################################
 def carbon_emissions(cdata):
-    # Calculate shares and changes.
+    # Calculate changes and shares.
     min_year = min(cdata.index)
     max_year = max(cdata.index)
     change_yrs = range(min_year + 1, max_year + 1)
