@@ -60,5 +60,3 @@ Instructions for use (code below is within single quotes):
 6. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and
    'charts Country_Name' for national, or World, energy charts.
 
-To reduce execution time, in user_globals.py reduce the difference between TFC_START_YEAR and TFC_END_YEAR. This will
-consequently shorten the time period for final energy (total final consumption) charts.
