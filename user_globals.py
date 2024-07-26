@@ -102,8 +102,8 @@ class Constant(Enum):
     # Default values as of 6/2024 are:
     #    TFC_START_YEAR = 1990
     #    TFC_END_YEAR = 2021
-    TFC_START_YEAR = 1999
-    TFC_END_YEAR = 2001  # End year of IEA data iw 2021 in 6/2024.
+    TFC_START_YEAR = 1990
+    TFC_END_YEAR = 2021  # End year of IEA data iw 2021 in 6/2024.
 
     # FONT SIZES:
     # Options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
