@@ -297,31 +297,101 @@ https://github.com/shanewhi/world-energy-data."
 # Plots national CO2 emissions from fossil fuel combustion
 #
 ########################################################################################
-def country_co2_charts(energy_system):
+def country_co2_charts(energy_system, global_carbon):
 
     country = energy_system.name
 
     fig_dir = "charts " + country + "/"
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
 
+    ####################################################################################
+    # CO2 Emissions from fossil fuel combustion.
+    ####################################################################################
+
     ffco2 = energy_system.ffco2["Value"]
     co2_color = user_globals.Color.CO2_EMISSION.value
     title = "Annual CO\u2082 Emissions from Fossil Fuels"
     x_interval = 10
     ylabel = "Megatonne"
+
+    title1 = "Fossil fuel CO\u2082 emissions"
+    title2 = "National shares of fossil fuel CO\u2082 emissions"
+    subplot1_title = "Annual"
+    subplot2_title = "Year " + str(int(max(global_carbon.final_country_shares["Year"])))
+
+    large_emitter_share_total = 100 - float(
+        global_carbon.final_country_shares[
+            global_carbon.final_country_shares["Name"] == "Other"
+        ].Value.values
+    )
+    one_percent_countries = global_carbon.final_country_shares[
+        global_carbon.final_country_shares["Value"] >= 1
+    ]
+    one_percent_countries_share = round(
+        (
+            sum(one_percent_countries["Value"])
+            - one_percent_countries[
+                one_percent_countries["Name"] == "Other"
+            ].Value.values[0]
+        ),
+        1,
+    )
+    half_to_one_percent_countries = global_carbon.final_country_shares.loc[
+        global_carbon.final_country_shares["Value"] < 1
+    ].Name.values
+
+    s = ""
+    for i in half_to_one_percent_countries:
+        s += i
+        s += "\n"
+
+    additional_text1 = (
+        "Shares total 100% of 2023 global\nfossil fuel CO\u2082 emissions.\n\n\n\
+Country segments shown are those\nwith a "
+        + str(user_globals.Constant.CO2_SHARE_RANK_THRESHOLD.value)
+        + "% or \
+greater share, of which\nthere were "
+        + str(len(global_carbon.final_country_shares) - 1)
+        + ", totalling "
+        + str(large_emitter_share_total)
+        + "%.\n\n\nLabelled countries are those \
+with a 1%\nor greater share, of which there were\n"
+        + str(
+            len(
+                global_carbon.final_country_shares[
+                    global_carbon.final_country_shares["Value"] >= 1
+                ]
+            )
+            - 1  # Don't include 'Other'.
+        )
+        + ", totalling "
+        + str(one_percent_countries_share)
+        + "%.\n\n\nUnlabelled countries in lower\nright corner are listed below. \
+These\nhad shares greater than or equal\nto 0.5%, and less than 1% -\n\n"
+        + s
+    )
+
     footer_text = "Data: The Energy Institute Statistical Review of World Energy \
 2024,\n\
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
-    chart.column1x1(
+
+    start_yr = user_globals.Constant.CHART_START_YR.value
+
+    chart.column_treemap1x2(
         ffco2,
+        global_carbon.final_country_shares,
         co2_color,
         country,
-        title,
-        user_globals.Constant.CHART_START_YR.value,
+        title1,
+        title2,
+        subplot1_title,
+        subplot2_title,
+        start_yr,
         x_interval,
         ylabel,
+        additional_text1,
         footer_text,
     )
     plt.savefig(
@@ -329,6 +399,11 @@ https://github.com/shanewhi/world-energy-data."
         format="svg",
         bbox_inches="tight",
         pad_inches=0.2,
+    )
+    print(
+        "National CO2 emission shares treemap, most recent year sum of shares = "
+        + str(sum(global_carbon.final_country_shares["Value"]))
+        + "%"
     )
     if user_globals.Constant.DISPLAY_CHARTS.value is True:
         plt.show()
@@ -348,8 +423,6 @@ Values are rounded to nearest whole number. \
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
-    start_yr = user_globals.Constant.CHART_START_YR.value
-
     chart.columngrouped(
         country,
         title,
@@ -359,6 +432,7 @@ https://github.com/shanewhi/world-energy-data."
         co2_color,
         series1=ffco2_change,
     )
+
     plt.savefig(
         os.path.join(fig_dir, "2 " + country + " ff co2 change.svg"),
         format="svg",
@@ -1651,6 +1725,42 @@ https://github.com/shanewhi/world-energy-data."
         )
         plt.savefig(
             os.path.join(fig_dir, "19 " + country + " elec fuel change.svg"),
+            format="svg",
+            bbox_inches="tight",
+            pad_inches=0.2,
+        )
+        if user_globals.Constant.DISPLAY_CHARTS.value is True:
+            plt.show()
+        plt.close()
+
+        ####################################################################################
+        # ELECTRICITY: As per above, but more recent start year.
+        ####################################################################################
+        title = "Recent Annual Change of Fuels in Electricity Generation"
+        start_yr = 2010
+        chart.columngrouped(
+            country,
+            title,
+            ylabel,
+            footer_text,
+            start_yr,
+            user_globals.Color.COAL.value,
+            user_globals.Color.OIL.value,
+            user_globals.Color.GAS.value,
+            user_globals.Color.NUCLEAR.value,
+            user_globals.Color.HYDRO.value,
+            user_globals.Color.WIND_AND_SOLAR.value,
+            user_globals.Color.OTHER.value,
+            series1=energy_system.elecprod_TWh["Coal Change"],
+            series2=energy_system.elecprod_TWh["Oil Change"],
+            series3=energy_system.elecprod_TWh["Gas Change"],
+            series4=energy_system.elecprod_TWh["Nuclear Change"],
+            series5=energy_system.elecprod_TWh["Hydro Change"],
+            series6=energy_system.elecprod_TWh["Wind and Solar Change"],
+            series8=energy_system.elecprod_TWh["Bio, Geo and Other Change"],
+        )
+        plt.savefig(
+            os.path.join(fig_dir, "20 " + country + " elec fuel change recent.svg"),
             format="svg",
             bbox_inches="tight",
             pad_inches=0.2,

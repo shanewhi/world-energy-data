@@ -116,12 +116,61 @@ def import_data():
 # Organises Global Carbon Project and NOAA ESRL data into a user defined class.
 #
 ########################################################################################
-def co2_data(emissions_data, conc_data):
-    emission_categories, emissions = process.carbon_emissions(emissions_data)
+def co2_data(energy_data, emissions_data, conc_data):
+    country_share_data = calc_final_country_shares(energy_data)
+    emission_categories, emissions, final_country_shares = process.carbon_emissions(
+        emissions_data, country_share_data
+    )
     country = "World"
     return user_globals.Global_Carbon(
-        country, emissions_data, emission_categories, emissions, conc_data
+        country,
+        emissions_data,
+        emission_categories,
+        emissions,
+        conc_data,
+        final_country_shares,
     )
+
+
+########################################################################################
+#
+# Function: calc_final_country_shares()
+#
+# Description:
+# For all countries, calculate shares of CO2 emisions from fossil fuel combustion.
+#
+########################################################################################
+def calc_final_country_shares(data):
+    # Extract CO2 emissions from fossil fuel combustion for all years.
+    ffco2_Mt = data.loc[data["Var"] == "co2_combust_mtco2"]
+
+    # Identify most recent year.
+    final_yr = max(data.index)
+
+    # Filter for data of most recent year.
+    ffco2_Mt_fy = ffco2_Mt.loc[ffco2_Mt.index == final_yr]
+
+    # Reindex dataframe to country so that those those starting with "Total" can be
+    # dropped. Record World total prior.
+    ffco2_Mt_fy.set_index(["Country"], inplace=True)
+    total_ffco2_Mt = ffco2_Mt_fy.loc[ffco2_Mt_fy.index == "Total World", "Value"].values
+    ffco2_Mt_fy = ffco2_Mt_fy.drop(
+        index=ffco2_Mt_fy[ffco2_Mt_fy.index.str.startswith("Total")].index
+    )
+    # Calculate shares.
+    ffco2_Mt_fy["Share"] = round(ffco2_Mt_fy["Value"] / total_ffco2_Mt * 100, 2)
+    # TDrop "Other" regions, which are collections of low emitting countries.
+    # Dropping them only prevents any being tallied as a relatively large emitter. The
+    # share is still included in the chart as 1-large_emitters.
+    ffco2_Mt_fy = ffco2_Mt_fy.drop(
+        index=ffco2_Mt_fy[ffco2_Mt_fy.index.str.startswith("Other")].index
+    )
+    # Record final year for later usage.
+    ffco2_Mt_fy["Year"] = final_yr
+    # Clean up.
+    ffco2_Mt_fy = ffco2_Mt_fy.reset_index()
+    ffco2_Mt_fy = ffco2_Mt_fy.drop(["Var", "Value"], axis=1)
+    return ffco2_Mt_fy
 
 
 ########################################################################################

@@ -30,15 +30,14 @@ class Global_Carbon:
         final_emission_category_shares,
         final_emission_shares,
         co2_conc,
+        final_country_shares,
     ):
         self.name = name
         self.data = data
         self.final_emission_category_shares = final_emission_category_shares
         self.final_emission_shares = final_emission_shares
         self.co2_conc = co2_conc
-
-    # Final share dataframes are required by treemap function.
-    # Better to seperate in this class than to place within another dataframe.
+        self.final_country_shares = final_country_shares
 
 
 # Define custom class of an energy system.
@@ -92,6 +91,7 @@ class Constant(Enum):
     GJ_TO_PJ = 1e-6
     GJ_TO_EJ = 1e-9
     TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
+    CO2_SHARE_RANK_THRESHOLD = 0.5  # Percent. Defines country as large CO2 emitter.
     COAL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large coal producer.
     OIL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large oil producer.
     GAS_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large gas producer.

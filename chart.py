@@ -577,6 +577,176 @@ def line_column1x2(
 
 ########################################################################################
 #
+# Function: column_treemap1x2()
+#
+# Description:
+# Column chart on the left, treemap chart on the right.
+#
+########################################################################################
+def column_treemap1x2(
+    series1,
+    df,
+    color1,
+    country1,
+    title1,
+    title2,
+    subplot1_title,
+    subplot2_title,
+    start_yr,
+    x_axis1_interval,
+    ylabel1,
+    additional_text1,
+    footer_text,
+):
+    fig = plt.figure(
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X2.value,
+            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X2.value,
+        )
+    )
+    ax1 = fig.add_subplot(1, 2, 1)
+    ax2 = fig.add_subplot(1, 2, 2, adjustable="box", aspect=1)
+
+    # Add comma thousands seperator.
+    ax1.yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+    # Grey edges for black columns.
+    if color1 == "black":
+        edge_color = "dimgrey"
+    else:
+        edge_color = "black"
+
+    x_ticks1 = []
+    # x_ticks only for period defined by x_axis_interval
+    for year in series1.index:
+        if year % x_axis1_interval == 0:  # Modulus.
+            x_ticks1.append(year)
+
+    # Include most recent year. If period between ticks is >= 25 years, then
+    # there's room to append most recent year.
+    # Else replace final value with most recent year.
+    if x_axis1_interval >= 25:
+        x_ticks1.append(max(series1.index))
+    else:
+        x_ticks1[len(x_ticks1) - 1] = max(series1.index)
+    ax1.set_xticks(x_ticks1)
+
+    # Subplot 1
+    # If nil data remove y-axis detail, else plot bar chart.
+    if max(series1) == 0:
+        ax1.plot(
+            series1.index,
+            series1,
+            color1,
+            linewidth=user_globals.Chart.LINE_WIDTH_SUBPOLT.value,
+        )
+    else:
+        ax1.bar(
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
+            width=1,
+            color=color1,
+            edgecolor=edge_color,
+            linewidth=0.2,
+        )
+
+    ax1.set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+    ax1.set_xlabel("Year")
+    ax1.set_ylabel(ylabel1)
+    ax1.yaxis.grid(True)
+    ax1.set_box_aspect(1)
+    # Place grid behind columns.
+    ax1.set_axisbelow(True)
+    ax1.autoscale(axis="y")
+
+    # Force uppermost tick to be equal to autoscale max + grid interval
+    ax1.set_ylim(0, max(ax1.get_yticks()))
+
+    tr.treemap(
+        ax2,
+        df,
+        area="Value",
+        labels="Label",
+        cmap=df["Color"].to_list(),
+        fill="Name",
+        top=True,
+        rectprops=dict(ec="white", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=3, pady=6, reflow=False, max_fontsize=100
+        ),
+    )
+    country2 = "World"
+    ax2.axis("off")
+    ax2.set_title(
+        subplot2_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+    ax1.margins(x=0)
+    plt.subplots_adjust(
+        left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02, hspace=0.05
+    )
+    fig.suptitle(
+        country1,
+        x=0.18,
+        y=0.965,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.52,
+        0.947,
+        country2,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.18,
+        0.915,
+        title1,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.52,
+        0.915,
+        title2,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.825,
+        0.87,
+        additional_text1,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.18,
+        0.08,
+        footer_text,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################
+#
 # Function: column1x3()
 #
 # Description:

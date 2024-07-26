@@ -80,7 +80,7 @@ import output
 ei_data, gcp_data, esrl_data = collate.import_data()
 
 # Generate charts of GCP data.
-global_carbon = collate.co2_data(gcp_data, esrl_data)
+global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
 output.world_co2_charts(global_carbon)
 
 
@@ -90,7 +90,7 @@ def profile(country):
 
     # Generate global fossil fuel production charts using EI data.
     if energy_system.incl_ei_flag is True:
-        output.country_co2_charts(energy_system)
+        output.country_co2_charts(energy_system, global_carbon)
 
     coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
     output.world_ffprod_charts(

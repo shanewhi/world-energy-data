@@ -32,7 +32,7 @@ import countries
 # Calculate carbon emission annual shares and change.
 #
 ########################################################################################
-def carbon_emissions(cdata):
+def carbon_emissions(cdata, share_data):
     # Calculate changes and shares.
     min_year = min(cdata.index)
     max_year = max(cdata.index)
@@ -130,7 +130,51 @@ def carbon_emissions(cdata):
     ]
 
     emission["Label"] = get_treemap_labels(emission["Name"], emission["Value"], ratio=5)
-    return (emission_category, emission)
+
+    # Generate dataframe reuired for treemap plot of country CO2 emissions by share of
+    # global CO2 emissions.
+    share_data = share_data.rename(columns={"Country": "Name", "Share": "Value"})
+    share_data = share_data.sort_values(by=["Value"], ascending=False)
+    large_country_shares = share_data[
+        share_data["Value"] >= user_globals.Constant.CO2_SHARE_RANK_THRESHOLD.value
+    ]
+    large_country_shares = large_country_shares.reset_index()
+    large_country_shares = large_country_shares.drop(["index"], axis=1)
+    other_country_shares = pd.DataFrame(columns=["Name", "Value", "Year"])
+    other_country_shares["Name"] = ["Other"]
+    other_country_shares["Value"] = round(100 - sum(large_country_shares["Value"]), 1)
+    all_country_shares = pd.concat([large_country_shares, other_country_shares])
+    all_country_shares = all_country_shares.sort_values(by=["Value"], ascending=False)
+    all_country_shares = all_country_shares.reset_index()
+    all_country_shares = all_country_shares.drop(["index"], axis=1)
+
+    all_country_shares = all_country_shares.set_index("Name")
+    all_country_shares["Color"] = "mediumpurple"
+    all_country_shares.loc["China", "Color"] = "crimson"
+    all_country_shares.loc["Other", "Color"] = "darkslategrey"
+    all_country_shares.loc["US", "Color"] = "blue"
+    all_country_shares.loc["India", "Color"] = "darkorange"
+    all_country_shares.loc["Russian Federation", "Color"] = "darkgreen"
+    all_country_shares.loc["Japan", "Color"] = "darkgoldenrod"
+    all_country_shares.loc["Indonesia", "Color"] = "indianred"
+    all_country_shares.loc["Iran", "Color"] = "sienna"
+    all_country_shares.loc["Saudi Arabia", "Color"] = "darkred"
+    all_country_shares.loc["South Korea", "Color"] = "deeppink"
+    all_country_shares.loc["Germany", "Color"] = "green"
+    all_country_shares.loc["Canada", "Color"] = "dodgerblue"
+    all_country_shares.loc["Mexico", "Color"] = "chocolate"
+    all_country_shares.loc["Brazil", "Color"] = "forestgreen"
+    all_country_shares.loc["Turkiye", "Color"] = "red"
+    all_country_shares.loc["South Africa", "Color"] = "indigo"
+    all_country_shares.loc["Australia", "Color"] = "black"
+
+    all_country_shares = all_country_shares.reset_index()
+
+    all_country_shares["Label"] = get_treemap_labels(
+        all_country_shares["Name"], round(all_country_shares["Value"], 1), ratio=1
+    )
+
+    return (emission_category, emission, all_country_shares)
 
 
 ########################################################################################
