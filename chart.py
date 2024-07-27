@@ -732,7 +732,7 @@ def column_treemap1x2(
         horizontalalignment="left",
         verticalalignment="top",
         fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.18,
