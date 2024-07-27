@@ -1655,7 +1655,8 @@ https://github.com/shanewhi/world-energy-data."
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. \
-Values are rounded to nearest whole number.\n\
+Values are rounded to nearest whole number. A zero value column refers to no change \
+for that category.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
@@ -1697,8 +1698,8 @@ https://github.com/shanewhi/world-energy-data."
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Values are rounded to nearest whole number. Zeroes below x-axis refer to  values \
-between -0.5 and 0 that have been rounded. Zero value columns are mostly of \
-electricity generation from oil.\n\
+between -0.5 and 0 that have been rounded. A zero value column refers to no change \
+for that fuel.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
