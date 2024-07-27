@@ -111,8 +111,8 @@ def profile(country):
 
 
 # Profile following countries or "Total World". Name must match in EI data.
-# profile("Total World")
-profile("China")
+profile("Total World")
+# profile("China")
 # profile("US")
 # profile("Russian Federation")
 # profile("India")
