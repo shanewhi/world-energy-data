@@ -79,7 +79,7 @@ class Energy_System:
 # Define conversion coefficeints (multiply for conversion).
 class Constant(Enum):
 
-    DISPLAY_CHARTS = True  # Whether charts are output to display.
+    DISPLAY_CHARTS = False  # Whether charts are output to display.
     CHART_START_YR = 2000  # Start year for all charts.
 
     C_TO_CO2 = 44 / 12
