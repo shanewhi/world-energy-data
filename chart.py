@@ -147,8 +147,8 @@ def column1x1(
     # if nil data remove y-axis detail, else plot bar chart
     if max(series) == 0:
         ax.plot(
-            series.index,
-            series,
+            series.index.truncate(before=start_yr),
+            series.truncate(before=start_yr),
             color,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -312,8 +312,8 @@ def column1x2(
     # If nil data remove y-axis detail, else plot bar chart.
     if max(series1) == 0:
         ax[0].plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr1).index,
+            series1.truncate(before=start_yr1),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -347,8 +347,8 @@ def column1x2(
     # Repeat above for second suboplot.
     if max(series2) == 0:
         ax[1].plot(
-            series2.index,
-            series2,
+            series2.truncate(before=start_yr2).index,
+            series2.truncate(before=start_yr2),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -636,8 +636,8 @@ def column_treemap1x2(
     # If nil data remove y-axis detail, else plot bar chart.
     if max(series1) == 0:
         ax1.plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Chart.LINE_WIDTH_SUBPOLT.value,
         )
@@ -828,8 +828,8 @@ def column1x3(
     # If nil data remove y-axis detail, else plot bar chart.
     if max(series1) == 0:
         ax[0].plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -863,8 +863,8 @@ def column1x3(
     # Repeat above for second and third suboplots.
     if max(series2) == 0:
         ax[1].plot(
-            series2.index,
-            series2,
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -893,8 +893,8 @@ def column1x3(
 
     if max(series3) == 0:
         ax[2].plot(
-            series3.index,
-            series3,
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1224,8 +1224,8 @@ def column1x4(
     # If nil data remove y-axis detail, else plot bar chart.
     if max(series1) == 0:
         ax[0].plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1259,8 +1259,8 @@ def column1x4(
     # Repeat above for remaining suboplots.
     if max(series2) == 0:
         ax[1].plot(
-            series2.index,
-            series2,
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1290,8 +1290,8 @@ def column1x4(
 
     if max(series3) == 0:
         ax[2].plot(
-            series3.index,
-            series3,
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1321,8 +1321,8 @@ def column1x4(
 
     if max(series4) == 0:
         ax[3].plot(
-            series4.index,
-            series4,
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1730,8 +1730,8 @@ def column2x3(
 
     if max(series1) == 0:
         ax[0, 0].plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1761,8 +1761,8 @@ def column2x3(
 
     if max(series2) == 0:
         ax[0, 1].plot(
-            series2.index,
-            series2,
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1791,8 +1791,8 @@ def column2x3(
 
     if max(series3) == 0:
         ax[0, 2].plot(
-            series3.index,
-            series3,
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1821,8 +1821,8 @@ def column2x3(
 
     if max(series4) == 0:
         ax[1, 0].plot(
-            series4.index,
-            series4,
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1853,8 +1853,8 @@ def column2x3(
 
     if max(series5) == 0:
         ax[1, 1].plot(
-            series5.index,
-            series5,
+            series5.truncate(before=start_yr).index,
+            series5.truncate(before=start_yr),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -1884,8 +1884,8 @@ def column2x3(
 
     if max(series6) == 0:
         ax[1, 2].plot(
-            series6.index,
-            series6,
+            series6.truncate(before=start_yr).index,
+            series6.truncate(before=start_yr),
             color6,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2362,8 +2362,8 @@ def column2x4(
 
     if max(series1) == 0:
         ax[0, 0].plot(
-            series1.index,
-            series1,
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2393,8 +2393,8 @@ def column2x4(
 
     if max(series2) == 0:
         ax[0, 1].plot(
-            series2.index,
-            series2,
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2423,8 +2423,8 @@ def column2x4(
 
     if max(series3) == 0:
         ax[0, 2].plot(
-            series3.index,
-            series3,
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2453,8 +2453,8 @@ def column2x4(
 
     if max(series4) == 0:
         ax[0, 3].plot(
-            series4.index,
-            series4,
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2483,8 +2483,8 @@ def column2x4(
 
     if max(series5) == 0:
         ax[1, 0].plot(
-            series5.index,
-            series5,
+            series5.truncate(before=start_yr).index,
+            series5.truncate(before=start_yr),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2515,8 +2515,8 @@ def column2x4(
 
     if max(series6) == 0:
         ax[1, 1].plot(
-            series6.index,
-            series6,
+            series6.truncate(before=start_yr).index,
+            series6.truncate(before=start_yr),
             color6,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2546,8 +2546,8 @@ def column2x4(
 
     if max(series7) == 0:
         ax[1, 2].plot(
-            series7.index,
-            series7,
+            series7.truncate(before=start_yr).index,
+            series7.truncate(before=start_yr),
             color7,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
@@ -2577,8 +2577,8 @@ def column2x4(
 
     if max(series8) == 0:
         ax[1, 3].plot(
-            series8.index,
-            series8,
+            series8.truncate(before=start_yr).index,
+            series8.truncate(before=start_yr),
             color8,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
         )
