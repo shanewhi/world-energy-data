@@ -18,8 +18,8 @@ import output
 # Creates charts of -
 # 1. Global CO2 emissions;
 # 2. Global fossil fuel production;
-# 3. National CO2 emissons;
-# 4. National fossil fuel prouction; and
+# 3. National CO2 emissions;
+# 4. National fossil fuel production; and
 # 5. National energy systems (fossil fuel production, primary energy, final energy and
 # electricity.
 # Written by Shane White using Python v3.12.2 and Spyder IDE.
@@ -32,11 +32,11 @@ import output
 # collate.py (called in world_energy_data.py)
 # process.py (called in collate.py)
 # output.py (controls sequence of chart functions, called in collate.py)
-# chart.py (generic chart functons, called in process.py)
+# chart.py (generic chart functions, called in process.py)
 # countries.py (translates country name to IEA equivs, called in collate.py)
 #
 # Choose a country at bottom of script.
-# Country name must match that used by The Energry Institute's (EI) dataset.
+# Country name must match that used by The Energy Institute's (EI) dataset.
 # If required, update countries.py to translate country name to IEA equiv.
 #
 # Input(s):
@@ -58,7 +58,7 @@ import output
 # e) Select Browse as Tables
 # f) Select year from dropdown (ensure this is done manually)
 # g) Reload page
-# h) Double click on the following result (using 2021 as an example)
+# h) Double-click on the following result (using 2021 as an example)
 # https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
 # i) Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
 # year.
@@ -73,7 +73,7 @@ import output
 # Data importation differs between sources:
 # Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
 # as single files below.
-# The Internaitonal Energy Agency (IEA) dataset is stored in multiple JSON
+# The International Energy Agency (IEA) dataset is stored in multiple JSON
 # files, and therefore country specific data is searched for within these,
 # rather than imported as a single file. This is done within the function
 # populate_energy_system().
@@ -93,9 +93,7 @@ def profile(country):
         output.country_co2_charts(energy_system, global_carbon)
 
     coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
-    output.world_ffprod_charts(
-        coal_producers, oil_producers, gas_producers, energy_system.name
-    )
+    output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, energy_system.name)
 
     if energy_system.incl_ei_flag is True:
         output.country_prod_primary_energy_charts(energy_system)
@@ -114,7 +112,7 @@ def profile(country):
 profile("Total World")
 # profile("China")
 # profile("US")
-# profile("Russian Federation")
+# profile("Russian Federation"),
 # profile("India")
 # profile("Saudi Arabia")
 # profile("Germany")
@@ -123,6 +121,8 @@ profile("Total World")
 # profile("Australia")
 # profile("Norway")
 # profile("Azerbaijan")
+# profile("Japan")
+# profile("Spain")
 # profile("Kenya")
 # profile("France")
 # profile("Mexico")

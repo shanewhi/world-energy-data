@@ -11,7 +11,7 @@
 # Module: process.py
 #
 # Description:
-# Performs processing of collated data, such as calcuating shares and changes.
+# Performs processing of collated data, such as calculating shares and changes.
 #
 ########################################################################################
 
@@ -71,7 +71,7 @@ def carbon_emissions(cdata, share_data):
     final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-1])
     final_other_co2_share = round(cdata["Other Share"].iloc[-1])
 
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     emission_category = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])
 
     emission_category["Name"] = ["Fossil Fuels", "Cement", "Land Use Change", "Other"]
@@ -97,7 +97,7 @@ def carbon_emissions(cdata, share_data):
     final_gas_co2_share = round(cdata["Gas Share"].iloc[-1])
     final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-1])
 
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     emission = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])
 
     emission["Name"] = [
@@ -131,7 +131,7 @@ def carbon_emissions(cdata, share_data):
 
     emission["Label"] = get_treemap_labels(emission["Name"], emission["Value"], ratio=5)
 
-    # Generate dataframe reuired for treemap plot of country CO2 emissions by share of
+    # Generate dataframe required for treemap plot of country CO2 emissions by share of
     # global CO2 emissions.
     share_data = share_data.rename(columns={"Country": "Name", "Share": "Value"})
     share_data = share_data.sort_values(by=["Value"], ascending=False)
@@ -174,7 +174,7 @@ def carbon_emissions(cdata, share_data):
         all_country_shares["Name"], round(all_country_shares["Value"], 1), ratio=1
     )
 
-    return (emission_category, emission, all_country_shares)
+    return emission_category, emission, all_country_shares
 
 
 ########################################################################################
@@ -263,7 +263,7 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
         )
     )
 
-    # Generate dataframes reuired for treemap charts.
+    # Generate dataframes required for treemap charts.
     coal_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
     oil_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
     gas_prod_shares = pd.DataFrame(columns=["Name", "Value", "Color", "Label", "Year"])
@@ -293,7 +293,7 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
     oil_prod_shares["Year"] = max(coal.index)
     gas_prod_shares["Year"] = max(coal.index)
 
-    return (coal_prod_shares, oil_prod_shares, gas_prod_shares)
+    return coal_prod_shares, oil_prod_shares, gas_prod_shares
 
 
 ########################################################################################
@@ -486,7 +486,7 @@ def primary_energy(energy_system):
             filtered_category_name.append(category_name[i])
             filtered_final_category_share.append(round(final_category_share[i]))
             filtered_category_color.append(category_color[i])
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     df_category = pd.DataFrame(columns=["Name", "Value", "Color" "Label"])
     df_category["Name"] = filtered_category_name
     df_category["Value"] = filtered_final_category_share
@@ -524,7 +524,7 @@ def primary_energy(energy_system):
             filtered_fuel_name.append(fuel_name[i])
             filtered_final_fuel_share.append(round(final_fuel_share[i]))
             filtered_fuel_color.append(fuel_color[i])
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     df_fuel = pd.DataFrame(columns=["Name", "Value", "Color" "Label"])
     df_fuel["Name"] = filtered_fuel_name
     df_fuel["Value"] = filtered_final_fuel_share
@@ -716,7 +716,7 @@ def electricity(energy_system):
     final_bio_geo_other_elec_share = energy_system.elecprod_TWh[
         "Bio, Geo and Other Share"
     ].iloc[-1]
-    final_Unpublished_elec_share = energy_system.elecprod_TWh["Unpublished Share"].iloc[
+    final_unpublished_elec_share = energy_system.elecprod_TWh["Unpublished Share"].iloc[
         -1
     ]
 
@@ -733,7 +733,7 @@ def electricity(energy_system):
         final_nuclear_elec_share,
         final_renewables_elec_share,
         final_bio_geo_other_elec_share,
-        final_Unpublished_elec_share,
+        final_unpublished_elec_share,
     ]
     category_color = [
         user_globals.Color.FOSSIL_FUELS.value,
@@ -751,7 +751,7 @@ def electricity(energy_system):
             filtered_category_name.append(category_name[i])
             filtered_final_category_share.append(round(final_category_share[i]))
             filtered_category_color.append(category_color[i])
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     df_category = pd.DataFrame(columns=["Name", "Value", "Color" "Label"])
     df_category["Name"] = filtered_category_name
     df_category["Value"] = filtered_final_category_share
@@ -778,7 +778,7 @@ def electricity(energy_system):
         final_hydro_elec_share,
         final_wind_solar_elec_share,
         final_bio_geo_other_elec_share,
-        final_Unpublished_elec_share,
+        final_unpublished_elec_share,
     ]
     fuel_color = [
         user_globals.Color.COAL.value,
@@ -799,7 +799,7 @@ def electricity(energy_system):
             filtered_fuel_name.append(fuel_name[i])
             filtered_final_fuel_share.append(round(final_fuel_share[i]))
             filtered_fuel_color.append(fuel_color[i])
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     df_fuel = pd.DataFrame(columns=["Name", "Value", "Color" "Label"])
     df_fuel["Name"] = filtered_fuel_name
     df_fuel["Value"] = filtered_final_fuel_share
@@ -947,7 +947,7 @@ def consumption(energy_system):
             filtered_name.append(name[i])
             filtered_share.append(round(final_share[i]))
             filtered_color.append(color[i])
-    # Generate dataframe reuired for treemap plot.
+    # Generate dataframe required for treemap plot.
     df = pd.DataFrame(columns=["Name", "Value", "Color" "Label"])
     df["Name"] = filtered_name
     df["Value"] = filtered_share

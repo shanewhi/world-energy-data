@@ -150,7 +150,7 @@ def column1x1(
             series.index.truncate(before=start_yr),
             series.truncate(before=start_yr),
             color,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax.bar(
@@ -315,7 +315,7 @@ def column1x2(
             series1.truncate(before=start_yr1).index,
             series1.truncate(before=start_yr1),
             color1,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0].bar(
@@ -344,13 +344,13 @@ def column1x2(
     ax[0].margins(x=0)
     ylim1 = ax[0].get_ylim()[1]
 
-    # Repeat above for second suboplot.
+    # Repeat above for second subplot.
     if max(series2) == 0:
         ax[1].plot(
             series2.truncate(before=start_yr2).index,
             series2.truncate(before=start_yr2),
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1].bar(
@@ -514,7 +514,7 @@ def line_column1x2(
             series2.index,
             series2,
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         p = ax[1].bar(
@@ -639,7 +639,7 @@ def column_treemap1x2(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
-            linewidth=user_globals.Chart.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax1.bar(
@@ -831,7 +831,7 @@ def column1x3(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0].bar(
@@ -860,13 +860,13 @@ def column1x3(
     ax[0].margins(x=0)
     ylim1 = ax[0].get_ylim()[1]
 
-    # Repeat above for second and third suboplots.
+    # Repeat above for second and third subplots.
     if max(series2) == 0:
         ax[1].plot(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1].bar(
@@ -896,7 +896,7 @@ def column1x3(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
             color3,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[2].bar(
@@ -1022,7 +1022,7 @@ def line1x4(
         series1.truncate(before=start_yr).index,
         series1.truncate(before=start_yr),
         color1,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0].set_title(
         subplot1_title,
@@ -1041,7 +1041,7 @@ def line1x4(
         series2.truncate(before=start_yr).index,
         series2.truncate(before=start_yr),
         color2,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1].set_title(
         subplot2_title,
@@ -1059,7 +1059,7 @@ def line1x4(
         series3.truncate(before=start_yr).index,
         series3.truncate(before=start_yr),
         color3,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[2].set_title(
         subplot3_title,
@@ -1077,7 +1077,7 @@ def line1x4(
         series4.truncate(before=start_yr).index,
         series4.truncate(before=start_yr),
         color4,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[3].set_title(
         subplot4_title,
@@ -1227,7 +1227,7 @@ def column1x4(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0].bar(
@@ -1256,13 +1256,13 @@ def column1x4(
     ax[0].margins(x=0)
     ylim1 = ax[0].get_ylim()[1]
 
-    # Repeat above for remaining suboplots.
+    # Repeat above for remaining subplots.
     if max(series2) == 0:
         ax[1].plot(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1].bar(
@@ -1293,7 +1293,7 @@ def column1x4(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
             color3,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[2].bar(
@@ -1324,7 +1324,7 @@ def column1x4(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             color4,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[3].bar(
@@ -1440,7 +1440,6 @@ def line2x3(
         ),
     )
 
-    x_ticks = [start_yr]
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = [start_yr]
     for year in series1.index:
@@ -1465,7 +1464,7 @@ def line2x3(
         series1.truncate(before=start_yr).index,
         series1.truncate(before=start_yr),
         color1,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 0].set_title(
         subplot1_title,
@@ -1483,7 +1482,7 @@ def line2x3(
         series2.truncate(before=start_yr).index,
         series2.truncate(before=start_yr),
         color2,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 1].set_title(
         subplot2_title,
@@ -1500,7 +1499,7 @@ def line2x3(
         series3.truncate(before=start_yr).index,
         series3.truncate(before=start_yr),
         color3,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 2].set_title(
         subplot3_title,
@@ -1517,7 +1516,7 @@ def line2x3(
         series4.truncate(before=start_yr).index,
         series4.truncate(before=start_yr),
         color4,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 0].set_title(
         subplot4_title,
@@ -1536,7 +1535,7 @@ def line2x3(
         series5.truncate(before=start_yr).index,
         series5.truncate(before=start_yr),
         color5,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 1].set_title(
         subplot5_title,
@@ -1554,7 +1553,7 @@ def line2x3(
         series6.truncate(before=start_yr).index,
         series6.truncate(before=start_yr),
         color6,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 2].set_title(
         subplot6_title,
@@ -1662,7 +1661,6 @@ def column2x3(
         ),
     )
 
-    x_ticks = [start_yr]
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = [start_yr]
     for year in series1.index:
@@ -1733,7 +1731,7 @@ def column2x3(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 0].bar(
@@ -1764,7 +1762,7 @@ def column2x3(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 1].bar(
@@ -1794,7 +1792,7 @@ def column2x3(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
             color3,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 2].bar(
@@ -1824,7 +1822,7 @@ def column2x3(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             color4,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 0].bar(
@@ -1856,7 +1854,7 @@ def column2x3(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
             color5,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 1].bar(
@@ -1887,7 +1885,7 @@ def column2x3(
             series6.truncate(before=start_yr).index,
             series6.truncate(before=start_yr),
             color6,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 2].bar(
@@ -2015,8 +2013,6 @@ def line2x4(
 
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = [start_yr]
-    # Create list x_ticks and fill with start year of each decade.
-    x_ticks = [start_yr]
     for year in series1.index:
         if year % 5 == 0:
             x_ticks.append(year)
@@ -2041,7 +2037,7 @@ def line2x4(
         series1.truncate(before=start_yr).index,
         series1.truncate(before=start_yr),
         color1,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 0].set_title(
         subplot1_title,
@@ -2058,7 +2054,7 @@ def line2x4(
         series2.truncate(before=start_yr).index,
         series2.truncate(before=start_yr),
         color2,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 1].set_title(
         subplot2_title,
@@ -2074,7 +2070,7 @@ def line2x4(
         series3.truncate(before=start_yr).index,
         series3.truncate(before=start_yr),
         color3,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 2].set_title(
         subplot3_title,
@@ -2090,7 +2086,7 @@ def line2x4(
         series4.truncate(before=start_yr).index,
         series4.truncate(before=start_yr),
         color4,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[0, 3].set_title(
         subplot4_title,
@@ -2106,7 +2102,7 @@ def line2x4(
         series5.truncate(before=start_yr).index,
         series5.truncate(before=start_yr),
         color5,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 0].set_title(
         subplot5_title,
@@ -2124,7 +2120,7 @@ def line2x4(
         series6.truncate(before=start_yr).index,
         series6.truncate(before=start_yr),
         color6,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 1].set_title(
         subplot6_title,
@@ -2141,7 +2137,7 @@ def line2x4(
         series7.truncate(before=start_yr).index,
         series7.truncate(before=start_yr),
         color7,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 2].set_title(
         subplot7_title,
@@ -2158,7 +2154,7 @@ def line2x4(
         series8.truncate(before=start_yr).index,
         series8.truncate(before=start_yr),
         color8,
-        linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+        linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
     ax[1, 3].set_title(
         subplot8_title,
@@ -2279,8 +2275,6 @@ def column2x4(
 
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = [start_yr]
-    # Create list x_ticks and fill with start year of each decade.
-    x_ticks = [start_yr]
     for year in series1.index:
         if year % 5 == 0:
             x_ticks.append(year)
@@ -2365,7 +2359,7 @@ def column2x4(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 0].bar(
@@ -2396,7 +2390,7 @@ def column2x4(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
             color2,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 1].bar(
@@ -2426,7 +2420,7 @@ def column2x4(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
             color3,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 2].bar(
@@ -2456,7 +2450,7 @@ def column2x4(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             color4,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[0, 3].bar(
@@ -2486,7 +2480,7 @@ def column2x4(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
             color5,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 0].bar(
@@ -2518,7 +2512,7 @@ def column2x4(
             series6.truncate(before=start_yr).index,
             series6.truncate(before=start_yr),
             color6,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 1].bar(
@@ -2549,7 +2543,7 @@ def column2x4(
             series7.truncate(before=start_yr).index,
             series7.truncate(before=start_yr),
             color7,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 2].bar(
@@ -2580,7 +2574,7 @@ def column2x4(
             series8.truncate(before=start_yr).index,
             series8.truncate(before=start_yr),
             color8,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPOLT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
         ax[1, 3].bar(
@@ -2683,7 +2677,6 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
     series_qty = len(series)
     column_width = 1 / series_qty
     series_number = 0
-    offset = column_width * series_number
     plot_names = []
 
     # Cycle through and plot input series.
@@ -2766,7 +2759,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
             ncol=7,
             fontsize="large",
         )
-    # Show x axis line.
+    # Show x-axis line.
     plt.axhline(0, color="black", lw=0.4)
     ax.set_axisbelow(True)
 
@@ -2915,7 +2908,7 @@ def treemap1x2(
         subplot_kw=dict(aspect=1.1),
     )
 
-    # Plot lefthand treemap.
+    # Plot left-hand treemap.
     tr.treemap(
         ax[0],
         df1,
@@ -2951,7 +2944,7 @@ def treemap1x2(
         loc="left",
     )
 
-    # Plot righthand treemap.
+    # Plot right-hand treemap.
     tr.treemap(
         ax[1],
         df2,
@@ -3066,7 +3059,7 @@ def treemap1x3(
         subplot_kw=dict(aspect=1.1),
     )
 
-    # Plot lefthand treemap.
+    # Plot left-hand treemap.
     tr.treemap(
         ax[0],
         df1,

@@ -35,7 +35,7 @@ import chart
 ########################################################################################
 def world_co2_charts(global_carbon):
     fig_dir = "charts CO2/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
     ####################################################################################
     # Atmospheric CO2: Concentration and growth.
     ####################################################################################
@@ -201,13 +201,13 @@ https://github.com/shanewhi/world-energy-data."
     plt.close()
 
     ####################################################################################
-    # CO2 Emissons: Annual change.
+    # CO2 Emissions: Annual change.
     ####################################################################################
     series = global_carbon.data["FF and Cement Change"]
     title = "Annual Change of CO\u2082 Emissions from Fossil Fuels and \
 Cement"
-    ylabel = "Megatonnes/year"
-    footer_text = footer_text = (
+    ylabel = "Megatonne/year"
+    footer_text = (
         "Data: Global Carbon Project, Friedlingstein et al (2023), \
 https://globalcarbonbudgetdata.org/latest-data.html.\n\
 Values are rounded to nearest whole number. \
@@ -302,7 +302,7 @@ def country_co2_charts(energy_system, global_carbon):
     country = energy_system.name
 
     fig_dir = "charts " + country + "/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
     ####################################################################################
     # CO2 Emissions from fossil fuel combustion.
@@ -310,7 +310,6 @@ def country_co2_charts(energy_system, global_carbon):
 
     ffco2 = energy_system.ffco2["Value"]
     co2_color = user_globals.Color.CO2_EMISSION.value
-    title = "Annual CO\u2082 Emissions from Fossil Fuels"
     x_interval = 10
     ylabel = "Megatonne"
 
@@ -412,7 +411,6 @@ https://github.com/shanewhi/world-energy-data."
     ffco2_change = energy_system.ffco2["Change"]
     co2_color = user_globals.Color.CO2_EMISSION.value
     title = "Annual Change of CO\u2082 Emissions from Fossil Fuels"
-    x_interval = 10
     ylabel = "Megatonne/year"
     footer_text = "Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
@@ -481,7 +479,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Ranking of producers determined using fossil fuel production data in following units: \
 Coal EJ, Oil Mt, and Gas EJ.\nOil production in units of Mt is used instead of kbd \
 because it's in closer agreement with IEA data. Oil production in units of Joules \
-isn't avaialble.\n\
+isn't available.\n\
 Share labelled Other is the tally of all countries producing less than a 4% share of \
 the respective fossil fuel.\n\
 By shanewhite@worldenergydata.org using Python, \
@@ -521,7 +519,7 @@ def country_prod_primary_energy_charts(energy_system):
     country = energy_system.name
 
     fig_dir = "charts " + country + "/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save charts in this directory.
 
     ####################################################################################
     # PRODUCTION: Annual Fossil Fuel Production.
@@ -923,7 +921,7 @@ https://github.com/shanewhi/world-energy-data."
 def country_consumption_elec_charts(energy_system):
     country = energy_system.name
     fig_dir = "charts " + country + "/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
     ####################################################################################
     # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
     ####################################################################################
@@ -984,7 +982,7 @@ consumed."
         title1 = (
             "Energy Consumption by Share in year "
             + str(energy_system.consumption_PJ.index[-1])
-            + "\n(Electricity shares are shown in the righthand chart)"
+            + "\n(Electricity shares are shown in the right-hand chart)"
         )
         title2 = "Electricity Generation by Share in year " + str(
             energy_system.elecprod_TWh.index[-1]
@@ -1043,7 +1041,7 @@ https://github.com/shanewhi/world-energy-data."
 def country_consumption_charts(energy_system):
     country = energy_system.name
     fig_dir = "charts " + country + "/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
     start_yr = user_globals.Constant.CHART_START_YR.value
 
@@ -1064,8 +1062,8 @@ https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown \
 were consumed for purposes other than electricity generation, such as steel \
-maufacture or internal combustion etc.\nAdditional fossil fuels were combusted \
-to produce electricity. For an explantion of energy consumption, see \
+manufacture or internal combustion etc.\nAdditional fossil fuels were combusted \
+to produce electricity. For an explanation of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
 By shanewhite@worldenergydata.org using \
 Python, https://github.com/shanewhi/world-energy-data."
@@ -1166,9 +1164,9 @@ Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-\
 statistics-and-balances.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown were consumed for \
-purposes other than electricity generation, such as steel maufacture or \
+purposes other than electricity generation, such as steel manufacture or \
 internal combustion etc.\nAdditional fossil fuels were combusted to produce \
-electricity. For an explantion of energy consumption, see \
+electricity. For an explanation of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
@@ -1263,9 +1261,9 @@ statistics-and-balances. "
             )
             + " EJ.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown were consumed for \
-purposes other than electricity generation, such as steel maufacture or \
+purposes other than electricity generation, such as steel manufacture or \
 internal combustion etc.\nAdditional fossil fuels were combusted to produce \
-electricity. For an explantion of energy consumption, see \
+electricity. For an explanation of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
 Values are rounded to nearest whole number. \
 By shanewhite@worldenergydata.org using Python, \
@@ -1281,9 +1279,9 @@ statistics-and-balances. "
             + str(int(energy_system.consumption_PJ["Total"].iloc[-1]))
             + " PJ.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown were consumed for \
-purposes other than electricity generation, such as steel maufacture or \
+purposes other than electricity generation, such as steel manufacture or \
 internal combustion etc. Additional fossil fuels were combusted to produce \
-electricity. For an explantion of energy consumption, see \
+electricity. For an explanation of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
 Values are rounded to nearest whole number. \
 By shanewhite@worldenergydata.org using Python, \
@@ -1331,7 +1329,7 @@ https://github.com/shanewhi/world-energy-data."
 def country_elec_charts(energy_system):
     country = energy_system.name
     fig_dir = "charts " + country + "/"
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this diretory.
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
     start_yr = user_globals.Constant.CHART_START_YR.value
 
@@ -1525,7 +1523,7 @@ https://github.com/shanewhi/world-energy-data."
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
 don't account for imports or exports.\n\
-For some small countries, the Energy Institute doesn't publish electrcity generation \
+For some small countries, the Energy Institute doesn't publish electricity generation \
 data for all fuels. For "
             + country
             + ", the unpublished generation in year "
@@ -1588,7 +1586,7 @@ https://github.com/shanewhi/world-energy-data."
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Quantities are gross generation that don't account for imports or exports.\n\
-For some small countries, the Energy Institute doesn't publish electrcity generation \
+For some small countries, the Energy Institute doesn't publish electricity generation \
 data for all fuels. For "
             + country
             + ", the unpublished generation in year "

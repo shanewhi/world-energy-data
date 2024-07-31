@@ -35,7 +35,7 @@ import process
 # Data importation differs between sources:
 # Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
 # as single files by this function.
-# The Internaitonal Energy Agency (IEA) dataset is stored in multiple JSON
+# The International Energy Agency (IEA) dataset is stored in multiple JSON
 # files, and therefore country specific data is searched for within these,
 # rather than imported as a single file. This is done within the function
 # populate_energy_system().
@@ -49,7 +49,7 @@ def import_data():
         usecols=["Country", "Year", "Var", "Value"],
     )
 
-    # Import Gobal Carbon Project dataset.
+    # Import Global Carbon Project dataset.
     gcp_ff_emissions_MtC = pd.read_excel(
         io="Global_Carbon_Budget_2023v1.1.xlsx",
         sheet_name="Fossil Emissions by Category",
@@ -105,7 +105,7 @@ def import_data():
     )
     imported_esrl_data.index.names = ["Year"]
 
-    return (imported_ei_data, imported_gcp_data, imported_esrl_data)
+    return imported_ei_data, imported_gcp_data, imported_esrl_data
 
 
 ########################################################################################
@@ -137,7 +137,7 @@ def co2_data(energy_data, emissions_data, conc_data):
 # Function: calc_final_country_shares()
 #
 # Description:
-# For all countries, calculate shares of CO2 emisions from fossil fuel combustion.
+# For all countries, calculate shares of CO2 emissions from fossil fuel combustion.
 #
 ########################################################################################
 def calc_final_country_shares(data):
@@ -150,7 +150,7 @@ def calc_final_country_shares(data):
     # Filter for data of most recent year.
     ffco2_Mt_fy = ffco2_Mt.loc[ffco2_Mt.index == final_yr]
 
-    # Reindex dataframe to country so that those those starting with "Total" can be
+    # Reindex dataframe to country so that those starting with "Total" can be
     # dropped. Record World total prior.
     ffco2_Mt_fy.set_index(["Country"], inplace=True)
     total_ffco2_Mt = ffco2_Mt_fy.loc[ffco2_Mt_fy.index == "Total World", "Value"].values
@@ -178,7 +178,7 @@ def calc_final_country_shares(data):
 # Function: ffprod_country_shares()
 #
 # Description:
-# Identifies and oragnises the major fossil fuel producers.
+# Identifies and organises the major fossil fuel producers.
 #
 ########################################################################################
 def ffproducer_shares(data):
@@ -214,7 +214,7 @@ def ffproducer_shares(data):
         coal_prod, oil_prod, gas_prod, total_coal, total_oil, total_gas
     )
 
-    return (coal_producers, oil_producers, gas_producers)
+    return coal_producers, oil_producers, gas_producers
 
 
 ########################################################################################
@@ -419,7 +419,7 @@ def populate_energy_system(country, ei_data):
         elecprod_TWh["Renewables"] = (
             elecprod_TWh["Wind"] + elecprod_TWh["Solar"] + elecprod_TWh["Hydro"]
         )
-        # For some countries (e.g Norway), EI data contains a total for the country,
+        # For some countries (e.g. Norway), EI data contains a total for the country,
         # but not a value for each fuel. In such cases, "electbyfuel_total" will be
         # zero, but "elect_twh" will have a value. Values may also be provided for
         # non-combustibles, in which case these can be plotted. Any difference between
@@ -479,7 +479,6 @@ def populate_energy_system(country, ei_data):
     else:
         print("Country not in EI data.\n")
         incl_ei_flag = False
-        co2_Mt = None
         ffprod_PJ = None
         primary_PJ = None
         elecprod_TWh = None
@@ -508,6 +507,7 @@ def populate_energy_system(country, ei_data):
         ],
     )
     # Collate data.
+    incl_iea_flag = False
     for year in tfc_years:
         with open("iea" + str(year) + ".json") as iea:
             iea_data = js.load(iea)

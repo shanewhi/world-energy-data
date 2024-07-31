@@ -73,10 +73,10 @@ class Energy_System:
         self.consumption_final_shares = consumption_final_shares
 
     # Final share dataframes are required by treemap function.
-    # Better to seperate than to place within another dataframe.
+    # Better to separate than to place within another dataframe.
 
 
-# Define conversion coefficeints (multiply for conversion).
+# Define conversion coefficients (multiply for conversion).
 class Constant(Enum):
 
     DISPLAY_CHARTS = False  # Whether charts are output to display.
@@ -147,7 +147,7 @@ class Constant(Enum):
     FIG_VSIZE_CHANGE_COLUMN_PLOT = 7
 
     LINE_WIDTH_PLOT_1x1 = 4
-    LINE_WIDTH_SUBPOLT = 2.5
+    LINE_WIDTH_SUBPLOT = 2.5
     LINE_MARKER_SIZE = 5
 
 
