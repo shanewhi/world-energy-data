@@ -6,18 +6,17 @@ Global charts:
 3. Annual CO₂ emissions from fossil fuels and cement
 4. Annual change of CO₂ emissions from fossil fuels and cement
 5. Annual coal, oil and gas CO₂ emissions
-6. Shares of national fossil fuel production
-
 
 Global or national charts (for the country or countries specified):
-1. Annual CO₂ emissions from fossil fuels
+1. Annual CO₂ emissions from fossil fuels and national shares of CO₂ emissions
 2. Change of annual CO₂ emissions from fossil fuels
-4. Annual production of coal, oil and gas
+3. Global annual production of coal, oil and gas by country
+4. Annual national production of coal, oil and gas 
 5. Shares of fuels in energy supply for latest year (primary energy)
 6. Annual shares of fuels in energy supply
-7. Annual quantity of fossil fuels in energy supply
+7. Annual quantity of coal, oil and gas in energy supply
 8. Annual change of quantity of fossil fuels in energy supply
-9. Annual change of quantity of separate fossil fuels in energy supply
+9. Annual change of quantity of coal, oil and gas in energy supply
 10. Shares of fuels in final energy and electricity generation for latest year
 11. Annual shares of fuels in final energy
 12. Annual quantity of fuels in final energy
@@ -28,6 +27,7 @@ Global or national charts (for the country or countries specified):
 17. Annual quantity of fuels in electricity generation
 18. Annual change of categories in electricity generation
 19. Annual change of fuels in electricity generation
+20. Recent annual change of fuels in electricity generation
 
    
 Written by Shane White using Python v3.12.2 for the site https://www.worldenergydata.org
