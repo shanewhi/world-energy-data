@@ -345,7 +345,7 @@ def country_co2_charts(energy_system, global_carbon):
 
     additional_text1 = (
             "Shares total 100% of 2023 global\nfossil fuel CO\u2082 emissions.\n\n\n\
-    Country segments shown are those\nwith a "
+Country segments shown are those\nwith a "
             + str(user_globals.Constant.CO2_SHARE_RANK_THRESHOLD.value)
             + "% or \
 greater share, of which\nthere were "
@@ -1271,8 +1271,8 @@ https://github.com/shanewhi/world-energy-data."
     else:
         footer_text = (
                 "Latest year of data as of June 2024 is 2021. Data: IEA 2023 World Energy \
-    Balances, https://www.iea.org/data-and-statistics/data-product/world-energy-\
-    statistics-and-balances. "
+Balances, https://www.iea.org/data-and-statistics/data-product/world-energy-\
+statistics-and-balances. "
                 + energy_system.name
                 + " most recent year Total Energy Consumption (IEA, Total TFC) = "
                 + str(int(energy_system.consumption_PJ["Total"].iloc[-1]))
@@ -1347,13 +1347,13 @@ def country_elec_charts(energy_system):
         title4 = "Bio, Geo and Other"
         footer_text = (
                 "Data: The Energy Institute Statistical Review of World Energy 2024, \
-    https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-    Renewables is the sum of hydro, wind and solar. Shares are calculated using gross \
-    generation quantities that don't account for imports or exports.\n\
-    Shares may not total 100% because for some small countries the Energy Institute \
-    doesn't publish electricity generation data for all fuels. \
-    Total generation is published, so this unpublished share is calculated. \
-    For "
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
+Renewables is the sum of hydro, wind and solar. Shares are calculated using gross \
+generation quantities that don't account for imports or exports.\n\
+Shares may not total 100% because for some small countries the Energy Institute \
+doesn't publish electricity generation data for all fuels. \
+Total generation is published, so this unpublished share is calculated. \
+For "
                 + country
                 + ", the unpublished share in year "
                 + str(energy_system.elecprod_TWh.index[-1])
@@ -1428,14 +1428,14 @@ https://github.com/shanewhi/world-energy-data."
         ylabel = "Annual Share (%)"
         footer_text = (
                 "Data: The Energy Institute Statistical Review of World Energy \
-    2024, \
-    https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-    Shares are calculated using gross generation quantities that don't account for imports \
-    or exports.\n\
-    Shares may not total 100% because for some small countries the Energy Institute \
-    doesn't publish electricity generation data for all fuels. \
-    Total generation is published, so this unpublished share is calculated. \
-    For "
+2024, \
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
+Shares are calculated using gross generation quantities that don't account for imports \
+or exports.\n\
+Shares may not total 100% because for some small countries the Energy Institute \
+doesn't publish electricity generation data for all fuels. \
+Total generation is published, so this unpublished share is calculated. \
+For "
                 + country
                 + ", the unpublished share in year "
                 + str(energy_system.elecprod_TWh.index[-1])
@@ -1518,12 +1518,12 @@ https://github.com/shanewhi/world-energy-data."
         ylabel = "TWh"
         footer_text = (
                 "Data: The Energy Institute Statistical Review of World Energy \
-    2024, \
-    https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-    Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
-    don't account for imports or exports.\n\
-    For some small countries, the Energy Institute doesn't publish electricity generation \
-    data for all fuels. For "
+2024, \
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
+Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
+don't account for imports or exports.\n\
+For some small countries, the Energy Institute doesn't publish electricity generation \
+data for all fuels. For "
                 + country
                 + ", the unpublished generation in year "
                 + str(energy_system.elecprod_TWh.index[-1])
@@ -1581,12 +1581,12 @@ https://github.com/shanewhi/world-energy-data."
         title8 = "Bio, Geo and Other"
         ylabel = "TWh"
         footer_text = (
-                "Data: The Energy Institute Statistical Review of World Energy \
-    2024, \
-    https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-    Quantities are gross generation that don't account for imports or exports.\n\
-    For some small countries, the Energy Institute doesn't publish electricity generation \
-    data for all fuels. For "
+                "Data: The Energy Institute Statistical Review of World Energy\
+2024,\
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
+Quantities are gross generation that don't account for imports or exports.\n\
+For some small countries, the Energy Institute doesn't publish electricity generation \
+data for all fuels. For "
                 + country
                 + ", the unpublished generation in year "
                 + str(energy_system.elecprod_TWh.index[-1])
