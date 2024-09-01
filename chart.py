@@ -30,236 +30,38 @@ import matplotlib.ticker
 import user_globals
 
 
-# 1x charts.
-########################################################################################
+###############################################################################
 #
-# Function: line1x1()
+# Function: column_2_subplots()
 #
 # Description:
-# Plots a single series.
+# 2 column subplots in 1 row.
 #
-########################################################################################
+###############################################################################
 
-
-def line1x1(x, y, country, color, title, ylabel, footer_text):
-    fig, ax = plt.subplots(
-        1,
-        1,
-        figsize=(
-            user_globals.Constant.FIG_HSIZE_1x1.value,
-            user_globals.Constant.FIG_VSIZE_1x1.value,
-        ),
-    )
-    ax.plot(
-        x,
-        y,
-        color,
-        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
-        marker=".",
-        markersize=6,
-        markerfacecolor="white",
-        markeredgecolor="black",
-        markeredgewidth=0.3,
-    )
-    # Set aspect ratio 1:1.
-    ax.set_box_aspect(1)
-
-    # Create list x_ticks and fill with start of each decade.
-    x_ticks = []
-    for year in x:
-        if year % 5 == 0:  # Modulus.
-            x_ticks.append(year)
-    # Replace final value with most recent year.
-    x_ticks[len(x_ticks) - 1] = max(x)
-    ax.set_xticks(x_ticks)
-    ax.set_xlabel("Year")
-
-    # Add comma as thousand seperator.
-    ax.yaxis.set_major_formatter(
-        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-    )
-    ax.autoscale(axis="y")
-    ax.set_ylim(0, max(ax.get_yticks()))
-    ax.set_ylabel(ylabel)
-
-    plt.subplots_adjust(left=0.0, right=1, top=0.89, bottom=0.07)
-    fig.suptitle(
+def column_2_subplots(
+        series1,
+        series2,
+        color1,
+        color2,
         country,
-        x=0.255,
-        y=0.965,
-        horizontalalignment="left",
-        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
-    )
-    fig.text(
-        0.255,
-        0.91,
         title,
-        horizontalalignment="left",
-        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
-    )
-    fig.text(
-        0.255,
-        0,
+        subplot1_title,
+        subplot2_title,
+        start_yr1,
+        start_yr2,
+        x_axis1_interval,
+        x_axis2_interval,
+        ylabels,
         footer_text,
-        horizontalalignment="left",
-        verticalalignment="top",
-        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
-        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
-    )
-    fig.text(0, 0, " ")  # Ensure left and right padding is included.
-    fig.text(1, 0, " ")
-
-
-###############################################################################
-#
-# Function: column1x1()
-#
-# Description:
-# 1x1 column plot.
-#
-###############################################################################
-
-
-def column1x1(
-    series,
-    color,
-    country,
-    title,
-    start_yr,
-    x_axis_interval,
-    ylabel,
-    footer_text,
-):
-    fig, ax = plt.subplots(
-        1,
-        1,
-        figsize=(
-            user_globals.Constant.FIG_HSIZE_1x1.value,
-            user_globals.Constant.FIG_VSIZE_1x1.value,
-        ),
-    )
-    if color == "black":
-        edge_color = "dimgrey"
-    else:
-        edge_color = "black"
-    # if nil data remove y-axis detail, else plot bar chart
-    if max(series) == 0:
-        ax.plot(
-            series.index.truncate(before=start_yr),
-            series.truncate(before=start_yr),
-            color,
-            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
-        )
-    else:
-        ax.bar(
-            series.truncate(before=start_yr).index,
-            series.truncate(before=start_yr),
-            width=1,
-            align="center",
-            color=color,
-            edgecolor=edge_color,
-            linewidth=0.2,
-        )
-    ax.set_box_aspect(1)
-    # grid behind columns
-    ax.set_axisbelow(True)
-
-    x_ticks = [start_yr]
-
-    # x_ticks only for period defined by x_axis_interval
-    for year in series.truncate(before=start_yr).index:
-        if year % x_axis_interval == 0:  # Modulus.
-            x_ticks.append(year)
-
-    # If period between final tick and year of final value is >= 3 years, then
-    # there's room to append most recent year.
-    # Else replace final value with most recent year.
-    if series.index.max() - max(x_ticks) >= 3:
-        x_ticks.append(series.index.max())
-    else:
-        x_ticks[len(x_ticks) - 1] = series.index.max()
-
-    ax.set_xticks(x_ticks)
-
-    ax.set_xlabel("Year")
-    # remove margins
-    ax.margins(x=0)
-
-    ax.autoscale(axis="y")
-    # force uppermost y-tick to be equal to autoscale max + grid interval
-    ax.set_ylim(0, max(ax.get_yticks()))
-    # add comma thousands seperator
-    ax.yaxis.set_major_formatter(
-        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-    )
-    ax.yaxis.grid(True)
-    ax.set_ylabel(ylabel)
-
-    plt.subplots_adjust(left=0.0, right=1, top=0.89, bottom=0.13)
-    fig.suptitle(
-        country,
-        x=0.235,
-        y=0.95,
-        horizontalalignment="left",
-        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
-    )
-    fig.text(
-        0.235,
-        0.90,
-        title,
-        horizontalalignment="left",
-        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
-    )
-    fig.text(
-        0.235,
-        0.065,
-        footer_text,
-        horizontalalignment="left",
-        verticalalignment="top",
-        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
-        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
-    )
-    fig.text(0, 0, " ")  # Ensure left and right padding is included.
-    fig.text(1, 0, " ")
-
-
-###############################################################################
-#
-# Function: column1x2()
-#
-# Description:
-# 1x2 column subplots.
-#
-###############################################################################
-
-
-def column1x2(
-    series1,
-    series2,
-    color1,
-    color2,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    start_yr1,
-    start_yr2,
-    x_axis1_interval,
-    x_axis2_interval,
-    ylabels,
-    footer_text,
-    equiv_yscale,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         1,
         2,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X2.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X2.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
         ),
     )
 
@@ -414,7 +216,7 @@ def column1x2(
 
 ########################################################################################
 #
-# Function: line_column1x2()
+# Function: line_column()
 #
 # Description:
 # Line chart on the left, column chart on the right.
@@ -422,30 +224,30 @@ def column1x2(
 ########################################################################################
 
 
-def line_column1x2(
-    series1,
-    series2,
-    color1,
-    color2,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    start_yr1,
-    start_yr2,
-    x_axis1_interval,
-    x_axis2_interval,
-    ylabel1,
-    ylabel2,
-    chart_text,
-    footer_text,
+def line_column(
+        series1,
+        series2,
+        color1,
+        color2,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        start_yr1,
+        start_yr2,
+        x_axis1_interval,
+        x_axis2_interval,
+        ylabel1,
+        ylabel2,
+        chart_text,
+        footer_text,
 ):
     fig, ax = plt.subplots(
         1,
         2,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X2.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X2.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
         ),
     )
 
@@ -577,31 +379,31 @@ def line_column1x2(
 
 ########################################################################################
 #
-# Function: column_treemap1x2()
+# Function: column_treemap()
 #
 # Description:
 # Column chart on the left, treemap chart on the right.
 #
 ########################################################################################
-def column_treemap1x2(
-    series1,
-    df,
-    color1,
-    country1,
-    title1,
-    title2,
-    subplot1_title,
-    subplot2_title,
-    start_yr,
-    x_axis1_interval,
-    ylabel1,
-    additional_text1,
-    footer_text,
+def column_treemap(
+        series1,
+        df,
+        color1,
+        country1,
+        title1,
+        title2,
+        subplot1_title,
+        subplot2_title,
+        start_yr,
+        x_axis1_interval,
+        ylabel1,
+        additional_text1,
+        footer_text,
 ):
     fig = plt.figure(
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X2.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X2.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
         )
     )
     ax1 = fig.add_subplot(1, 2, 1)
@@ -747,38 +549,38 @@ def column_treemap1x2(
 
 ########################################################################################
 #
-# Function: column1x3()
+# Function: column_3_subplots()
 #
 # Description:
-# 1x3 column subplots.
+# 3 column subplots in 1 row.
 #
 ########################################################################################
 
 
-def column1x3(
-    series1,
-    series2,
-    series3,
-    color1,
-    color2,
-    color3,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    start_yr,
-    x_axis_interval,
-    ylabels,
-    footer_text,
-    equiv_yscale,
+def column_3_subplots(
+        series1,
+        series2,
+        series3,
+        color1,
+        color2,
+        color3,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        start_yr,
+        x_axis_interval,
+        ylabels,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         1,
         3,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X3.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X3.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
         ),
     )
 
@@ -962,33 +764,33 @@ def column1x3(
 
 ########################################################################################
 #
-# Function: line1x4()
+# Function: line_4_subplots()
 #
 # Description:
-# 1x4 line subplots.
+# 4 line subplots in 1 row.
 #
 ########################################################################################
 
 
-def line1x4(
-    series1,
-    series2,
-    series3,
-    series4,
-    color1,
-    color2,
-    color3,
-    color4,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    start_yr,
-    ylabel,
-    footer_text,
-    equiv_yscale,
+def line_4_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        color1,
+        color2,
+        color3,
+        color4,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         1,
@@ -996,8 +798,8 @@ def line1x4(
         sharex=False,
         sharey=False,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X4.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X4.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW.value,
         ),
     )
     # Create list x_ticks and fill with start year of each decade.
@@ -1134,40 +936,40 @@ def line1x4(
 
 ########################################################################################
 #
-# Function: column1x4()
+# Function: column_4_subplots()
 #
 # Description:
-# 1x4 column subplots.
+# Single row of 4 column subplots.
 #
 ########################################################################################
 
 
-def column1x4(
-    series1,
-    series2,
-    series3,
-    series4,
-    color1,
-    color2,
-    color3,
-    color4,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    start_yr,
-    ylabels,
-    footer_text,
-    equiv_yscale,
+def column_4_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        color1,
+        color2,
+        color3,
+        color4,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        start_yr,
+        ylabels,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         1,
         4,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_1X4.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_1X4.value,
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW.value,
         ),
     )
 
@@ -1394,49 +1196,49 @@ def column1x4(
     )
 
 
-# 2x charts.
+# 2 row charts.
 ########################################################################################
 #
-# Function: line2x3()
+# Function: column_5_subplots()
 #
 # Description:
-# 2x3 line subplots.
+# 5 column subplots, 4 on first row, 1 on second.
 #
 ########################################################################################
-def line2x3(
-    series1,
-    series2,
-    series3,
-    series4,
-    series5,
-    series6,
-    color1,
-    color2,
-    color3,
-    color4,
-    color5,
-    color6,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    subplot5_title,
-    subplot6_title,
-    start_yr,
-    ylabel,
-    footer_text,
-    equiv_yscale,
+
+
+def column_5_subplots(
+
+        series1,
+        series2,
+        series3,
+        series4,
+        series5,
+        color1,
+        color2,
+        color3,
+        color4,
+        color5,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        subplot5_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         2,
-        3,
+        4,
         sharex=False,
         sharey=False,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_2X3.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_2X3.value,
+            user_globals.Constant.FIG_HSIZE_2_ROW.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW.value,
         ),
     )
 
@@ -1456,9 +1258,317 @@ def line2x3(
     ax[0, 0].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 1].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 2].set_xticks(x_ticks, labels=x_ticks)
+    ax[0, 3].set_xticks(x_ticks, labels=x_ticks)
+    ax[1, 0].set_xticks(x_ticks, labels=x_ticks)
+
+    ax[1, 1].set_visible(False)
+    ax[1, 2].set_visible(False)
+    ax[1, 3].set_visible(False)
+
+    if color1 == "black":
+        edge_color1 = "dimgrey"
+    else:
+        edge_color1 = "black"
+    if color2 == "black":
+        edge_color2 = "dimgrey"
+    else:
+        edge_color2 = "black"
+    if color3 == "black":
+        edge_color3 = "dimgrey"
+    else:
+        edge_color3 = "black"
+    if color4 == "black":
+        edge_color4 = "dimgrey"
+    else:
+        edge_color4 = "black"
+    if color5 == "black":
+        edge_color5 = "dimgrey"
+    else:
+        edge_color5 = "black"
+
+    # Add comma thousands seperator.
+    ax[0, 0].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+    ax[0, 1].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+    ax[0, 2].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+    ax[0, 3].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+    ax[1, 0].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
+
+    if max(series1) == 0:
+        ax[0, 0].plot(
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
+            color1,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
+        )
+    else:
+        ax[0, 0].bar(
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
+            width=1,
+            align="center",
+            color=color1,
+            edgecolor=edge_color1,
+            linewidth=0.2,
+        )
+    ax[0, 0].set_axisbelow(True)
+    ax[0, 0].set_title(
+        subplot1_title,
+        loc="left",
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    ax[0, 0].set_ylabel(ylabel)
+    ax[0, 0].yaxis.grid(True)
+    ax[0, 0].tick_params(labelsize=8)
+    ax[0, 0].margins(x=0)
+    ax[0, 0].set_box_aspect(1)
+    ax[0, 0].autoscale(axis="y")
+    ylim1 = ax[0, 0].get_ylim()[1]
+
+    if max(series2) == 0:
+        ax[0, 1].plot(
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
+            color2,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
+        )
+    else:
+        ax[0, 1].bar(
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
+            align="center",
+            width=1,
+            color=color2,
+            edgecolor=edge_color2,
+            linewidth=0.2,
+        )
+    ax[0, 1].set_axisbelow(True)
+    ax[0, 1].set_title(
+        subplot2_title,
+        loc="left",
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    ax[0, 1].yaxis.grid(True)
+    ax[0, 1].tick_params(labelsize=8)
+    ax[0, 1].margins(x=0)
+    ax[0, 1].set_box_aspect(1)
+    ax[0, 1].autoscale(axis="y")
+    ylim2 = ax[0, 1].get_ylim()[1]
+
+    if max(series3) == 0:
+        ax[0, 2].plot(
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
+            color3,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
+        )
+    else:
+        ax[0, 2].bar(
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
+            width=1,
+            align="center",
+            color=color3,
+            edgecolor=edge_color3,
+            linewidth=0.2,
+        )
+    ax[0, 2].set_axisbelow(True)
+    ax[0, 2].set_title(
+        subplot3_title,
+        loc="left",
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    ax[0, 2].yaxis.grid(True)
+    ax[0, 2].tick_params(labelsize=8)
+    ax[0, 2].margins(x=0)
+    ax[0, 2].set_box_aspect(1)
+    ax[0, 2].autoscale(axis="y")
+    ylim3 = ax[0, 2].get_ylim()[1]
+
+    if max(series4) == 0:
+        ax[0, 3].plot(
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
+            color4,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
+        )
+    else:
+        ax[0, 3].bar(
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
+            width=1,
+            align="center",
+            color=color4,
+            edgecolor=edge_color4,
+            linewidth=0.2,
+        )
+    ax[0, 3].set_axisbelow(True)
+    ax[0, 3].set_title(
+        subplot4_title,
+        loc="left",
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    ax[0, 3].yaxis.grid(True)
+    ax[0, 3].tick_params(labelsize=8)
+    ax[0, 3].margins(x=0)
+    ax[0, 3].set_box_aspect(1)
+    ax[0, 3].autoscale(axis="y")
+    ylim4 = ax[0, 3].get_ylim()[1]
+
+    if max(series5) == 0:
+        ax[1, 0].plot(
+            series5.truncate(before=start_yr).index,
+            series5.truncate(before=start_yr),
+            color5,
+            linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
+        )
+    else:
+        ax[1, 0].bar(
+            series5.truncate(before=start_yr).index,
+            series5.truncate(before=start_yr),
+            width=1,
+            align="center",
+            color=color5,
+            edgecolor=edge_color5,
+            linewidth=0.2,
+        )
+    ax[1, 0].set_axisbelow(True)
+    ax[1, 0].set_title(
+        subplot5_title,
+        loc="left",
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    ax[1, 0].set_xlabel("Year")
+    ax[1, 0].set_ylabel(ylabel)
+    ax[1, 0].yaxis.grid(True)
+    ax[1, 0].tick_params(labelsize=8)
+    ax[1, 0].margins(x=0)
+    ax[1, 0].set_box_aspect(1)
+    ax[1, 0].autoscale(axis="y")
+    ylim5 = ax[1, 0].get_ylim()[1]
+
+    # Apply equivalent y scale to all subplots if set.
+    if equiv_yscale:
+        y_max = max(ylim1, ylim2, ylim3, ylim4, ylim5)
+        ax[0, 0].set_ylim(0, y_max)
+        ax[0, 1].set_ylim(0, y_max)
+        ax[0, 2].set_ylim(0, y_max)
+        ax[0, 3].set_ylim(0, y_max)
+        ax[1, 0].set_ylim(0, y_max)
+
+        # Force uppermost tick to be equal to autoscale max + grid interval
+        ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
+        ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
+        ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[0, 3].set_ylim(0, max(ax[0, 3].get_yticks()))
+        ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
+
+    plt.subplots_adjust(
+        left=0.052, right=0.97, top=0.92, bottom=0.1, wspace=0, hspace=0.15
+    )
+    fig.suptitle(
+        country,
+        x=0.065,
+        y=0.99,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.065,
+        0.955,
+        title,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.065,
+        0.05,
+        footer_text,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################
+#
+# Function: line_6_subplots()
+#
+# Description:
+# Line subplots, 4 on first line, 2 on second.
+#
+########################################################################################
+def line_6_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        series5,
+        series6,
+        color1,
+        color2,
+        color3,
+        color4,
+        color5,
+        color6,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        subplot5_title,
+        subplot6_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
+):
+    fig, ax = plt.subplots(
+        2,
+        4,
+        sharex=False,
+        sharey=False,
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_2_ROW.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW.value,
+        ),
+    )
+
+    # Create list x_ticks and fill with start year of each decade.
+    x_ticks = [start_yr]
+    for year in series1.index:
+        if year % 5 == 0:
+            x_ticks.append(year)
+    # If period between final tick and year of final value is >= 3 years, then
+    # there's room to append most recent year.
+    # Else replace final value with most recent year.
+    if series1.index.max() - max(x_ticks) >= 3:
+        x_ticks.append(series1.index.max())
+    else:
+        x_ticks[len(x_ticks) - 1] = series1.index.max()
+
+    ax[0, 0].set_xticks(x_ticks, labels=x_ticks)
+    ax[0, 1].set_xticks(x_ticks, labels=x_ticks)
+    ax[0, 2].set_xticks(x_ticks, labels=x_ticks)
+    ax[0, 3].set_xticks(x_ticks, labels=x_ticks)
     ax[1, 0].set_xticks(x_ticks, labels=x_ticks)
     ax[1, 1].set_xticks(x_ticks, labels=x_ticks)
-    ax[1, 2].set_xticks(x_ticks, labels=x_ticks)
+
+    ax[1, 2].set_visible(False)
+    ax[1, 3].set_visible(False)
 
     ax[0, 0].plot(
         series1.truncate(before=start_yr).index,
@@ -1472,8 +1582,7 @@ def line2x3(
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     ax[0, 0].set_ylabel(ylabel)
-    ax[0, 0].yaxis.grid(True)
-    ax[0, 0].margins(x=0)
+    ax[0, 0].margins(x=0, tight=True)
     ax[0, 0].set_box_aspect(1)
     ax[0, 0].autoscale(axis="y")
     ylim1 = ax[0, 0].get_ylim()[1]
@@ -1489,8 +1598,7 @@ def line2x3(
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[0, 1].yaxis.grid(True)
-    ax[0, 1].margins(x=0)
+    ax[0, 1].margins(x=0, tight=True)
     ax[0, 1].set_box_aspect(1)
     ax[0, 1].autoscale(axis="y")
     ylim2 = ax[0, 1].get_ylim()[1]
@@ -1506,66 +1614,61 @@ def line2x3(
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[0, 2].yaxis.grid(True)
     ax[0, 2].margins(x=0)
     ax[0, 2].set_box_aspect(1)
     ax[0, 2].autoscale(axis="y")
     ylim3 = ax[0, 2].get_ylim()[1]
 
-    ax[1, 0].plot(
+    ax[0, 3].plot(
         series4.truncate(before=start_yr).index,
         series4.truncate(before=start_yr),
         color4,
         linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
-    ax[1, 0].set_title(
+    ax[0, 3].set_title(
         subplot4_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 0].set_ylabel(ylabel)
-    ax[1, 0].set_xlabel("Year")
-    ax[1, 0].yaxis.grid(True)
-    ax[1, 0].margins(x=0)
-    ax[1, 0].set_box_aspect(1)
-    ax[1, 0].autoscale(axis="y")
-    ylim4 = ax[1, 0].get_ylim()[1]
+    ax[0, 3].margins(x=0)
+    ax[0, 3].set_box_aspect(1)
+    ax[0, 3].autoscale(axis="y")
+    ylim4 = ax[0, 3].get_ylim()[1]
 
-    ax[1, 1].plot(
+    ax[1, 0].plot(
         series5.truncate(before=start_yr).index,
         series5.truncate(before=start_yr),
         color5,
         linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
-    ax[1, 1].set_title(
+    ax[1, 0].set_title(
         subplot5_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 1].set_xlabel("Year")
-    ax[1, 1].yaxis.grid(True)
-    ax[1, 1].margins(x=0)
-    ax[1, 1].set_box_aspect(1)
-    ax[1, 1].autoscale(axis="y")
-    ylim5 = ax[1, 1].get_ylim()[1]
+    ax[1, 0].set_ylabel(ylabel)
+    ax[1, 0].set_xlabel("Year")
+    ax[1, 0].margins(x=0)
+    ax[1, 0].set_box_aspect(1)
+    ax[1, 0].autoscale(axis="y")
+    ylim5 = ax[1, 0].get_ylim()[1]
 
-    ax[1, 2].plot(
+    ax[1, 1].plot(
         series6.truncate(before=start_yr).index,
         series6.truncate(before=start_yr),
         color6,
         linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
     )
-    ax[1, 2].set_title(
+    ax[1, 1].set_title(
         subplot6_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 2].set_xlabel("Year")
-    ax[1, 2].yaxis.grid(True)
-    ax[1, 2].margins(x=0)
-    ax[1, 2].set_box_aspect(1)
-    ax[1, 2].autoscale(axis="y")
-    ylim6 = ax[1, 2].get_ylim()[1]
+    ax[1, 1].set_xlabel("Year")
+    ax[1, 1].margins(x=0)
+    ax[1, 1].set_box_aspect(1)
+    ax[1, 1].autoscale(axis="y")
+    ylim6 = ax[1, 1].get_ylim()[1]
 
     # Apply equivalent y scale to all subplots if set.
     if equiv_yscale:
@@ -1573,42 +1676,43 @@ def line2x3(
         ax[0, 0].set_ylim(0, y_max)
         ax[0, 1].set_ylim(0, y_max)
         ax[0, 2].set_ylim(0, y_max)
+        ax[0, 3].set_ylim(0, y_max)
         ax[1, 0].set_ylim(0, y_max)
         ax[1, 1].set_ylim(0, y_max)
-        ax[1, 2].set_ylim(0, y_max)
+
         # Force uppermost tick to be equal to autoscale max + grid interval
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[0, 3].set_ylim(0, max(ax[0, 3].get_yticks()))
         ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
         ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
-        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
     plt.subplots_adjust(
-        left=0.125, right=0.9, hspace=0.15, wspace=0, top=0.91, bottom=0.115
+        left=0.09, right=0.95, top=0.94, bottom=0.08, wspace=0.12, hspace=0.01
     )
     fig.suptitle(
         country,
-        x=0.145,
-        y=0.975,
+        x=0.09,
+        y=0.985,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.145,
-        0.94,
+        0.09,
+        0.945,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.145,
-        0.07,
+        0.09,
+        0.05,
         footer_text,
-        verticalalignment="top",
         horizontalalignment="left",
+        verticalalignment="top",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
@@ -1616,48 +1720,48 @@ def line2x3(
 
 ########################################################################################
 #
-# Function: column2x3()
+# Function: column_6_subplots()
 #
 # Description:
-# 2x3 column subplots with optional equivalent y scale
+# 6 column subplots, 4 on first row, 2 on second.
 #
 ########################################################################################
 
 
-def column2x3(
-    series1,
-    series2,
-    series3,
-    series4,
-    series5,
-    series6,
-    color1,
-    color2,
-    color3,
-    color4,
-    color5,
-    color6,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    subplot5_title,
-    subplot6_title,
-    start_yr,
-    ylabel,
-    footer_text,
-    equiv_yscale,
+def column_6_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        series5,
+        series6,
+        color1,
+        color2,
+        color3,
+        color4,
+        color5,
+        color6,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        subplot5_title,
+        subplot6_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         2,
-        3,
+        4,
         sharex=False,
         sharey=False,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_2X3.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_2X3.value,
+            user_globals.Constant.FIG_HSIZE_2_ROW.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW.value,
         ),
     )
 
@@ -1677,9 +1781,12 @@ def column2x3(
     ax[0, 0].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 1].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 2].set_xticks(x_ticks, labels=x_ticks)
+    ax[0, 3].set_xticks(x_ticks, labels=x_ticks)
     ax[1, 0].set_xticks(x_ticks, labels=x_ticks)
     ax[1, 1].set_xticks(x_ticks, labels=x_ticks)
-    ax[1, 2].set_xticks(x_ticks, labels=x_ticks)
+
+    ax[1, 2].set_visible(False)
+    ax[1, 3].set_visible(False)
 
     if color1 == "black":
         edge_color1 = "dimgrey"
@@ -1716,13 +1823,13 @@ def column2x3(
     ax[0, 2].yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
     )
+    ax[0, 3].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+    )
     ax[1, 0].yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
     )
     ax[1, 1].yaxis.set_major_formatter(
-        matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-    )
-    ax[1, 2].yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
     )
 
@@ -1751,8 +1858,8 @@ def column2x3(
     )
     ax[0, 0].set_ylabel(ylabel)
     ax[0, 0].yaxis.grid(True)
-    ax[0, 0].set_xticks(x_ticks)
-    ax[0, 0].margins(x=0, tight=True)
+    ax[0, 0].tick_params(labelsize=8)
+    ax[0, 0].margins(x=0)
     ax[0, 0].set_box_aspect(1)
     ax[0, 0].autoscale(axis="y")
     ylim1 = ax[0, 0].get_ylim()[1]
@@ -1781,8 +1888,8 @@ def column2x3(
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     ax[0, 1].yaxis.grid(True)
-    ax[0, 1].set_xticks(x_ticks)
-    ax[0, 1].margins(x=0, tight=True)
+    ax[0, 1].tick_params(labelsize=8)
+    ax[0, 1].margins(x=0)
     ax[0, 1].set_box_aspect(1)
     ax[0, 1].autoscale(axis="y")
     ylim2 = ax[0, 1].get_ylim()[1]
@@ -1811,21 +1918,21 @@ def column2x3(
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     ax[0, 2].yaxis.grid(True)
-    ax[0, 2].set_xticks(x_ticks)
-    ax[0, 2].margins(x=0, tight=True)
+    ax[0, 2].tick_params(labelsize=8)
+    ax[0, 2].margins(x=0)
     ax[0, 2].set_box_aspect(1)
     ax[0, 2].autoscale(axis="y")
     ylim3 = ax[0, 2].get_ylim()[1]
 
     if max(series4) == 0:
-        ax[1, 0].plot(
+        ax[0, 3].plot(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
-        ax[1, 0].bar(
+        ax[0, 3].bar(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             width=1,
@@ -1834,30 +1941,28 @@ def column2x3(
             edgecolor=edge_color4,
             linewidth=0.2,
         )
-    ax[1, 0].set_axisbelow(True)
-    ax[1, 0].set_title(
+    ax[0, 3].set_axisbelow(True)
+    ax[0, 3].set_title(
         subplot4_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 0].set_ylabel(ylabel)
-    ax[1, 0].set_xlabel("Year")
-    ax[1, 0].yaxis.grid(True)
-    ax[1, 0].set_xticks(x_ticks)
-    ax[1, 0].margins(x=0, tight=True)
-    ax[1, 0].set_box_aspect(1)
-    ax[1, 0].autoscale(axis="y")
-    ylim4 = ax[1, 0].get_ylim()[1]
+    ax[0, 3].yaxis.grid(True)
+    ax[0, 3].tick_params(labelsize=8)
+    ax[0, 3].margins(x=0)
+    ax[0, 3].set_box_aspect(1)
+    ax[0, 3].autoscale(axis="y")
+    ylim4 = ax[0, 3].get_ylim()[1]
 
     if max(series5) == 0:
-        ax[1, 1].plot(
+        ax[1, 0].plot(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
-        ax[1, 1].bar(
+        ax[1, 0].bar(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
             width=1,
@@ -1866,29 +1971,30 @@ def column2x3(
             edgecolor=edge_color5,
             linewidth=0.2,
         )
-    ax[1, 1].set_axisbelow(True)
-    ax[1, 1].set_title(
+    ax[1, 0].set_axisbelow(True)
+    ax[1, 0].set_title(
         subplot5_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 1].set_xlabel("Year")
-    ax[1, 1].yaxis.grid(True)
-    ax[1, 1].set_xticks(x_ticks)
-    ax[1, 1].margins(x=0, tight=True)
-    ax[1, 1].set_box_aspect(1)
-    ax[1, 1].autoscale(axis="y")
-    ylim5 = ax[1, 1].get_ylim()[1]
+    ax[1, 0].set_xlabel("Year")
+    ax[1, 0].set_ylabel(ylabel)
+    ax[1, 0].yaxis.grid(True)
+    ax[1, 0].tick_params(labelsize=8)
+    ax[1, 0].margins(x=0)
+    ax[1, 0].set_box_aspect(1)
+    ax[1, 0].autoscale(axis="y")
+    ylim5 = ax[1, 0].get_ylim()[1]
 
     if max(series6) == 0:
-        ax[1, 2].plot(
+        ax[1, 1].plot(
             series6.truncate(before=start_yr).index,
             series6.truncate(before=start_yr),
             color6,
             linewidth=user_globals.Constant.LINE_WIDTH_SUBPLOT.value,
         )
     else:
-        ax[1, 2].bar(
+        ax[1, 1].bar(
             series6.truncate(before=start_yr).index,
             series6.truncate(before=start_yr),
             width=1,
@@ -1897,19 +2003,19 @@ def column2x3(
             edgecolor=edge_color6,
             linewidth=0.2,
         )
-    ax[1, 2].set_axisbelow(True)
-    ax[1, 2].set_title(
+    ax[1, 1].set_axisbelow(True)
+    ax[1, 1].set_title(
         subplot6_title,
         loc="left",
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
-    ax[1, 2].set_xlabel("Year")
-    ax[1, 2].yaxis.grid(True)
-    ax[1, 2].set_xticks(x_ticks)
-    ax[1, 2].margins(x=0, tight=True)
-    ax[1, 2].set_box_aspect(1)
-    ax[1, 2].autoscale(axis="y")
-    ylim6 = ax[1, 2].get_ylim()[1]
+    ax[1, 1].set_xlabel("Year")
+    ax[1, 1].yaxis.grid(True)
+    ax[1, 1].tick_params(labelsize=8)
+    ax[1, 1].margins(x=0)
+    ax[1, 1].set_box_aspect(1)
+    ax[1, 1].autoscale(axis="y")
+    ylim6 = ax[1, 1].get_ylim()[1]
 
     # Apply equivalent y scale to all subplots if set.
     if equiv_yscale:
@@ -1917,42 +2023,43 @@ def column2x3(
         ax[0, 0].set_ylim(0, y_max)
         ax[0, 1].set_ylim(0, y_max)
         ax[0, 2].set_ylim(0, y_max)
+        ax[0, 3].set_ylim(0, y_max)
         ax[1, 0].set_ylim(0, y_max)
         ax[1, 1].set_ylim(0, y_max)
-        ax[1, 2].set_ylim(0, y_max)
+
         # Force uppermost tick to be equal to autoscale max + grid interval
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
+        ax[0, 3].set_ylim(0, max(ax[0, 3].get_yticks()))
         ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
         ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
-        ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
     plt.subplots_adjust(
-        left=0.125, right=0.9, hspace=0.15, wspace=0, top=0.91, bottom=0.115
+        left=0.052, right=0.97, top=0.92, bottom=0.1, wspace=0, hspace=0.14
     )
     fig.suptitle(
         country,
-        x=0.145,
-        y=0.975,
+        x=0.065,
+        y=0.99,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.145,
-        0.94,
+        0.065,
+        0.955,
         title,
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.145,
-        0.07,
+        0.065,
+        0.05,
         footer_text,
-        verticalalignment="top",
         horizontalalignment="left",
+        verticalalignment="top",
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
@@ -1960,45 +2067,45 @@ def column2x3(
 
 ########################################################################################
 #
-# Function: line2x4()
+# Function: line_8_subplots()
 #
 # Description:
-# 2x4 line subplots.
+# 8 line subplots, 4 on each of two rows.
 #
 ########################################################################################
 
 
-def line2x4(
-    series1,
-    series2,
-    series3,
-    series4,
-    series5,
-    series6,
-    series7,
-    series8,
-    color1,
-    color2,
-    color3,
-    color4,
-    color5,
-    color6,
-    color7,
-    color8,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    subplot5_title,
-    subplot6_title,
-    subplot7_title,
-    subplot8_title,
-    start_yr,
-    ylabel,
-    footer_text,
-    equiv_yscale,
+def line_8_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        series5,
+        series6,
+        series7,
+        series8,
+        color1,
+        color2,
+        color3,
+        color4,
+        color5,
+        color6,
+        color7,
+        color8,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        subplot5_title,
+        subplot6_title,
+        subplot7_title,
+        subplot8_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         2,
@@ -2006,8 +2113,8 @@ def line2x4(
         sharex=False,
         sharey=False,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_2X4.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_2X4.value,
+            user_globals.Constant.FIG_HSIZE_2_ROW.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW.value,
         ),
     )
 
@@ -2216,51 +2323,49 @@ def line2x4(
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
-    fig.text(0, 0, " ")  # Ensure left and right padding is included.
-    fig.text(1, 0, " ")
 
 
 ########################################################################################
 #
-# Function: column2x4()
+# Function: column_8_subplots()
 #
 # Description:
-# 2x4 column subplots with optional equivalent y scale
+# 8 column subplots, 4 on each of two rows.
 #
 ########################################################################################
 
 
-def column2x4(
-    series1,
-    series2,
-    series3,
-    series4,
-    series5,
-    series6,
-    series7,
-    series8,
-    color1,
-    color2,
-    color3,
-    color4,
-    color5,
-    color6,
-    color7,
-    color8,
-    country,
-    title,
-    subplot1_title,
-    subplot2_title,
-    subplot3_title,
-    subplot4_title,
-    subplot5_title,
-    subplot6_title,
-    subplot7_title,
-    subplot8_title,
-    start_yr,
-    ylabel,
-    footer_text,
-    equiv_yscale,
+def column_8_subplots(
+        series1,
+        series2,
+        series3,
+        series4,
+        series5,
+        series6,
+        series7,
+        series8,
+        color1,
+        color2,
+        color3,
+        color4,
+        color5,
+        color6,
+        color7,
+        color8,
+        country,
+        title,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        subplot4_title,
+        subplot5_title,
+        subplot6_title,
+        subplot7_title,
+        subplot8_title,
+        start_yr,
+        ylabel,
+        footer_text,
+        equiv_yscale,
 ):
     fig, ax = plt.subplots(
         2,
@@ -2268,8 +2373,8 @@ def column2x4(
         sharex=False,
         sharey=False,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_SUBPLOT_2X4.value,
-            user_globals.Constant.FIG_VSIZE_SUBPLOT_2X4.value,
+            user_globals.Constant.FIG_HSIZE_2_ROW.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW.value,
         ),
     )
 
@@ -2649,8 +2754,6 @@ def column2x4(
         fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
-    fig.text(0, 0, " ")  # Ensure left and right padding is included.
-    fig.text(1, 0, " ")
 
 
 # Other charts.
@@ -2793,7 +2896,7 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
 
 ###############################################################################
 #
-# Function: treemap1x1()
+# Function: treemap_1_subplot()
 #
 # Description:
 # Single treemap plot
@@ -2801,15 +2904,15 @@ def columngrouped(country, title, y_label, footer_text, start_yr, *colors, **ser
 ###############################################################################
 
 
-def treemap1x1(
-    df, subplot_title, country, title, title_addition, footer_text  # Dataframe
+def treemap_1_subplot(
+        df, subplot_title, country, title, title_addition, footer_text  # Dataframe
 ):
     fig, ax = plt.subplots(
         1,
         1,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_TREE_1X1.value,
-            user_globals.Constant.FIG_VSIZE_TREE_1X1.value,
+            user_globals.Constant.FIG_HSIZE_1_TREE.value,
+            user_globals.Constant.FIG_VSIZE_1_TREE.value,
         ),
         subplot_kw=dict(aspect=1.1),
     )
@@ -2880,30 +2983,30 @@ def treemap1x1(
 
 ###############################################################################
 #
-# Function: treemap1x2()
+# Function: treemap_2_subplots()
 #
 # Description:
-# 1x2 treemap subplots.
+# 2 treemap subplots in 1 row.
 #
 ###############################################################################
 
 
-def treemap1x2(
-    df1,  # Dataframe 1
-    df2,  # Dataframe 2
-    subplot1_title,  # Title above LH plot
-    subplot2_title,  # Title above RH plot
-    country,
-    title,
-    title_addition,
-    footer_text,
+def treemap_2_subplots(
+        df1,  # Dataframe 1
+        df2,  # Dataframe 2
+        subplot1_title,  # Title above LH plot
+        subplot2_title,  # Title above RH plot
+        country,
+        title,
+        title_addition,
+        footer_text,
 ):
     fig, ax = plt.subplots(
         1,
         2,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_TREE_1X2.value,
-            user_globals.Constant.FIG_VSIZE_TREE_1X2.value,
+            user_globals.Constant.FIG_HSIZE_2_TREE.value,
+            user_globals.Constant.FIG_VSIZE_2_TREE.value,
         ),
         subplot_kw=dict(aspect=1.1),
     )
@@ -3029,32 +3132,32 @@ def treemap1x2(
 
 ###############################################################################
 #
-# Function: treemap1x3()
+# Function: treemap_3_subplots()
 #
 # Description:
-# 1x3 treemap subplots, without legend.
+# 3 treemap subplots in 1 row, without legend.
 #
 ###############################################################################
 
 
-def treemap1x3(
-    df1,  # Dataframe 1
-    df2,  # Dataframe 2
-    df3,  # Dataframe 3
-    subplot1_title,  # Title above LH plot
-    subplot2_title,  # Title above centre plot
-    subplot3_title,  # Title above RH plot
-    country,
-    title,
-    title_addition,
-    footer_text,
+def treemap_3_subplots(
+        df1,  # Dataframe 1
+        df2,  # Dataframe 2
+        df3,  # Dataframe 3
+        subplot1_title,  # Title above LH plot
+        subplot2_title,  # Title above centre plot
+        subplot3_title,  # Title above RH plot
+        country,
+        title,
+        title_addition,
+        footer_text,
 ):
     fig, ax = plt.subplots(
         1,
         3,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_TREE_1X3.value,
-            user_globals.Constant.FIG_VSIZE_TREE_1X3.value,
+            user_globals.Constant.FIG_HSIZE_3_TREE.value,
+            user_globals.Constant.FIG_VSIZE_3_TREE.value,
         ),
         subplot_kw=dict(aspect=1.1),
     )

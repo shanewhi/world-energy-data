@@ -103,7 +103,7 @@ class Constant(Enum):
     #    TFC_START_YEAR = 1990
     #    TFC_END_YEAR = 2021
     TFC_START_YEAR = 1990
-    TFC_END_YEAR = 2021  # End year of IEA data iw 2021 in 6/2024.
+    TFC_END_YEAR = 2021  # End year of IEA data is 2021 as of 9/2024.
 
     # FONT SIZES:
     # Options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
@@ -123,27 +123,20 @@ class Constant(Enum):
     SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
     FOOTER_TEXT_FONT_WEIGHT = "normal"
 
-    FIG_HSIZE_1x1 = 10
-    FIG_HSIZE_SUBPLOT_1X2 = 17
-    FIG_HSIZE_SUBPLOT_1X3 = 17
-    FIG_HSIZE_TREE_1X3 = 17
-    FIG_HSIZE_SUBPLOT_2X3 = 17
-    FIG_HSIZE_SUBPLOT_1X4 = 17
-    FIG_HSIZE_SUBPLOT_2X4 = 17
-    FIG_HSIZE_TREE_1X1 = 8
-    FIG_HSIZE_TREE_1X2 = 15
+    FIG_HSIZE_1_ROW = 17
+    FIG_HSIZE_2_ROW = 17
+    FIG_HSIZE_1_TREE = 8
+    FIG_HSIZE_2_TREE = 15
+    FIG_HSIZE_3_TREE = 17
     FIG_HSIZE_CHANGE_SS_COLUMN_PLOT = 12  # For single series plot.
     FIG_HSIZE_CHANGE_COLUMN_PLOT = 17
 
-    FIG_VSIZE_1x1 = 7
-    FIG_VSIZE_SUBPLOT_1X2 = 7
-    FIG_VSIZE_SUBPLOT_1X3 = 7
-    FIG_VSIZE_TREE_1X3 = 6.4
-    FIG_VSIZE_SUBPLOT_2X3 = 10
-    FIG_VSIZE_SUBPLOT_1X4 = 5.5
-    FIG_VSIZE_SUBPLOT_2X4 = 9
-    FIG_VSIZE_TREE_1X1 = 9.2
-    FIG_VSIZE_TREE_1X2 = 9.2
+    FIG_VSIZE_1_ROW = 5.5
+    FIG_VSIZE_1_ROW_TALL = 7
+    FIG_VSIZE_2_ROW = 9
+    FIG_VSIZE_1_TREE = 9.2
+    FIG_VSIZE_2_TREE = 9.2
+    FIG_VSIZE_3_TREE = 6.4
     FIG_VSIZE_CHANGE_COLUMN_PLOT = 7
 
     LINE_WIDTH_PLOT_1x1 = 4

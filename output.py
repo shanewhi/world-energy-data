@@ -66,7 +66,7 @@ CO\u2082 determined from NOAA Global Monitoring Laboratory measurements. Version
 Obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
-    chart.line_column1x2(
+    chart.line_column(
         co2_ppm,
         co2_change,
         color1,
@@ -124,7 +124,7 @@ For clarity: \
 the legend.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
-    chart.treemap1x2(
+    chart.treemap_2_subplots(
         global_carbon.final_emission_category_shares,
         global_carbon.final_emission_shares,
         title1,
@@ -173,7 +173,7 @@ https://github.com/shanewhi/world-energy-data."
         + " MtCO2\n"
     )
 
-    chart.column1x2(
+    chart.column_2_subplots(
         ffc_co2,
         ffc_co2,
         co2_color,
@@ -260,7 +260,7 @@ https://github.com/shanewhi/world-energy-data."
     equiv_yscale = True
     start_yr = global_carbon.data.index.min()
 
-    chart.column1x3(
+    chart.column_3_subplots(
         coalco2,
         oilco2,
         gasco2,
@@ -377,7 +377,7 @@ https://github.com/shanewhi/world-energy-data."
 
     start_yr = user_globals.Constant.CHART_START_YR.value
 
-    chart.column_treemap1x2(
+    chart.column_treemap(
         ffco2,
         global_carbon.final_country_shares,
         co2_color,
@@ -483,7 +483,7 @@ Share labelled Other is the tally of all countries producing less than a 4% shar
 the respective fossil fuel.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
-    chart.treemap1x3(
+    chart.treemap_3_subplots(
         coal_prods,  # Dataframe 1
         oil_prods,  # Dataframe 2
         gas_prods,  # Dataframe 3
@@ -574,7 +574,7 @@ https://github.com/shanewhi/world-energy-data."
     x_axis_interval = 5
     equiv_scale = True
 
-    chart.column1x3(
+    chart.column_3_subplots(
         ffprod_coal,
         ffprod_oil,
         ffprod_gas,
@@ -641,7 +641,7 @@ https://github.com/shanewhi/world-energy-data."
         + "%\n"
     )
 
-    chart.treemap1x2(
+    chart.treemap_2_subplots(
         energy_system.primary_final_category_shares,
         energy_system.primary_final_fuel_shares,
         title1,
@@ -693,7 +693,7 @@ By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
     # Plot
-    chart.line2x3(
+    chart.line_6_subplots(
         pes1,
         pes2,
         pes3,
@@ -771,7 +771,7 @@ https://github.com/shanewhi/world-energy-data."
     x_axis_interval = 10
     equiv_yscale = True
 
-    chart.column1x3(
+    chart.column_3_subplots(
         peq1,
         peq2,
         peq3,
@@ -956,7 +956,7 @@ to show.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
-        chart.treemap1x1(
+        chart.treemap_1_subplot(
             energy_system.consumption_final_shares,
             title1,
             country,
@@ -1008,7 +1008,7 @@ to show.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
-        chart.treemap1x2(
+        chart.treemap_2_subplots(
             energy_system.consumption_final_shares,
             energy_system.elecprod_final_fuel_shares,
             title1,
@@ -1087,7 +1087,7 @@ Python, https://github.com/shanewhi/world-energy-data."
         + "\n"
     )
 
-    chart.line2x3(
+    chart.line_6_subplots(
         fes1,
         fes2,
         fes3,
@@ -1170,7 +1170,7 @@ https://www.worldenergydata.org/introduction/.\n\
 By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
 
-    chart.column2x3(
+    chart.column_6_subplots(
         feq1,
         feq2,
         feq3,
@@ -1248,8 +1248,8 @@ https://github.com/shanewhi/world-energy-data."
     if energy_system.name == "World":
         footer_text = (
                 "Latest year of data as of June 2024 is 2021. Data: IEA 2023 World Energy \
-    Balances, https://www.iea.org/data-and-statistics/data-product/world-energy-\
-    statistics-and-balances. "
+Balances, https://www.iea.org/data-and-statistics/data-product/world-energy-\
+statistics-and-balances. "
                 + energy_system.name
                 + " most recent year Total Energy Consumption (IEA, Total TFC) = "
                 + str(
@@ -1279,7 +1279,7 @@ statistics-and-balances. "
                 + " PJ.\n\
 Quantities of coal, oil, gas, biofuels, and waste shown were consumed for \
 purposes other than electricity generation, such as steel manufacture or \
-internal combustion etc. Additional fossil fuels were combusted to produce \
+internal combustion etc.\nAdditional fossil fuels were combusted to produce \
 electricity. For an explanation of energy consumption, see \
 https://www.worldenergydata.org/introduction/.\n\
 Values are rounded to nearest whole number. \
@@ -1379,7 +1379,7 @@ https://github.com/shanewhi/world-energy-data."
             + "\n"
         )
 
-        chart.line1x4(
+        chart.line_4_subplots(
             esc1,
             esc2,
             esc3,
@@ -1461,7 +1461,7 @@ https://github.com/shanewhi/world-energy-data."
             + "\n"
         )
 
-        chart.line2x4(
+        chart.line_8_subplots(
             esf1,
             esf2,
             esf3,
@@ -1503,66 +1503,69 @@ https://github.com/shanewhi/world-energy-data."
             plt.show()
         plt.close()
 
-    ####################################################################################
-    # ELECTRICITY: Annual generation quantity by category.
-    ####################################################################################
-    if (
-            not energy_system.elecprod_TWh.empty
-            and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
-    ):
-        title = "Annual Electricity Generation by Category"
-        title1 = "Fossil Fuels"
-        title2 = "Nuclear"
-        title3 = "Renewables"
-        title4 = "Bio, Geo and Other"
-        ylabel = "TWh"
-        footer_text = (
-                "Data: The Energy Institute Statistical Review of World Energy \
+        ####################################################################################
+        # ELECTRICITY: Annual generation quantity by category.
+        ####################################################################################
+        if (
+                not energy_system.elecprod_TWh.empty
+                and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
+        ):
+            title = "Annual Electricity Generation by Category"
+            title1 = "Total"
+            title2 = "Fossil Fuels"
+            title3 = "Nuclear"
+            title4 = "Renewables"
+            title5 = "Bio, Geo and Other"
+            ylabel = "TWh"
+            footer_text = (
+                    "Data: The Energy Institute Statistical Review of World Energy \
 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
 Renewables is the sum of hydro, wind and solar. Quantities are gross generation that \
 don't account for imports or exports.\n\
 For some small countries, the Energy Institute doesn't publish electricity generation \
 data for all fuels. For "
-                + country
-                + ", the unpublished generation in year "
-                + str(energy_system.elecprod_TWh.index[-1])
-                + " was "
-                + str(round(energy_system.elecprod_TWh["Unpublished"].iloc[-1], 1))
-                + "TWh.\n\
+                    + country
+                    + ", the unpublished generation in year "
+                    + str(energy_system.elecprod_TWh.index[-1])
+                    + " was "
+                    + str(round(energy_system.elecprod_TWh["Unpublished"].iloc[-1], 1))
+                    + "TWh.\n\
 By shanewhite@worldenergydata.org using Python, \
-https://github.com/shanewhi/world-energy-data."
-        )
+https://github.com/shanewhi/world-energy-data.")
 
-        chart.column1x4(
-            energy_system.elecprod_TWh["Fossil Fuels"],
-            energy_system.elecprod_TWh["Nuclear"],
-            energy_system.elecprod_TWh["Renewables"],
-            energy_system.elecprod_TWh["Bio, Geo and Other"],
-            user_globals.Color.FOSSIL_FUELS.value,
-            user_globals.Color.NUCLEAR.value,
-            user_globals.Color.RENEWABLES.value,
-            user_globals.Color.OTHER.value,
-            country,
-            title,
-            title1,
-            title2,
-            title3,
-            title4,
-            start_yr,
-            ylabel,
-            footer_text,
-            True,
-        )
-        plt.savefig(
-            os.path.join(fig_dir, "16 " + country + " elec cat qty.svg"),
-            format="svg",
-            bbox_inches="tight",
-            pad_inches=0.2,
-        )
-        if user_globals.Constant.DISPLAY_CHARTS.value is True:
-            plt.show()
-        plt.close()
+            chart.column_5_subplots(
+                energy_system.elecprod_TWh["Total Fuels"],
+                energy_system.elecprod_TWh["Fossil Fuels"],
+                energy_system.elecprod_TWh["Nuclear"],
+                energy_system.elecprod_TWh["Renewables"],
+                energy_system.elecprod_TWh["Bio, Geo and Other"],
+                user_globals.Color.ELECTRICITY.value,
+                user_globals.Color.FOSSIL_FUELS.value,
+                user_globals.Color.NUCLEAR.value,
+                user_globals.Color.RENEWABLES.value,
+                user_globals.Color.OTHER.value,
+                country,
+                title,
+                title1,
+                title2,
+                title3,
+                title4,
+                title5,
+                start_yr,
+                ylabel,
+                footer_text,
+                True,
+            )
+            plt.savefig(
+                os.path.join(fig_dir, "16 " + country + " elec cat qty.svg"),
+                format="svg",
+                bbox_inches="tight",
+                pad_inches=0.2,
+            )
+            if user_globals.Constant.DISPLAY_CHARTS.value is True:
+                plt.show()
+            plt.close()
     ####################################################################################
     # ELECTRICITY: Annual generation quantity by fuel.
     ####################################################################################
@@ -1597,7 +1600,7 @@ By shanewhite@worldenergydata.org using Python, \
 https://github.com/shanewhi/world-energy-data."
         )
 
-        chart.column2x4(
+        chart.column_8_subplots(
             energy_system.elecprod_TWh["Coal"],
             energy_system.elecprod_TWh["Oil"],
             energy_system.elecprod_TWh["Gas"],
