@@ -48,22 +48,29 @@ import output
 # 4. EI's dataset. Download from -
 # https://www.energyinst.org/statistical-review/resources-and-data-downloads
 # 5. IEA's annual energy balances. To download an annual IEA World Energy
-# Balance -
-# a) Load https://www.iea.org/data-and-statistics/data-tools/ \
+# Balance, use either of the following methods:
+#
+# a)
+# i. Load https://api.iea.org/stats?year=2022&countries=[object+Object]&series=BALANCES
+# ii. Substitute 20222 for the year required.
+#
+# b)
+# i. Load https://www.iea.org/data-and-statistics/data-tools/ \
 #      energy-statistics-data-browser?country=WORLD&fuel= \
 #      Energy%20supply&indicator=TESbySource
-# b) Right click on chart -> Inspect
-# c) Select Network tab
-# d) Click XHR button
-# e) Select Browse as Tables
-# f) Select year from dropdown (ensure this is done manually)
-# g) Reload page
-# h) Double-click on the following result (using 2021 as an example)
+# ii. Right click on chart -> Inspect
+# iii. Select Network tab
+# iv. Click XHR button
+# v. Select Browse as Tables
+# vi. Select year from dropdown (ensure this is done manually)
+# vii. Reload page
+# viii. Double-click on the following result (using 2021 as an example)
 # https://api.iea.org/stats?year=2021&countries=[object+Object]&series=BALANCES
-# i) Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
+#
+# c) Save as JSON format with name 'iea<yr>.json', where <yr> is relevant
 # year.
-# k) Add to start of file: {"balances":
-# l) Add to the end of the file: }
+# d) Add to start of file: {"balances":<cr>
+# e) Add to the end of the file: }
 #
 # Output(s): Charts and debug text to std out.
 #
@@ -110,19 +117,19 @@ def profile(country):
 
 # Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")
-profile("China")
-profile("US")
-profile("Russian Federation")
-profile("India")
-profile("Saudi Arabia")
-profile("Germany")
-profile("Indonesia")
-profile("United Arab Emirates")
-profile("Australia")
-profile("Norway")
-profile("Japan")
-profile("Spain")
-profile("France")
-profile("Singapore")
-profile("Vietnam")
-profile("United Kingdom")
+# profile("China")
+# profile("US")
+# profile("Russian Federation")
+# profile("India")
+# profile("Saudi Arabia")
+# profile("Germany")
+# profile("Indonesia")
+# profile("United Arab Emirates")
+# profile("Australia")
+# profile("Norway")
+# profile("Japan")
+# profile("Spain")
+# profile("France")
+# profile("Singapore")
+# profile("Vietnam")
+# profile("United Kingdom")

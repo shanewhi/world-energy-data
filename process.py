@@ -39,14 +39,14 @@ def carbon_emissions(cdata, share_data):
     change_yrs = range(min_year + 1, max_year + 1)
     for yr in change_yrs:
         cdata.loc[yr, "FF and Cement Change"] = (
-            cdata.loc[yr, "FF and Cement"] - cdata.loc[yr - 1, "FF and Cement"]
+                cdata.loc[yr, "FF and Cement"] - cdata.loc[yr - 1, "FF and Cement"]
         )
     cdata["Total"] = cdata["FF and Cement"] + cdata["Land Use Change"]
 
     cdata["Fossil Fuel Share"] = (
-        (cdata["Coal"] + cdata["Oil"] + cdata["Gas"] + cdata["Flaring"])
-        / cdata["Total"]
-        * 100
+            (cdata["Coal"] + cdata["Oil"] + cdata["Gas"] + cdata["Flaring"])
+            / cdata["Total"]
+            * 100
     )
     cdata["Cement Share"] = cdata["Cement"] / cdata["Total"] * 100
     cdata["Other Share"] = cdata["Other"] / cdata["Total"] * 100
@@ -137,7 +137,7 @@ def carbon_emissions(cdata, share_data):
     share_data = share_data.sort_values(by=["Value"], ascending=False)
     large_country_shares = share_data[
         share_data["Value"] >= user_globals.Constant.CO2_SHARE_RANK_THRESHOLD.value
-    ]
+        ]
     large_country_shares = large_country_shares.reset_index()
     large_country_shares = large_country_shares.drop(["index"], axis=1)
     other_country_shares = pd.DataFrame(columns=["Name", "Value", "Year"])
@@ -187,14 +187,13 @@ def carbon_emissions(cdata, share_data):
 #
 ########################################################################################
 def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
-
     # Drop all rows with Country value "Total", leaving only countries. Identify latest
     # production values, rank them, and calculate shares.
     # 1. Coal
     coal_producers = coal[~coal.Country.str.contains("Total")]
     coal_producers_fy = coal_producers.loc[
         coal_producers.index == max(coal_producers.index)
-    ]
+        ]
     coal_producer_shares = coal_producers_fy.copy()
     coal_producer_shares["Value"] = round(
         coal_producer_shares["Value"] / total_coal * 100, 1
@@ -206,7 +205,7 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
     large_coal_producers = coal_producer_shares[
         coal_producer_shares["Value"]
         >= user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value
-    ]
+        ]
     other_coal_producers = pd.DataFrame(
         index=[max(coal_producers.index)], columns=["Country", "Var", "Value", "Year"]
     )
@@ -220,14 +219,14 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
     oil_producers = oil[~oil.Country.str.contains("Total")]
     oil_producers_fy = oil_producers.loc[
         oil_producers.index == max(oil_producers.index)
-    ]
+        ]
     oil_producer_shares = oil_producers_fy.copy()
     oil_producer_shares["Value"] = round(oil_producers_fy["Value"] / total_oil * 100, 1)
     oil_producer_shares = oil_producer_shares.sort_values(by=["Value"], ascending=False)
     large_oil_producers = oil_producer_shares[
         oil_producer_shares["Value"]
         >= user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value
-    ]
+        ]
     other_oil_producers = pd.DataFrame(
         index=[max(oil_producers.index)], columns=["Country", "Var", "Value", "Year"]
     )
@@ -241,14 +240,14 @@ def world_ffprod(coal, oil, gas, total_coal, total_oil, total_gas):
     gas_producers = gas[~gas.Country.str.contains("Total")]
     gas_producers_fy = gas_producers.loc[
         gas_producers.index == max(gas_producers.index)
-    ]
+        ]
     gas_producer_shares = gas_producers_fy.copy()
     gas_producer_shares["Value"] = round(gas_producers_fy["Value"] / total_gas * 100, 1)
     gas_producer_shares = gas_producer_shares.sort_values(by=["Value"], ascending=False)
     large_gas_producers = gas_producer_shares[
         gas_producer_shares["Value"]
         >= user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value
-    ]
+        ]
     other_gas_producers = pd.DataFrame(
         index=[max(gas_producers.index)], columns=["Country", "Var", "Value", "Year"]
     )
@@ -311,7 +310,7 @@ def ffco2_change(df):
     change_yrs = range(min_year + 1, max_year + 1)
 
     for yr in change_yrs:
-        df.loc[yr, "Change"] = df.loc[yr, "Value"] - df.loc[yr - 1, "Value"]
+        df.loc[yr, "Emissions Change"] = df.loc[yr, "Value"] - df.loc[yr - 1, "Value"]
 
 
 ########################################################################################
@@ -324,7 +323,6 @@ def ffco2_change(df):
 #
 ########################################################################################
 def primary_energy(energy_system):
-
     # Calculate shares and changes.
     min_year = min(energy_system.primary_PJ.index)
     max_year = max(energy_system.primary_PJ.index)
@@ -333,107 +331,100 @@ def primary_energy(energy_system):
     # Coal.
     if not energy_system.primary_PJ["Coal"].empty:
         energy_system.primary_PJ["Coal Share"] = (
-            energy_system.primary_PJ["Coal"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Coal"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Coal Change"] = (
-                energy_system.primary_PJ.loc[yr, "Coal"]
-                - energy_system.primary_PJ.loc[yr - 1, "Coal"]
+                    energy_system.primary_PJ.loc[yr, "Coal"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Coal"]
             )
     # Oil.
     if not energy_system.primary_PJ["Oil"].empty:
         energy_system.primary_PJ["Oil Share"] = (
-            energy_system.primary_PJ["Oil"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Oil"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Oil Change"] = (
-                energy_system.primary_PJ.loc[yr, "Oil"]
-                - energy_system.primary_PJ.loc[yr - 1, "Oil"]
+                    energy_system.primary_PJ.loc[yr, "Oil"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Oil"]
             )
     # Gas.
     if not energy_system.primary_PJ["Gas"].empty:
         energy_system.primary_PJ["Gas Share"] = (
-            energy_system.primary_PJ["Gas"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Gas"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Gas Change"] = (
-                energy_system.primary_PJ.loc[yr, "Gas"]
-                - energy_system.primary_PJ.loc[yr - 1, "Gas"]
+                    energy_system.primary_PJ.loc[yr, "Gas"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Gas"]
             )
     # Nuclear.
     if not energy_system.primary_PJ["Nuclear"].empty:
         energy_system.primary_PJ["Nuclear Share"] = (
-            energy_system.primary_PJ["Nuclear"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Nuclear"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Nuclear Change"] = (
-                energy_system.primary_PJ.loc[yr, "Nuclear"]
-                - energy_system.primary_PJ.loc[yr - 1, "Nuclear"]
+                    energy_system.primary_PJ.loc[yr, "Nuclear"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Nuclear"]
             )
 
     # Hydro.
     if not energy_system.primary_PJ["Hydro"].empty:
         energy_system.primary_PJ["Hydro Share"] = (
-            energy_system.primary_PJ["Hydro"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Hydro"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Hydro Change"] = (
-                energy_system.primary_PJ.loc[yr, "Hydro"]
-                - energy_system.primary_PJ.loc[yr - 1, "Hydro"]
+                    energy_system.primary_PJ.loc[yr, "Hydro"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Hydro"]
             )
     # Wind.
     if not energy_system.primary_PJ["Wind"].empty:
         energy_system.primary_PJ["Wind Share"] = (
-            energy_system.primary_PJ["Wind"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Wind"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Wind Change"] = (
-                energy_system.primary_PJ.loc[yr, "Wind"]
-                - energy_system.primary_PJ.loc[yr - 1, "Wind"]
+                    energy_system.primary_PJ.loc[yr, "Wind"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Wind"]
             )
     # Solar.
     if not energy_system.primary_PJ["Solar"].empty:
         energy_system.primary_PJ["Solar Share"] = (
-            energy_system.primary_PJ["Solar"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Solar"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Solar Change"] = (
-                energy_system.primary_PJ.loc[yr, "Solar"]
-                - energy_system.primary_PJ.loc[yr - 1, "Solar"]
+                    energy_system.primary_PJ.loc[yr, "Solar"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Solar"]
             )
 
     # Bio Geo and Other.
     if not energy_system.primary_PJ["Bio, Geo and Other"].empty:
         energy_system.primary_PJ["Bio, Geo and Other Share"] = (
-            energy_system.primary_PJ["Bio, Geo and Other"]
-            / energy_system.primary_PJ["Total"]
-        ) * 100
+                (energy_system.primary_PJ["Bio, Geo and Other"] / energy_system.primary_PJ["Total"]) * 100)
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Bio, Geo and Other Change"] = (
-                energy_system.primary_PJ.loc[yr, "Bio, Geo and Other"]
-                - energy_system.primary_PJ.loc[yr - 1, "Bio, Geo and Other"]
+                    energy_system.primary_PJ.loc[yr, "Bio, Geo and Other"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Bio, Geo and Other"]
             )
 
     # Fossil Fuels.
     if not energy_system.primary_PJ["Fossil Fuels"].empty:
         energy_system.primary_PJ["Fossil Fuels Share"] = (
-            energy_system.primary_PJ["Fossil Fuels"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                                                                 energy_system.primary_PJ["Fossil Fuels"] /
+                                                                 energy_system.primary_PJ["Total"]
+                                                         ) * 100
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Fossil Fuels Change"] = (
-                energy_system.primary_PJ.loc[yr, "Fossil Fuels"]
-                - energy_system.primary_PJ.loc[yr - 1, "Fossil Fuels"]
+                    energy_system.primary_PJ.loc[yr, "Fossil Fuels"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Fossil Fuels"]
             )
 
     # Renewables.
     if not energy_system.primary_PJ["Renewables"].empty:
         energy_system.primary_PJ["Renewables Share"] = (
-            energy_system.primary_PJ["Renewables"] / energy_system.primary_PJ["Total"]
-        ) * 100
+                                                               energy_system.primary_PJ["Renewables"] /
+                                                               energy_system.primary_PJ["Total"]
+                                                       ) * 100
         for yr in change_yrs:
             energy_system.primary_PJ.loc[yr, "Renewables Change"] = (
-                energy_system.primary_PJ.loc[yr, "Renewables"]
-                - energy_system.primary_PJ.loc[yr - 1, "Renewables"]
+                    energy_system.primary_PJ.loc[yr, "Renewables"]
+                    - energy_system.primary_PJ.loc[yr - 1, "Renewables"]
             )
 
     # To enable plotting of shares for most recent year, organise into
@@ -545,8 +536,8 @@ def primary_energy(energy_system):
 ########################################################################################
 def electricity(energy_system):
     if (
-        energy_system.elecprod_TWh.empty
-        or energy_system.elecprod_TWh["Total Country"].iloc[-1] == 0
+            energy_system.elecprod_TWh.empty
+            or energy_system.elecprod_TWh["Total Country"].iloc[-1] == 0
     ):
         print("No electricity data for country in EI dataset.\n")
         return ()
@@ -558,146 +549,169 @@ def electricity(energy_system):
     # Coal.
     if not energy_system.elecprod_TWh["Coal"].empty:
         energy_system.elecprod_TWh["Coal Share"] = (
-            energy_system.elecprod_TWh["Coal"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                           energy_system.elecprod_TWh["Coal"]
+                                                           / energy_system.elecprod_TWh["Total Country"]
+                                                   ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Coal Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Coal"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Coal"]
+                    energy_system.elecprod_TWh.loc[yr, "Coal"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Coal"]
             )
+        energy_system.elecprod_PWh["Coal"] = energy_system.elecprod_TWh["Coal"] * user_globals.Constant.TWH_TO_PWH.value
 
     # Oil.
     if not energy_system.elecprod_TWh["Oil"].empty:
         energy_system.elecprod_TWh["Oil Share"] = (
-            energy_system.elecprod_TWh["Oil"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                          energy_system.elecprod_TWh["Oil"]
+                                                          / energy_system.elecprod_TWh["Total Country"]
+                                                  ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Oil Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Oil"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Oil"]
+                    energy_system.elecprod_TWh.loc[yr, "Oil"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Oil"]
             )
+        energy_system.elecprod_PWh["Oil"] = energy_system.elecprod_TWh["Oil"] * user_globals.Constant.TWH_TO_PWH.value
 
     # Gas.
     if not energy_system.elecprod_TWh["Gas"].empty:
         energy_system.elecprod_TWh["Gas Share"] = (
-            energy_system.elecprod_TWh["Gas"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                          energy_system.elecprod_TWh["Gas"]
+                                                          / energy_system.elecprod_TWh["Total Country"]
+                                                  ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Gas Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Gas"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Gas"]
+                    energy_system.elecprod_TWh.loc[yr, "Gas"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Gas"]
             )
+        energy_system.elecprod_PWh["Gas"] = energy_system.elecprod_TWh["Gas"] * user_globals.Constant.TWH_TO_PWH.value
 
     # Nuclear.
     if not energy_system.elecprod_TWh["Nuclear"].empty:
         energy_system.elecprod_TWh["Nuclear Share"] = (
-            energy_system.elecprod_TWh["Nuclear"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                              energy_system.elecprod_TWh["Nuclear"]
+                                                              / energy_system.elecprod_TWh["Total Country"]
+                                                      ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Nuclear Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Nuclear"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Nuclear"]
+                    energy_system.elecprod_TWh.loc[yr, "Nuclear"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Nuclear"]
             )
+        energy_system.elecprod_PWh["Nuclear"] = (
+                energy_system.elecprod_TWh["Nuclear"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Hydro.
     if not energy_system.elecprod_TWh["Hydro"].empty:
         energy_system.elecprod_TWh["Hydro Share"] = (
-            energy_system.elecprod_TWh["Hydro"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                (energy_system.elecprod_TWh["Hydro"] / energy_system.elecprod_TWh["Total Country"]) * 100)
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Hydro Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Hydro"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Hydro"]
+                    energy_system.elecprod_TWh.loc[yr, "Hydro"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Hydro"]
             )
+        energy_system.elecprod_PWh["Hydro"] = energy_system.elecprod_TWh[
+                                                  "Hydro"] * user_globals.Constant.TWH_TO_PWH.value
 
     # Wind.
     if not energy_system.elecprod_TWh["Wind"].empty:
         energy_system.elecprod_TWh["Wind Share"] = (
-            energy_system.elecprod_TWh["Wind"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                           energy_system.elecprod_TWh["Wind"]
+                                                           / energy_system.elecprod_TWh["Total Country"]
+                                                   ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Wind Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Wind"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Wind"]
+                    energy_system.elecprod_TWh.loc[yr, "Wind"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Wind"]
             )
+        energy_system.elecprod_PWh["Wind"] = energy_system.elecprod_TWh["Wind"] * user_globals.Constant.TWH_TO_PWH.value
 
     # Solar.
     if not energy_system.elecprod_TWh["Solar"].empty:
         energy_system.elecprod_TWh["Solar Share"] = (
-            energy_system.elecprod_TWh["Solar"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                            energy_system.elecprod_TWh["Solar"]
+                                                            / energy_system.elecprod_TWh["Total Country"]
+                                                    ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Solar Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Solar"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Solar"]
+                    energy_system.elecprod_TWh.loc[yr, "Solar"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Solar"]
             )
+        energy_system.elecprod_PWh["Solar"] = (
+                energy_system.elecprod_TWh["Solar"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Bio Geo and Other.
     if not energy_system.elecprod_TWh["Bio, Geo and Other"].empty:
         energy_system.elecprod_TWh["Bio, Geo and Other Share"] = (
-            energy_system.elecprod_TWh["Bio, Geo and Other"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                                         energy_system.elecprod_TWh[
+                                                                             "Bio, Geo and Other"]
+                                                                         / energy_system.elecprod_TWh["Total Country"]
+                                                                 ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Bio, Geo and Other"]
+                    energy_system.elecprod_TWh.loc[yr, "Bio, Geo and Other"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Bio, Geo and Other"]
             )
+        energy_system.elecprod_PWh["Bio, Geo and Other"] = (
+                energy_system.elecprod_TWh["Bio, Geo and Other"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Fossil Fuels.
     if not energy_system.elecprod_TWh["Fossil Fuels"].empty:
         energy_system.elecprod_TWh["Fossil Fuels Share"] = (
-            energy_system.elecprod_TWh["Fossil Fuels"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                                   energy_system.elecprod_TWh["Fossil Fuels"]
+                                                                   / energy_system.elecprod_TWh["Total Country"]
+                                                           ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Fossil Fuels Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Fossil Fuels"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Fossil Fuels"]
+                    energy_system.elecprod_TWh.loc[yr, "Fossil Fuels"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Fossil Fuels"]
             )
+        energy_system.elecprod_PWh["Fossil Fuels"] = (
+                energy_system.elecprod_TWh["Fossil Fuels"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Wind and Solar.
     if not energy_system.elecprod_TWh["Wind and Solar"].empty:
         energy_system.elecprod_TWh["Wind and Solar Share"] = (
-            energy_system.elecprod_TWh["Wind and Solar"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                                     energy_system.elecprod_TWh["Wind and Solar"]
+                                                                     / energy_system.elecprod_TWh["Total Country"]
+                                                             ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Wind and Solar Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Wind and Solar"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Wind and Solar"]
+                    energy_system.elecprod_TWh.loc[yr, "Wind and Solar"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Wind and Solar"]
             )
+        energy_system.elecprod_PWh["Wind and Solar"] = (
+                energy_system.elecprod_TWh["Wind and Solar"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Renewables.
     if not energy_system.elecprod_TWh["Renewables"].empty:
         energy_system.elecprod_TWh["Renewables Share"] = (
-            energy_system.elecprod_TWh["Renewables"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                                 energy_system.elecprod_TWh["Renewables"]
+                                                                 / energy_system.elecprod_TWh["Total Country"]
+                                                         ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Renewables Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Renewables"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Renewables"]
+                    energy_system.elecprod_TWh.loc[yr, "Renewables"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Renewables"]
             )
+        energy_system.elecprod_PWh["Renewables"] = (
+                energy_system.elecprod_TWh["Renewables"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # Unpublished.
     if not energy_system.elecprod_TWh["Unpublished"].empty:
         energy_system.elecprod_TWh["Unpublished Share"] = (
-            energy_system.elecprod_TWh["Unpublished"]
-            / energy_system.elecprod_TWh["Total Country"]
-        ) * 100
+                                                                  energy_system.elecprod_TWh["Unpublished"]
+                                                                  / energy_system.elecprod_TWh["Total Country"]
+                                                          ) * 100
         for yr in change_yrs:
             energy_system.elecprod_TWh.loc[yr, "Unpublished Change"] = (
-                energy_system.elecprod_TWh.loc[yr, "Unpublished"]
-                - energy_system.elecprod_TWh.loc[yr - 1, "Unpublished"]
+                    energy_system.elecprod_TWh.loc[yr, "Unpublished"]
+                    - energy_system.elecprod_TWh.loc[yr - 1, "Unpublished"]
             )
+        energy_system.elecprod_PWh["Unpublished"] = (
+                energy_system.elecprod_TWh["Unpublished"] * user_globals.Constant.TWH_TO_PWH.value)
+
+    # Total.
+    energy_system.elecprod_PWh["Total Country"] = (
+            energy_system.elecprod_TWh["Total Country"] * user_globals.Constant.TWH_TO_PWH.value)
 
     # To enable plotting of shares for most recent year, organise into
     # dataframes.
@@ -820,39 +834,39 @@ def electricity(energy_system):
 ########################################################################################
 def consumption(energy_system):
     energy_system.consumption_PJ["Coal Share"] = (
-        energy_system.consumption_PJ["Coal"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Coal"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Oil Share"] = (
-        energy_system.consumption_PJ["Oil"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Oil"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Gas Share"] = (
-        energy_system.consumption_PJ["Gas"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Gas"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Wind Solar Etc Share"] = (
-        energy_system.consumption_PJ["Wind Solar Etc"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Wind Solar Etc"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Biofuels and Waste Share"] = (
-        energy_system.consumption_PJ["Biofuels and Waste"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Biofuels and Waste"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Electricity Share"] = (
-        energy_system.consumption_PJ["Electricity"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Electricity"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
     energy_system.consumption_PJ["Heat Share"] = (
-        energy_system.consumption_PJ["Heat"]
-        / energy_system.consumption_PJ["Total"]
-        * 100
+            energy_system.consumption_PJ["Heat"]
+            / energy_system.consumption_PJ["Total"]
+            * 100
     )
 
     print(
@@ -868,32 +882,32 @@ def consumption(energy_system):
 
     for yr in change_yrs:
         energy_system.consumption_PJ.loc[yr, "Coal Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Coal"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Coal"]
+                energy_system.consumption_PJ.loc[yr, "Coal"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Coal"]
         )
         energy_system.consumption_PJ.loc[yr, "Oil Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Oil"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Oil"]
+                energy_system.consumption_PJ.loc[yr, "Oil"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Oil"]
         )
         energy_system.consumption_PJ.loc[yr, "Gas Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Gas"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Gas"]
+                energy_system.consumption_PJ.loc[yr, "Gas"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Gas"]
         )
         energy_system.consumption_PJ.loc[yr, "Wind Solar Etc Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Wind Solar Etc"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Wind Solar Etc"]
+                energy_system.consumption_PJ.loc[yr, "Wind Solar Etc"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Wind Solar Etc"]
         )
         energy_system.consumption_PJ.loc[yr, "Biofuels and Waste Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Biofuels and Waste"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Biofuels and Waste"]
+                energy_system.consumption_PJ.loc[yr, "Biofuels and Waste"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Biofuels and Waste"]
         )
         energy_system.consumption_PJ.loc[yr, "Electricity Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Electricity"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Electricity"]
+                energy_system.consumption_PJ.loc[yr, "Electricity"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Electricity"]
         )
         energy_system.consumption_PJ.loc[yr, "Heat Change"] = (
-            energy_system.consumption_PJ.loc[yr, "Heat"]
-            - energy_system.consumption_PJ.loc[yr - 1, "Heat"]
+                energy_system.consumption_PJ.loc[yr, "Heat"]
+                - energy_system.consumption_PJ.loc[yr - 1, "Heat"]
         )
 
     # To enable plotting of shares for most recent year, organise into

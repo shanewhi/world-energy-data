@@ -270,19 +270,19 @@ def populate_energy_system(country, ei_data):
         )
 
         ffprod_PJ["Coal"] = (
-            country_data.loc[country_data["Var"] == "coalprod_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "coalprod_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         oil_mt = country_data.loc[country_data["Var"] == "oilprod_mt", "Value"]
         ffprod_PJ["Oil"] = (
-            oil_mt
-            * 1e6
-            * user_globals.Constant.TONNES_TO_GJ.value
-            * user_globals.Constant.GJ_TO_PJ.value
+                oil_mt
+                * 1e6
+                * user_globals.Constant.TONNES_TO_GJ.value
+                * user_globals.Constant.GJ_TO_PJ.value
         )
         ffprod_PJ["Gas"] = (
-            country_data.loc[country_data["Var"] == "gasprod_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "gasprod_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         # If nil production, create 0 series in order for chart function to
         # plot correctly.
@@ -312,37 +312,37 @@ def populate_energy_system(country, ei_data):
         )
 
         primary_PJ["Coal"] = (
-            country_data.loc[country_data["Var"] == "coalcons_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "coalcons_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Oil"] = (
-            country_data.loc[country_data["Var"] == "oilcons_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "oilcons_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Gas"] = (
-            country_data.loc[country_data["Var"] == "gascons_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "gascons_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Nuclear"] = (
-            country_data.loc[country_data["Var"] == "nuclear_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "nuclear_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Hydro"] = (
-            country_data.loc[country_data["Var"] == "hydro_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "hydro_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Wind"] = (
-            country_data.loc[country_data["Var"] == "wind_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "wind_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Solar"] = (
-            country_data.loc[country_data["Var"] == "solar_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
+                country_data.loc[country_data["Var"] == "solar_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ["Bio, Geo and Other"] = (
-            country_data.loc[country_data["Var"] == "biogeo_ej", "Value"]
-            * user_globals.Constant.EJ_TO_PJ.value
-            + country_data.loc[country_data["Var"] == "biofuels_cons_pj", "Value"]
+                country_data.loc[country_data["Var"] == "biogeo_ej", "Value"]
+                * user_globals.Constant.EJ_TO_PJ.value
+                + country_data.loc[country_data["Var"] == "biofuels_cons_pj", "Value"]
         )
 
         # Replace any NaNs with 0 in fields imported into primary_PJ.
@@ -351,10 +351,10 @@ def populate_energy_system(country, ei_data):
 
         # Calculate categories.
         primary_PJ["Fossil Fuels"] = (
-            primary_PJ["Coal"] + primary_PJ["Oil"] + primary_PJ["Gas"]
+                primary_PJ["Coal"] + primary_PJ["Oil"] + primary_PJ["Gas"]
         )
         primary_PJ["Renewables"] = (
-            primary_PJ["Hydro"] + primary_PJ["Wind"] + primary_PJ["Solar"]
+                primary_PJ["Hydro"] + primary_PJ["Wind"] + primary_PJ["Solar"]
         )
         primary_PJ["Total"] = total_primary_EJ * user_globals.Constant.EJ_TO_PJ.value
 
@@ -404,8 +404,8 @@ def populate_energy_system(country, ei_data):
             country_data["Var"] == "solar_twh", "Value"
         ]
         elecprod_TWh["Bio, Geo and Other"] = (
-            country_data.loc[country_data["Var"] == "biogeo_twh", "Value"]
-            + country_data.loc[country_data["Var"] == "electbyfuel_other", "Value"]
+                country_data.loc[country_data["Var"] == "biogeo_twh", "Value"]
+                + country_data.loc[country_data["Var"] == "electbyfuel_other", "Value"]
         )
 
         # Replace any NaNs with 0
@@ -413,17 +413,17 @@ def populate_energy_system(country, ei_data):
             elecprod_TWh.fillna(0, inplace=True)
 
         elecprod_TWh["Fossil Fuels"] = (
-            elecprod_TWh["Coal"] + elecprod_TWh["Oil"] + elecprod_TWh["Gas"]
+                elecprod_TWh["Coal"] + elecprod_TWh["Oil"] + elecprod_TWh["Gas"]
         )
         elecprod_TWh["Wind and Solar"] = elecprod_TWh["Wind"] + elecprod_TWh["Solar"]
         elecprod_TWh["Renewables"] = (
-            elecprod_TWh["Wind"] + elecprod_TWh["Solar"] + elecprod_TWh["Hydro"]
+                elecprod_TWh["Wind"] + elecprod_TWh["Solar"] + elecprod_TWh["Hydro"]
         )
-        # For some countries (e.g. Norway), EI data contains a total for the country,
-        # but not a value for each fuel. In such cases, "electbyfuel_total" will be
+        # For some countries (e.g. Norway), EI data contains a total for the country ("elect_twh"),
+        # but not a value for every fuel. In such cases, "electbyfuel_total" will be
         # zero, but "elect_twh" will have a value. Values may also be provided for
-        # non-combustibles, in which case these can be plotted. Any difference between
-        # "Sum_Fuels" and "elect_twh" will be classified as "Unpublished".
+        # non-combustible fuels, in which case these can be plotted and totalled. Any difference between
+        # this "Sum_Fuels" and "elect_twh" will be classified as "Unpublished".
 
         elecprod_TWh["Total Fuels"] = country_data.loc[
             country_data["Var"] == "electbyfuel_total", "Value"
@@ -433,18 +433,18 @@ def populate_energy_system(country, ei_data):
         ]
 
         elecprod_TWh["Sum Fuels"] = (
-            elecprod_TWh["Coal"]
-            + elecprod_TWh["Oil"]
-            + elecprod_TWh["Gas"]
-            + elecprod_TWh["Nuclear"]
-            + elecprod_TWh["Hydro"]
-            + elecprod_TWh["Wind"]
-            + elecprod_TWh["Solar"]
-            + elecprod_TWh["Bio, Geo and Other"]
+                elecprod_TWh["Coal"]
+                + elecprod_TWh["Oil"]
+                + elecprod_TWh["Gas"]
+                + elecprod_TWh["Nuclear"]
+                + elecprod_TWh["Hydro"]
+                + elecprod_TWh["Wind"]
+                + elecprod_TWh["Solar"]
+                + elecprod_TWh["Bio, Geo and Other"]
         )
 
         elecprod_TWh["Unpublished"] = (
-            elecprod_TWh["Total Country"] - elecprod_TWh["Sum Fuels"]
+                elecprod_TWh["Total Country"] - elecprod_TWh["Sum Fuels"]
         )
 
         elecprod_TWh["Coal"] = np.where(
@@ -514,122 +514,122 @@ def populate_energy_system(country, ei_data):
         if jp.search(f"balances[?(short == {iea_country})].value", iea_data):
             incl_iea_flag = True
             consumption_PJ.at[year, "Coal"] = (
-                np.array(
-                    jp.search(
-                        f"(balances[?(short == {iea_country}\
+                    np.array(
+                        jp.search(
+                            f"(balances[?(short == {iea_country}\
                                    && flow == 'TFC' && \
                                    product == 'COAL')].value)",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Coal"]:
                 consumption_PJ.at[year, "Coal"] = 0
 
             # "MTOTOIL" is the addition of Crude Oil and Oil Products.
             consumption_PJ.at[year, "Oil"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'MTOTOIL')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Oil"]:
                 consumption_PJ.at[year, "Oil"] = 0
 
             consumption_PJ.at[year, "Gas"] = (
-                np.array(
-                    jp.search(
-                        f"(balances[?(short == {iea_country}\
+                    np.array(
+                        jp.search(
+                            f"(balances[?(short == {iea_country}\
                                    && flow == 'TFC' && \
                                    product == 'NATGAS')].value)",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Gas"]:
                 consumption_PJ.at[year, "Gas"] = 0
 
             consumption_PJ.at[year, "Wind Solar Etc"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'GEOTHERM')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Wind Solar Etc"]:
                 consumption_PJ.at[year, "Wind Solar Etc"] = 0
 
             consumption_PJ.at[year, "Biofuels and Waste"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'COMRENEW')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Biofuels and Waste"]:
                 consumption_PJ.at[year, "Biofuels and Waste"] = 0
 
             consumption_PJ.at[year, "Electricity"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'ELECTR')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Electricity"]:
                 consumption_PJ.at[year, "Electricity"] = 0
 
             consumption_PJ.at[year, "Heat"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'HEAT')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Heat"]:
                 consumption_PJ.at[year, "Heat"] = 0
 
             consumption_PJ.at[year, "Total"] = (
-                np.array(
-                    jp.search(
-                        f"balances[?(short == {iea_country} && \
+                    np.array(
+                        jp.search(
+                            f"balances[?(short == {iea_country} && \
                                    flow == 'TFC' && \
                                    product == 'TOTAL')].value",
-                        iea_data,
-                    ),
-                    dtype=float,
-                )
-                * user_globals.Constant.TJ_TO_PJ.value
+                            iea_data,
+                        ),
+                        dtype=float,
+                    )
+                    * user_globals.Constant.TJ_TO_PJ.value
             )
             if not consumption_PJ.at[year, "Total"]:
                 consumption_PJ.at[year, "Total"] = 0
@@ -650,6 +650,7 @@ def populate_energy_system(country, ei_data):
         pd.DataFrame(),  # Populated in process.py
         pd.DataFrame(),  # Populated in process.py
         elecprod_TWh,
+        pd.DataFrame(),  # Populated in process.py
         pd.DataFrame(),  # Populated in process.py
         pd.DataFrame(),  # Populated in process.py
         consumption_PJ,

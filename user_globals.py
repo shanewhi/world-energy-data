@@ -6,7 +6,6 @@
 #@author: shanewhite
 """
 
-
 ########################################################################################
 #
 # Module: user_globals.py
@@ -24,13 +23,13 @@ import matplotlib.pyplot as plt
 # Define custom class of an energy system.
 class Global_Carbon:
     def __init__(
-        self,
-        name,
-        data,
-        final_emission_category_shares,
-        final_emission_shares,
-        co2_conc,
-        final_country_shares,
+            self,
+            name,
+            data,
+            final_emission_category_shares,
+            final_emission_shares,
+            co2_conc,
+            final_country_shares,
     ):
         self.name = name
         self.data = data
@@ -43,20 +42,21 @@ class Global_Carbon:
 # Define custom class of an energy system.
 class Energy_System:
     def __init__(
-        self,
-        name,  # Country name.
-        incl_ei_flag,  # True if country appears in EI data.
-        incl_iea_flag,  # True if country appears in IEA data.
-        ffco2,
-        ffprod_PJ,
-        primary_PJ,
-        primary_final_category_shares,
-        primary_final_fuel_shares,
-        elecprod_TWh,
-        elecprod_final_category_shares,
-        elecprod_final_fuel_shares,
-        consumption_PJ,
-        consumption_final_shares,
+            self,
+            name,  # Country name.
+            incl_ei_flag,  # True if country appears in EI data.
+            incl_iea_flag,  # True if country appears in IEA data.
+            ffco2,
+            ffprod_PJ,
+            primary_PJ,
+            primary_final_category_shares,
+            primary_final_fuel_shares,
+            elecprod_TWh,
+            elecprod_PWh,
+            elecprod_final_category_shares,
+            elecprod_final_fuel_shares,
+            consumption_PJ,
+            consumption_final_shares,
     ):
         self.name = name
         self.incl_ei_flag = incl_ei_flag
@@ -67,6 +67,7 @@ class Energy_System:
         self.primary_final_category_shares = primary_final_category_shares
         self.primary_final_fuel_shares = primary_final_fuel_shares
         self.elecprod_TWh = elecprod_TWh
+        self.elecprod_PWh = elecprod_PWh
         self.elecprod_final_category_shares = elecprod_final_category_shares
         self.elecprod_final_fuel_shares = elecprod_final_fuel_shares
         self.consumption_PJ = consumption_PJ
@@ -78,18 +79,19 @@ class Energy_System:
 
 # Define conversion coefficients (multiply for conversion).
 class Constant(Enum):
-
     DISPLAY_CHARTS = False  # Whether charts are output to display.
-    CHART_START_YR = 2000  # Start year for all charts.
+    CHART_START_YR = 2000  # Start year for all charts except change charts
+    CHANGE_CHART_START_YR = 2010
 
     C_TO_CO2 = 44 / 12
     k_TO_M = 1e-3
     G_TO_M = 1e3
     TJ_TO_PJ = 1e-3
     EJ_TO_PJ = 1e3
-    PJ_TO_EJ = 1 / EJ_TO_PJ
+    PJ_TO_EJ = 1 / 1e3
     GJ_TO_PJ = 1e-6
     GJ_TO_EJ = 1e-9
+    TWH_TO_PWH = 1e-3
     TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
     CO2_SHARE_RANK_THRESHOLD = 0.5  # Percent. Defines country as large CO2 emitter.
     COAL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large coal producer.
@@ -98,12 +100,11 @@ class Constant(Enum):
 
     # Processing of IEA data takes a noticeably long time.
     # To shorten execution time during testing, set TFC_START_YEAR to 1999
-    # and TFC_END_YEAR to 2000 or later. This assumes CHART_START_YR = 2000.
-    # Default values as of 6/2024 are:
-    #    TFC_START_YEAR = 1990
-    #    TFC_END_YEAR = 2021
-    TFC_START_YEAR = 1990
-    TFC_END_YEAR = 2021  # End year of IEA data is 2021 as of 9/2024.
+    # and TFC_END_YEAR to 2000.
+    TFC_START_YEAR = 2000
+    TFC_END_YEAR = 2022  # Most recent year of IEA data is 2022 as of Nov 2024.
+    # TFC_START_YEAR = 1999
+    # TFC_END_YEAR = 2000
 
     # FONT SIZES:
     # Options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
@@ -111,6 +112,7 @@ class Constant(Enum):
     TITLE_FONT_SIZE = "xx-large"
     TITLE_ADDITION_FONT_SIZE = "medium"
     SUBPLOT_TITLE_FONT_SIZE = "large"
+    SUBPLOT_3ROW_TITLE_FONT_SIZE = "medium"
     FOOTER_TEXT_FONT_SIZE = "small"
 
     # FONT WEIGHTS:
@@ -134,14 +136,21 @@ class Constant(Enum):
     FIG_VSIZE_1_ROW = 5.5
     FIG_VSIZE_1_ROW_TALL = 7
     FIG_VSIZE_2_ROW = 9
+    FIG_VSIZE_2x5 = 7
     FIG_VSIZE_1_TREE = 9.2
     FIG_VSIZE_2_TREE = 9.2
     FIG_VSIZE_3_TREE = 6.4
     FIG_VSIZE_CHANGE_COLUMN_PLOT = 7
+    FIG_VSIZE_CHANGE_COLUMN_2_PLOT = 10
 
-    LINE_WIDTH_PLOT_1x1 = 4
-    LINE_WIDTH_SUBPLOT = 2.5
+    LINE_WIDTH_SUBPLOT = 2.2
+    LINE_WIDTH_0_SUBPLOT = 4
+    LINE_WIDTH_10_SUBPLOT = 1.8
     LINE_MARKER_SIZE = 5
+    LINE_WIDTH_PLOT_1x1 = 4
+
+    COLUMN_11_SUBPLOT_TITLE_XPOS = 0.04
+    COLUMN_11_SUBPLOT_TITLE_YPOS = 0.87
 
 
 # Define colors for charts.
@@ -174,8 +183,6 @@ class Color(Enum):
 # Matplotlib universal settings:
 # https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.rcParams
 rc = {
-    # "axes.edgecolor": "gray",
-    # "axes.linewidth": 0.5,
     "xtick.direction": "out",
     "xtick.color": "grey",
     "xtick.labelcolor": "black",
