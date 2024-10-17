@@ -792,8 +792,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
         pe2 = pd.Series(energy_system.primary_PJ["Oil Change"])
         pe3 = pd.Series(energy_system.primary_PJ["Gas Change"])
 
-    footer_text = "For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/. \
-Values are rounded to nearest whole number.\n\
+    footer_text = "Values are rounded to nearest whole number, and those 0.5 or less are displayed as zero, \
+so column values in upper chart may not equal total of those in lower chart for a given year.\n\
+For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -1510,8 +1511,8 @@ required for various countries.")
         title = "Annual Change of Electricity Generation"
         ylabel_top = "Terawatt hours per year (TWh/yr)"
         ylabel_bottom = "TWh/yr"
-        footer_text = ("Values are rounded to nearest whole number, and magnitudes 0.5 or less are displayed as zero. \
-1TWh = 0.1PWh\n\
+        footer_text = ("Values are rounded to nearest whole number, and those 0.5 or less are displayed as zero, \
+so column values in upper chart may not equal total of those in lower chart for a given year. 1TWh = 0.1PWh.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
