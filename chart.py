@@ -1439,7 +1439,7 @@ def line_10_subplots(
     )
     ax[0, 1].plot(
         series1.truncate(before=start_yr).index,
-        series2.truncate(before=start_yr),
+        series1.truncate(before=start_yr),
         color1,
         linewidth=user_globals.Constant.LINE_WIDTH_10_SUBPLOT.value,
     )
