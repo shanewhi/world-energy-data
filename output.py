@@ -864,9 +864,11 @@ respective dataset."
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
 'Wind, solar etc' in the IEA dataset refers to a non-electric form, and usually too small to show.\n\
-For an explanation of Energy Consumption, see https://www.worldenergydata.org/introduction/. \
+Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
+electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
-Energy Consumption Data: IEA 2024 World Energy Balances, \
+Energy Consumption data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances. Latest year shown."
 
         chart.treemap_1_subplot(
@@ -905,9 +907,11 @@ respective dataset."
 show.\n\
 For some countries, shares of electricity generation may not total 100% due to unavailability of data for some fuels. \
 Total generation is published, so any such unpublished share is calculated, & shown in the RH chart if applicable.\n\
-For an explanation of Energy Consumption, see https://www.worldenergydata.org/introduction/. \
+Shares of coal, oil, gas, biofuels, and waste shown in the LH chart were consumed for purposes other than \
+electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
-Energy Consumption Data: IEA 2024 World Energy Balances, \
+Energy Consumption data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances. Latest year shown.\n\
 Electricity Generation data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -957,9 +961,9 @@ def country_consumption_charts(energy_system):
     title5 = "Electricity"
     title6 = "Heat"
     ylabel = "Annual Share (%)"
-    footer_text = "Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
-electricity generation, such as steel manufacture or internal combustion etc.\nAdditional fossil fuels were combusted \
-to produce electricity. For an explanation of energy consumption, see https://www.worldenergydata.org/introduction/.\n\
+    footer_text = "Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
+electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
@@ -1057,8 +1061,8 @@ https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and
         feq6 = energy_system.consumption_PJ["Heat"]
 
         footer_text = "Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
-electricity generation, such as steel manufacture or internal combustion etc.\nAdditional fossil fuels were combusted \
-to produce electricity. For an explanation of energy consumption, see https://www.worldenergydata.org/introduction/.\n\
+electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
@@ -1147,11 +1151,10 @@ https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and
                        + f"{(round(energy_system.consumption_PJ["Total"].iloc[-1] *
                                    user_globals.Constant.PJ_TO_EJ.value)):,}"
                        + " EJ. \
-Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than electricity generation, \
-such as steel manufacture or internal combustion etc.\nAdditional fossil fuels were combusted to produce electricity. \
-For an explanation of energy consumption, see https://www.worldenergydata.org/introduction/.\n\
-Values are rounded to nearest whole number. By Shane White, whitesha@protonmail.com using Python, \
-https://github.com/shanewhi/world-energy-data.\n\
+Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
+electricity generation, such as steel manufacture, internal combustion, cooking, etc. \
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
+By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
                        )
@@ -1162,11 +1165,10 @@ https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and
                        + " total Final Energy = "
                        + f"{(round(energy_system.consumption_PJ["Total"].iloc[-1])):,}"
                        + " PJ. \
-Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than electricity generation, \
-such as steel manufacture or internal combustion etc.\nAdditional fossil fuels were combusted to produce electricity. \
-For an explanation of energy consumption, see https://www.worldenergydata.org/introduction/.\n\
-Values are rounded to nearest whole number. By Shane White, whitesha@protonmail.com using Python, \
-https://github.com/shanewhi/world-energy-data.\n\
+Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
+electricity generation, such as steel manufacture, internal combustion, cooking, etc. \
+For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
+By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
                        )
@@ -1232,10 +1234,8 @@ def country_elec_charts(energy_system):
         title9 = "Wind"
         title10 = "Solar"
         ylabel = "Annual Share (%)"
-        footer_text = ("Shares are calculated using gross generation quantities that don't account for imports or \
-exports. While geothermal is renewable, the data groups geothermal with biofuels that may not be renewable.\n\
-For some countries, shares may not total 100% due to unavailability of data for some fuels. Total generation is \
-published, so any unpublished share is calculated here: For "
+        footer_text = ("For some countries, shares may not total 100% due to unavailability of data for some fuels. \
+        Total generation is published, so any unpublished share is calculated here: For "
                        + country
                        + ", the unpublished share in year "
                        + str(energy_system.elecprod_TWh.index[-1])
@@ -1244,6 +1244,8 @@ published, so any unpublished share is calculated here: For "
                        + "%.\n\
 Total (100%) = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + any unpublished share above. \
 Fossil Fuels = Coal + Oil + Gas. Renewables = Hydro + Wind + Solar.\n\
+Shares are calculated using gross generation quantities that don't account for imports or exports. While geothermal is \
+renewable, the data groups geothermal with biofuels that may not be renewable.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
