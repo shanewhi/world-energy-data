@@ -1236,7 +1236,7 @@ def country_elec_charts(energy_system):
         title10 = "Solar"
         ylabel = "Annual Share (%)"
         footer_text = ("For some countries, shares may not total 100% due to unavailability of data for some fuels. \
-        Total generation is published, so any unpublished share is calculated here: For "
+Total generation is published, so any unpublished share is calculated here: For "
                        + country
                        + ", the unpublished share in year "
                        + str(energy_system.elecprod_TWh.index[-1])
