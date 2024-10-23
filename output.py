@@ -441,9 +441,12 @@ def world_ffprod_charts(coal_prods, oil_prods, gas_prods, country):
     title = "Fossil Fuel Production by National Share"
     title_addition = "Year " + str(coal_prods.loc[0, "Year"])
     footer_text = "Ranking of producers determined using fossil fuel production data in following units: \
-Coal EJ, Oil Mt, and Gas EJ.\n\
+Coal EJ, Oil Mt, and Gas EJ. \
 Oil production in units of Mt is used instead of kbd because it's in closer agreement with IEA data.\n\
-Share labelled Other is the tally of all countries producing less than a 4% share of the respective fossil fuel.\n\
+Share labelled Other is the tally of countries producing less than a "+\
+str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) + "% share of coal, " +\
+str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% share of oil, & " +\
+str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + "% share of gas, respectively. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."

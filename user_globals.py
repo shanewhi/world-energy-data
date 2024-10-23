@@ -94,9 +94,9 @@ class Constant(Enum):
     TWH_TO_PWH = 1e-3
     TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
     CO2_SHARE_RANK_THRESHOLD = 0.5  # Percent. Defines country as large CO2 emitter.
-    COAL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large coal producer.
-    OIL_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large oil producer.
-    GAS_SHARE_RANK_THRESHOLD = 4  # Percent. Defines large gas producer.
+    COAL_SHARE_RANK_THRESHOLD = 1  # Percent. Defines large coal producer.
+    OIL_SHARE_RANK_THRESHOLD = 1  # Percent. Defines large oil producer.
+    GAS_SHARE_RANK_THRESHOLD = 1  # Percent. Defines large gas producer.
 
     # Processing of IEA data takes a noticeably long time.
     # To shorten execution time during testing, set TFC_START_YEAR to 1999
