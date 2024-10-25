@@ -25,6 +25,7 @@ import mpl_extra.treemap as tr
 # pip3 install git+https://github.com/chenyulue/matplotlib-extra/
 import matplotlib.ticker
 import decimal
+import textwrap
 
 # Import user modules.
 import user_globals
@@ -2901,7 +2902,8 @@ def treemap_3_subplots(
         country,
         title,
         title_addition,
-        footer_text,
+        footer_upper_text,
+        footer_lower_text,
 ):
     fig, ax = plt.subplots(
         1,
@@ -2976,7 +2978,7 @@ def treemap_3_subplots(
         loc="left",
     )
 
-    plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
+    #plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
 
     fig.suptitle(
         country,
@@ -3006,9 +3008,18 @@ def treemap_3_subplots(
     fig.text(
         0.125,
         0.15,
-        footer_text,
+        textwrap.fill(footer_upper_text, 220),
         horizontalalignment="left",
         verticalalignment='top',
-        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
-        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+            0.125,
+            0.08,
+            footer_lower_text,
+            horizontalalignment="left",
+            verticalalignment='top',
+            fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+            fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )

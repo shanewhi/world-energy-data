@@ -101,6 +101,9 @@ def profile(country):
 
     coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
     output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, energy_system.name)
+    print("\nLarge coal producers:\n", str(coal_producers))
+    print("\nLarge oil producers:\n", str(oil_producers))
+    print("\nLarge gas producers:\n", str(gas_producers), "\n")
 
     if energy_system.incl_ei_flag is True:
         output.country_prod_primary_energy_charts(energy_system)
@@ -117,7 +120,7 @@ def profile(country):
 
 # Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")
-#profile("China")
+# profile("China")
 # profile("US")
 # profile("Russian Federation")
 # profile("India")

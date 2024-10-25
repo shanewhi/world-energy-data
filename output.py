@@ -18,6 +18,7 @@ Created on Wed May  1 14:20:13 2024
 # Import Python modules.
 import matplotlib.pyplot as plt
 import pandas as pd
+import decimal
 import os
 
 # Import user modules.
@@ -434,19 +435,47 @@ def world_ffprod_charts(coal_prods, oil_prods, gas_prods, country):
         + str(sum(gas_prods["Value"]))
         + "%"
     )
-    subplot1_title = "Coal Producers"  # Title above LH plot
-    subplot2_title = "Oil Producers"  # Title above centre plot
-    subplot3_title = "Gas Producers"  # Title above RH plot
+    coal_prod_total_shares=100-round(decimal.Decimal(coal_prods.loc[coal_prods["Name"]=="Other"].Value.item()), 1)
+    oil_prod_total_shares=100-round(decimal.Decimal(oil_prods.loc[oil_prods["Name"]=="Other"].Value.item()), 1)
+    gas_prod_total_shares=100-round(decimal.Decimal(gas_prods.loc[gas_prods["Name"]=="Other"].Value.item()), 1)
+
+    # Generate list of countries with production shares greater than list above. Use Python data class Set that doesn't
+    # allow duplicates; no need to use for loops.
+    country_list = set(coal_prods.Name)
+    country_list.update(oil_prods.Name)
+    country_list.update(gas_prods.Name)
+    # Remove 'Other', sort list into alphabetical order and add commas between set elements.
+    country_list.remove("Other")
+    country_list = sorted(country_list)
+    list_divider = ", "
+    printable_country_list = list_divider.join(country_list)
+    num_prod_countries = len(country_list)
+    print(num_prod_countries)
+    print(printable_country_list)
     country = "World"
     title = "Fossil Fuel Production by National Share"
     title_addition = "Year " + str(coal_prods.loc[0, "Year"])
-    footer_text = "Ranking of producers determined using fossil fuel production data in following units: \
-Coal EJ, Oil Mt, and Gas EJ. \
+    # Title above LH plot
+    subplot1_title = "Coal Producers with ≥"+str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value)+"% share"
+    # Title above centre plot
+    subplot2_title = "Oil Producers with ≥"+str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value)+"% share"
+    # Title above RH plot
+    subplot3_title = "Gas Producers with ≥"+str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value)+"% share"
+
+    footer_upper_text = ("The "+str(num_prod_countries)+" countries listed below were the fossil fuel producers in "+
+str(coal_prods.loc[0, "Year"])+
+" that produced a "+str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value)+"% or greater share of global coal, \
+and/or a "+str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% or greater share of global oil, and/or a "+
+ str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + "% or greater share of global gas.\n\
+Collectively their production accounted for "+
+str(round(coal_prod_total_shares,0))+"% of global coal, "+
+str(round(oil_prod_total_shares,0))+"% of global oil, and "+
+str(round(gas_prod_total_shares, 0))+"% global gas: \n"+
+printable_country_list)+"."
+
+    footer_lower_text = "All numercial and textual results of this chart have been computed. Ranking of producers \
+determined using fossil fuel production data in following units: Coal EJ, Oil Mt, and Gas EJ. \
 Oil production in units of Mt is used instead of kbd because it's in closer agreement with IEA data.\n\
-Share labelled Other is the tally of countries producing less than a "+\
-str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) + "% share of coal, " +\
-str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% share of oil, & " +\
-str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + "% share of gas, respectively. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -461,7 +490,8 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
         country,
         title,
         title_addition,
-        footer_text,
+        footer_upper_text,
+        footer_lower_text,
     )
     plt.savefig(
         os.path.join(fig_dir, "4 " + country + " prod ff shares.svg"),
