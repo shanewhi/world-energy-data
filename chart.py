@@ -81,7 +81,7 @@ def column_2_subplots(
             series0.truncate(before=start_yr0).index,
             series0.truncate(before=start_yr0),
             color0,
-            linewidth=user_globals.Constant.LINE_0_WIDTH_SUBPLOT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
     else:
         ax[0].bar(
@@ -100,7 +100,7 @@ def column_2_subplots(
             series1.truncate(before=start_yr1).index,
             series1.truncate(before=start_yr1),
             color1,
-            linewidth=user_globals.Constant.LINE_0_WIDTH_SUBPLOT.value,
+            linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
     else:
         ax[1].bar(
@@ -353,7 +353,7 @@ def line_column(
     # Adjust whitespace around plot area.
     plt.subplots_adjust(left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02)
 
-    # Add text to chart and after force uppermost tick to be equal to next tick after.
+    # Add text to chart and after force the uppermost tick to be equal to next tick after.
     ax[0].text(2005, 425, chart_text)
     ax[0].set_ylim(0, max(ax[0].get_yticks()))
 
@@ -620,8 +620,8 @@ def column_3_subplots(
     # If nil data plot line, else plot column chart.
     if max(series0) == 0:
         ax[0].plot(
-            series1.truncate(before=start_yr).index,
-            series1.truncate(before=start_yr),
+            series0.truncate(before=start_yr).index,
+            series0.truncate(before=start_yr),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -2978,7 +2978,7 @@ def treemap_3_subplots(
         loc="left",
     )
 
-    #plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
+    # plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
 
     fig.suptitle(
         country,
