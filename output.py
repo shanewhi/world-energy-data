@@ -61,7 +61,8 @@ def world_co2_charts(global_carbon):
             + str(round(global_carbon.co2_conc["Mean"].iloc[-1], 1))
             + "ppm"
     )
-    footer_text = "By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
+    footer_text = "By Shane White, whitesha@protonmail.com using Python, \
+https://github.com/shanewhi/world-energy-data.\n\
 Lan, X., Tans, P. and K.W. Thoning: Trends in globally-averaged CO\u2082 determined from NOAA \
 Global Monitoring Laboratory measurements. Version 2024-05 https://doi.org/10.15138/9N0H-ZH07.\n\
 Data obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html."
@@ -239,8 +240,9 @@ Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbu
     subplot3_title = "Gas"
     x_axis_interval = 25
     ylabel = "Megatonne (Mt)"
-    footer_text = "By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html."
+    footer_text = ("By Shane White, whitesha@protonmail.com using Python, \
+https://github.com/shanewhi/world-energy-data.\n\
+Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html.")
     equiv_yscale = True
     start_yr = global_carbon.data.index.min()
 
@@ -435,9 +437,9 @@ def world_ffprod_charts(coal_prods, oil_prods, gas_prods, country):
         + str(sum(gas_prods["Value"]))
         + "%"
     )
-    coal_prod_total_shares=100-round(decimal.Decimal(coal_prods.loc[coal_prods["Name"]=="Other"].Value.item()), 1)
-    oil_prod_total_shares=100-round(decimal.Decimal(oil_prods.loc[oil_prods["Name"]=="Other"].Value.item()), 1)
-    gas_prod_total_shares=100-round(decimal.Decimal(gas_prods.loc[gas_prods["Name"]=="Other"].Value.item()), 1)
+    coal_prod_total_shares = 100 - round(decimal.Decimal(coal_prods.loc[coal_prods["Name"] == "Other"].Value.item()), 1)
+    oil_prod_total_shares = 100 - round(decimal.Decimal(oil_prods.loc[oil_prods["Name"] == "Other"].Value.item()), 1)
+    gas_prod_total_shares = 100 - round(decimal.Decimal(gas_prods.loc[gas_prods["Name"] == "Other"].Value.item()), 1)
 
     # Generate list of countries with production shares greater than list above. Use Python data class Set that doesn't
     # allow duplicates; no need to use for loops.
@@ -456,24 +458,27 @@ def world_ffprod_charts(coal_prods, oil_prods, gas_prods, country):
     title = "Fossil Fuel Production by National Share"
     title_addition = "Year " + str(coal_prods.loc[0, "Year"])
     # Title above LH plot
-    subplot1_title = "Coal Producers with ≥"+str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value)+"% share"
+    subplot1_title = "Coal Producers with ≥" + str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) + "% share"
     # Title above centre plot
-    subplot2_title = "Oil Producers with ≥"+str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value)+"% share"
+    subplot2_title = "Oil Producers with ≥" + str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% share"
     # Title above RH plot
-    subplot3_title = "Gas Producers with ≥"+str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value)+"% share"
+    subplot3_title = "Gas Producers with ≥" + str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + "% share"
 
-    footer_upper_text = ("The "+str(num_prod_countries)+" countries listed below were the fossil fuel producers in "+
-str(coal_prods.loc[0, "Year"])+
-" that produced a "+str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value)+"% or greater share of global coal, \
-and/or a "+str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% or greater share of global oil, and/or a "+
- str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + "% or greater share of global gas.\n\
-Collectively their production accounted for "+
-str(round(coal_prod_total_shares,0))+"% of global coal, "+
-str(round(oil_prod_total_shares,0))+"% of global oil, and "+
-str(round(gas_prod_total_shares, 0))+"% global gas: \n"+
-printable_country_list)+"."
+    footer_upper_text = ("The " + str(
+        num_prod_countries) + " countries listed below were the fossil fuel producers in " +
+                         str(coal_prods.loc[0, "Year"]) +
+                         " that produced a " + str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) +
+                         "% or greater share of global coal, \
+and/or a " + str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + "% or greater share of global oil, and/or a " +
+                         str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) +
+                         "% or greater share of global gas.\n\
+Collectively their production accounted for " +
+                         str(round(coal_prod_total_shares, 0)) + "% of global coal, " +
+                         str(round(oil_prod_total_shares, 0)) + "% of global oil, and " +
+                         str(round(gas_prod_total_shares, 0)) + "% global gas: \n" +
+                         printable_country_list) + "."
 
-    footer_lower_text = "All numercial and textual results of this chart have been computed. Ranking of producers \
+    footer_lower_text = "All numerical and textual results of this chart have been computed. Ranking of producers \
 determined using fossil fuel production data in following units: Coal EJ, Oil Mt, and Gas EJ. \
 Oil production in units of Mt is used instead of kbd because it's in closer agreement with IEA data.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
@@ -545,14 +550,17 @@ def country_prod_primary_energy_charts(energy_system):
 
     if country == "World":
         footer_text = "Oil production calculated by converting units of Mt to joules using EI's approximate \
-conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
+conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules. \
+A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
     else:
-        footer_text = "Oil production calculated by converting units of Mt to joules using EI's approximate \
-conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
-For comparison, EI(2024) listed 2023 World production values as: Coal 179,000 PJ, Oil 197,000 PJ, and Gas 146,000 PJ.\n\
+        footer_text = "For comparison, EI(2024) listed 2023 World production values as: Coal 179,000 PJ, \
+Oil 197,000 PJ, and Gas 146,000 PJ.\n\
+Oil production calculated by converting units of Mt to joules using EI's approximate conversion factor of \
+41.868 GJ/toe. Production data for coal and gas provided in units of joules. \
+A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: The Energy Institute Statistical Review of World Energy 2024 (EI(2024)), \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -726,13 +734,15 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
         footer_text = (str(energy_system.primary_PJ.index[-1])
                        + " values: "
                        + "Coal = "
-                       + f"{(round(energy_system.primary_PJ["Coal"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
+                       + f"{(round(energy_system.primary_PJ["Coal"].iloc[-1] * 
+                                   user_globals.Constant.PJ_TO_EJ.value)):,}"
                        + "EJ, Oil = "
                        + f"{(round(energy_system.primary_PJ["Oil"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
                        + "EJ, Gas = "
                        + f"{(round(energy_system.primary_PJ["Gas"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
-                       + "EJ.\n"
-                       + "For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/. \
+                       + "EJ. A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid \
+line at zero.\n\
+For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -753,8 +763,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
                        + f"{(round(energy_system.primary_PJ["Oil"].iloc[-1])):,}"
                        + "PJ, Gas = "
                        + f"{(round(energy_system.primary_PJ["Gas"].iloc[-1])):,}"
-                       + "PJ. "
-                       + "For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/. \
+                       + "PJ. A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid \
+line at zero.\n\
+For an explanation of Primary Energy, see https://www.worldenergydata.org/introduction/. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads."
@@ -1094,10 +1105,11 @@ https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and
         feq5 = energy_system.consumption_PJ["Electricity"]
         feq6 = energy_system.consumption_PJ["Heat"]
 
-        footer_text = "Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
+    footer_text = "Quantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
+A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero. \
 For an explanation of Final Energy, see https://www.worldenergydata.org/introduction/.\n\
-By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
+By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: IEA 2024 World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
 
@@ -1379,7 +1391,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                                + str(energy_system.elecprod_PWh.index[-1]) +
                                " = " +
                                f"{(round(energy_system.elecprod_PWh["Total Country"].iloc[-1], 1)):,}" +
-                               "PWh. 1PWh = 1,000TWh.\n\
+                               "PWh. Value rounded. 1PWh = 1,000TWh.\n\
 In some instances, summation of fuel quantities may not equal 'Total', due to unavailability of data for some fuels. \
 Any such difference is calculated here:\nFor "
                                + country
@@ -1462,7 +1474,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                                + str(energy_system.elecprod_TWh.index[-1]) +
                                " = " +
                                f"{(round(energy_system.elecprod_PWh["Total Country"].iloc[-1], 1)):,}" +
-                               "TWh.\n\
+                               "TWh. Value rounded.\n\
 In some instances, summation of fuel quantities may not equal 'Total', due to unavailability of data for some fuels. \
 Any such difference is calculated here:\nFor "
                                + country
@@ -1476,11 +1488,10 @@ Any such difference is calculated here:\nFor "
 Total = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + any unpublished quantity above. \
 Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
 Quantities are gross generation that don't account for imports or exports.\n\
+A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
-https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n\
-Chart may have excessive whitespace; this is due to software making provision for the range of quantities and scales \
-required for various countries.")
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 
                 chart.column_11_subplots(
                     energy_system.elecprod_TWh["Total Country"],

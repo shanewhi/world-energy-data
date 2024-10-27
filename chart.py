@@ -616,9 +616,10 @@ def column_3_subplots(
     else:
         edge_color2 = "black"
 
+    max_val = max(max(series0.values), max(series1.values), max(series2.values))
     # Subplot 1
     # If nil data plot line, else plot column chart.
-    if max(series0) == 0:
+    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0].plot(
             series0.truncate(before=start_yr).index,
             series0.truncate(before=start_yr),
@@ -637,7 +638,7 @@ def column_3_subplots(
         )
 
     # Repeat above for second and third subplots.
-    if max(series1) == 0:
+    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1].plot(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
@@ -655,7 +656,7 @@ def column_3_subplots(
             linewidth=0.2,
         )
 
-    if max(series2) == 0:
+    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2].plot(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
@@ -734,26 +735,13 @@ def column_3_subplots(
 
     ax[0].set_ylabel(ylabels)
 
-    # If series max is zero, display only a zero on the y-axis, otherwise add comma
-    # thousands seperator to y-labels.
-    if max(series0) == 0:
-        ax[0].set_yticks([0])
-    else:
-        ax[0].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series1) == 0:
-        ax[1].set_yticks([0])
-    else:
-        ax[1].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series2) == 0:
-        ax[2].set_yticks([0])
-    else:
-        ax[2].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
+    # Add comma thousands seperator to y-labels.
+    ax[0].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[1].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[2].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
 
     # Adjust whitespace around plot area.
     plt.subplots_adjust(left=0.06, right=0.97, wspace=0.14, top=1, bottom=0)
@@ -1086,7 +1074,10 @@ def column_6_subplots(
     else:
         edge_color5 = "black"
 
-    if max(series0) == 0:
+    max_val = max(max(series0.values), max(series1.values), max(series2.values), max(series3.values),
+                  max(series4.values), max(series5.values))
+
+    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 0].plot(
             series0.truncate(before=start_yr).index,
             series0.truncate(before=start_yr),
@@ -1103,7 +1094,7 @@ def column_6_subplots(
             edgecolor=edge_color0,
             linewidth=0.2,
         )
-    if max(series1) == 0:
+    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 1].plot(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
@@ -1120,7 +1111,7 @@ def column_6_subplots(
             edgecolor=edge_color1,
             linewidth=0.2,
         )
-    if max(series2) == 0:
+    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 2].plot(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
@@ -1137,7 +1128,7 @@ def column_6_subplots(
             edgecolor=edge_color2,
             linewidth=0.2,
         )
-    if max(series3) == 0:
+    if max(series3) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 0].plot(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
@@ -1154,7 +1145,7 @@ def column_6_subplots(
             edgecolor=edge_color3,
             linewidth=0.2,
         )
-    if max(series4) == 0:
+    if max(series4) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 1].plot(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
@@ -1171,7 +1162,7 @@ def column_6_subplots(
             edgecolor=edge_color4,
             linewidth=0.2,
         )
-    if max(series5) == 0:
+    if max(series5) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 2].plot(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
@@ -1276,44 +1267,19 @@ def column_6_subplots(
         ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
         ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
-    # If series max is zero, display only a zero on the y-axis, otherwise add comma
-    # thousands seperator to y-labels.
-    if max(series0) == 0:
-        ax[0, 0].set_yticks([0])
-    else:
-        ax[0, 0].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series1) == 0:
-        ax[0, 1].set_yticks([0])
-    else:
-        ax[0, 1].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series2) == 0:
-        ax[0, 2].set_yticks([0])
-    else:
-        ax[0, 2].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series3) == 0:
-        ax[1, 0].set_yticks([0])
-    else:
-        ax[1, 0].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series4) == 0:
-        ax[1, 1].set_yticks([0])
-    else:
-        ax[1, 1].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
-    if max(series5) == 0:
-        ax[1, 2].set_yticks([0])
-    else:
-        ax[1, 2].yaxis.set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
-        )
+    # Add comma thousands seperator to y-labels.
+    ax[0, 0].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[0, 1].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[0, 2].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[1, 0].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[1, 1].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
+    ax[1, 2].yaxis.set_major_formatter(
+        matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ",")))
 
     plt.subplots_adjust(
         left=0, right=0.68, top=0.92, bottom=0.1, wspace=0.14, hspace=0.14
@@ -1852,7 +1818,11 @@ def column_11_subplots(
     else:
         edge_color10 = "black"
 
-    if max(series0) == 0:
+    max_val = max(max(series0.values), max(series1.values), max(series2.values), max(series3.values),
+                  max(series4.values), max(series5.values), max(series6.values), max(series7.values),
+                  max(series8.values), max(series9.values), max(series10.values))
+
+    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 0].plot(
             series0.truncate(before=start_yr).index,
             series0.truncate(before=start_yr),
@@ -1869,14 +1839,13 @@ def column_11_subplots(
             edgecolor=edge_color0,
             linewidth=0.2,
         )
-    if max(series1) == 0:
+    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 0].plot(
             series1.truncate(before=start_yr).index,
             series1.truncate(before=start_yr),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[1, 0].set_xlim(start_yr - 0.5, series1.index[-1] + 0.5)
     else:
         ax[1, 0].bar(
             series1.truncate(before=start_yr).index,
@@ -1887,14 +1856,13 @@ def column_11_subplots(
             edgecolor=edge_color1,
             linewidth=0.2,
         )
-    if max(series2) == 0:
+    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 1].plot(
             series2.truncate(before=start_yr).index,
             series2.truncate(before=start_yr),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[1, 1].set_xlim(start_yr - 0.5, series2.index[-1] + 0.5)
     else:
         ax[1, 1].bar(
             series2.truncate(before=start_yr).index,
@@ -1905,14 +1873,13 @@ def column_11_subplots(
             edgecolor=edge_color2,
             linewidth=0.2,
         )
-    if max(series3) == 0:
+    if max(series3) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 2].plot(
             series3.truncate(before=start_yr).index,
             series3.truncate(before=start_yr),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[1, 2].set_xlim(start_yr - 0.5, series3.index[-1] + 0.5)
     else:
         ax[1, 2].bar(
             series3.truncate(before=start_yr).index,
@@ -1923,14 +1890,13 @@ def column_11_subplots(
             edgecolor=edge_color3,
             linewidth=0.2,
         )
-    if max(series4) == 0:
+    if max(series4) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 3].plot(
             series4.truncate(before=start_yr).index,
             series4.truncate(before=start_yr),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[1, 3].set_xlim(start_yr - 0.5, series4.index[-1] + 0.5)
     else:
         ax[1, 3].bar(
             series4.truncate(before=start_yr).index,
@@ -1941,14 +1907,13 @@ def column_11_subplots(
             edgecolor=edge_color4,
             linewidth=0.2,
         )
-    if max(series5) == 0:
+    if max(series5) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 4].plot(
             series5.truncate(before=start_yr).index,
             series5.truncate(before=start_yr),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[1, 4].set_xlim(start_yr - 0.5, series5.index[-1] + 0.5)
     else:
         ax[1, 4].bar(
             series5.truncate(before=start_yr).index,
@@ -1959,14 +1924,13 @@ def column_11_subplots(
             edgecolor=edge_color5,
             linewidth=0.2,
         )
-    if max(series6) == 0:
+    if max(series6) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 0].plot(
             series6.truncate(before=start_yr).index,
             series6.truncate(before=start_yr),
             color6,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[2, 0].set_xlim(start_yr - 0.5, series6.index[-1] + 0.5)
     else:
         ax[2, 0].bar(
             series6.truncate(before=start_yr).index,
@@ -1977,14 +1941,13 @@ def column_11_subplots(
             edgecolor=edge_color6,
             linewidth=0.2,
         )
-    if max(series7) == 0:
+    if max(series7) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 1].plot(
             series7.truncate(before=start_yr).index,
             series7.truncate(before=start_yr),
             color7,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[2, 1].set_xlim(start_yr - 0.5, series7.index[-1] + 0.5)
     else:
         ax[2, 1].bar(
             series7.truncate(before=start_yr).index,
@@ -1995,14 +1958,13 @@ def column_11_subplots(
             edgecolor=edge_color7,
             linewidth=0.2,
         )
-    if max(series8) == 0:
+    if max(series8) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 2].plot(
             series8.truncate(before=start_yr).index,
             series8.truncate(before=start_yr),
             color8,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[2, 2].set_xlim(start_yr - 0.5, series8.index[-1] + 0.5)
     else:
         ax[2, 2].bar(
             series8.truncate(before=start_yr).index,
@@ -2013,14 +1975,13 @@ def column_11_subplots(
             edgecolor=edge_color8,
             linewidth=0.2,
         )
-    if max(series9) == 0:
+    if max(series9) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 3].plot(
             series9.truncate(before=start_yr).index,
             series9.truncate(before=start_yr),
             color9,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[2, 3].set_xlim(start_yr - 0.5, series9.index[-1] + 0.5)
     else:
         ax[2, 3].bar(
             series9.truncate(before=start_yr).index,
@@ -2031,14 +1992,13 @@ def column_11_subplots(
             edgecolor=edge_color9,
             linewidth=0.2,
         )
-    if max(series10) == 0:
+    if max(series10) / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 4].plot(
             series10.truncate(before=start_yr).index,
             series10.truncate(before=start_yr),
             color10,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
-        ax[2, 4].set_xlim(start_yr - 0.5, series10.index[-1] + 0.5)
     else:
         ax[2, 4].bar(
             series10.truncate(before=start_yr).index,
@@ -3015,11 +2975,11 @@ def treemap_3_subplots(
         fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-            0.125,
-            0.08,
-            footer_lower_text,
-            horizontalalignment="left",
-            verticalalignment='top',
-            fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
-            fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+        0.125,
+        0.08,
+        footer_lower_text,
+        horizontalalignment="left",
+        verticalalignment='top',
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )

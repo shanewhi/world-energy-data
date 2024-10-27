@@ -106,6 +106,9 @@ class Constant(Enum):
     # TFC_START_YEAR = 1999
     # TFC_END_YEAR = 2000
 
+    # Threshold below which column chart displayed as solid line instead for visibility.
+    COL_TO_LINE = 0.005
+
     # FONT SIZES:
     # Options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
     SUPTITLE_FONT_SIZE = "large"
@@ -144,7 +147,7 @@ class Constant(Enum):
     FIG_VSIZE_CHANGE_COLUMN_2_PLOT = 10
 
     LINE_WIDTH_SUBPLOT = 2.2
-    LINE_WIDTH_0_SUBPLOT = 4
+    LINE_WIDTH_0_SUBPLOT = 2.2
     LINE_WIDTH_10_SUBPLOT = 1.8
     LINE_MARKER_SIZE = 5
     LINE_WIDTH_PLOT_1x1 = 4
