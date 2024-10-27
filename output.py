@@ -1473,8 +1473,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                 ylabel = "TWh"
                 footer_text = ("Total electricity generation in "
                                + str(energy_system.elecprod_TWh.index[-1]) +
-                               " = " +
-                               f"{(round(energy_system.elecprod_PWh["Total Country"].iloc[-1], 1)):,}" +
+                               " = " +  # Round and remove trailing zero.
+                               f"{(round(energy_system.elecprod_TWh
+                                         ["Total Country"].iloc[-1], 0)):,}".rstrip("0").rstrip(".") +
                                "TWh. Value rounded.\n\
 In some instances, summation of fuel quantities may not equal 'Total', due to unavailability of data for some fuels. \
 Any such difference is calculated here:\nFor "

@@ -26,6 +26,7 @@ import mpl_extra.treemap as tr
 import matplotlib.ticker
 import decimal
 import textwrap
+import pandas as pd
 
 # Import user modules.
 import user_globals
@@ -79,7 +80,7 @@ def column_2_subplots(
     if max(series0) == 0:
         ax[0].plot(
             series0.truncate(before=start_yr0).index,
-            series0.truncate(before=start_yr0),
+            pd.Series(0, series0.truncate(before=start_yr0).index),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -98,7 +99,7 @@ def column_2_subplots(
     if max(series1) == 0:
         ax[1].plot(
             series1.truncate(before=start_yr1).index,
-            series1.truncate(before=start_yr1),
+            pd.Series(0, series1.truncate(before=start_yr1).index),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -118,10 +119,10 @@ def column_2_subplots(
     x_ticks0 = [start_yr0]
     x_ticks1 = [start_yr1]
     # x_ticks only for period defined by x_axis_interval
-    for year in series1.truncate(before=start_yr0).index:
+    for year in series0.truncate(before=start_yr0).index:
         if year % x_axis0_interval == 0:  # Modulus.
             x_ticks0.append(year)
-    for year in series1.truncate(before=start_yr1).index:
+    for year in series0.truncate(before=start_yr1).index:
         if year % x_axis1_interval == 0:
             x_ticks1.append(year)
     # If period between final tick and year of final value is >= 3 years, then there's room to append most recent year.
@@ -437,7 +438,7 @@ def column_treemap(
     if max(series0) == 0:
         ax0.plot(
             series0.truncate(before=start_yr).index,
-            series0.truncate(before=start_yr),
+            pd.Series(0, series0.truncate(before=start_yr).index),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -616,13 +617,13 @@ def column_3_subplots(
     else:
         edge_color2 = "black"
 
-    max_val = max(max(series0.values), max(series1.values), max(series2.values))
+    max_val = max(series0.max(), series1.max(), series2.max())
     # Subplot 1
     # If nil data plot line, else plot column chart.
-    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0].plot(
             series0.truncate(before=start_yr).index,
-            series0.truncate(before=start_yr),
+            pd.Series(0, series0.truncate(before=start_yr).index),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -638,10 +639,10 @@ def column_3_subplots(
         )
 
     # Repeat above for second and third subplots.
-    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1].plot(
             series1.truncate(before=start_yr).index,
-            series1.truncate(before=start_yr),
+            pd.Series(0, series1.truncate(before=start_yr).index),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -656,10 +657,10 @@ def column_3_subplots(
             linewidth=0.2,
         )
 
-    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2].plot(
             series2.truncate(before=start_yr).index,
-            series2.truncate(before=start_yr),
+            pd.Series(2, series0.truncate(before=start_yr).index),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -677,15 +678,15 @@ def column_3_subplots(
     # Configure x-axes.
     # Create list x_ticks and fill with start year of each decade.
     x_ticks = [start_yr]
-    for year in series1.index:
+    for year in series0.index:
         if year % x_axis_interval == 0:
             x_ticks.append(year)
     # If period between final tick and year of final value is >= 3 years, then there's room to append most recent year.
     # Else replace final value with most recent year.
-    if series1.index.max() - max(x_ticks) >= 3:
-        x_ticks.append(series1.index.max())
+    if series0.index.max() - max(x_ticks) >= 3:
+        x_ticks.append(series0.index.max())
     else:
-        x_ticks[len(x_ticks) - 1] = series1.index.max()
+        x_ticks[len(x_ticks) - 1] = series0.index.max()
 
     ax[0].set_xticks(x_ticks, labels=x_ticks)
     ax[1].set_xticks(x_ticks, labels=x_ticks)
@@ -1074,13 +1075,12 @@ def column_6_subplots(
     else:
         edge_color5 = "black"
 
-    max_val = max(max(series0.values), max(series1.values), max(series2.values), max(series3.values),
-                  max(series4.values), max(series5.values))
+    max_val = max(series0.max(), series1.max(), series2.max(), series3.max(), series4.max(), series5.max())
 
-    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 0].plot(
             series0.truncate(before=start_yr).index,
-            series0.truncate(before=start_yr),
+            pd.Series(0, series0.truncate(before=start_yr).index),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1094,10 +1094,10 @@ def column_6_subplots(
             edgecolor=edge_color0,
             linewidth=0.2,
         )
-    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 1].plot(
             series1.truncate(before=start_yr).index,
-            series1.truncate(before=start_yr),
+            pd.Series(0, series1.truncate(before=start_yr).index),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1111,10 +1111,10 @@ def column_6_subplots(
             edgecolor=edge_color1,
             linewidth=0.2,
         )
-    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 2].plot(
             series2.truncate(before=start_yr).index,
-            series2.truncate(before=start_yr),
+            pd.Series(0, series2.truncate(before=start_yr).index),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1128,10 +1128,10 @@ def column_6_subplots(
             edgecolor=edge_color2,
             linewidth=0.2,
         )
-    if max(series3) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series3.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 0].plot(
             series3.truncate(before=start_yr).index,
-            series3.truncate(before=start_yr),
+            pd.Series(0, series3.truncate(before=start_yr).index),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1145,10 +1145,10 @@ def column_6_subplots(
             edgecolor=edge_color3,
             linewidth=0.2,
         )
-    if max(series4) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series4.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 1].plot(
             series4.truncate(before=start_yr).index,
-            series4.truncate(before=start_yr),
+            pd.Series(0, series4.truncate(before=start_yr).index),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1162,10 +1162,10 @@ def column_6_subplots(
             edgecolor=edge_color4,
             linewidth=0.2,
         )
-    if max(series5) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series5.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 2].plot(
             series5.truncate(before=start_yr).index,
-            series5.truncate(before=start_yr),
+            pd.Series(0, series5.truncate(before=start_yr).index),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1818,14 +1818,13 @@ def column_11_subplots(
     else:
         edge_color10 = "black"
 
-    max_val = max(max(series0.values), max(series1.values), max(series2.values), max(series3.values),
-                  max(series4.values), max(series5.values), max(series6.values), max(series7.values),
-                  max(series8.values), max(series9.values), max(series10.values))
+    max_val = max(series0.max(), series1.max(), series2.max(), series3.max(), series4.max(), series5.max(),
+                  series6.max(), series7.max(), series8.max(), series9.max(), series10.max())
 
-    if max(series0) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0, 0].plot(
             series0.truncate(before=start_yr).index,
-            series0.truncate(before=start_yr),
+            pd.Series(0, series0.truncate(before=start_yr).index),
             color0,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1839,10 +1838,10 @@ def column_11_subplots(
             edgecolor=edge_color0,
             linewidth=0.2,
         )
-    if max(series1) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 0].plot(
             series1.truncate(before=start_yr).index,
-            series1.truncate(before=start_yr),
+            pd.Series(0, series1.truncate(before=start_yr).index),
             color1,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1856,10 +1855,10 @@ def column_11_subplots(
             edgecolor=edge_color1,
             linewidth=0.2,
         )
-    if max(series2) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 1].plot(
             series2.truncate(before=start_yr).index,
-            series2.truncate(before=start_yr),
+            pd.Series(0, series2.truncate(before=start_yr).index),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1873,10 +1872,10 @@ def column_11_subplots(
             edgecolor=edge_color2,
             linewidth=0.2,
         )
-    if max(series3) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series3.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 2].plot(
             series3.truncate(before=start_yr).index,
-            series3.truncate(before=start_yr),
+            pd.Series(0, series3.truncate(before=start_yr).index),
             color3,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1890,10 +1889,10 @@ def column_11_subplots(
             edgecolor=edge_color3,
             linewidth=0.2,
         )
-    if max(series4) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series4.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 3].plot(
             series4.truncate(before=start_yr).index,
-            series4.truncate(before=start_yr),
+            pd.Series(0, series4.truncate(before=start_yr).index),
             color4,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1907,10 +1906,10 @@ def column_11_subplots(
             edgecolor=edge_color4,
             linewidth=0.2,
         )
-    if max(series5) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series5.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1, 4].plot(
             series5.truncate(before=start_yr).index,
-            series5.truncate(before=start_yr),
+            pd.Series(0, series5.truncate(before=start_yr).index),
             color5,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1924,10 +1923,10 @@ def column_11_subplots(
             edgecolor=edge_color5,
             linewidth=0.2,
         )
-    if max(series6) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series6.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 0].plot(
             series6.truncate(before=start_yr).index,
-            series6.truncate(before=start_yr),
+            pd.Series(0, series6.truncate(before=start_yr).index),
             color6,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1941,10 +1940,10 @@ def column_11_subplots(
             edgecolor=edge_color6,
             linewidth=0.2,
         )
-    if max(series7) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series7.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 1].plot(
             series7.truncate(before=start_yr).index,
-            series7.truncate(before=start_yr),
+            pd.Series(0, series7.truncate(before=start_yr).index),
             color7,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1958,10 +1957,10 @@ def column_11_subplots(
             edgecolor=edge_color7,
             linewidth=0.2,
         )
-    if max(series8) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series8.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 2].plot(
             series8.truncate(before=start_yr).index,
-            series8.truncate(before=start_yr),
+            pd.Series(0, series8.truncate(before=start_yr).index),
             color8,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1975,10 +1974,10 @@ def column_11_subplots(
             edgecolor=edge_color8,
             linewidth=0.2,
         )
-    if max(series9) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series9.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 3].plot(
             series9.truncate(before=start_yr).index,
-            series9.truncate(before=start_yr),
+            pd.Series(0, series9.truncate(before=start_yr).index),
             color9,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -1992,10 +1991,10 @@ def column_11_subplots(
             edgecolor=edge_color9,
             linewidth=0.2,
         )
-    if max(series10) / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series10.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[2, 4].plot(
             series10.truncate(before=start_yr).index,
-            series10.truncate(before=start_yr),
+            pd.Series(0, series10.truncate(before=start_yr).index),
             color10,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
