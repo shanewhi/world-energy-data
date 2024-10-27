@@ -1405,6 +1405,7 @@ Any such difference is calculated here:\nFor "
 Total = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + any unpublished quantity above. \
 Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
 Quantities are gross generation that don't account for imports or exports.\n\
+A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
