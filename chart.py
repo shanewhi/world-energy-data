@@ -620,7 +620,14 @@ def column_3_subplots(
     max_val = max(series0.max(), series1.max(), series2.max())
     # Subplot 1
     # If nil data plot line, else plot column chart.
-    if series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series0.max() == 0:
+        ax[0].plot(
+            series0.truncate(before=start_yr).index,
+            pd.Series(0, series0.truncate(before=start_yr).index),
+            color0,
+            linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
+        )
+    elif series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[0].plot(
             series0.truncate(before=start_yr).index,
             pd.Series(0, series0.truncate(before=start_yr).index),
@@ -639,7 +646,14 @@ def column_3_subplots(
         )
 
     # Repeat above for second and third subplots.
-    if series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series1.max() == 0:
+        ax[1].plot(
+            series1.truncate(before=start_yr).index,
+            pd.Series(0, series1.truncate(before=start_yr).index),
+            color1,
+            linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
+        )
+    elif series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
         ax[1].plot(
             series1.truncate(before=start_yr).index,
             pd.Series(0, series1.truncate(before=start_yr).index),
@@ -657,10 +671,17 @@ def column_3_subplots(
             linewidth=0.2,
         )
 
-    if series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+    if series2.max() == 0:
         ax[2].plot(
             series2.truncate(before=start_yr).index,
-            pd.Series(2, series0.truncate(before=start_yr).index),
+            pd.Series(0, series0.truncate(before=start_yr).index),
+            color2,
+            linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
+        )
+    elif series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2].plot(
+            series2.truncate(before=start_yr).index,
+            pd.Series(0, series0.truncate(before=start_yr).index),
             color2,
             linewidth=user_globals.Constant.LINE_WIDTH_0_SUBPLOT.value,
         )
@@ -702,28 +723,33 @@ def column_3_subplots(
     ax[2].margins(x=0)
 
     # Configure y-axes.
-    # Autoscale and get max-y for setting equiv y-axis scale.
-    ax[0].autoscale(axis="y")
-    ax[1].autoscale(axis="y")
-    ax[2].autoscale(axis="y")
-    ylim0 = ax[0].get_ylim()[1]
-    ylim1 = ax[1].get_ylim()[1]
-    ylim2 = ax[2].get_ylim()[1]
+    if max_val == 0:
+        ax[0].set_ylim(0, 5)
+        ax[1].set_ylim(0, 5)
+        ax[2].set_ylim(0, 5)
+    else:
+        # Autoscale and get max-y for setting equiv y-axis scale.
+        ax[0].autoscale(axis="y")
+        ax[1].autoscale(axis="y")
+        ax[2].autoscale(axis="y")
+        ylim0 = ax[0].get_ylim()[1]
+        ylim1 = ax[1].get_ylim()[1]
+        ylim2 = ax[2].get_ylim()[1]
 
-    # Apply equivalent scale to all subplots if set.
-    if equiv_yscale:
-        y_max = max(ylim0, ylim1, ylim2)
-        ax[0].set_ylim(0, y_max)
-        ax[1].set_ylim(0, y_max)
-        ax[2].set_ylim(0, y_max)
-    # Force uppermost tick to be equal to next tick after ylim
-    ax[0].set_ylim(0, max(ax[0].get_yticks()))
-    ax[1].set_ylim(0, max(ax[1].get_yticks()))
-    ax[2].set_ylim(0, max(ax[2].get_yticks()))
+        # Apply equivalent scale to all subplots if set.
+        if equiv_yscale:
+            y_max = max(ylim0, ylim1, ylim2)
+            ax[0].set_ylim(0, y_max)
+            ax[1].set_ylim(0, y_max)
+            ax[2].set_ylim(0, y_max)
+        # Force uppermost tick to be equal to next tick after ylim
+        ax[0].set_ylim(0, max(ax[0].get_yticks()))
+        ax[1].set_ylim(0, max(ax[1].get_yticks()))
+        ax[2].set_ylim(0, max(ax[2].get_yticks()))
 
-    ax[0].yaxis.grid(True)
-    ax[1].yaxis.grid(True)
-    ax[2].yaxis.grid(True)
+        ax[0].yaxis.grid(True)
+        ax[1].yaxis.grid(True)
+        ax[2].yaxis.grid(True)
 
     ax[0].set_box_aspect(1)
     ax[1].set_box_aspect(1)
