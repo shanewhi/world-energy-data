@@ -734,7 +734,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
         footer_text = (str(energy_system.primary_PJ.index[-1])
                        + " values: "
                        + "Coal = "
-                       + f"{(round(energy_system.primary_PJ["Coal"].iloc[-1] * 
+                       + f"{(round(energy_system.primary_PJ["Coal"].iloc[-1] *
                                    user_globals.Constant.PJ_TO_EJ.value)):,}"
                        + "EJ, Oil = "
                        + f"{(round(energy_system.primary_PJ["Oil"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
@@ -1268,17 +1268,38 @@ def country_elec_charts(energy_system):
             not energy_system.elecprod_TWh.empty
             and energy_system.elecprod_TWh["Total Country"].iloc[-1] != 0
     ):
-        title = "Annual Electricity Generation by Share"
-        title1 = "Nuclear"
-        title2 = "Fossil Fuels"
-        title3 = "Coal"
-        title4 = "Oil"
-        title5 = "Gas"
-        title6 = "Bio, Geo and Other"
-        title7 = "Renewables"
-        title8 = "Hydro"
-        title9 = "Wind"
-        title10 = "Solar"
+        title = ("Annual Electricity Generation by Share (" + str(energy_system.elecprod_TWh.index[-1]) +
+                 " values shown after title of each plot, rounded)")
+        title1 = ("Nuclear, " +
+                  f"{(round(energy_system.elecprod_TWh["Nuclear Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".") + "%")
+        title2 = ("Fossil Fuels, " +
+                  f"{(round(energy_system.elecprod_TWh["Fossil Fuels Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title3 = ("Coal, " +
+                  f"{(round(energy_system.elecprod_TWh["Coal Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title4 = ("Oil, " +
+                  f"{(round(energy_system.elecprod_TWh["Oil Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title5 = ("Gas, " +
+                  f"{(round(energy_system.elecprod_TWh["Gas Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title6 = ("Bio, Geo and Other, " +
+                  f"{(round(energy_system.elecprod_TWh["Bio, Geo and Other Share"].iloc[-1], 0)):,}"
+                  .rstrip("0").rstrip(".")
+                  + "%")
+        title7 = ("Renewables, " +
+                  f"{(round(energy_system.elecprod_TWh["Renewables Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title8 = ("Hydro, " +
+                  f"{(round(energy_system.elecprod_TWh["Hydro Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title9 = ("Wind, " +
+                  f"{(round(energy_system.elecprod_TWh["Wind Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                  + "%")
+        title10 = ("Solar, " +
+                   f"{(round(energy_system.elecprod_TWh["Solar Share"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
+                   + "%")
         ylabel = "Annual Share (%)"
         footer_text = ("For some countries, shares may not total 100% due to unavailability of data for some fuels. \
 Total generation is published, so any unpublished share is calculated here: For "

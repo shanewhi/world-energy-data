@@ -1728,13 +1728,24 @@ def line_10_subplots(
         color="darkslateblue",
     )
 
-    fig.patches.extend([plt.Rectangle((0.095, 0.06), 0.334, 0.87, linewidth=1.8,
+    fig.text(
+        0.1,
+        0.915,
+        "100%",
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize="x-large",
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+        color="darkslateblue",
+    )
+
+    fig.patches.extend([plt.Rectangle((0.095, 0.06), 0.333, 0.87, linewidth=1.8,
                                       fill=False, color="darkslateblue", alpha=0.9, ls="dashed",
                                       transform=fig.transFigure, figure=fig)])
-    fig.patches.extend([plt.Rectangle((0.268, 0.505), 0.641, 0.385, linewidth=1.8,
+    fig.patches.extend([plt.Rectangle((0.268, 0.505), 0.642, 0.385, linewidth=1.8,
                                       fill=False, color="red", alpha=1, ls="solid",
                                       transform=fig.transFigure, figure=fig)])
-    fig.patches.extend([plt.Rectangle((0.269, 0.093), 0.641, 0.385, linewidth=1.8,
+    fig.patches.extend([plt.Rectangle((0.268, 0.093), 0.642, 0.385, linewidth=1.8,
                                       fill=False, color=user_globals.Color.RENEWABLES.value, alpha=1,
                                       ls="solid", transform=fig.transFigure, figure=fig)])
 
