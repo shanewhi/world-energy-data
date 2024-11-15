@@ -51,7 +51,7 @@ def import_data():
 
     # Import Global Carbon Project dataset.
     gcp_ff_emissions_MtC = pd.read_excel(
-        io="Global_Carbon_Budget_2023v1.1.xlsx",
+        io="Global_Carbon_Budget_2024_v1.0.xlsx",
         sheet_name="Fossil Emissions by Category",
         header=8,
         names=[
@@ -72,7 +72,7 @@ def import_data():
     gcp_ff_emissions_MtCO2 = gcp_ff_emissions_MtCO2.drop(columns=["Per Capita"])
 
     gcp_budget_MtC = pd.read_excel(
-        io="Global_Carbon_Budget_2023v1.1.xlsx",
+        io="Global_Carbon_Budget_2024_v1.0.xlsx",
         sheet_name="Global Carbon Budget",
         header=21,
         names=[

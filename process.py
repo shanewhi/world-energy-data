@@ -66,10 +66,13 @@ def carbon_emissions(cdata, share_data):
             + cdata["Land Use Change Share"]
         )
 
-    final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-1])
-    final_cement_co2_share = round(cdata["Cement Share"].iloc[-1])
-    final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-1])
-    final_other_co2_share = round(cdata["Other Share"].iloc[-1])
+    # Select second to last element below so as not to display projected values in treemap, because projections were
+    # unavailable for flaring and other in 2024, and don't want to display values for a combination of years.
+
+    final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-2],1)
+    final_cement_co2_share = round(cdata["Cement Share"].iloc[-2],1)
+    final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-2],1)
+    final_other_co2_share = round(cdata["Other Share"].iloc[-2],1)
 
     # Generate dataframe required for treemap plot.
     emission_category = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])
@@ -92,10 +95,10 @@ def carbon_emissions(cdata, share_data):
         emission_category["Name"], emission_category["Value"], ratio=20
     )
 
-    final_coal_co2_share = round(cdata["Coal Share"].iloc[-1])
-    final_oil_co2_share = round(cdata["Oil Share"].iloc[-1])
-    final_gas_co2_share = round(cdata["Gas Share"].iloc[-1])
-    final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-1])
+    final_coal_co2_share = round(cdata["Coal Share"].iloc[-2],1)
+    final_oil_co2_share = round(cdata["Oil Share"].iloc[-2],1)
+    final_gas_co2_share = round(cdata["Gas Share"].iloc[-2],1)
+    final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-2],1)
 
     # Generate dataframe required for treemap plot.
     emission = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])

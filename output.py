@@ -111,14 +111,15 @@ Data obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html."
 
     country = global_carbon.name
     title = "CO\u2082 Emission Sources by Share"
-    title_addition = "Year " + str(global_carbon.data["Total"].index[-1])
+    # Display for second to last year so as not to display a combination of projected and historic values.
+    title_addition = "Year " + str(global_carbon.data["Total"].index[-2])
     title1 = "By Category"
     title2 = "By Emission Source"
-    footer_text = "Category Fossil Fuels is the sum of emissions from coal, oil, gas, and flaring.\n\
-For clarity: (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
-(2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
+    footer_text = "Fossil Fuels is the sum of emissions from coal, oil, gas, and flaring. \
+Labels may not be shown due to a lack of space, so refer to the legend. \
+Projected values of Flaring and Other for the current year are unavailable, so last year's data is shown.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
-Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html."
+Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html."
     chart.treemap_2_subplots(
         global_carbon.final_emission_category_shares,
         global_carbon.final_emission_shares,
@@ -157,9 +158,9 @@ Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbu
     x_axis1_interval = 50
     x_axis2_interval = 10
     ylabel = "Megatonne (Mt)"
-    footer_text = "For more recent fossil fuel emissions data, excluding cement, see the World Energy Trends page. \
+    footer_text = "2024 values are projected by the Global Carbon Project.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html."
+Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html."
 
     print(
         "Most recent fossil fuel and cement CO2 emission = "
@@ -200,10 +201,10 @@ Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbu
     series = global_carbon.data["FF and Cement Change"]
     title = "Annual Change of CO\u2082 Emissions from Fossil Fuels and Cement"
     ylabel = "Megatonne per year (Mt/yr)"
-    footer_text = "For more recent fossil fuel emissions data, excluding cement, see the World Energy Trends page.\n\
-Values are rounded to nearest whole number. By Shane White, whitesha@protonmail.com using Python, \
-https://github.com/shanewhi/world-energy-data. \
-Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html."
+    footer_text = ("Values are rounded to nearest whole number. \
+2024 values are projected by the Global Carbon Project.\n\
+By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
+Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     color = user_globals.Color.CO2_EMISSION.value
 
     chart.column_grouped(
@@ -242,7 +243,8 @@ Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbu
     ylabel = "Megatonne (Mt)"
     footer_text = ("By Shane White, whitesha@protonmail.com using Python, \
 https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2023), https://globalcarbonbudgetdata.org/latest-data.html.")
+2024 values are projected by the Global Carbon Project. \
+Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     equiv_yscale = True
     start_yr = global_carbon.data.index.min()
 
