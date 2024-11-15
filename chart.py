@@ -2774,7 +2774,7 @@ def treemap_2_subplots(
             place="top left",
             padx=3,
             pady=6,
-            reflow=True,
+            reflow=False,
             max_fontsize=60,
             grow=True,
         ),
@@ -2810,7 +2810,7 @@ def treemap_2_subplots(
             place="top left",
             padx=3,
             pady=6,
-            reflow=True,
+            reflow=False,
             max_fontsize=60,
         ),
     )
