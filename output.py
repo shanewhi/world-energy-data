@@ -101,12 +101,12 @@ Data obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html."
     print(
         "CO2 emission treemap, most recent year sum of category shares = "
         + str(sum(global_carbon.final_emission_category_shares["Value"]))
-        + "%"
+        + "%. Note this is sum of values displayed in chart which are rounded."
     )
     print(
         "CO2 emission treemap, most recent year sum of emission shares = "
         + str(sum(global_carbon.final_emission_shares["Value"]))
-        + "%"
+        + "%. Note this is sum of values displayed in chart which are rounded."
     )
 
     country = global_carbon.name
@@ -115,11 +115,15 @@ Data obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html."
     title_addition = "Year " + str(global_carbon.data["Total"].index[-2])
     title1 = "By Category"
     title2 = "By Emission Source"
-    footer_text = "Fossil Fuels is the sum of emissions from coal, oil, gas, and flaring. \
+    footer_text = ("Fossil Fuels is the sum of Coal, Oil, Gas, and Flaring. \
 Labels may not be shown due to a lack of space, so refer to the legend. \
-Projected values of Flaring and Other for the current year are unavailable, so last year's data is shown.\n\
+Projected values of Flaring and Other for "\
++ str(global_carbon.data["Total"].index[-1]) +
+" are unavailable. "\
++ str(global_carbon.data["Total"].index[-2]) +
+" data is shown. 'Cement' includes cement carbonation.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
-Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html."
+Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     chart.treemap_2_subplots(
         global_carbon.final_emission_category_shares,
         global_carbon.final_emission_shares,
@@ -143,22 +147,31 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
     ####################################################################################################################
     # CO2 Emissions: Annual Fossil Fuels + Cement
     ####################################################################################################################
-    ffc_co2 = global_carbon.data["FF and Cement"]
+    ffc_co2 = global_carbon.data["Net FF and Cement"]
     co2_color = user_globals.Color.CO2_EMISSION.value
     country = "World"
+    start_yr1 = min(ffc_co2.index)
+    start_yr2 = user_globals.Constant.CHART_START_YR.value
     title = "Annual CO\u2082 Emissions from Fossil Fuels and Cement"
-    title1 = str(min(ffc_co2.index)) + " - " + str(max(ffc_co2.index))
+    title1 = str(start_yr1) + " - " + str(max(ffc_co2.index))
     title2 = (
             str(user_globals.Constant.CHART_START_YR.value)
             + " - "
             + str(ffc_co2.index.max())
     )
-    start_yr1 = global_carbon.data.index.min()
-    start_yr2 = user_globals.Constant.CHART_START_YR.value
+
     x_axis1_interval = 50
     x_axis2_interval = 10
     ylabel = "Megatonne (Mt)"
-    footer_text = "2024 values are projected by the Global Carbon Project.\n\
+    latest_value_text = (
+            "Projected value for "
+            + str(ffc_co2.index[-1])
+            + " = "
+            #+ str(round(ffc_co2.iloc[-1], 1))
+            + f"{(round(ffc_co2.iloc[-1], 1)):,}"
+            + "MtCO\u2082"
+    )
+    footer_text = "Values include cement carbonation and 2024 value is projected. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html."
 
@@ -182,6 +195,7 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
         x_axis1_interval,
         x_axis2_interval,
         ylabel,
+        latest_value_text,
         footer_text,
         False,
     )
@@ -198,11 +212,11 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
     ####################################################################################################################
     # CO2 Emissions: Annual change.
     ####################################################################################################################
-    series = global_carbon.data["FF and Cement Change"]
+    series = global_carbon.data["Net FF and Cement Change"]
     title = "Annual Change of CO\u2082 Emissions from Fossil Fuels and Cement"
     ylabel = "Megatonne per year (Mt/yr)"
-    footer_text = ("Values are rounded to nearest whole number. \
-2024 values are projected by the Global Carbon Project.\n\
+    footer_text = ("Values are rounded to nearest whole number and include cement carbonation. \
+2024 values is projected. \
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data.\n\
 Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     color = user_globals.Color.CO2_EMISSION.value
@@ -243,7 +257,8 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
     ylabel = "Megatonne (Mt)"
     footer_text = ("By Shane White, whitesha@protonmail.com using Python, \
 https://github.com/shanewhi/world-energy-data.\n\
-2024 values are projected by the Global Carbon Project. \
+2024 values are projected by the Global Carbon Project: Emissions from coal, oil and gas in 2024 are expected to be \
+above their 2023 levels by 0.2%, 0.9% and 2.4% respectively. \
 Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     equiv_yscale = True
     start_yr = global_carbon.data.index.min()

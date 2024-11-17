@@ -54,6 +54,7 @@ def column_2_subplots(
         x_axis0_interval,
         x_axis1_interval,
         ylabels,
+        chart_text,
         footer_text,
         equiv_yscale,
 ):
@@ -191,6 +192,8 @@ def column_2_subplots(
     plt.subplots_adjust(left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02)
 
     # Add plot text.
+    ax[0].text(1960, 37000, chart_text)
+
     ax[0].set_title(
         subplot0_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,

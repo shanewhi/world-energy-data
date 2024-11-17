@@ -38,17 +38,17 @@ def carbon_emissions(cdata, share_data):
     max_year = max(cdata.index)
     change_yrs = range(min_year + 1, max_year + 1)
     for yr in change_yrs:
-        cdata.loc[yr, "FF and Cement Change"] = (
-                cdata.loc[yr, "FF and Cement"] - cdata.loc[yr - 1, "FF and Cement"]
+        cdata.loc[yr, "Net FF and Cement Change"] = (
+                cdata.loc[yr, "Net FF and Cement"] - cdata.loc[yr - 1, "Net FF and Cement"]
         )
-    cdata["Total"] = cdata["FF and Cement"] + cdata["Land Use Change"]
+    cdata["Total"] = cdata["Net FF and Cement"] + cdata["Land Use Change"]
 
     cdata["Fossil Fuel Share"] = (
             (cdata["Coal"] + cdata["Oil"] + cdata["Gas"] + cdata["Flaring"])
             / cdata["Total"]
             * 100
     )
-    cdata["Cement Share"] = cdata["Cement"] / cdata["Total"] * 100
+    cdata["Cement Share"] = (cdata["Cement"]-cdata["Cement Carbonation Sink"]) / cdata["Total"] * 100
     cdata["Other Share"] = cdata["Other"] / cdata["Total"] * 100
     cdata["Land Use Change Share"] = cdata["Land Use Change"] / cdata["Total"] * 100
     cdata["Coal Share"] = cdata["Coal"] / cdata["Total"] * 100
@@ -66,8 +66,8 @@ def carbon_emissions(cdata, share_data):
             + cdata["Land Use Change Share"]
         )
 
-    # Select second to last element below so as not to display projected values in treemap, because projections were
-    # unavailable for flaring and other in 2024, and don't want to display values for a combination of years.
+    # Select second to last element below so as not to display projected values in treemap, because 2024 projections
+    # are unavailable for 'flaring' and 'other', and shouldn't display values from a combination of years.
 
     final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-2],1)
     final_cement_co2_share = round(cdata["Cement Share"].iloc[-2],1)

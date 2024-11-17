@@ -76,19 +76,20 @@ def import_data():
         sheet_name="Global Carbon Budget",
         header=21,
         names=[
-            "FF and Cement",
+            "FF and Cement Exc Cement Carb",
             "Land Use Change",
             "Atmospheric Growth",
             "Ocean Sink",
             "Land Sink",
             "Cement Carbonation Sink",
             "Budget Imbalance",
+            "Net FF and Cement",
         ],
         index_col=0,
     )
     gcp_budget_MtC = gcp_budget_MtC.mul(user_globals.Constant.G_TO_M.value)
     gcp_budget_MtC02 = gcp_budget_MtC.mul(user_globals.Constant.C_TO_CO2.value)
-    gcp_budget_MtC02 = gcp_budget_MtC02.drop(columns=["FF and Cement"])
+    gcp_budget_MtC02 = gcp_budget_MtC02.drop(columns=["FF and Cement Exc Cement Carb"])
     imported_gcp_data = gcp_ff_emissions_MtCO2.join(gcp_budget_MtC02)
 
     esrl_co2_conc = pd.read_csv(
