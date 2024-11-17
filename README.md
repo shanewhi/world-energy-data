@@ -35,7 +35,7 @@ Consists of the following files:
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
 Required input (all are provided in this repository):
-1. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html
+1. Global Carbon Budget in .xlsx format from https://globalcarbonbudgetdata.org/latest-data.html (note that the version in this repository includes 2024 GCP projected values)
 2. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
 3. Energy Institute Statistical Review of World Energy data from
    https://www.energyinst.org/statistical-review/resources-and-data-downloads
