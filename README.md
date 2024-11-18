@@ -1,8 +1,8 @@
 Python script for generation of charts displaying CO2 emissions, and trends and statistics of energy systems.
 Charts are displayed at -
-https://www.worldenergydata.org/world-energy-trends/
-https://www.worldenergydata.org/national-energy-trends/, and
-https://www.worldenergydata.org/greenhouse-gas-emissions/
+1. https://www.worldenergydata.org/world-energy-trends/
+2. https://www.worldenergydata.org/national-energy-trends/, and
+3. https://www.worldenergydata.org/greenhouse-gas-emissions/
 
 Requires installation of Python. Charts are output in SVG format.
 
