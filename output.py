@@ -117,11 +117,11 @@ Data obtained from https://gml.noaa.gov/ccgg/trends/gl_data.html."
     title2 = "By Emission Source"
     footer_text = ("Fossil Fuels is the sum of Coal, Oil, Gas, and Flaring. \
 Labels may not be shown due to a lack of space, so refer to the legend. \
-Projected values of Flaring and Other for "\
-+ str(global_carbon.data["Total"].index[-1]) +
-" are unavailable. "\
-+ str(global_carbon.data["Total"].index[-2]) +
-" data is shown. 'Cement' includes cement carbonation.\n\
+Projected values of Flaring and Other for "
+                   + str(global_carbon.data["Total"].index[-1]) +
+                   " are unavailable. "
+                   + str(global_carbon.data["Total"].index[-2]) +
+                   " data is shown. 'Cement' includes cement carbonation.\n\
 By Shane White, whitesha@protonmail.com using Python, https://github.com/shanewhi/world-energy-data. \
 Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.")
     chart.treemap_2_subplots(
@@ -167,8 +167,7 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
             "Projected value for "
             + str(ffc_co2.index[-1])
             + " = "
-            #+ str(round(ffc_co2.iloc[-1], 1))
-            + f"{(round(ffc_co2.iloc[-1], 1)):,}"
+            + f"{(round(ffc_co2.iloc[-1], 0)):,}".rstrip("0").rstrip(".")
             + "MtCO\u2082"
     )
     footer_text = "Values include cement carbonation and 2024 value is projected. \
