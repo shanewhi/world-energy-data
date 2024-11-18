@@ -15,7 +15,7 @@ This package consists of -
 6. chart.py (chart functions)
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
-Prerequisites  (all files below are provided in this repository) -
+Prerequisites  (all are provided in this repository) -
 1. Global Carbon Budget in .xlsx format. The version in this repository is required as 2024 GCP projected values have 
 been included, obtained from https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf. Original GCB was
 downloaded from https://globalcarbonbudgetdata.org/latest-data.html.
