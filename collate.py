@@ -634,11 +634,12 @@ def populate_energy_system(country, ei_data):
             )
             if not consumption_PJ.at[year, "Total"]:
                 consumption_PJ.at[year, "Total"] = 0
-        else:
-            print("Country not in IEA data.\n")
-            incl_iea_flag = False
-            consumption_PJ = None
-    consumption_PJ = consumption_PJ.astype(float)
+
+            consumption_PJ = consumption_PJ.astype(float)
+
+    if incl_iea_flag == False:
+        print("Country not in IEA data.\n")
+        consumption_PJ = None
 
     # Return national energy system data as object.
     return user_globals.Energy_System(
