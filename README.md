@@ -1,10 +1,6 @@
-Python script for generation of charts displaying CO2 emissions, and trends and statistics of energy systems.
-Charts are displayed at -
-1. https://www.worldenergydata.org/world-energy-trends/
-2. https://www.worldenergydata.org/national-energy-trends/, and
-3. https://www.worldenergydata.org/greenhouse-gas-emissions/
+This Python package generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for the world and specified countires. Example charts are displayed at https://www.worldenergydata.org/.
 
-Requires installation of Python. Charts are output in SVG format.
+This package requires installation of Python and dependancies listed below. Charts are output in SVG format so there's no loss of resolution when magnified.
 
 This package consists of -
 1. world_energy_data.py (main executable)
@@ -15,15 +11,28 @@ This package consists of -
 6. chart.py (chart functions)
 7. countries.py (country name translations to make them compatible with IEA dataset)
 
-Prerequisites  (all are provided in this repository) -
-1. Global Carbon Budget in .xlsx format. The version in this repository is required as 2024 GCP projected values have 
+Dependencies -
+1. Install the latest Python from https://www.python.org/downloads/, scroll down to "Information about specific ports, 
+and developer info" and select suitable platform.
+2. Install the following Python libraries by entering the following commands in a terminal: <br>
+a) pip3 install openpyxl<br>
+b) pip3 install git+https://github.com/chenyulue/matplotlib-extra/<br>
+c) pip3 install mpl_extra<br>
+d) pip3 install matplotlib<br>
+e) pip3 install jmespath<br>
+f) pip3 install pandas<br>
+3. Install font 'SF Pro' from  https://developer.apple.com/fonts/. Delete matplotlib's font cache files to force
+rebuilding of cache and inclusion of 'SF Pro' - in a terminal enter rm ~/.matplotlib/fontlist*
+4. The following datasets are required, which are provided in this package and are listed below for reference only:<br>
+a) Global Carbon Budget in .xlsx format. The version in this repository is required as 2024 GCP projected values have 
 been included, obtained from https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf. Original GCB was
-downloaded from https://globalcarbonbudgetdata.org/latest-data.html.
-2. NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html
-3. Energy Institute Statistical Review of World Energy data from
-   https://www.energyinst.org/statistical-review/resources-and-data-downloads
-(Direct link is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)
-4. IEA annual energy balances in JSON format.
+downloaded from https://globalcarbonbudgetdata.org/latest-data.html<br>
+b) NOAA ESRL CO2 data in CSV format from https://gml.noaa.gov/ccgg/trends/gl_data.html<br>
+c) Energy Institute Statistical Review of World Energy data from -<br>
+https://www.energyinst.org/statistical-review/resources-and-data-downloads<br>
+(Direct link is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
+d) IEA annual energy balances in JSON format obtained from -<br>
+   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br>
 
 Instructions (code below is within single quotes) -
 1. Choose a country to profile from those listed in the Energy Institute's data listed above.
