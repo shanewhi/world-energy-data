@@ -52,7 +52,7 @@ import output
 #
 # a)
 # i. Load https://api.iea.org/stats?year=2022&countries=[object+Object]&series=BALANCES
-# ii. Substitute 20222 for the year required.
+# ii. Substitute 2022 for the year required.
 #
 # b)
 # i. Load https://www.iea.org/data-and-statistics/data-tools/ \
