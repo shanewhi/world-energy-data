@@ -480,6 +480,7 @@ def populate_energy_system(country, ei_data):
     else:
         print("Country not in EI data.\n")
         incl_ei_flag = False
+        ffco2 = None
         ffprod_PJ = None
         primary_PJ = None
         elecprod_TWh = None
@@ -635,7 +636,7 @@ def populate_energy_system(country, ei_data):
             if not consumption_PJ.at[year, "Total"]:
                 consumption_PJ.at[year, "Total"] = 0
 
-    if incl_iea_flag == False:
+    if incl_iea_flag is False:
         print("Country not in IEA data.\n")
         consumption_PJ = None
     else:

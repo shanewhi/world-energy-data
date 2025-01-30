@@ -2702,7 +2702,7 @@ def treemap_1_subplot(
     fig.suptitle(
         country,
         x=0.125,
-        y=0.96,
+        y=0.955,
         horizontalalignment="left",
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
@@ -2726,7 +2726,7 @@ def treemap_1_subplot(
     )
     fig.text(
         0.125,
-        0.025,
+        0.115,
         footer_text,
         horizontalalignment="left",
         verticalalignment='top',

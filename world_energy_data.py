@@ -105,18 +105,19 @@ def profile(country):
     print("\nLarge oil producers:\n", str(oil_producers))
     print("\nLarge gas producers:\n", str(gas_producers), "\n")
 
-    if energy_system.incl_ei_flag is True:
-        output.country_prod_primary_energy_charts(energy_system)
+    output.country_prod_primary_energy_charts(energy_system)
+    output.country_consumption_elec_charts(energy_system)
+    output.country_consumption_charts(energy_system)
+    output.country_elec_charts(energy_system)
 
-    if energy_system.incl_ei_flag is True and energy_system.incl_iea_flag is True:
-        output.country_consumption_elec_charts(energy_system)
+    # Print warnings to console.
+    if energy_system.incl_ei_flag is False:
+        print("Country was not found in EI data. Check the countries listed in The Statistical Review of World Energy \
+included in this package.")
 
-    if energy_system.incl_iea_flag is True:
-        output.country_consumption_charts(energy_system)
-
-    if energy_system.incl_ei_flag is True:
-        output.country_elec_charts(energy_system)
-
+    if energy_system.incl_iea_flag is False:
+        print("Country was not found in IEA data. Its IEA translation name may need to be added to countries.py. \
+See this package's README for instructions.")
 
 # Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")
@@ -136,3 +137,12 @@ profile("Total World")
 # profile("Singapore")
 # profile("Vietnam")
 # profile("United Kingdom")
+# profile("Japan")
+# profile("Iran")
+# profile("Canada")
+# profile("Mexico")
+# profile("Brazil")
+# profile("South Korea") # IEA = KOREA
+# profile("South Africa") # IEA = SOUTHAFRIC
+# profile("Turkiye")
+# profile("Uruguay")

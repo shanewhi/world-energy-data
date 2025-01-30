@@ -46,6 +46,12 @@ def iea_country_name(country_in):
         return "'KOREA'"
     if country == "'TOTAL EU'":
         return "'EU28'"
+    if country == "'SOUTH AFRICA'":
+        return "'SOUTHAFRIC'"
+    if country == "'SOUTH KOREA'":
+        return "'KOREA'"
+    if country == "'TURKIYE'":
+        return "'TURKEY'"
     else:
         return country
 
