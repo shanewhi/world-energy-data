@@ -24,19 +24,19 @@ import matplotlib.pyplot as plt
 class Global_Carbon:
     def __init__(
             self,
-            name,
+            nation,
             data,
             final_emission_category_shares,
             final_emission_shares,
             co2_conc,
-            final_country_shares,
+            national_shares_fy_dataframe,
     ):
-        self.name = name
+        self.nation = nation
         self.data = data
         self.final_emission_category_shares = final_emission_category_shares
         self.final_emission_shares = final_emission_shares
         self.co2_conc = co2_conc
-        self.final_country_shares = final_country_shares
+        self.national_shares_fy_dataframe = national_shares_fy_dataframe
 
 
 # Define custom class of an energy system.

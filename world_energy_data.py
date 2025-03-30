@@ -9,6 +9,8 @@
 # Import user modules.
 import collate
 import output
+import process
+
 
 ########################################################################################
 #
@@ -76,22 +78,15 @@ import output
 #
 ########################################################################################
 
-# Import data.
-# Data importation differs between sources:
-# Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
-# as single files below.
-# The International Energy Agency (IEA) dataset is stored in multiple JSON
-# files, and therefore country specific data is searched for within these,
-# rather than imported as a single file. This is done within the function
-# populate_energy_system().
-ei_data, gcp_data, esrl_data = collate.import_data()
-
-# Generate charts of GCP data.
-global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
-output.world_co2_charts(global_carbon)
-
-
-# Generate energy system charts in the following order:
+########################################################################################
+#
+# Function: profile(country)
+#
+# Description:
+# Top level function that calls collation and chart functions for a specified
+# nation.
+#
+########################################################################################
 def profile(country):
     energy_system = collate.energy(country, ei_data)
 
@@ -118,6 +113,22 @@ included in this package.")
     if energy_system.incl_iea_flag is False:
         print("Country was not found in IEA data. Its IEA translation name may need to be added to countries.py. \
 See this package's README for instructions.")
+
+# Main program -
+
+# Import data.
+# Data importation differs between sources:
+# Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
+# as single files below.
+# The International Energy Agency (IEA) dataset is stored in multiple JSON
+# files, and therefore country specific data is searched for within these,
+# rather than imported as a single file. This is done within the function
+# populate_energy_system().
+ei_data, gcp_data, esrl_data = collate.import_data()
+
+# Generate charts of GCP data.
+global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
+output.world_co2_charts(global_carbon)
 
 # Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")
@@ -146,3 +157,5 @@ profile("Total World")
 # profile("South Africa") # IEA = SOUTHAFRIC
 # profile("Turkiye")
 # profile("Uruguay")
+
+
