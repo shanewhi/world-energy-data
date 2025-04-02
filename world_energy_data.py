@@ -126,9 +126,15 @@ See this package's README for instructions.")
 # populate_energy_system().
 ei_data, gcp_data, esrl_data = collate.import_data()
 
-# Generate charts of GCP data.
+# Plot GCP data.
 global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
 output.world_co2_charts(global_carbon)
+
+# Plot CO2 emission and primary energy trends of large emitters.
+large_ffco2_emitters = process.id_large_ffco2_emitters(global_carbon)
+
+#output.large_co2_emitter_co2
+#output.large_co2_emitter_ff_pe
 
 # Profile following countries or "Total World". Name must match in EI data.
 profile("Total World")

@@ -97,6 +97,7 @@ class Constant(Enum):
     COAL_SHARE_RANK_THRESHOLD = 5  # Percent. Defines large coal producer.
     OIL_SHARE_RANK_THRESHOLD = 2  # Percent. Defines large oil producer.
     GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent. Defines large gas producer.
+    LARGEST_EMITTING_NATION_THRESHOLD = 1 # Percent of global FF CO2 emissions.
 
     # Processing of IEA data takes a noticeably long time.
     # To shorten execution time during testing, set TFC_START_YEAR to 1999

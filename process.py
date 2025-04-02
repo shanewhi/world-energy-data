@@ -48,7 +48,7 @@ def carbon_emissions(cdata, share_data):
             / cdata["Total"]
             * 100
     )
-    cdata["Cement Share"] = (cdata["Cement"]-cdata["Cement Carbonation Sink"]) / cdata["Total"] * 100
+    cdata["Cement Share"] = (cdata["Cement"] - cdata["Cement Carbonation Sink"]) / cdata["Total"] * 100
     cdata["Other Share"] = cdata["Other"] / cdata["Total"] * 100
     cdata["Land Use Change Share"] = cdata["Land Use Change"] / cdata["Total"] * 100
     cdata["Coal Share"] = cdata["Coal"] / cdata["Total"] * 100
@@ -69,10 +69,10 @@ def carbon_emissions(cdata, share_data):
     # Select second to last element below so as not to display projected values in treemap, because 2024 projections
     # are unavailable for 'flaring' and 'other', and shouldn't display values from a combination of years.
 
-    final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-2],1)
-    final_cement_co2_share = round(cdata["Cement Share"].iloc[-2],1)
-    final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-2],1)
-    final_other_co2_share = round(cdata["Other Share"].iloc[-2],1)
+    final_ff_co2_share = round(cdata["Fossil Fuel Share"].iloc[-2], 1)
+    final_cement_co2_share = round(cdata["Cement Share"].iloc[-2], 1)
+    final_luc_co2_share = round(cdata["Land Use Change Share"].iloc[-2], 1)
+    final_other_co2_share = round(cdata["Other Share"].iloc[-2], 1)
 
     # Generate dataframe required for treemap plot.
     emission_category = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])
@@ -95,10 +95,10 @@ def carbon_emissions(cdata, share_data):
         emission_category["Name"], emission_category["Value"], ratio=20
     )
 
-    final_coal_co2_share = round(cdata["Coal Share"].iloc[-2],1)
-    final_oil_co2_share = round(cdata["Oil Share"].iloc[-2],1)
-    final_gas_co2_share = round(cdata["Gas Share"].iloc[-2],1)
-    final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-2],1)
+    final_coal_co2_share = round(cdata["Coal Share"].iloc[-2], 1)
+    final_oil_co2_share = round(cdata["Oil Share"].iloc[-2], 1)
+    final_gas_co2_share = round(cdata["Gas Share"].iloc[-2], 1)
+    final_flaring_co2_share = round(cdata["Flaring Share"].iloc[-2], 1)
 
     # Generate dataframe required for treemap plot.
     emission = pd.DataFrame(columns=["Name", "Value", "Color", "Label"])
@@ -178,6 +178,26 @@ def carbon_emissions(cdata, share_data):
     )
 
     return emission_category, emission, all_country_shares
+
+
+########################################################################################
+#
+# Function: carbon_emissions()
+#
+# Description:
+# Calculate carbon emission annual shares and change.
+#
+########################################################################################
+def id_large_ffco2_emitters(global_carbon):
+    largest_emitting_nations = global_carbon.national_shares_fy_dataframe[
+        global_carbon.national_shares_fy_dataframe[
+            "Value"] >= user_globals.Constant.LARGEST_EMITTING_NATION_THRESHOLD.value
+        ]
+    largest_emitting_nations.set_index("Name", inplace=True)
+    largest_emitting_nations.drop("Other", inplace=True)
+    largest_emitters_share = round(sum(largest_emitting_nations["Value"]),1)
+
+    return largest_emitting_nations
 
 
 ########################################################################################
