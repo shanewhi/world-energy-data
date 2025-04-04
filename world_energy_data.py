@@ -11,7 +11,6 @@ import collate
 import output
 import process
 
-
 ########################################################################################
 #
 # Application world_energy_data.py
@@ -78,45 +77,7 @@ import process
 #
 ########################################################################################
 
-########################################################################################
-#
-# Function: profile(country)
-#
-# Description:
-# Top level function that calls collation and chart functions for a specified
-# nation.
-#
-########################################################################################
-def profile(country):
-    energy_system = collate.energy(country, ei_data)
-
-    # Generate global fossil fuel production charts using EI data.
-    if energy_system.incl_ei_flag is True:
-        output.country_co2_charts(energy_system, global_carbon)
-
-    coal_producers, oil_producers, gas_producers = collate.ffproducer_shares(ei_data)
-    output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, energy_system.name)
-    print("\nLarge coal producers:\n", str(coal_producers))
-    print("\nLarge oil producers:\n", str(oil_producers))
-    print("\nLarge gas producers:\n", str(gas_producers), "\n")
-
-    output.country_prod_primary_energy_charts(energy_system)
-    output.country_consumption_elec_charts(energy_system)
-    output.country_consumption_charts(energy_system)
-    output.country_elec_charts(energy_system)
-
-    # Print warnings to console.
-    if energy_system.incl_ei_flag is False:
-        print("Country was not found in EI data. Check the countries listed in The Statistical Review of World Energy \
-included in this package.")
-
-    if energy_system.incl_iea_flag is False:
-        print("Country was not found in IEA data. Its IEA translation name may need to be added to countries.py. \
-See this package's README for instructions.")
-
-# Main program -
-
-# Import data.
+# 1. Import data.
 # Data importation differs between sources:
 # Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
 # as single files below.
@@ -126,18 +87,19 @@ See this package's README for instructions.")
 # populate_energy_system().
 ei_data, gcp_data, esrl_data = collate.import_data()
 
-# Plot GCP data.
+# 2. Plot GCP data.
 global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
-output.world_co2_charts(global_carbon)
 
-# Plot CO2 emission and primary energy trends of large emitters.
-large_ffco2_emitters = process.id_large_ffco2_emitters(global_carbon)
 
-#output.large_co2_emitter_co2
-#output.large_co2_emitter_ff_pe
+# output.world_co2_charts(global_carbon)
 
-# Profile following countries or "Total World". Name must match in EI data.
-profile("Total World")
+# 3. Profile the following countries or "Total World". Nation name must match that shown in EI data.
+
+def profile(nation):
+	collate.profile(nation, global_carbon, ei_data)
+
+
+# profile("Total World")
 # profile("China")
 # profile("US")
 # profile("Russian Federation")
@@ -165,3 +127,9 @@ profile("Total World")
 # profile("Uruguay")
 
 
+# 4. Plot CO2 emission and primary energy trends of large emitters.
+large_emitters = process.id_large_ffco2_emitters(global_carbon)
+large_emitter_dataframe = collate.populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data)
+
+# output.large_co2_emitter_co2
+# output.large_co2_emitter_ff_pe
