@@ -716,15 +716,16 @@ def populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data):
 		parameters = parameters + ["ffco2_Mt", "primary_PJ_coal", "primary_PJ_coal", "primary_PJ_gas"]
 		for i in range(4):
 			nation_name = nation_name + [nation]
+		arrays = [nation_name, parameters]
+		large_emitter_co2_energy_index = pd.MultiIndex.from_arrays(arrays, names=('Country', 'Parameter'))
 
-	for nation in large_emitters:
 		national_energy_data = ei_data.loc[ei_data["Country"] == nation]
 		ffco2_Mt = national_energy_data.loc[national_energy_data["Var"] == "co2_combust_mtco2", "Value"]
 		primary_PJ_coal = (
 				national_energy_data.loc[national_energy_data["Var"] == "coalcons_ej", "Value"]
 				* user_globals.Constant.EJ_TO_PJ.value
 		)
-		primarprimary_PJ_coaly_PJ_oil = (
+		primary_PJ_oil = (
 				national_energy_data.loc[national_energy_data["Var"] == "oilcons_ej", "Value"]
 				* user_globals.Constant.EJ_TO_PJ.value
 		)
@@ -732,18 +733,31 @@ def populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data):
 				national_energy_data.loc[national_energy_data["Var"] == "gascons_ej", "Value"]
 				* user_globals.Constant.EJ_TO_PJ.value
 		)
+		large_emitter_dataframe = pd.DataFrame(ffco2_Mt, primary_PJ_coal, primary_PJ_oil, primary_PJ_gas)
 
-
-consumption_PJ = pd.DataFrame(
-	index=tfc_years,
-	columns=[
-		"Coal",
-		"Oil",
-		"Gas",
-		"Wind Solar Etc",
-		"Biofuels and Waste",
-		"Electricity",
-		"Heat",
-		"Total",
-	],
-)
+		#	large_emitter_dataframe = pd.DataFrame(data, index=large_emitter_co2_energy_index)
+		x = 2
+#
+# consumption_PJ = pd.DataFrame(
+# 	index=tfc_years,
+# 	columns=[
+# 		"Coal",
+# 		"Oil",
+# 		"Gas",
+# 		"Wind Solar Etc",
+# 		"Biofuels and Waste",
+# 		"Electricity",
+# 		"Heat",
+# 		"Total",
+# 	],
+#
+# >>> arrays = [[1, 1, 2, 2], ['red', 'blue', 'red', 'blue']]
+# >>> pd.MultiIndex.from_arrays(arrays, names=('number', 'color'))
+# MultiIndex([(1,  'red'),
+#             (1, 'blue'),
+#             (2,  'red'),
+#             (2, 'blue')],
+#            names=['number', 'color'])
+#
+#
+# )
