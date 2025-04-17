@@ -1,4 +1,6 @@
-This Python package generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for the world and specified countires. Example charts are displayed at https://www.worldenergydata.org/.
+This Python package generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for the world and specified countires. Charts are displayed at https://www.worldenergydata.org/.
+
+Latest release: https://github.com/shanewhi/world-energy-data/releases/
 
 This package requires installation of Python and dependancies listed below. Charts are output in SVG format so there's no loss of resolution when magnified.
 
