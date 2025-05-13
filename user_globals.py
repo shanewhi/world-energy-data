@@ -95,11 +95,14 @@ class Constant(Enum):
 	GJ_TO_EJ = 1e-9
 	TWH_TO_PWH = 1e-3
 	TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
-	CO2_SHARE_RANK_THRESHOLD = 0.5  # Percent. Defines country as large CO2 emitter.
+	CO2_SHARE_RANK_THRESHOLD = 0.5  # Percent. Defines country as large CO2 emitter. Such countries are designated
+	# individual tiles in the treemap of the first chart saved in the profiled country (or world) charts folder.
 	COAL_SHARE_RANK_THRESHOLD = 5  # Percent. Defines large coal producer.
 	OIL_SHARE_RANK_THRESHOLD = 2  # Percent. Defines large oil producer.
 	GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent. Defines large gas producer.
-	MAJOR_EMITTING_COUNTRY_THRESHOLD = 1  # Percent of global FF CO2 emissions.
+	MAJOR_EMITTING_COUNTRY_THRESHOLD = 1  # Percent of global FF CO2 emissions. Countries emitting equal to or more than
+	# this threshold in the final year of data have emissions and fossil fuel primary energy plotted. These are saved
+	# in the folder named 'charts Major Emitters'.
 
 	# Processing of IEA data takes a noticeably long time.
 	# To shorten execution time during testing, set TFC_START_YEAR to 1999
