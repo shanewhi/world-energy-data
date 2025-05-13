@@ -30,15 +30,15 @@ import output
 
 ########################################################################################
 #
-# Function: profile(country, global_carbon, ei_data)
+# Function: profile(nation, global_carbon, ei_data)
 #
 # Description:
 # Top level function that calls collation and chart functions for a specified
 # nation.
 #
 ########################################################################################
-def profile(country, global_carbon, ei_data):
-    energy_system = energy(country, ei_data)
+def profile(nation, global_carbon, ei_data):
+    energy_system = energy(nation, ei_data)
 
     # Generate global fossil fuel production charts using EI data.
     if energy_system.incl_ei_flag is True:
@@ -57,11 +57,11 @@ def profile(country, global_carbon, ei_data):
 
     # Print warnings to console.
     if energy_system.incl_ei_flag is False:
-        print("Country was not found in EI data. Check the countries listed in The Statistical Review of World Energy \
+        print("Nation was not found in EI data. Check the nations listed in The Statistical Review of World Energy \
 included in this package.")
 
     if energy_system.incl_iea_flag is False:
-        print("Country was not found in IEA data. Its IEA translation name may need to be added to countries.py. \
+        print("Nation was not found in IEA data. Its IEA translation name may need to be added to nations.py. \
 See this package's README for instructions.")
 
 
@@ -156,31 +156,31 @@ def import_data():
 #
 ########################################################################################
 def co2_data(energy_data, emissions_data, conc_data):
-    national_shares_fy_data = calc_national_shares_fy(energy_data)
-    emission_categories, emissions, national_shares_fy = process.carbon_emissions(
-        emissions_data, national_shares_fy_data
+    country_shares_fy_data = calc_country_shares_fy(energy_data)
+    emission_categories, emissions, country_shares_fy = process.carbon_emissions(
+        emissions_data, country_shares_fy_data
     )
-    nation = "World"
+    country = "World"
     return user_globals.Global_Carbon(
-        nation,
+        country,
         emissions_data,
         emission_categories,
         emissions,
         conc_data,
-        national_shares_fy,
+        country_shares_fy,
     )
 
 
 ########################################################################################
 #
-# Function: calc_national_shares_fy()
+# Function: calc_country_shares_fy()
 #
 # Description:
-# For all nations, calculate shares of CO2 emissions from fossil fuel combustion for
+# For all countries, calculate shares of CO2 emissions from fossil fuel combustion for
 # the final year of data.
 #
 ########################################################################################
-def calc_national_shares_fy(data):
+def calc_country_shares_fy(data):
     # Extract CO2 emissions from fossil fuel combustion for all years.
     ffco2_Mt = data.loc[data["Var"] == "co2_combust_mtco2"]
 
@@ -681,7 +681,7 @@ def populate_energy_system(country, ei_data):
     else:
         consumption_PJ = consumption_PJ.astype(float)
 
-    # Return national energy system data as object.
+    # Return country energy system data as object.
     return user_globals.Energy_System(
         country,
         incl_ei_flag,
@@ -702,39 +702,39 @@ def populate_energy_system(country, ei_data):
 
 ########################################################################################
 #
-# Function: populate_large_emitter_co2_energy_dataframe()
+# Function: populate_major_emitter_co2_energy_dataframe()
 #
 # Description:
-# For large emitters, construct dataframe of fossil fuel CO2 emissions and primary
+# For major emitters, construct dataframe of fossil fuel CO2 emissions and primary
 # energy data.
 #
 ########################################################################################
-def populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data):
+def populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data):
     # Initialise loop counter
     n = 0
-    # For each large emitting nation -
-    for nation in large_emitters:
+    # For each large emitting country -
+    for country in major_emitters:
         # Generate multi index indices for dataframe
         parameters = ["ffco2_Mt", "primary_PJ_coal", "primary_PJ_oil", "primary_PJ_gas"]
-        nation_name = []
+        country_name = []
         for i in range(4):
-            nation_name = nation_name + [nation]
-        arrays = [nation_name, parameters]
+            country_name = country_name + [country]
+        arrays = [country_name, parameters]
         indices = pd.MultiIndex.from_arrays(arrays, names=('Country', 'Parameter'))
 
         # Assemble data
-        national_energy_data = ei_data.loc[ei_data["Country"] == nation]
-        ffco2_Mt = national_energy_data.loc[national_energy_data["Var"] == "co2_combust_mtco2", "Value"]
+        country_energy_data = ei_data.loc[ei_data["Country"] == country]
+        ffco2_Mt = country_energy_data.loc[country_energy_data["Var"] == "co2_combust_mtco2", "Value"]
         primary_PJ_coal = (
-                national_energy_data.loc[national_energy_data["Var"] == "coalcons_ej", "Value"]
+                country_energy_data.loc[country_energy_data["Var"] == "coalcons_ej", "Value"]
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ_oil = (
-                national_energy_data.loc[national_energy_data["Var"] == "oilcons_ej", "Value"]
+                country_energy_data.loc[country_energy_data["Var"] == "oilcons_ej", "Value"]
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ_gas = (
-                national_energy_data.loc[national_energy_data["Var"] == "gascons_ej", "Value"]
+                country_energy_data.loc[country_energy_data["Var"] == "gascons_ej", "Value"]
                 * user_globals.Constant.EJ_TO_PJ.value
         )
 
@@ -752,9 +752,9 @@ def populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data):
         dataframe.index = indices
         # Create parent dataframe
         if n == 0:
-            large_emitter_co2_energy_dataframe = dataframe
+            major_emitter_co2_energy_dataframe = dataframe
         else:
-            large_emitter_co2_energy_dataframe = pd.concat([large_emitter_co2_energy_dataframe, dataframe])
+            major_emitter_co2_energy_dataframe = pd.concat([major_emitter_co2_energy_dataframe, dataframe])
         # Increment loop counter
         n += 1
-    return large_emitter_co2_energy_dataframe
+    return major_emitter_co2_energy_dataframe

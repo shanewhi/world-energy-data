@@ -87,19 +87,18 @@ import process
 # populate_energy_system().
 ei_data, gcp_data, esrl_data = collate.import_data()
 
+
 # 2. Plot GCP data.
 global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
+output.world_co2_charts(global_carbon)
 
 
-# output.world_co2_charts(global_carbon)
-
-# 3. Profile the following countries or "Total World". Nation name must match that shown in EI data.
-
-def profile(nation):
-	collate.profile(nation, global_carbon, ei_data)
+# 3. Profile the following countries or "Total World". Country name must match that shown in EI data.
+def profile(country):
+	collate.profile(country, global_carbon, ei_data)
 
 
-# profile("Total World")
+profile("Total World")
 # profile("China")
 # profile("US")
 # profile("Russian Federation")
@@ -126,10 +125,8 @@ def profile(nation):
 # profile("Turkiye")
 # profile("Uruguay")
 
-
-# 4. Plot CO2 emission and primary energy trends of large emitters.
-large_emitters = process.id_large_ffco2_emitters(global_carbon)
-large_emitter_dataframe = collate.populate_large_emitter_co2_energy_dataframe(large_emitters, ei_data)
-
-# output.large_co2_emitter_co2
-# output.large_co2_emitter_ff_pe
+# 4. Plot FF CO2 emissions and fossil fuel primary energy trends of major (≥1%) emitters.
+major_emitters = process.id_major_ffco2_emitters(global_carbon)
+major_emitter_dataframe = collate.populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data)
+energy_system_world = collate.energy("Total World", ei_data)
+output.major_emitter_charts(energy_system_world, global_carbon, major_emitter_dataframe)

@@ -24,19 +24,19 @@ import matplotlib.pyplot as plt
 class Global_Carbon:
 	def __init__(
 			self,
-			nation,
+			name,
 			data,
 			final_emission_category_shares,
 			final_emission_shares,
 			co2_conc,
-			national_shares_fy,
+			country_shares_fy,
 	):
-		self.nation = nation
+		self.name = name
 		self.data = data
 		self.final_emission_category_shares = final_emission_category_shares
 		self.final_emission_shares = final_emission_shares
 		self.co2_conc = co2_conc
-		self.national_shares_fy = national_shares_fy
+		self.country_shares_fy = country_shares_fy
 
 
 # Define custom class of an energy system.
@@ -81,6 +81,7 @@ class Energy_System:
 # Define conversion coefficients (multiply for conversion).
 class Constant(Enum):
 	DISPLAY_CHARTS = False  # Whether charts are output to display.
+	CHART_START_YR_FOR_MAJOR_EMITTERS = 1965  # Start year for CO2 emissions of major emitter line and treemap charts
 	CHART_START_YR = 2000  # Start year for all charts except change charts
 	CHANGE_CHART_START_YR = 2010
 
@@ -98,7 +99,7 @@ class Constant(Enum):
 	COAL_SHARE_RANK_THRESHOLD = 5  # Percent. Defines large coal producer.
 	OIL_SHARE_RANK_THRESHOLD = 2  # Percent. Defines large oil producer.
 	GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent. Defines large gas producer.
-	LARGE_EMITTING_NATION_THRESHOLD = 1  # Percent of global FF CO2 emissions.
+	MAJOR_EMITTING_COUNTRY_THRESHOLD = 1  # Percent of global FF CO2 emissions.
 
 	# Processing of IEA data takes a noticeably long time.
 	# To shorten execution time during testing, set TFC_START_YEAR to 1999
@@ -119,6 +120,10 @@ class Constant(Enum):
 	SUBPLOT_TITLE_FONT_SIZE = "large"
 	SUBPLOT_3ROW_TITLE_FONT_SIZE = "medium"
 	FOOTER_TEXT_FONT_SIZE = "small"
+	MAJOR_EMITTER_TITLE_FONT_SIZE = 40
+	MAJOR_EMITTER_SUB_TITLE_FONT_SIZE = "large"
+	MAJOR_EMITTER_TICK_FONT_SIZE = "small"
+	MAJOR_EMITTER_AXIS_LABEL_FONT_SIZE = "small"
 
 	# FONT WEIGHTS:
 	# Options -
@@ -129,8 +134,11 @@ class Constant(Enum):
 	TITLE_ADDITION_FONT_WEIGHT = "normal"
 	SUBPLOT_TITLE_FONT_WEIGHT = "semibold"
 	FOOTER_TEXT_FONT_WEIGHT = "normal"
+	MAJOR_EMITTER_TITLE_FONT_WEIGHT = "bold"
+	MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = "semibold"
 
 	FIG_HSIZE_1_ROW = 17
+	MAJOR_EMITTER_FIG_HSIZE_1_ROW = 13.5
 	FIG_HSIZE_2_ROW = 17
 	FIG_HSIZE_1_TREE = 8
 	FIG_HSIZE_2_TREE = 15
@@ -153,6 +161,8 @@ class Constant(Enum):
 	LINE_WIDTH_10_SUBPLOT = 1.8
 	LINE_MARKER_SIZE = 5
 	LINE_WIDTH_PLOT_1x1 = 4
+	MAJOR_EMITTER_LINE_WIDTH_PLOT = 7
+	MAJOR_EMITTER_LINE_MARKER_SIZE = 8
 
 	COLUMN_11_SUBPLOT_TITLE_XPOS = 0.04
 	COLUMN_11_SUBPLOT_TITLE_YPOS = 0.87

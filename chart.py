@@ -34,6 +34,244 @@ import user_globals
 
 ########################################################################################################################
 #
+# Function: line_2_subplots()
+#
+# Description:
+# 2 line subplots in 1 row. First is a plot of a single series and the second of 3 series. No subplot labels, axes or
+# tick labels.
+#
+########################################################################################################################
+def line_2_subplots(
+        series0,
+        series1,
+        series2,
+        series3,
+        color0,
+        color1,
+        color2,
+        color3,
+        country,
+        start_yr0,
+        start_yr1,
+        x_axis0_interval,
+        x_axis1_interval,
+        ):
+
+    fig, ax = plt.subplots(
+        1,
+        2,
+        figsize=(
+            user_globals.Constant.MAJOR_EMITTER_FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
+        ),
+    )
+
+    # Subplot0, line plot, series0
+    ax[0].plot(
+        series0.truncate(before=start_yr0).index,
+        series0.truncate(before=start_yr0),
+        color0,
+        linewidth=user_globals.Constant.MAJOR_EMITTER_LINE_WIDTH_PLOT.value,
+        marker=".",
+        markersize=user_globals.Constant.MAJOR_EMITTER_LINE_MARKER_SIZE.value,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+
+    # Subplot1, line plot, series 1
+    ax[1].plot(
+        series1.truncate(before=start_yr1).index,
+        series1.truncate(before=start_yr1),
+        color1,
+        linewidth=user_globals.Constant.MAJOR_EMITTER_LINE_WIDTH_PLOT.value,
+        marker=".",
+        markersize=user_globals.Constant.MAJOR_EMITTER_LINE_MARKER_SIZE.value,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+    # Subplot2
+    ax[1].plot(
+        series2.truncate(before=start_yr1).index,
+        series2.truncate(before=start_yr1),
+        color2,
+        linewidth=user_globals.Constant.MAJOR_EMITTER_LINE_WIDTH_PLOT.value,
+        marker=".",
+        markersize=user_globals.Constant.MAJOR_EMITTER_LINE_MARKER_SIZE.value,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )  # Subplot3
+    ax[1].plot(
+        series3.truncate(before=start_yr1).index,
+        series3.truncate(before=start_yr1),
+        color3,
+        linewidth=user_globals.Constant.MAJOR_EMITTER_LINE_WIDTH_PLOT.value,
+        marker=".",
+        markersize=user_globals.Constant.MAJOR_EMITTER_LINE_MARKER_SIZE.value,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+
+    x_ticks0 = [start_yr0]
+    x_ticks1 = [start_yr1]
+
+    # x_ticks only for period defined by x_axis_interval
+    for year in series0.truncate(before=start_yr0).index:
+        if year % x_axis0_interval == 0:  # Modulus.
+            x_ticks0.append(year)
+    for year in series1.truncate(before=start_yr1).index:
+        if year % x_axis1_interval == 0:
+            x_ticks1.append(year)
+
+    # If period between final tick and year of final value is >= 4 years, then there's room to append most recent year.
+    # Else replace final value with most recent year.
+    if series0.index.max() - max(x_ticks0) >= 4:
+        x_ticks0.append(series0.index.max())
+    else:
+        x_ticks0[len(x_ticks0) - 1] = series0.index.max()
+
+    if series1.index.max() - max(x_ticks1) >= 4:
+        x_ticks1.append(series1.index.max())
+    else:
+        x_ticks1[len(x_ticks1) - 1] = series1.index.max()
+
+    ax[0].set_xticks(x_ticks0, labels=x_ticks0, color='white')
+    ax[1].set_xticks(x_ticks1, labels=x_ticks1, color='white')
+
+    ax[0].tick_params(axis='both', which='major', labelcolor="white", colors='white')
+    ax[1].tick_params(axis='both', which='major', labelcolor="white", colors='white')
+    ax[0].tick_params(axis='both', which='minor', labelcolor="white", colors='white')
+    ax[1].tick_params(axis='both', which='minor', labelcolor="white", colors='white')
+
+    ax[0].margins(x=0)
+    ax[0].autoscale(axis="y")
+    ax[0].xaxis.grid(False)
+    ax[0].yaxis.grid(False)
+
+    ax[1].margins(x=0)
+    ax[1].autoscale(axis="y")
+    ax[1].xaxis.grid(False)
+    ax[1].yaxis.grid(False)
+
+    # Force uppermost x-tick to be equal to next tick after ylim
+    ax[0].set_ylim(0, max(ax[0].get_yticks()))
+    ax[1].set_ylim(0, max(ax[1].get_yticks()))
+
+    # Set aspect ratio 1:1.
+    ax[0].set_box_aspect(1)
+    ax[1].set_box_aspect(1)
+
+    for axis in ['top', 'bottom', 'left', 'right']:
+        ax[0].spines[axis].set_linewidth(.5)
+        ax[0].spines[axis].set_color("black")
+        ax[1].spines[axis].set_linewidth(.5)
+        ax[1].spines[axis].set_color("black")
+
+    # Adjust whitespace around plot area.
+    plt.subplots_adjust(left=0, right=1, wspace=0, top=0.91, bottom=0.04)
+
+    if country == "Russian Federation":
+        country = "USSR & Russian Federation"
+    fig.suptitle(
+        country,
+        x=0.5,
+        y=0.985,
+        horizontalalignment="center",
+        fontsize=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################################################
+#
+# Function: legend_for_major_emitter_charts()
+#
+# Description:
+# Generates legend for use on webpage
+#
+########################################################################################################################
+def legend_for_major_emitter_charts(
+        series0,
+        series1,
+        series2,
+        series3,
+        color0,
+        color1,
+        color2,
+        color3,
+):
+    fig, ax = plt.subplots(
+        1,
+        1,
+        figsize=(
+            user_globals.Constant.MAJOR_EMITTER_FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
+        ),
+    )
+
+    # Subplot0, line plot, series0
+    ax.plot(
+        series0.index,
+        series0,
+        color0,
+        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
+        marker=".",
+        markersize=6,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+
+    # Subplot1, line plot, series 1
+    ax.plot(
+        series1.index,
+        series1,
+        color1,
+        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
+        marker=".",
+        markersize=6,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+    # Subplot2
+    ax.plot(
+        series2.index,
+        series2,
+        color2,
+        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
+        marker=".",
+        markersize=6,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )  # Subplot3
+    ax.plot(
+        series3.index,
+        series3,
+        color3,
+        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
+        marker=".",
+        markersize=6,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+    ax.set_axis_off()  # turn off the axis
+
+    ax.legend(["Fossil Fuel CO\u2082 Emissions (tonne)",
+               "Coal Consumption (joule)",
+               "Oil Consumption (joule)",
+               "Gas Consumption (joule)"],
+              loc="upper left", frameon=True, prop={'size': 14}, framealpha=1, facecolor="white",
+              ncols=1, mode="expand", borderpad=2)
+
+
+########################################################################################################################
+#
 # Function: column_2_subplots()
 #
 # Description:
@@ -386,6 +624,167 @@ def line_column(
         horizontalalignment="left",
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.18,
+        0.08,
+        footer_text,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################################################
+#
+# Function: line_treemap()
+#
+# Description:
+# Line chart on the left (subplot0), treemap chart on the right (subplot1).
+#
+########################################################################################################################
+def line_treemap(
+        series0,
+        df,
+        color0,
+        country0,
+        title0,
+        title1,
+        subplot0_title,
+        subplot1_title,
+        start_yr0,
+        x_axis_interval0,
+        ylabel0,
+        additional_text0,
+        footer_text,
+):
+    fig = plt.figure(
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
+        )
+    )
+    ax0 = fig.add_subplot(1, 2, 1)
+    ax1 = fig.add_subplot(1, 2, 2, adjustable="box", aspect=1)
+
+    # Subplot 0 line plot.
+    ax0.plot(
+        series0.truncate(before=start_yr0).index,
+        series0.truncate(before=start_yr0),
+        color0,
+        linewidth=user_globals.Constant.LINE_WIDTH_PLOT_1x1.value,
+        marker=".",
+        markersize=6,
+        markerfacecolor="white",
+        markeredgecolor="black",
+        markeredgewidth=0.3,
+    )
+
+    # x-axis of subplot0:
+    x_ticks0 = []
+    # x_ticks only for period defined by x_axis_interval
+    for year in series0.truncate(before=start_yr0).index:
+        if year % x_axis_interval0 == 0:  # Modulus.
+            x_ticks0.append(year)
+
+    # Make initial x_tick initial year of data
+    x_ticks0[0] = min(series0.index)
+
+    # Make final x_tick final year of data
+    x_ticks0[len(x_ticks0) - 1] = max(series0.index)
+
+    ax0.set_xticks(x_ticks0)
+    ax0.set_xlabel("Year")
+    ax0.set_ylabel(ylabel0)
+    ax0.yaxis.grid(True)
+    ax0.set_box_aspect(1)
+    # Place grid behind line.
+    ax0.set_axisbelow(True)
+    ax0.autoscale(axis="y")
+    # If series max is zero, display only a zero on the y-axis, otherwise add comma
+    # thousands seperator to y-labels.
+    if max(series0) == 0:
+        ax0.set_yticks([0])
+    else:
+        ax0.yaxis.set_major_formatter(
+            matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ","))
+        )
+    # Force uppermost tick to be equal to next tick after ylim
+    ax0.set_ylim(0, max(ax0.get_yticks()))
+
+    tr.treemap(
+        ax1,
+        df,
+        area="Value",
+        labels="Label",
+        cmap=df["Color"].to_list(),
+        fill="Name",
+        top=True,
+        rectprops=dict(ec="white", lw=0.6),
+        textprops=dict(
+            c="white", place="top left", padx=3, pady=6, reflow=False, max_fontsize=100
+        ),
+    )
+
+    country1 = "World"
+    ax1.axis("off")
+    ax1.set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+    ax0.margins(x=0)
+    plt.subplots_adjust(
+        left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02, hspace=0.05
+    )
+    ax0.set_title(
+        subplot0_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc="left",
+    )
+    fig.suptitle(
+        country0,
+        x=0.18,
+        y=0.965,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.52,
+        0.947,
+        country1,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.18,
+        0.915,
+        title0,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.52,
+        0.915,
+        title1,
+        horizontalalignment="left",
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        0.825,
+        0.87,
+        additional_text0,
+        horizontalalignment="left",
+        verticalalignment="top",
+        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.18,
