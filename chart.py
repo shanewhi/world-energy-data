@@ -860,8 +860,7 @@ def column_treemap(
         if year % x_axis0_interval == 0:  # Modulus.
             x_ticks0.append(year)
 
-    # Include most recent year. If period between ticks is >= 25 years, then
-    # there's room to append most recent year.
+    # Include most recent year. If period between ticks is >= 25 years, then there's room to append most recent year.
     # Else replace final value with most recent year.
     if x_axis0_interval >= 25:
         x_ticks0.append(max(series0.index))
@@ -875,8 +874,7 @@ def column_treemap(
     # Place grid behind columns.
     ax0.set_axisbelow(True)
     ax0.autoscale(axis="y")
-    # If series max is zero, display only a zero on the y-axis, otherwise add comma
-    # thousands seperator to y-labels.
+    # If series max is zero, display only a zero on the y-axis, otherwise add comma thousands seperator to y-labels.
     if max(series0) == 0:
         ax0.set_yticks([0])
     else:
@@ -3375,8 +3373,6 @@ def treemap_3_subplots(
         fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc="left",
     )
-
-    # plt.subplots_adjust(left=0.125, top=0.9, bottom=0.09)
 
     fig.suptitle(
         country,

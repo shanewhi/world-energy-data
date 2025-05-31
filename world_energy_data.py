@@ -8,39 +8,33 @@
 
 # Import user modules.
 import collate
-import output
 import process
+import output
 
-########################################################################################
+########################################################################################################################
 #
-# Application world_energy_data.py
+# Python script world_energy_data.py
 #
 # Description:
-# Creates charts of -
-# 1. Global CO2 emissions;
-# 2. Global fossil fuel production;
-# 3. National CO2 emissions;
-# 4. National fossil fuel production; and
-# 5. National energy systems (fossil fuel production, primary energy, final energy and
-# electricity.
-# Written by Shane White using Python v3.12.2 and Spyder IDE.
+# Creates all charts for the site https://www.worldenergydata.org
+# Written by Shane White using Python
 # https://github.com/shanewhi/world-energy-data
-# https://www.worldenergydata.org
 #
 # Files:
 # world_energy_data.py (this file)
-# user_globals.py (defs)
-# collate.py (called in world_energy_data.py)
-# process.py (called in collate.py)
-# output.py (controls sequence of chart functions, called in collate.py)
-# chart.py (generic chart functions, called in process.py)
-# countries.py (translates country name to IEA equivs, called in collate.py)
+# user_globals.py (definitions)
+# collate.py (imports and collates data)
+# process.py (performs all calculations)
+# output.py (controls sequence of calling chart functions)
+# chart.py (generic chart functions)
+# countries.py (translates country name to IEA equivalents as required)
 #
-# Choose a country at bottom of script.
+# Instructions:
+# Enter a country name into tuple "countries" immediately below.
 # Country name must match that used by The Energy Institute's (EI) dataset.
-# If required, update countries.py to translate country name to IEA equiv.
+# If required, update countries.py to translate country name to IEA equiv, as shown in 5a) of Inputs below.
 #
-# Input(s):
+# Inputs:
 # 1. Global Carbon Budget in .xlsx format from
 # https://globalcarbonbudgetdata.org/latest-data.html
 # 2. NOAA ESRL CO2 data in CSV format from
@@ -57,8 +51,8 @@ import process
 #
 # b)
 # i. Load https://www.iea.org/data-and-statistics/data-tools/ \
-#      energy-statistics-data-browser?country=WORLD&fuel= \
-#      Energy%20supply&indicator=TESbySource
+# #      energy-statistics-data-browser?country=WORLD&fuel= \
+# #      Energy%20supply&indicator=TESbySource
 # ii. Right click on chart -> Inspect
 # iii. Select Network tab
 # iv. Click XHR button
@@ -73,60 +67,62 @@ import process
 # d) Add to start of file: {"balances":<cr>
 # e) Add to the end of the file: }
 #
-# Output(s): Charts and debug text to std out.
+# Outputs: All charts shown at https://www.worldenergydata.org
 #
-########################################################################################
+########################################################################################################################
+
+# Define countries to profile using tuple.
+countries = ("Total World", "Australia",)
 
 # 1. Import data.
-# Data importation differs between sources:
-# Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported
-# as single files below.
-# The International Energy Agency (IEA) dataset is stored in multiple JSON
-# files, and therefore country specific data is searched for within these,
-# rather than imported as a single file. This is done within the function
-# populate_energy_system().
+# Import global energy related data from The Energy Institute (EI), global carbon budget data from the Global Carbon
+# Project (GCP), and atmospheric CO2 data from the National Oceanic and Atmospheric Administration's Earth System
+# Research Laboratories (NOAA ESRL).
+# Note that International Energy Agency (IEA) data is not imported as a single file. This dataset is stored in multiple
+# JSON files, and therefore required country specific data is searched for and extracted from these. This is done by the
+# function collate.populate_energy_system().
+print("Importing and collating data.\n")
 ei_data, gcp_data, esrl_data = collate.import_data()
 
-
-# 2. Plot GCP data.
+# 2. Organise all CO2 related data as required for plots, and plot GCP and NOAA ESRL data.
+print("Processing CO2 data:\n")
 global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
 output.world_co2_charts(global_carbon)
 
+# 3. Generate dataframes of major coal, oil and gas producers as required for plot of shares for final year of data in
+# profile() below.
+print("\nIdentifying major fossil fuel producers:\n")
+coal_producers, oil_producers, gas_producers = collate.fossil_fuel_producer_shares(ei_data)
 
-# 3. Profile the following countries or "Total World". Country name must match that shown in EI data.
+# 4. Profile specified country, countries and or "Total World". This also includes plotting country shares of coal,
+# oil and gas production from above, and ensures this chart is included in each country, or world, profile's folder.
+
+
 def profile(country):
-	collate.profile(country, global_carbon, ei_data)
+	# Generate object containing all energy related data, in format suitable for plotting, for specified country.
+	country_energy_system = collate.energy(country, ei_data)
+	if country_energy_system.incl_ei_flag is True:
+		output.country_co2_charts(country_energy_system, global_carbon)
+		output.country_ffprod_primaryenergy_charts(country_energy_system)
+		output.country_elecgen_charts(country_energy_system)
+	if country_energy_system.incl_ei_flag is True and country_energy_system.incl_iea_flag is True:
+		output.country_finalenergy_elec_charts(country_energy_system)
+	if country_energy_system.incl_iea_flag is True:
+		output.country_finalenergy_charts(country_energy_system)
+	output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, country_energy_system.country)
 
 
-profile("Total World")
-# profile("China")
-# profile("US")
-# profile("Russian Federation")
-# profile("India")
-# profile("Saudi Arabia")
-# profile("Germany")
-# profile("Indonesia")
-# profile("United Arab Emirates")
-# profile("Australia")
-# profile("Norway")
-# profile("Japan")
-# profile("Spain")
-# profile("France")
-# profile("Singapore")
-# profile("Vietnam")
-# profile("United Kingdom")
-# profile("Japan")
-# profile("Iran")
-# profile("Canada")
-# profile("Mexico")
-# profile("Brazil")
-# profile("South Korea") # IEA = KOREA
-# profile("South Africa") # IEA = SOUTHAFRIC
-# profile("Turkiye")
-# profile("Uruguay")
+for name in countries:
+	print("\n\nGenerating charts for: " + str(name))
+	profile(name)
 
-# 4. Plot FF CO2 emissions and fossil fuel primary energy trends of major (≥1%) emitters.
+# 5. Plot annual fossil fuel CO2 emissions and fossil fuel primary energy trends of Major Emitters in separate folder.
+# Identify major emitters.
+print("\n\nGenerating fossil fuel consumption charts of major emitting countries:\n")
 major_emitters = process.id_major_ffco2_emitters(global_carbon)
+# Collate major emitter data.
 major_emitter_dataframe = collate.populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data)
+# Include plot of global CO2 emissions trend and shares in above folder.
 energy_system_world = collate.energy("Total World", ei_data)
+# Plot world and major emitter charts.
 output.major_emitter_charts(energy_system_world, global_carbon, major_emitter_dataframe)
