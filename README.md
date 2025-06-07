@@ -1,8 +1,8 @@
-This Python package generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for the world and specified countires. Example charts are displayed at https://www.worldenergydata.org/.
+Generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for the world and specified countires. Charts are displayed at https://www.worldenergydata.org/.
 
-This package requires installation of Python and dependancies listed below. Charts are output in SVG format so there's no loss of resolution when magnified.
+Requires installation of Python and dependancies listed below. Charts are output in SVG format so there's no loss of resolution when magnified.
 
-This package consists of -
+Python files -
 1. world_energy_data.py (main executable)
 2. user_globals.py (global definitions)
 3. collate.py (extracts and arranges country specific data from input dataset)
@@ -32,7 +32,7 @@ c) Energy Institute Statistical Review of World Energy data from -<br>
 https://www.energyinst.org/statistical-review/resources-and-data-downloads<br>
 (Direct link is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
 d) IEA annual energy balances in JSON format obtained from -<br>
-   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br>
+   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br> 
 
 Instructions (code below is within single quotes) -
 1. Choose a country to profile from those listed in the Energy Institute's data listed above.
