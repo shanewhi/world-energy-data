@@ -32,11 +32,13 @@ c) Energy Institute Statistical Review of World Energy data from -<br>
 https://www.energyinst.org/statistical-review/resources-and-data-downloads<br>
 (Direct link is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
 d) IEA annual energy balances in JSON format obtained from -<br>
-   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br> 
+   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br>
+5. https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at<br>
+https://robbieandrew.github.io/GCB2024/
 
 Instructions (code below is within single quotes) -
 1. Choose a country to profile from those listed in the Energy Institute's data listed above.
-2. Edit the existing profile commands in world_energy_data.py to include 'profile("Country_Name")', 
+2. Edit line 75 of world_energy_data.py (first line of code) to include the country,
 where Country_Name is an exact duplicate of the name of the country selected in (1).
 3. Browse one of the IEA JSON files listed in (4) above to identify the IEA's equivalent country name.
 4. If the IEA version of Country_Name differs, edit countries.iea_country_name() to translate Country_Name to the 
