@@ -82,17 +82,18 @@ countries = ("Total World", "Australia",)
 # JSON files, and therefore required country specific data is searched for and extracted from these. This is done by the
 # function collate.populate_energy_system().
 print("Importing and collating data.\n")
-ei_data, gcp_data, esrl_data = collate.import_data()
+ei_data, gcp_data, gcp_co2_rcp_pathways, esrl_data = collate.import_data()
 
 # 2. Organise all CO2 related data as required for plots, and plot GCP and NOAA ESRL data.
 print("Processing CO2 data:\n")
-global_carbon = collate.co2_data(ei_data, gcp_data, esrl_data)
+global_carbon = collate.co2_data(ei_data, gcp_data, gcp_co2_rcp_pathways, esrl_data)
 output.world_co2_charts(global_carbon)
 
 # 3. Generate dataframes of major coal, oil and gas producers as required for plot of shares for final year of data in
 # profile() below.
 print("\nIdentifying major fossil fuel producers:\n")
 coal_producers, oil_producers, gas_producers = collate.fossil_fuel_producer_shares(ei_data)
+
 
 # 4. Profile specified country, countries and or "Total World". This also includes plotting country shares of coal,
 # oil and gas production from above, and ensures this chart is included in each country, or world, profile's folder.
