@@ -38,14 +38,14 @@ https://robbieandrew.github.io/GCB2024/
 
 Instructions (code below is within single quotes) -
 1. Choose a country to profile from those listed in the Energy Institute's data listed above.
-2. Edit line 75 of world_energy_data.py (first line of code) to include the country,
-where Country_Name is an exact duplicate of the name of the country selected in (1).
+2. Edit line 75 of world_energy_data.py (first line of code) to include the country name,
+as an exact duplicate of the name selected in (1).
 3. Browse one of the IEA JSON files listed in (4) above to identify the IEA's equivalent country name.
-4. If the IEA version of Country_Name differs, edit countries.iea_country_name() to translate Country_Name to the 
+4. If the IEA version differs, edit countries.iea_country_name() to translate the country name to the 
 IEA equivalent.
 5. Save all, and in a terminal, enter the command 'python3 world_energy_data.py'
 6. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and 
-'charts Country_Name' for national, or World, energy charts.
+'charts country_name' for national, or World energy charts.
 7. If need be, edit flags in user_globals.py to suit user preferences.
 
 Written by Shane White, whitesha@protonmail.com, using Python v3.12.2
