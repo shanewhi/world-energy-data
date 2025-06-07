@@ -49,7 +49,8 @@ class Energy_System:
 				 country,  # Country name.
 				 incl_ei_flag,  # True if country appears in EI data.
 				 incl_iea_flag,  # True if country appears in IEA data.
-				 ffco2_Mt,  # Annual national fossil fuel CO2 emissions in units of mega tonnes.
+				 ffco2_Mt,  # Annual national fossil fuel CO2 emissions in units of megatonnes.
+				 ffco2_Gt, # Annual national fossil fuel CO2 emissions in units of gigatonnes.
 				 ffprod_PJ,  # Annual fossil fuel production in units of peta joules.
 				 primary_PJ,  # Annual primary energy in units of peta joules.
 				 elecgen_TWh,  # Annual electricity generation in units of tera Watt hours.
@@ -63,6 +64,7 @@ class Energy_System:
 		self.incl_ei_flag = incl_ei_flag
 		self.incl_iea_flag = incl_iea_flag
 		self.ffco2_Mt = ffco2_Mt
+		self.ffco2_Gt = ffco2_Gt
 		self.ffprod_PJ = ffprod_PJ
 		self.primary_PJ = primary_PJ
 		self.elecgen_TWh = elecgen_TWh

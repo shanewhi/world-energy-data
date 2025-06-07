@@ -1377,7 +1377,7 @@ def major_emitter_charts(energy_system, global_carbon, major_emitter_df):
 	subplot1_title = "Annual"
 	subplot2_title = "Year " + str(int(max(global_carbon.country_shares_fy["Year"])))
 	x_interval = 10
-	ylabel = "Megatonne (Mt)"
+	ylabel = "Gigatonne (Gt)"
 
 	large_emitter_share = 100 - float(
 		global_carbon.country_shares_fy[
@@ -1419,13 +1419,13 @@ These\nhad shares greater than or equal\nto " + str(user_globals.Constant.LARGE_
 						)
 
 	footer_text = (str(energy_system.ffco2_Mt["Value"].index[-1]) + " fossil fuel CO\u2082 emissions = " +
-				   f"{(round(energy_system.ffco2_Mt["Value"].values[-1], 1)):,}" + "Mt\n\
+				   f"{(round(energy_system.ffco2_Gt["Value"].values[-1], 1)):,}" + "Gt\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024,\n\
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 
 	chart.line_treemap(
-		energy_system.ffco2_Mt["Value"],
+		energy_system.ffco2_Gt["Value"],
 		global_carbon.country_shares_fy,
 		user_globals.Color.CO2_EMISSION.value,
 		"Total World",

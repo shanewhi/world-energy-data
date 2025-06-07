@@ -261,7 +261,11 @@ def populate_energy_system(country, ei_data):
 		# Construct dataframe of fossil fuel CO2 emissions.
 		ffco2_data_Mt = country_data.loc[country_data["Var"] == "co2_combust_mtco2", "Value"]
 		ffco2_Mt = pd.DataFrame(index=ffco2_data_Mt.index, columns=["Value", "Change"])
+		ffco2_Gt = pd.DataFrame(index=ffco2_data_Mt.index, columns=["Value", "Change"])
+
 		ffco2_Mt["Value"] = ffco2_data_Mt
+		ffco2_Gt["Value"] = ffco2_data_Mt / 1000
+
 		# Calculate annual change.
 		process.ffco2_change(ffco2_Mt)
 
@@ -598,6 +602,7 @@ def populate_energy_system(country, ei_data):
 		incl_ei_flag,
 		incl_iea_flag,
 		ffco2_Mt,
+		ffco2_Gt,
 		ffprod_PJ,
 		primary_PJ,
 		elecgen_TWh,
