@@ -829,8 +829,9 @@ respective dataset."
 Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Energy Consumption data: IEA 2024 World Energy Balances, \
-https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances. Latest year shown."
+Energy Consumption data: IEA World Energy Balances, \
+https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser?country\
+WORLD&fuel=Energy%20consumption&indicator=TFCbySource."
 
 		chart.treemap_1_subplot(
 			energy_system.consumption_final_shares,
@@ -861,7 +862,7 @@ respective dataset."
 		title2 = "Electricity Generation by Share in year " + str(
 			energy_system.elecgen_TWh.index[-1]
 		)
-		footer_text = "For clarity: \
+		footer_text = ("For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
 'Wind, solar etc' in the IEA dataset used for the LH chart refers to a non-electric form, and usually too small to \
@@ -871,10 +872,11 @@ Total generation is published, so any such unpublished share is calculated, & sh
 Shares of coal, oil, gas, biofuels, and waste shown in the LH chart were consumed for purposes other than \
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Energy Consumption data: IEA 2024 World Energy Balances, \
-https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances. Latest year shown.\n\
+Energy Consumption data: IEA World Energy Balances,\
+https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser?country=WORLD\
+&fuel=Energy%20consumption&indicator=TFCbySource\n\
 Electricity Generation data: The Energy Institute Statistical Review of World Energy 2024, \
-https://www.energyinst.org/statistical-review/resources-and-data-downloads."
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 
 		chart.treemap_2_subplots(
 			energy_system.finalenergy_fy_shares,
@@ -959,8 +961,8 @@ def country_finalenergy_charts(energy_system):
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero. \n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. \n\
-Data: IEA 2024 World Energy Balances, \
-https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances."
+Data: IEA World Energy Balances, https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser?\
+country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource."
 
 	chart.column_6_subplots(
 		feq1,
