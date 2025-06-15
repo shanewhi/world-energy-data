@@ -72,7 +72,7 @@ import output
 ########################################################################################################################
 
 # Define countries to profile using tuple.
-countries = ("Total World", "Australia",)
+countries = ("Total World",)
 
 # 1. Import data.
 # Import global energy related data from The Energy Institute (EI), global carbon budget data from the Global Carbon
