@@ -364,7 +364,8 @@ def country_co2_charts(energy_system, global_carbon):
         s += i
         s += "\n"
 
-    additional_text1 = ("Shares total 100% of 2023 global\nfossil fuel CO\u2082 emissions.\n\n\n\
+    additional_text1 = ("Shares total 100% of " + str(int(max(global_carbon.country_shares_fy["Year"]))) +
+                        " global\nfossil fuel CO\u2082 emissions.\n\n\n\
 Segments excluding 'Other' represent\ncountries with a "
                         + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
                         + "% or greater share,\nof which there were "
