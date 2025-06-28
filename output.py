@@ -587,21 +587,36 @@ def country_ffprod_primaryenergy_charts(energy_system):
     subplot3_title = "Gas"
 
     if country == "World":
-        footer_text = "Oil production calculated by converting units of Mt to joules using EI's approximate \
-conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules. \
+        footer_text = (str(energy_system.ffprod_PJ.index[-1])
+                       + " values: "
+                       + "Coal = "
+                       + f"{(round(energy_system.ffprod_PJ["Coal"].iloc[-1] *
+                                   user_globals.Constant.PJ_TO_EJ.value)):,}"
+                       + "EJ, Oil = "
+                       + f"{(round(energy_system.ffprod_PJ["Oil"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
+                       + "EJ, Gas = "
+                       + f"{(round(energy_system.ffprod_PJ["Gas"].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}"
+                       + "EJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
+conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
 A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
-https://www.energyinst.org/statistical-review/resources-and-data-downloads."
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
     else:
-        footer_text = "For comparison, EI(2024) listed 2023 World production values as: Coal 179,000 PJ, \
-Oil 197,000 PJ, and Gas 146,000 PJ.\n\
-Oil production calculated by converting units of Mt to joules using EI's approximate conversion factor of \
-41.868 GJ/toe. Production data for coal and gas provided in units of joules. \
+        footer_text = (str(energy_system.primary_PJ.index[-1])
+                       + " values: "
+                       + "Coal = "
+                       + f"{(round(energy_system.ffprod_PJ["Coal"].iloc[-1])):,}"
+                       + "PJ, Oil = "
+                       + f"{(round(energy_system.ffprod_PJ["Oil"].iloc[-1])):,}"
+                       + "PJ, Gas = "
+                       + f"{(round(energy_system.ffprod_PJ["Gas"].iloc[-1])):,}"
+                       + "PJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
+conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
 A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Data: The Energy Institute Statistical Review of World Energy 2024 (EI(2024)), \
-https://www.energyinst.org/statistical-review/resources-and-data-downloads."
+Data: The Energy Institute Statistical Review of World Energy 2024, \
+https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 
     color1 = user_globals.Color.COAL.value
     color2 = user_globals.Color.OIL.value
@@ -1045,15 +1060,35 @@ countries.\nFor "
                        + "TWh, or "
                        + f"{(round(energy_system.elecgen_TWh["Unpublished Share"].iloc[-1], 0))}"
                        .rstrip("0").rstrip(".")
-                       + "%.\nTotal electricity generation in "
-                       + str(energy_system.elecgen_TWh.index[-1])
-                       + " = " +  # Round and remove trailing zero.
-                       f"{(round(energy_system.elecgen_TWh
-                                 ["Total Country"].iloc[-1], 0)):,}".rstrip("0").rstrip(".")
-                       + "TWh. Value rounded.\nTotal = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + \
+                       + "\nTotal = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + \
 any unpublished quantity above. Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
-Quantities are gross generation that don't account for imports or exports.\n\
-A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
+Quantities are gross generation that don't account for imports or exports.\n"
+                       + str(energy_system.elecgen_TWh.index[-1])
+                       + " values: \n"
+                       + "Total = "
+                       + f"{(round(energy_system.elecgen_TWh["Total Country"].iloc[-1])):,}"
+                       + " TWh\nNuclear = "
+                       + f"{(round(energy_system.elecgen_TWh["Nuclear"].iloc[-1])):,}"
+                       + " TWh\nFossil Fuels = "
+                       + f"{(round(energy_system.elecgen_TWh["Fossil Fuels"].iloc[-1])):,}"
+                       + " TWh\nCoal = "
+                       + f"{(round(energy_system.elecgen_TWh["Coal"].iloc[-1])):,}"
+                       + " TWh\nOil = "
+                       + f"{(round(energy_system.elecgen_TWh["Oil"].iloc[-1])):,}"
+                       + " TWh\nGas = "
+                       + f"{(round(energy_system.elecgen_TWh["Gas"].iloc[-1])):,}"
+                       + " TWh\nBio, Geo and Other = "
+                       + f"{(round(energy_system.elecgen_TWh["Bio, Geo and Other"].iloc[-1])):,}"
+                       + " TWh\nRenewables = "
+                       + f"{(round(energy_system.elecgen_TWh["Renewables"].iloc[-1])):,}"
+                       + " TWh\nHydro = "
+                       + f"{(round(energy_system.elecgen_TWh["Hydro"].iloc[-1])):,}"
+                       + " TWh\nWind = "
+                       + f"{(round(energy_system.elecgen_TWh["Wind"].iloc[-1])):,}"
+                       + " TWh\nSolar = "
+                       + f"{(round(energy_system.elecgen_TWh["Solar"].iloc[-1])):,}"
+                       + " TWh\nA plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid \
+line at zero.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
