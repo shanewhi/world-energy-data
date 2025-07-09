@@ -48,9 +48,9 @@ class Energy_System:
     def __init__(self,
                  country,  # Country name.
                  incl_ei_flag,  # True if country appears in EI data.
-                 incl_iea_flag,  # True if country appears in IEA data.
                  ffco2_Mt,  # Annual national fossil fuel CO2 emissions in units of megatonnes.
                  ffco2_Gt,  # Annual national fossil fuel CO2 emissions in units of gigatonnes.
+                 sector_co2_Mt,  # Annual national CO2 emissions by sector in units of megatonnes.
                  ffprod_PJ,  # Annual fossil fuel production in units of peta joules.
                  primary_PJ,  # Annual primary energy in units of peta joules.
                  elecgen_TWh,  # Annual electricity generation in units of tera Watt hours.
@@ -62,9 +62,9 @@ class Energy_System:
                  ):
         self.country = country
         self.incl_ei_flag = incl_ei_flag
-        self.incl_iea_flag = incl_iea_flag
         self.ffco2_Mt = ffco2_Mt
         self.ffco2_Gt = ffco2_Gt
+        self.sector_co2_Mt = sector_co2_Mt
         self.ffprod_PJ = ffprod_PJ
         self.primary_PJ = primary_PJ
         self.elecgen_TWh = elecgen_TWh
@@ -117,31 +117,31 @@ class Constant(Enum):
 
     # FONT SIZES:
     # Named options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
-    SUPTITLE_FONT_SIZE = "large"
-    TITLE_FONT_SIZE = "xx-large"
-    TITLE_ADDITION_FONT_SIZE = "medium"
-    SUBPLOT_TITLE_FONT_SIZE = "large"
-    SUBPLOT_2ROW_TITLE_FONT_SIZE = "large"
-    FOOTER_TEXT_FONT_SIZE = "small"
+    SUPTITLE_FONT_SIZE = 'large'
+    TITLE_FONT_SIZE = 'xx-large'
+    TITLE_ADDITION_FONT_SIZE = 'medium'
+    SUBPLOT_TITLE_FONT_SIZE = 'large'
+    SUBPLOT_2ROW_TITLE_FONT_SIZE = 'large'
+    FOOTER_TEXT_FONT_SIZE = 'small'
     MAJOR_EMITTER_TITLE_FONT_SIZE = 40
-    MAJOR_EMITTER_SUB_TITLE_FONT_SIZE = "large"
-    MAJOR_EMITTER_TICK_FONT_SIZE = "small"
-    MAJOR_EMITTER_AXIS_LABEL_FONT_SIZE = "small"
+    MAJOR_EMITTER_SUB_TITLE_FONT_SIZE = 'large'
+    MAJOR_EMITTER_TICK_FONT_SIZE = 'small'
+    MAJOR_EMITTER_AXIS_LABEL_FONT_SIZE = 'small'
 
     # FONT WEIGHTS:
     # Options -
     # 'ultralight', 'light', 'normal', 'regular', 'book', 'medium', 'roman',
     # 'semibold', 'demibold', 'demi', 'bold', 'heavy', 'extra bold', 'black'
-    SUPTITLE_FONT_WEIGHT = "normal"
-    TITLE_FONT_WEIGHT = "semibold"
-    TITLE_ADDITION_FONT_WEIGHT = "normal"
-    SUBPLOT_TITLE_FONT_WEIGHT = "medium"
-    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = "medium"
-    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = "medium"
-    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = "medium"
-    FOOTER_TEXT_FONT_WEIGHT = "normal"
-    MAJOR_EMITTER_TITLE_FONT_WEIGHT = "bold"
-    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = "semibold"
+    SUPTITLE_FONT_WEIGHT = 'normal'
+    TITLE_FONT_WEIGHT = 'semibold'
+    TITLE_ADDITION_FONT_WEIGHT = 'normal'
+    SUBPLOT_TITLE_FONT_WEIGHT = 'medium'
+    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = 'medium'
+    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = 'medium'
+    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = 'medium'
+    FOOTER_TEXT_FONT_WEIGHT = 'normal'
+    MAJOR_EMITTER_TITLE_FONT_WEIGHT = 'bold'
+    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = 'semibold'
 
     # FIGURE SIZES.
     # To inspect, set DISPLAY_CHARTS True, and use the chart sliders. Set ALL parameters.
@@ -193,26 +193,34 @@ class Constant(Enum):
 # Define colors for charts.
 # Color library: https://matplotlib.org/stable/gallery/color/named_colors.html
 class Color(Enum):
-    CO2_CONC = "cornflowerblue"
-    CO2_EMISSION = "slategrey"
-    FOSSIL_FUELS = "grey"
-    CEMENT = "cadetblue"
-    LUC = "olivedrab"
-    COAL = "black"
-    OIL = "brown"
-    GAS = "darkorange"
-    FLARING = "hotpink"
-    NUCLEAR = "darkviolet"
-    HYDRO = "dodgerblue"
-    WIND = "blue"
-    SOLAR = "crimson"
-    BIOFUELS_AND_WASTE = "saddlebrown"
-    OTHER = "peru"
-    HEAT = "rebeccapurple"
-    RENEWABLES = "green"
-    WIND_AND_SOLAR = "limegreen"
-    ELECTRICITY = "teal"
-    UNPUBLISHED = "steelblue"
+    CO2_CONC = 'cornflowerblue'
+    CO2_EMISSION = 'slategrey'
+    FOSSIL_FUELS = 'grey'
+    CEMENT = 'cadetblue'
+    LUC = 'olivedrab'
+    COAL = 'black'
+    OIL = 'brown'
+    GAS = 'darkorange'
+    FLARING = 'hotpink'
+    NUCLEAR = 'darkviolet'
+    HYDRO = 'dodgerblue'
+    WIND = 'blue'
+    SOLAR = 'crimson'
+    BIOFUELS_AND_WASTE = 'saddlebrown'
+    OTHER = 'peru'
+    HEAT = 'rebeccapurple'
+    RENEWABLES = 'green'
+    WIND_AND_SOLAR = 'limegreen'
+    ELECTRICITY = 'teal'
+    UNPUBLISHED = 'steelblue'
+    SECTOR_ELEC = 'midnightblue'
+    SECTOR_OTHER_ENERGY = 'coral'
+    SECTOR_INDUSTRY = 'darkmagenta'
+    SECTOR_TRANSPORT = 'sienna'
+    SECTOR_COM_PUBLIC_SERV = 'dodgerblue'
+    SECTOR_RESD = 'firebrick'
+    SECTOR_AG = 'green'
+    SECTOR_OTHER = 'purple'
 
 
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
@@ -220,16 +228,16 @@ class Color(Enum):
 # Matplotlib universal settings:
 # https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.rcParams
 rc = {
-    "xtick.direction": "out",
-    "xtick.color": "grey",
-    "xtick.labelcolor": "black",
-    "ytick.direction": "out",
-    "ytick.color": "grey",
-    "ytick.labelcolor": "black",
+    'xtick.direction': 'out',
+    'xtick.color': 'grey',
+    'xtick.labelcolor': 'black',
+    'ytick.direction': 'out',
+    'ytick.color': 'grey',
+    'ytick.labelcolor': 'black',
 }
-plt.style.use(("bmh", rc))
+plt.style.use(('bmh', rc))
 
 # Set global font parameters.
 # If you add a font to the OS, be sure to delete all matplotlib's font cache files in ~/.matplotlib.
-plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["font.sans-serif"] = ["Inter"]
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = ['Inter']
