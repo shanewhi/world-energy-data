@@ -1202,7 +1202,7 @@ countries.\nFor "
                        + 'TWh, or '
                        + f'{(round(energy_system.elecgen_TWh['Unpublished Share'].iloc[-1], 0))}'
                        .rstrip('0').rstrip('.')
-                       + "\nTotal = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + \
+                       + "%.\nTotal = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + \
 any unpublished quantity above. Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
 Quantities are gross generation that don't account for imports or exports.\n"
                        + str(energy_system.elecgen_TWh.index[-1])
