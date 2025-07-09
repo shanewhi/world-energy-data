@@ -33,7 +33,7 @@ Dependencies -
    https://www.energyinst.org/statistical-review/resources-and-data-downloads<br>
    (Direct link
    is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
-   d) IEA CO2 Emissions by Sector and Total Final Consumption by source for each relevant country, in CSV format
+   d) IEA CO2 Emissions by Sector, and Total Final Consumption by source for each relevant country, in CSV format
    from https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br> 
      i) Select Country<br>
      ii) Select Energy Consumption<br>
