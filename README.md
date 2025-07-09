@@ -33,15 +33,16 @@ Dependencies -
    https://www.energyinst.org/statistical-review/resources-and-data-downloads<br>
    (Direct link
    is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
-   d) IEA CO2 Emissions by Sector, and Total Final Consumption by source for each relevant country, in CSV format
-   from https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br> 
-     i) Select Country<br>
-     ii) Select Energy Consumption<br>
-     iii) Select Total final consumption (TFC) by source<br>
-     iv) Select Download chart data<br>
-     v) Select Energy transition indicators<br>
-     vi) Select CO₂ emissions by sector<br>
-     vii) Select Download chart data<br>
+   d) IEA CO2 Emissions by Sector and Total Final Consumption by source for each relevant country, in CSV format
+   from <br>
+   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser
+   i. Select Country
+   ii. Select Energy Consumption
+   iii. Select Total final consumption (TFC) by source
+   iv. Select Download chart data
+   v. Select Energy transition indicators
+   vi. Select CO₂ emissions by sector
+   vii. Select Download chart data
 5. https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at<br>
    https://robbieandrew.github.io/GCB2024/
 
@@ -51,9 +52,10 @@ Instructions (code below is within single quotes) -
 2. Edit line 38 of world_energy_data.py to include the country name,
    as an exact duplicate of the name selected in (1), and followed by a comma in the case of a single country <br>
    (single element tuple must be followed by a comma).
-3. Obtain and move the IEA datafiles from 4(d) above to the same folder as this Python code.
+3. Obtain and move the IEA datafiles from 4(d) above to the same folder as this Python code. Add the IEA's country<br>
+   name to countries.py if need be.
 4. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and
    'charts country_name' for national, or World energy charts.
-5. If need be, edit flags in user_globals.py to suit user preferences.
+5. Edit flags in user_globals.py to suit user preferences as required.
 
 Written by Shane White, whitesha@protonmail.com, using Python v3.12

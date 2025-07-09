@@ -21,6 +21,7 @@
 import pandas as pd
 import numpy as np
 
+import countries
 # Import user modules.
 import user_globals
 import process
@@ -130,11 +131,10 @@ def import_gcp_esrl_ei_data():
 #
 ########################################################################################################################
 def import_iea_data(country_name):
-    if country_name == 'Total World':
-        country_name = 'World'
+    iea_country_name = countries.translate_country_name(country_name)
     # Import International Energy Agency data.
-    filename_co2_emissions_by_sector = 'CO2 emissions by sector - ' + str(country_name) + '.csv'
-    filename_tfc = 'Total final consumption (TFC) by source - ' + str(country_name) + '.csv'
+    filename_co2_emissions_by_sector = 'CO2 emissions by sector - ' + str(iea_country_name) + '.csv'
+    filename_tfc = 'Total final consumption (TFC) by source - ' + str(iea_country_name) + '.csv'
     try:
         co2_by_sector = pd.read_csv(filename_co2_emissions_by_sector, index_col=0, skiprows=4,
                                     names=['Electricity & Heat Producers', 'Other Energy Producers',
