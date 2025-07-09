@@ -35,14 +35,14 @@ Dependencies -
    is https://www.energyinst.org/__data/assets/file/0003/1055694/Consolidated-Dataset-Narrow-format.csv)<br>
    d) IEA CO2 Emissions by Sector and Total Final Consumption by source for each relevant country, in CSV format
    from <br>
-   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser
-   i. Select Country
-   ii. Select Energy Consumption
-   iii. Select Total final consumption (TFC) by source
-   iv. Select Download chart data
-   v. Select Energy transition indicators
-   vi. Select CO₂ emissions by sector
-   vii. Select Download chart data
+   https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser<br> 
+     i) Select Country<br>
+     ii) Select Energy Consumption<br>
+     iii) Select Total final consumption (TFC) by source<br>
+     iv) Select Download chart data<br>
+     v) Select Energy transition indicators<br>
+     vi) Select CO₂ emissions by sector<br>
+     vii) Select Download chart data<br>
 5. https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at<br>
    https://robbieandrew.github.io/GCB2024/
 
