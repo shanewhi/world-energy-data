@@ -479,6 +479,7 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
         print('Country not in EI data.\n')
         incl_ei_flag = False
         ffco2_Mt = None
+        ffco2_Gt = None
         ffprod_PJ = None
         primary_PJ = None
         elecgen_TWh = None

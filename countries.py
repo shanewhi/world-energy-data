@@ -30,6 +30,10 @@ def translate_country_name(ei_name):
         iea_name = 'World'
     if ei_name == 'China':
         iea_name = "People's Republic of China"
+    if ei_name == 'US':
+        iea_name = "United States"
+    else:
+        iea_name = ei_name
     return iea_name
 
 ########################################################################################################################
