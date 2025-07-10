@@ -762,8 +762,9 @@ def electricity(energy_system):
 #
 ########################################################################################################################
 def final_energy(energy_system):
+
     energy_system.finalenergy_PJ['Oil'] = (energy_system.finalenergy_PJ['Crude oil'] +
-                                           energy_system.finalenergy_PJ['Oil products'])
+                                               energy_system.finalenergy_PJ['Oil products'])
     energy_system.finalenergy_PJ.drop(columns=['Crude oil', 'Oil products'], inplace=True)
 
     energy_system.finalenergy_PJ['Total'] = energy_system.finalenergy_PJ.sum(axis=1)
@@ -786,8 +787,9 @@ def final_energy(energy_system):
     energy_system.finalenergy_PJ['Electricity Share'] = (energy_system.finalenergy_PJ['Electricity'] /
                                                          energy_system.finalenergy_PJ['Total'] * 100)
 
+
     energy_system.finalenergy_PJ['Heat Share'] = (energy_system.finalenergy_PJ['Heat'] /
-                                                  energy_system.finalenergy_PJ['Total'] * 100)
+                                                      energy_system.finalenergy_PJ['Total'] * 100)
 
     print('\nMost recent year Total Energy Consumption (IEA) = ' +
           str(int(energy_system.finalenergy_PJ['Total'].iloc[-1])) + 'PJ\n')
@@ -817,7 +819,7 @@ def final_energy(energy_system):
                 - energy_system.finalenergy_PJ.loc[yr - 1, 'Electricity'])
 
         energy_system.finalenergy_PJ.loc[yr, 'Heat Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Heat'] -
-                                                               energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
+                                                                   energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
 
     # To plot shares for final year, organise into dataframes of the prerequisite format.
     coal_finalenergy_share_fy = energy_system.finalenergy_PJ['Coal Share'].iloc[-1]

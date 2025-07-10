@@ -158,6 +158,25 @@ def import_iea_data(country_name):
                                  'Oil products': float, 'Natural gas': float, 'Wind, solar, etc.': float,
                                  'Biofuels and waste': float, 'Electricity': float, 'Heat': float, 'Units': str},
                           )
+        # IEA TFC data for some countries does not list all forms of consumption. Assign a value of 0 to such columns.
+        tfc_keys = tfc.keys()
+        if 'Coal' not in tfc_keys:
+            tfc['Coal'] = 0
+        if 'Crude oil' not in tfc_keys:
+            tfc['Crude oil'] = 0
+        if 'Oil products' not in tfc_keys:
+            tfc['Oil products'] = 0
+        if 'Natural gas' not in tfc_keys:
+            tfc['Natural gas'] = 0
+        if 'Wind, solar, etc.' not in tfc_keys:
+            tfc['Wind, solar, etc.'] = 0
+        if 'Biofuels and waste' not in tfc_keys:
+            tfc['Biofuels and waste'] = 0
+        if 'Electricity' not in tfc_keys:
+            tfc['Electricity'] = 0
+        if 'Heat' not in tfc_keys:
+            tfc['Heat'] = 0
+
         tfc.drop(columns='Units', inplace=True)
         tfc.fillna(value=0, inplace=True)
         tfc.rename(columns={'Natural gas': 'Gas', 'Wind, solar, etc.': 'Wind Solar Etc',
