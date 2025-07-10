@@ -132,37 +132,36 @@ def import_gcp_esrl_ei_data():
 ########################################################################################################################
 def import_iea_data(country_name):
     iea_country_name = countries.translate_country_name(country_name)
-    # Import International Energy Agency data.
     filename_co2_emissions_by_sector = 'CO2 emissions by sector - ' + str(iea_country_name) + '.csv'
     filename_tfc = 'Total final consumption (TFC) by source - ' + str(iea_country_name) + '.csv'
     try:
-        co2_by_sector = pd.read_csv(filename_co2_emissions_by_sector, index_col=0, skiprows=4,
-                                    names=['Electricity & Heat Producers', 'Other Energy Producers',
-                                           'Transport', 'Manufacturing Industry',
-                                           'Commercial & Public Services',
-                                           'Residences', 'Agriculture/Forestry', 'Fishing',
-                                           'Non-specified (Other)', 'Units'],
-                                    dtype={'Electricity & Heat Producers': float, 'Other Energy Producers': float,
-                                           'Transport': float, 'Manufacturing Industry': float,
-                                           'Commercial & Public Services': float,
-                                           'Residences': float, 'Agriculture/Forestry': float, 'Fishing': float,
+        co2_by_sector = pd.read_csv(filename_co2_emissions_by_sector, skiprows=3, index_col=0,
+                                    dtype={'Electricity and heat producers': float, 'Other energy industries': float,
+                                           'Transport Sector': float, 'Industry Sector': float,
+                                           'Commercial and Public Services': float,
+                                           'Residential': float, 'Agriculture/Forestry': float, 'Fishing': float,
                                            'Non-specified (Other)': float, 'Units': str})
         co2_by_sector.drop(columns='Units', inplace=True)
         co2_by_sector.fillna(value=0, inplace=True)
+        co2_by_sector.rename(columns={'Electricity and heat producers': 'Electricity & Heat Producers',
+                                      'Other energy industries': 'Other Energy Producers',
+                                      'Transport Sector': 'Transport', 'Industry Sector': 'Manufacturing Industry',
+                                      'Residential': 'Residences',
+                                      'Commercial and Public Services': 'Commercial & Public Services'}, inplace=True)
+
     except FileNotFoundError:
         co2_by_sector = None
         print('\nFile not found: ' + filename_co2_emissions_by_sector)
     try:
-        tfc = pd.read_csv(filename_tfc, index_col=0, skiprows=4,
-                          names=['Coal', 'Crude oil',
-                                 'Oil products', 'Gas', 'Wind Solar Etc',
-                                 'Biofuels and Waste', 'Electricity', 'Heat', 'Units'],
+        tfc = pd.read_csv(filename_tfc, index_col=0, skiprows=3,
                           dtype={'Coal': float, 'Crude oil': float,
-                                 'Oil products': float, 'Gas': float, 'Wind Solar Etc.': float,
-                                 'Biofuels and Waste': float, 'Electricity': float, 'Heat': float, 'Units': str},
+                                 'Oil products': float, 'Natural gas': float, 'Wind, solar, etc.': float,
+                                 'Biofuels and waste': float, 'Electricity': float, 'Heat': float, 'Units': str},
                           )
         tfc.drop(columns='Units', inplace=True)
         tfc.fillna(value=0, inplace=True)
+        tfc.rename(columns={'Natural gas': 'Gas', 'Wind, solar, etc.': 'Wind Solar Etc',
+                            'Biofuels and waste': 'Biofuels and Waste', }, inplace=True)
 
     except FileNotFoundError:
         tfc = None

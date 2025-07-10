@@ -67,8 +67,9 @@ def profile(country):
         output.country_elecgen_charts(country_energy_system)
     if iea_co2_by_sector_Mt is not None:
         output.co2_by_sector_chart(country_energy_system)
-    if iea_tfc_TJ is not None:
+    if iea_tfc_TJ is not None and country_energy_system.incl_ei_flag is True:
         output.country_finalenergy_elec_charts(country_energy_system)
+    if iea_tfc_TJ is not None:
         output.country_finalenergy_charts(country_energy_system)
     output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, country_energy_system.country)
 
