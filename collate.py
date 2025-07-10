@@ -334,7 +334,7 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
         process.ffco2_change(ffco2_Mt)
 
         # Identify primary energy in country data.
-        total_primary_EJ = country_data.loc[country_data['Var'] == 'primary_ej', 'Value']
+        total_primary_EJ = country_data.loc[country_data['Var'] == 'tes_ej', 'Value']
 
         # Extract fossil fuel production data, convert to PJ, and copy to dataframe ffprod_PJ.
         ffprod_PJ = pd.DataFrame(index=total_primary_EJ.index, columns=['Coal', 'Oil', 'Gas'])
