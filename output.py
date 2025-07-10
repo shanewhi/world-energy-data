@@ -707,7 +707,6 @@ def country_ffprod_primaryenergy_charts(energy_system):
                        + f'{(round(energy_system.ffprod_PJ['Gas'].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}'
                        + "EJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
 conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
-A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
@@ -722,7 +721,6 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                        + f'{(round(energy_system.ffprod_PJ['Gas'].iloc[-1])):,}'
                        + "PJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
 conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
-A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid line at zero.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
@@ -786,8 +784,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                        + f'{(round(energy_system.primary_PJ['Oil'].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}'
                        + 'EJ, Gas = '
                        + f'{(round(energy_system.primary_PJ['Gas'].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}'
-                       + 'EJ. A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid \
-line at zero.\n\
+                       + 'EJ.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
@@ -808,8 +805,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
                        + f'{(round(energy_system.primary_PJ['Oil'].iloc[-1])):,}'
                        + 'PJ, Gas = '
                        + f'{(round(energy_system.primary_PJ['Gas'].iloc[-1])):,}'
-                       + 'PJ. A plot with a maximum value of 0.5% of the maximum of all plots is displayed as a solid \
-line at zero.\n\
+                       + 'PJ.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
@@ -1229,8 +1225,7 @@ Quantities are gross generation that don't account for imports or exports.\n"
                        + f'{(round(energy_system.elecgen_TWh['Wind'].iloc[-1], 1)):,}'
                        + ' TWh\nSolar = '
                        + f'{(round(energy_system.elecgen_TWh['Solar'].iloc[-1], 1)):,}'
-                       + ' TWh\nA plot with a maximum value of 0.5% of the maximum of all plots is displayed as a \
-solid line at zero.\n\
+                       + ' TWh\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
