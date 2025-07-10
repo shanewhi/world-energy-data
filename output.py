@@ -1206,7 +1206,7 @@ countries.\nFor "
 any unpublished quantity above. Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
 Quantities are gross generation that don't account for imports or exports.\n"
                        + str(energy_system.elecgen_TWh.index[-1])
-                       + ' values: \n'
+                       + ' values (rounded): \n'
                        + 'Total = '
                        + f'{(round(energy_system.elecgen_TWh['Total Country'].iloc[-1])):,}'
                        + ' TWh\nNuclear = '

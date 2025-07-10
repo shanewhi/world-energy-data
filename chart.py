@@ -3017,8 +3017,18 @@ def column_11_subplots(
 
     max_val = max(series0.max(), series1.max(), series2.max(), series3.max(), series4.max(), series5.max(),
                   series6.max(), series7.max(), series8.max(), series9.max(), series10.max())
-
+    # If a line must be plotted, first plot a bar chart in order to align x-axis ticks to prevent
+    # clashing with those of adjacent subplots.
     if series0.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[0, 0].bar(
+            series0.truncate(before=start_yr).index,
+            series0.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color0,
+            edgecolor=edge_color0,
+            linewidth=0.2,
+        )
         ax[0, 0].plot(
             series0.truncate(before=start_yr).index,
             pd.Series(0, series0.truncate(before=start_yr).index),
@@ -3036,6 +3046,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series1.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[1, 0].bar(
+            series1.truncate(before=start_yr).index,
+            series1.truncate(before=start_yr),
+            align='center',
+            width=1,
+            color=color1,
+            edgecolor=edge_color1,
+            linewidth=0.2,
+        )
         ax[1, 0].plot(
             series1.truncate(before=start_yr).index,
             pd.Series(0, series1.truncate(before=start_yr).index),
@@ -3053,6 +3072,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series2.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[1, 1].bar(
+            series2.truncate(before=start_yr).index,
+            series2.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color2,
+            edgecolor=edge_color2,
+            linewidth=0.2,
+        )
         ax[1, 1].plot(
             series2.truncate(before=start_yr).index,
             pd.Series(0, series2.truncate(before=start_yr).index),
@@ -3070,6 +3098,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series3.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[1, 2].bar(
+            series3.truncate(before=start_yr).index,
+            series3.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color3,
+            edgecolor=edge_color3,
+            linewidth=0.2,
+        )
         ax[1, 2].plot(
             series3.truncate(before=start_yr).index,
             pd.Series(0, series3.truncate(before=start_yr).index),
@@ -3087,6 +3124,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series4.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[1, 3].bar(
+            series4.truncate(before=start_yr).index,
+            series4.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color4,
+            edgecolor=edge_color4,
+            linewidth=0.2,
+        )
         ax[1, 3].plot(
             series4.truncate(before=start_yr).index,
             pd.Series(0, series4.truncate(before=start_yr).index),
@@ -3104,6 +3150,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series5.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[1, 4].bar(
+            series5.truncate(before=start_yr).index,
+            series5.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color5,
+            edgecolor=edge_color5,
+            linewidth=0.2,
+        )
         ax[1, 4].plot(
             series5.truncate(before=start_yr).index,
             pd.Series(0, series5.truncate(before=start_yr).index),
@@ -3121,6 +3176,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series6.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2, 0].bar(
+            series6.truncate(before=start_yr).index,
+            series6.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color6,
+            edgecolor=edge_color6,
+            linewidth=0.2,
+        )
         ax[2, 0].plot(
             series6.truncate(before=start_yr).index,
             pd.Series(0, series6.truncate(before=start_yr).index),
@@ -3138,6 +3202,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series7.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2, 1].bar(
+            series7.truncate(before=start_yr).index,
+            series7.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color7,
+            edgecolor=edge_color7,
+            linewidth=0.2,
+        )
         ax[2, 1].plot(
             series7.truncate(before=start_yr).index,
             pd.Series(0, series7.truncate(before=start_yr).index),
@@ -3155,6 +3228,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series8.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2, 2].bar(
+            series8.truncate(before=start_yr).index,
+            series8.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color8,
+            edgecolor=edge_color8,
+            linewidth=0.2,
+        )
         ax[2, 2].plot(
             series8.truncate(before=start_yr).index,
             pd.Series(0, series8.truncate(before=start_yr).index),
@@ -3172,6 +3254,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series9.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2, 3].bar(
+            series9.truncate(before=start_yr).index,
+            series9.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color9,
+            edgecolor=edge_color9,
+            linewidth=0.2,
+        )
         ax[2, 3].plot(
             series9.truncate(before=start_yr).index,
             pd.Series(0, series9.truncate(before=start_yr).index),
@@ -3189,6 +3280,15 @@ def column_11_subplots(
             linewidth=0.2,
         )
     if series10.max() / max_val < user_globals.Constant.COL_TO_LINE.value:
+        ax[2, 4].bar(
+            series10.truncate(before=start_yr).index,
+            series10.truncate(before=start_yr),
+            width=1,
+            align='center',
+            color=color10,
+            edgecolor=edge_color10,
+            linewidth=0.2,
+        )
         ax[2, 4].plot(
             series10.truncate(before=start_yr).index,
             pd.Series(0, series10.truncate(before=start_yr).index),
