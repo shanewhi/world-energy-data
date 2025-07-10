@@ -216,7 +216,7 @@ class Color(Enum):
     SECTOR_ELEC = 'firebrick'
     SECTOR_OTHER_ENERGY = 'coral'
     SECTOR_INDUSTRY = 'darkmagenta'
-    SECTOR_TRANSPORT = 'sienna'
+    SECTOR_TRANSPORT = 'cadetblue'
     SECTOR_COM_PUBLIC_SERV = 'midnightblue'
     SECTOR_RESD = 'mediumslateblue'
     SECTOR_AG = 'green'
