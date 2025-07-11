@@ -49,7 +49,7 @@ Dependencies -
 
 Instructions -
 
-1. Choose a country to profile from those listed in the Energy Institute's data listed above.
+1. Choose a country to profile from those listed in the Energy Institute's data listed in 4(c) above.
 2. Edit line 38 of world_energy_data.py to include the country name,
    as an exact duplicate of the name selected in (1), and followed by a comma in the case of a single country <br>
    (single element tuple must be followed by a comma).
