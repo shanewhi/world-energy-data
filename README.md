@@ -1,7 +1,7 @@
 Generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for
-the world and specified countries. Example charts are displayed at https://www.worldenergydata.org/.
+the world and specified countries. Charts are displayed at https://www.worldenergydata.org/.
 
-Requires installation of Python and dependencies listed below. Charts are output in SVG format so there's no loss of
+Requires installation of Python and dependencies listed below. Charts are output in SVG format, so there's no loss of
 resolution when magnified.
 
 Python files -
@@ -12,6 +12,7 @@ Python files -
 4. process.py (calculations)
 5. output.py (chart calls)
 6. chart.py (chart functions)
+7. countries.py (country name translations between datasets)
 
 Dependencies -
 
@@ -46,16 +47,17 @@ Dependencies -
 5. https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at<br>
    https://robbieandrew.github.io/GCB2024/
 
-Instructions (code below is within single quotes) -
+Instructions -
 
 1. Choose a country to profile from those listed in the Energy Institute's data listed above.
 2. Edit line 38 of world_energy_data.py to include the country name,
    as an exact duplicate of the name selected in (1), and followed by a comma in the case of a single country <br>
    (single element tuple must be followed by a comma).
 3. Obtain and move the IEA datafiles from 4(d) above to the same folder as this Python code. Add the IEA's country<br>
-   name to countries.py if need be.
-4. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution), and
-   'charts country_name' for national, or World energy charts.
+   name to countries.translate_country_name() if need be.
+4. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution),
+   'charts country_name' for energy charts, and 'charts Major Emitters' for those used in<br>
+   https://www.worldenergydata.org/fossil-fuel-production-and-consumption/
 5. Edit flags in user_globals.py to suit user preferences as required.
 
 Written by Shane White, whitesha@protonmail.com, using Python v3.12
