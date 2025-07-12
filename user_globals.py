@@ -92,7 +92,7 @@ class Constant(Enum):
     GJ_TO_PJ = 1e-6
     GJ_TO_EJ = 1e-9
     TWH_TO_PWH = 1e-3
-    TONNES_TO_GJ = 41.868  # EI Conversion Factors sheet.
+    TOE_TO_GJ = 41.87  # https://www.iea.org/data-and-statistics/data-tools/unit-converter
 
     LARGE_EMITTER_SHARE_THRESHOLD = 0.5  # Percent of global FF CO2 emissions. Defines country as large CO2 emitter.
     # This includes the following 'Major' emitting countries below.

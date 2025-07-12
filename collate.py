@@ -346,7 +346,7 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
         ffprod_PJ['Oil'] = (
                 oil_mt
                 * 1e6
-                * user_globals.Constant.TONNES_TO_GJ.value
+                * user_globals.Constant.TOE_TO_GJ.value
                 * user_globals.Constant.GJ_TO_PJ.value
         )
         ffprod_PJ['Gas'] = (

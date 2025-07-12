@@ -705,8 +705,8 @@ def country_ffprod_primaryenergy_charts(energy_system):
                        + f'{(round(energy_system.ffprod_PJ['Oil'].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}'
                        + 'EJ, Gas = '
                        + f'{(round(energy_system.ffprod_PJ['Gas'].iloc[-1] * user_globals.Constant.PJ_TO_EJ.value)):,}'
-                       + "EJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
-conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
+                       + "EJ. Oil production calculated by converting units of Mt to joules using the IEA's \
+conversion factor of 41.87 GJ/toe. Production data for coal and gas provided in units of joules.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
@@ -719,8 +719,8 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
                        + f'{(round(energy_system.ffprod_PJ['Oil'].iloc[-1])):,}'
                        + 'PJ, Gas = '
                        + f'{(round(energy_system.ffprod_PJ['Gas'].iloc[-1])):,}'
-                       + "PJ. Oil production calculated by converting units of Mt to joules using EI's approximate \
-conversion factor of 41.868 GJ/toe. Production data for coal and gas provided in units of joules.\n\
+                       + "PJ. Oil production calculated by converting units of Mt to joules using the IEA's \
+conversion factor of 41.87 GJ/toe. Production data for coal and gas provided in units of joules.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
