@@ -32,10 +32,15 @@ def translate_country_name(ei_name):
         iea_name = "People's Republic of China"
     elif ei_name == 'US':
         iea_name = 'United States'
+    elif ei_name == 'Iran':
+        iea_name = 'Islamic Republic of Iran'
+    elif ei_name == 'South Korea':
+        iea_name = 'Korea'
+    elif ei_name == 'Turkiye':
+        iea_name = 'Republic of Turkiye'
     else:
         iea_name = ei_name
     return iea_name
-
 ########################################################################################################################
 #
 # Function: ffprod_shorten_country()
