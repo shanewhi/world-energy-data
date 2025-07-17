@@ -53,8 +53,8 @@ Instructions -
 2. Edit line 38 of world_energy_data.py to include the country name,
    as an exact duplicate of the name selected in (1), and followed by a comma in the case of a single country <br>
    (single element tuple must be followed by a comma).
-3. Obtain and move the IEA datafiles from 4(d) above to the same folder as this Python code. Add the IEA's country<br>
-   name to countries.translate_country_name() if need be.
+3. For data not already included in this repository, obtain and move the IEA datafiles from 4(d) above to the <br>
+   same folder as this Python code. Add the IEA's country name to countries.translate_country_name() if need be.
 4. Folders will be created named 'charts CO2' for global CO2 charts (generated on each execution),
    'charts country_name' for energy charts, and 'charts Major Emitters' for those used in<br>
    https://www.worldenergydata.org/fossil-fuel-production-and-consumption/
