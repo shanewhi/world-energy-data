@@ -1483,8 +1483,9 @@ def major_emitter_charts(energy_system, global_carbon, major_emitter_df):
         s += i
         s += '\n'
 
-    additional_text1 = ("Shares total 100% of 2023 global\nfossil fuel CO\u2082 emissions.\n\n\n\
-Segments excluding 'Other' represent\ncountries with a "
+    additional_text1 = ('Shares total 100% of ' + str(int(max(global_carbon.country_shares_fy['Year'])))
+                        + ' global\nfossil fuel CO\u2082 emissions.\n\n\n'
+                        + "Segments excluding 'Other' represent\ncountries with a "
                         + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
                         + '% or greater share,\nof which there were '
                         + str(len(global_carbon.country_shares_fy) - 1)
@@ -1495,9 +1496,12 @@ Segments excluding 'Other' represent\ncountries with a "
                         + str(len(global_carbon.country_shares_fy[global_carbon.country_shares_fy['Value'] >= 1]) - 1)
                         + ', totalling '
                         + str(major_emitter_share)
-                        + '%.\n\n\nUnlabelled segments in lower\nright corner are listed below. \
-These\nhad shares greater than or equal\nto ' + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value) +
-                        '%, and less than ' + str(user_globals.Constant.MAJOR_EMITTER_SHARE_THRESHOLD.value) + '% -\n'
+                        + '%.\n\n\nUnlabelled segments in lower\nright corner are listed below. '
+                        + 'These\nhad shares greater than or equal\nto '
+                        + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
+                        + '%, and less than '
+                        + str(user_globals.Constant.MAJOR_EMITTER_SHARE_THRESHOLD.value)
+                        + '% -\n'
                         + s
                         )
 
