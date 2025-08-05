@@ -50,6 +50,9 @@ class Energy_System:
                  incl_ei_flag,  # True if country appears in EI data.
                  ffco2_Mt,  # Annual national fossil fuel CO2 emissions in units of megatonnes.
                  ffco2_Gt,  # Annual national fossil fuel CO2 emissions in units of gigatonnes.
+                 pc_tco2,  # Final year per capita fossil fuel CO2 emissions for all countries.
+                 country_pc_tco2,  # Final year per capita fossil fuel CO2 emissions for country.
+                 pc_associated_data,  # Data used for footer text in per capita fossil fuel CO2 chart.
                  sector_co2_Mt,  # Annual national CO2 emissions by sector in units of megatonnes.
                  ffprod_PJ,  # Annual fossil fuel production in units of peta joules.
                  primary_PJ,  # Annual primary energy in units of peta joules.
@@ -64,6 +67,9 @@ class Energy_System:
         self.incl_ei_flag = incl_ei_flag
         self.ffco2_Mt = ffco2_Mt
         self.ffco2_Gt = ffco2_Gt
+        self.pc_tco2 = pc_tco2
+        self.country_pc_tco2 = country_pc_tco2
+        self.pc_associated_data = pc_associated_data
         self.sector_co2_Mt = sector_co2_Mt
         self.ffprod_PJ = ffprod_PJ
         self.primary_PJ = primary_PJ
@@ -101,6 +107,8 @@ class Constant(Enum):
     # fossil fuel CO2. Such countries are designated individual tiles and have their name displayed in the treemap of
     # fossil fuel CO2 emissions by country share, and have their fossil fuel primary energy trends plotted and saved in
     # the Major Emitters folder.
+    PER_CAPITA_THRESHOLD = 2.0  # tCO2/per-capita. Values greater than or equal to this threshold are plotted. Values
+    # less than are tallied in 'Other'.
     COAL_SHARE_RANK_THRESHOLD = 5  # Percent of global coal production. Defines large coal producer.
     OIL_SHARE_RANK_THRESHOLD = 2  # Percent of global oil production. Defines large oil producer.
     GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent of global gas production. Defines large gas producer.
@@ -198,6 +206,7 @@ class Color(Enum):
     FOSSIL_FUELS = 'grey'
     CEMENT = 'cadetblue'
     LUC = 'olivedrab'
+
     COAL = 'black'
     OIL = 'brown'
     GAS = 'darkorange'
@@ -213,6 +222,7 @@ class Color(Enum):
     WIND_AND_SOLAR = 'limegreen'
     ELECTRICITY = 'teal'
     UNPUBLISHED = 'steelblue'
+
     SECTOR_ELEC = 'firebrick'
     SECTOR_OTHER_ENERGY = 'coral'
     SECTOR_INDUSTRY = 'darkmagenta'
@@ -222,11 +232,32 @@ class Color(Enum):
     SECTOR_AG = 'green'
     SECTOR_OTHER = 'purple'
 
+    ALL = 'mediumpurple'
+    CHINA = 'crimson'
+    OTHER_COUNTRIES = 'darkslategrey'
+    US = 'blue'
+    INDIA = 'darkorange'
+    RUSSIA = 'darkgreen'
+    JAPAN = 'darkgoldenrod'
+    INDONESIA = 'indianred'
+    IRAN = 'sienna'
+    SAUDI_ARABIA = 'darkred'
+    SOUTH_KOREA = 'deeppink'
+    GERMANY = 'green'
+    CANADA = 'dodgerblue'
+    MEXICO = 'chocolate'
+    BRAZIL = 'forestgreen'
+    TURKIYE = 'red'
+    SOUTH_AFRICA = 'indigo'
+    AUS = 'black'
+    PER_CAPITA_HIGHLIGHT = 'magenta'
 
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
 # Python chart gallery: https://python-graph-gallery.com/
 # Matplotlib universal settings:
 # https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.rcParams
+
+
 rc = {
     'xtick.direction': 'out',
     'xtick.color': 'grey',

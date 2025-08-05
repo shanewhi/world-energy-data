@@ -450,6 +450,73 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
 
 ########################################################################################################################
 #
+# Function: per_capita_emissions()
+#
+# Description:
+# Plots per capita fossil fuel CO2 emissions of individual countries.
+#
+########################################################################################################################
+def per_capita_emissions(energy_system):
+    fig_dir = 'charts ' + energy_system.country + '/'
+    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
+    title1 = 'Per Capita Fossil Fuel CO\u2082 Emissions'
+    title2 = 'Year ' + str(energy_system.pc_associated_data['FY'])
+    footer_text = ("Data: Population - World Bank Group, dataset 'Population, total', "
+                   + "https://data.worldbank.org/indicator/SP.POP.TOTL. Fossil fuel CO\u2082 emissions - "
+                   + "The Energy Institute Statistical Review of World Energy, "
+                   + "https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n"
+                   + "Values are of CO\u2082 emissions per capita from coal, oil, gas, and flaring combined, and "
+                   + "exclude emissions from cement. All countries listed in the emissions dataset are included except "
+                   + "Taiwan, which is the only country listed in the emissions dataset but not the population "
+                   + "dataset.\nCountries with per capita emission values below the arbitrarily selected "
+                   + f'{(round(user_globals.Constant.PER_CAPITA_THRESHOLD.value, 2))}'
+                   + 'tCO\u2082/(per capita) threshold '
+                   + "are included in 'Other', along with countries not individually listed in "
+                   + "both the population and emissions datasets (derived "
+                   + "from total emissions and total population).\nEmissions tallied in the countries shown and "
+                   + "'Other' account for "
+                   + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                   + "% of world fossil fuel CO\u2082 emissions ("
+                   + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                   + '% of '
+                   + f'{(round(energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'], 1)):,}'
+                   + "MtCO\u2082), and "
+                   + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                   + "% of world population "
+                   + '('
+                   + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                   + '% of '
+                   + f'{(energy_system.pc_associated_data['World Pop']):,}'.rstrip('0').rstrip('.')
+                   + ') in '
+                   + str(energy_system.pc_associated_data['FY'])
+                   + '. Therefore '
+                   + f'{(round(100-energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                   + '% of world population emitted '
+                   + f'{(round(100 - energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                   + '% of world fossil fuel CO\u2082 emissions.\n'
+                   + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset are "
+                   + "allocated to the country that sold them. Singapore is a small country that sells a large amount "
+                   + "of such fuels, and consequently its per capita emissions are very high. This is detailed in\n"
+                   + "The Global Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
+                   + "https://zenodo.org/records/14106218, p.32.\n"
+                   + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
+                   )
+
+    ylabel = 'Tonne'
+    chart.column_subplot(title1, title2, ylabel, footer_text, user_globals.Color.CO2_EMISSION.value,
+                         user_globals.Color.PER_CAPITA_HIGHLIGHT.value, energy_system.pc_tco2,
+                         energy_system.country_pc_tco2)
+    plt.savefig(
+        os.path.join(fig_dir, '3 ' + energy_system.country + ' per capita co2 emissions.svg'),
+        format='svg',
+    )
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.close()
+
+
+########################################################################################################################
+#
 # Function: co2_by_sector_chart()
 #
 # Description:
@@ -546,7 +613,7 @@ WORLD_GHG_Documentation_2024_final.pdf')
         True,
     )
     plt.savefig(
-        os.path.join(fig_dir, '3 ' + country + ' sector co2.svg'),
+        os.path.join(fig_dir, '4 ' + country + ' sector co2.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -644,7 +711,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
         footer_lower_text,
     )
     plt.savefig(
-        os.path.join(fig_dir, '5 ' + country + ' prod ff shares.svg'),
+        os.path.join(fig_dir, '6 ' + country + ' prod ff shares.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -751,7 +818,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
         10
     )
     plt.savefig(
-        os.path.join(fig_dir, '4 ' + country + ' prod ff sep.svg'),
+        os.path.join(fig_dir, '5 ' + country + ' prod ff sep.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -837,7 +904,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
         10
     )
     plt.savefig(
-        os.path.join(fig_dir, '6 ' + country + ' pe ff qty.svg'),
+        os.path.join(fig_dir, '7 ' + country + ' pe ff qty.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -904,7 +971,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
         series3=pe3,
     )
     plt.savefig(
-        os.path.join(fig_dir, '7 ' + country + ' pe sep ff change.svg'),
+        os.path.join(fig_dir, '8 ' + country + ' pe sep ff change.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1011,7 +1078,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
             footer_text,
         )
     plt.savefig(
-        os.path.join(fig_dir, '9 ' + country + ' fe elec shares.svg'),
+        os.path.join(fig_dir, '10 ' + country + ' fe elec shares.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1144,7 +1211,7 @@ country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
         True,
     )
     plt.savefig(
-        os.path.join(fig_dir, '8 ' + country + ' fe qty.svg'),
+        os.path.join(fig_dir, '9 ' + country + ' fe qty.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1275,7 +1342,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
 
     if energy_system.elecgen_TWh is not None:
         plt.savefig(
-            os.path.join(fig_dir, '10 ' + country + ' elec fuel qty.svg'),
+            os.path.join(fig_dir, '11 ' + country + ' elec fuel qty.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2, )
@@ -1320,7 +1387,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
             series8=energy_system.elecgen_TWh['Bio, Geo and Other Change'],
         )
         plt.savefig(
-            os.path.join(fig_dir, '11 ' + country + ' elec fuel change.svg'),
+            os.path.join(fig_dir, '12 ' + country + ' elec fuel change.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,
@@ -1431,7 +1498,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
         )
 
         plt.savefig(
-            os.path.join(fig_dir, '12 ' + country + ' elec fuel share trends.svg'),
+            os.path.join(fig_dir, '13 ' + country + ' elec fuel share trends.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,

@@ -37,9 +37,10 @@ import output
 # Define countries to profile using tuple.
 countries = ('Total World',)
 
-# 1. Import all data except iea_data, which relies on separate files for each country, These are imported in (4) below.
+# 1. Import all data except IEA data, which is done on a per-country basis as it's contained in separate files provided
+# by user. This is done in profile(country) below.
 print('Importing and collating data.\n')
-gcp_data, gcp_co2_rcp_pathways, esrl_data, ei_data = collate.import_gcp_esrl_ei_data()
+gcp_data, gcp_co2_rcp_pathways, esrl_data, ei_data, wb_data = collate.import_gcp_esrl_ei_pop_data()
 
 # 2. Organise all CO2 related data as required for plots, and plot GCP and NOAA ESRL data.
 print('Processing CO2 data:\n')
@@ -60,9 +61,10 @@ def profile(country):
     # Import country specific IEA data.
     iea_co2_by_sector_Mt, iea_tfc_TJ = collate.import_iea_data(country)
     # Generate object containing all energy related data, in format suitable for plotting, for specified country.
-    country_energy_system = collate.energy(country, ei_data, iea_co2_by_sector_Mt, iea_tfc_TJ)
+    country_energy_system = collate.energy(country, ei_data, iea_co2_by_sector_Mt, iea_tfc_TJ, wb_data)
     if country_energy_system.incl_ei_flag is True:
         output.country_co2_charts(country_energy_system, global_carbon)
+        output.per_capita_emissions(country_energy_system)
         output.country_ffprod_primaryenergy_charts(country_energy_system)
         output.country_elecgen_charts(country_energy_system)
     if iea_co2_by_sector_Mt is not None:
@@ -85,6 +87,6 @@ major_emitters = process.id_major_ffco2_emitters(global_carbon)
 # Collate major emitter data.
 major_emitter_dataframe = collate.populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data)
 # Include plot of global CO2 emissions trend and shares in above folder.
-energy_system_world = collate.energy('Total World', ei_data, None, None)
+energy_system_world = collate.energy('Total World', ei_data, None, None, wb_data)
 # Plot world and major emitter charts.
 output.major_emitter_charts(energy_system_world, global_carbon, major_emitter_dataframe)

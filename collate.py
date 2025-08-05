@@ -29,17 +29,14 @@ import process
 
 ########################################################################################################################
 #
-# Function: import_data()
+# Function: import_gcp_esrl_ei_pop_data()
 #
 # Description:
 # Data importation differs between sources:
 # Energy Institute (EI) and Global Carbon Project (GCP) datasets are imported as single files into Pandas dataframes.
-# The International Energy Agency (IEA) data is not imported. This dataset is provided as multiple JSON files, and
-# therefore country specific data is searched for within these, rather than imported as a single file. This is done by
-# collate.populate_energy_system().
 #
 ########################################################################################################################
-def import_gcp_esrl_ei_data():
+def import_gcp_esrl_ei_pop_data():
     # Import Global Carbon Project (GCP) emissions and carbon budget datasets as Pandas dataframes.
     gcp_ff_emissions_MtC = pd.read_excel(
         io='Global_Carbon_Budget_2024_v1.0.xlsx',
@@ -116,10 +113,16 @@ def import_gcp_esrl_ei_data():
     # Import Energy Institute dataset.
     imported_ei_data = pd.read_csv(
         'Statistical Review of World Energy Narrow File.csv', index_col=['Year'],
-        usecols=['Country', 'Year', 'Var', 'Value'],
+        usecols=['Country', 'Year', 'ISO3166_alpha3', 'Var', 'Value'],
     )
 
-    return imported_gcp_data, imported_gcp_co2_rcp_pathways, imported_esrl_data, imported_ei_data,
+    # Import World Bank human population data from all countries for most recent year of ei_data.
+    imported_wb_data = pd.read_csv(
+        'API_SP.POP.TOTL_DS2_en_csv_v2_38144.csv', index_col=['Country Code'], header=2,
+        usecols=['Country Code', str(imported_ei_data.index[-1])], )
+    imported_wb_data.rename(columns={'2024': 'Population'}, inplace=True)
+
+    return imported_gcp_data, imported_gcp_co2_rcp_pathways, imported_esrl_data, imported_ei_data, imported_wb_data,
 
 
 ########################################################################################################################
@@ -284,8 +287,8 @@ def fossil_fuel_producer_shares(data):
 # country_energy_system.
 #
 ########################################################################################################################
-def energy(country, ei_data, co2_by_sector_Mt, tfc_TJ):
-    country_energy_system = populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ)
+def energy(country, ei_data, co2_by_sector_Mt, tfc_TJ, wb_data):
+    country_energy_system = populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, wb_data)
     if country_energy_system.incl_ei_flag is True:
         # Calculate primary energy annual quantities, shares, and change.
         process.primary_energy(country_energy_system)
@@ -307,12 +310,12 @@ def energy(country, ei_data, co2_by_sector_Mt, tfc_TJ):
 # Function: populate_energy_system()
 #
 # Description:
-# Collates country specific annual fossil fuel CO2 emissions, annual fossil fuel production, annual fossil fuel primary
-# energy, and annual electricity data using the Energy Institute's dataset.
-# Collates country specific final energy data using the IEA's dataset.
+# Collates country specific annual fossil fuel CO2 emissions, country per capita fossil fuel CO2 emissions for final
+# year of data, annual fossil fuel production, annual fossil fuel primary energy, and annual electricity data using
+# the Energy Institute's dataset. Collates country specific final energy data using the IEA's dataset.
 #
 ########################################################################################################################
-def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
+def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data):
     # Flag if country is included in EI data, and extract the country's data.
     if country in ei_data['Country'].values:
         incl_ei_flag = True
@@ -332,6 +335,82 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
 
         # Calculate annual change.
         process.ffco2_change(ffco2_Mt)
+
+        # Calculate per capita fossil fuel CO2 emissions.
+
+        # Dictionary in which to store all per capita emissions.
+        pc_emissions_tco2 = {}
+        # Pandas Series in which to store all per capita emissions being plotted (those below set threshold will be
+        # included in 'Other').
+        pc_tco2 = pd.Series(name='Per capita FFCO2 emissions')
+        # Dictionary in which to store per capita emissions for specific country being profiled.
+        country_pc_tco2 = {}
+        # Dictionary in which to store associated data to be included in chart footer text.
+        pc_associated_data = {}
+        # During calculations, tally emissions and population plotted and processed.
+        plotted_emissions_mtco2 = 0
+        plotted_pop = 0
+        assessed_population = 0
+        assessed_emissions_mtco2 = 0
+        match = False
+        # Determine final year of EI data.
+        fy = max(ei_data.index)
+        # To reduce execution time, only use most recent year of energy data
+        fy_energy_data = ei_data.loc[max(ei_data.index)]
+        # Change index to allow sorting by FF CO2.
+        fy_energy_data.set_index('Var', inplace=True)
+        # Identify those countries that appear in both datasets, and calculate their per capita emissions.
+        for pop_row in pop_data.itertuples():
+            for energy_row in fy_energy_data.itertuples():
+                if pop_row.Index == energy_row.ISO3166_alpha3:
+                    if energy_row.Index == 'co2_combust_mtco2':
+                        country_pc_emissions_tco2 = energy_row.Value * 1e6 / pop_row.Population
+                        pc_emissions_tco2[energy_row.Country] = country_pc_emissions_tco2
+                        if energy_row.Country == country:
+                            country_pc_tco2['Country'] = country
+                            country_pc_tco2['Value'] = country_pc_emissions_tco2
+                            match = True
+                        if energy_row.Country == 'Total World' and country == 'World':
+                            country_pc_tco2['Country'] = country
+                            country_pc_tco2['Value'] = country_pc_emissions_tco2
+                            match = True
+                        # Add to dictionary those countries that exceed user set threshold.
+                        # Tally the cumulative population and emissions included.
+                        if country_pc_emissions_tco2 >= user_globals.Constant.PER_CAPITA_THRESHOLD.value:
+                            pc_tco2[energy_row.Country] = country_pc_emissions_tco2
+                            plotted_pop = pop_row.Population
+                            plotted_emissions_mtco2 = energy_row.Value
+                        # Tally population and emissions for countries that appeared in both datasets.
+                        if not pop_row.Index == 'WLD':
+                            assessed_population += pop_row.Population
+                        if not energy_row.Country == 'Total World':
+                            assessed_emissions_mtco2 += energy_row.Value
+        # Calculate the share of world population assessed.
+        world_population = pop_data.at['WLD', 'Population']
+        assessed_share_world_population = assessed_population / world_population
+        # Calculate the share of world FF CO2 emissions assessed.
+        world_emissions_mtco2 = fy_energy_data.loc[
+            (fy_energy_data.index == 'co2_combust_mtco2') & (
+                        fy_energy_data['Country'] == 'Total World'), 'Value'].values[0]
+        assessed_share_world_co2_emissions = assessed_emissions_mtco2 / world_emissions_mtco2
+        # Calculate the per capita emissions of the remaining population.
+        other_pc_emissions_for_plot_tco2 = pd.Series(
+            data=[1e6 * (world_emissions_mtco2 - plotted_emissions_mtco2) / (world_population - plotted_pop)],
+            index=['Other'])
+        # Highlight 'Other' in chart
+        if match is False:
+            country_pc_tco2 = {'Country': 'Other', 'Value': other_pc_emissions_for_plot_tco2.values[0]}
+        pc_tco2.sort_values(ascending=False, inplace=True)
+        # Concat for plotting.
+        pc_tco2 = pd.concat([pc_tco2, other_pc_emissions_for_plot_tco2])
+        pc_tco2.rename(index={'Total World': 'World'}, inplace=True)
+        pc_tco2.rename(index={'China Hong Kong SAR': 'Hong Kong'}, inplace=True)
+        pc_tco2.rename(index={'United Arab Emirates': 'UAE'}, inplace=True)
+        pc_associated_data['Assessed Pop Share'] = assessed_share_world_population
+        pc_associated_data['Assessed FFCO2 Emissions Share'] = assessed_share_world_co2_emissions
+        pc_associated_data['World Pop'] = world_population
+        pc_associated_data['World FFCO2 Emissions MtCO2'] = world_emissions_mtco2
+        pc_associated_data['FY'] = fy
 
         # Identify primary energy in country data.
         total_primary_EJ = country_data.loc[country_data['Var'] == 'tes_ej', 'Value']
@@ -498,6 +577,9 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
         incl_ei_flag = False
         ffco2_Mt = None
         ffco2_Gt = None
+        pc_tco2 = None
+        country_pc_tco2 = None
+        pc_associated_data = None
         ffprod_PJ = None
         primary_PJ = None
         elecgen_TWh = None
@@ -514,6 +596,9 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ):
         incl_ei_flag,
         ffco2_Mt,
         ffco2_Gt,
+        pc_tco2,
+        country_pc_tco2,
+        pc_associated_data,
         co2_by_sector_Mt,
         ffprod_PJ,
         primary_PJ,

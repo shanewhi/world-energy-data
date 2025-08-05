@@ -1111,6 +1111,85 @@ def column_treemap(
 
 ########################################################################################################################
 #
+# Function: column_subplot()
+#
+# Description:
+# Single column subplot
+#
+########################################################################################################################
+def column_subplot(title1, title2, y_label, footer_text, color, highlight_color, series, highlight_bar):
+    fig, ax = plt.subplots(
+        1,
+        1,
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_CHANGE_COLUMN_PLOT.value,
+            user_globals.Constant.FIG_VSIZE_CHANGE_COLUMN_PLOT.value,
+        ),
+    )
+    p0 = ax.bar(
+        series.index,
+        series,
+        width=0.8,
+        color=color,
+        edgecolor='black',
+        linewidth=0.4,
+    )
+    if highlight_bar is not None:
+        ax.bar(
+            highlight_bar['Country'],
+            highlight_bar['Value'],
+            width=0.8,
+            color=highlight_color,
+            edgecolor='black',
+            linewidth=0.4,
+        )
+
+    ax.bar_label(p0, fmt='{:,.1f}', padding=2, fontsize=7)
+    ax.set_facecolor('whitesmoke')
+    # Show x-axis line.
+    ax.axhline(0, color='black', lw=0.4)
+    # Show World value as line.
+    ax.axhline(series['World'], color='black', lw=0.4)
+    ax.set_axisbelow(True)
+    ax.margins(x=0.002)
+    ax.xaxis.grid(False)
+    ax.set_xticks(series.index, labels=series.index, rotation='vertical')
+
+    ax.autoscale(axis='y')
+    ax.set_ylim(min(ax.get_yticks()), max(ax.get_yticks()))
+    ax.yaxis.grid(False)
+    ax.set_yticks([series['World']], labels=['World'], fontsize=8)
+    ax.set_ylabel(y_label, labelpad=-20)
+
+    plt.subplots_adjust(left=0.05, right=0.97, top=0.9, bottom=0.35, hspace=0.1)
+
+    fig.text(
+        0.05,
+        0.945,
+        title1,
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    ax.set_title(
+        title2,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc='left',
+    )
+    fig.text(
+        0.05,
+        0.15,
+        footer_text,
+        verticalalignment='top',
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################################################
+#
 # Function: column_3_subplots()
 #
 # Description:

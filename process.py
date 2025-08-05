@@ -182,24 +182,24 @@ def carbon_emissions(cdata, share_data):
     all_country_shares = all_country_shares.set_index('Name')
 
     # Assign colors.
-    all_country_shares['Color'] = 'mediumpurple'
-    all_country_shares.loc['China', 'Color'] = 'crimson'
-    all_country_shares.loc['Other', 'Color'] = 'darkslategrey'
-    all_country_shares.loc['US', 'Color'] = 'blue'
-    all_country_shares.loc['India', 'Color'] = 'darkorange'
-    all_country_shares.loc['Russian Federation', 'Color'] = 'darkgreen'
-    all_country_shares.loc['Japan', 'Color'] = 'darkgoldenrod'
-    all_country_shares.loc['Indonesia', 'Color'] = 'indianred'
-    all_country_shares.loc['Iran', 'Color'] = 'sienna'
-    all_country_shares.loc['Saudi Arabia', 'Color'] = 'darkred'
-    all_country_shares.loc['South Korea', 'Color'] = 'deeppink'
-    all_country_shares.loc['Germany', 'Color'] = 'green'
-    all_country_shares.loc['Canada', 'Color'] = 'dodgerblue'
-    all_country_shares.loc['Mexico', 'Color'] = 'chocolate'
-    all_country_shares.loc['Brazil', 'Color'] = 'forestgreen'
-    all_country_shares.loc['Turkiye', 'Color'] = 'red'
-    all_country_shares.loc['South Africa', 'Color'] = 'indigo'
-    all_country_shares.loc['Australia', 'Color'] = 'black'
+    all_country_shares['Color'] = user_globals.Color.ALL.value
+    all_country_shares.loc['China', 'Color'] = user_globals.Color.CHINA.value
+    all_country_shares.loc['Other', 'Color'] = user_globals.Color.OTHER_COUNTRIES.value
+    all_country_shares.loc['US', 'Color'] = user_globals.Color.US.value
+    all_country_shares.loc['India', 'Color'] = user_globals.Color.INDIA.value
+    all_country_shares.loc['Russian Federation', 'Color'] = user_globals.Color.RUSSIA.value
+    all_country_shares.loc['Japan', 'Color'] = user_globals.Color.JAPAN.value
+    all_country_shares.loc['Indonesia', 'Color'] = user_globals.Color.INDONESIA.value
+    all_country_shares.loc['Iran', 'Color'] = user_globals.Color.IRAN.value
+    all_country_shares.loc['Saudi Arabia', 'Color'] = user_globals.Color.SAUDI_ARABIA.value
+    all_country_shares.loc['South Korea', 'Color'] = user_globals.Color.SOUTH_KOREA.value
+    all_country_shares.loc['Germany', 'Color'] = user_globals.Color.GERMANY.value
+    all_country_shares.loc['Canada', 'Color'] = user_globals.Color.CANADA.value
+    all_country_shares.loc['Mexico', 'Color'] = user_globals.Color.MEXICO.value
+    all_country_shares.loc['Brazil', 'Color'] = user_globals.Color.BRAZIL.value
+    all_country_shares.loc['Turkiye', 'Color'] = user_globals.Color.TURKIYE.value
+    all_country_shares.loc['South Africa', 'Color'] = user_globals.Color.SOUTH_AFRICA.value
+    all_country_shares.loc['Australia', 'Color'] = user_globals.Color.AUS.value
 
     all_country_shares = all_country_shares.reset_index()
     # Configure treemap leaf labels. Only include country names for major emitters.
@@ -368,13 +368,13 @@ def sector_co2(energy_system):
     energy_system.sector_co2_Mt['Ag, Forestry & Fishing'] = energy_system.sector_co2_Mt['Agriculture/Forestry'] + \
                                                             energy_system.sector_co2_Mt['Fishing']
     energy_system.sector_co2_Mt['Total'] = energy_system.sector_co2_Mt['Electricity & Heat Producers'] + \
-        energy_system.sector_co2_Mt['Other Energy Producers'] + \
-        energy_system.sector_co2_Mt['Transport'] + \
-        energy_system.sector_co2_Mt['Manufacturing Industry'] + \
-        energy_system.sector_co2_Mt['Commercial & Public Services'] + \
-        energy_system.sector_co2_Mt['Residences'] + \
-        energy_system.sector_co2_Mt['Ag, Forestry & Fishing'] + \
-        energy_system.sector_co2_Mt['Non-specified (Other)']
+                                           energy_system.sector_co2_Mt['Other Energy Producers'] + \
+                                           energy_system.sector_co2_Mt['Transport'] + \
+                                           energy_system.sector_co2_Mt['Manufacturing Industry'] + \
+                                           energy_system.sector_co2_Mt['Commercial & Public Services'] + \
+                                           energy_system.sector_co2_Mt['Residences'] + \
+                                           energy_system.sector_co2_Mt['Ag, Forestry & Fishing'] + \
+                                           energy_system.sector_co2_Mt['Non-specified (Other)']
 
     energy_system.sector_co2_Mt['Electricity & Heat Producers Share'] = round(
         energy_system.sector_co2_Mt['Electricity & Heat Producers'] / energy_system.sector_co2_Mt['Total'] * 100, 1)
@@ -762,9 +762,8 @@ def electricity(energy_system):
 #
 ########################################################################################################################
 def final_energy(energy_system):
-
     energy_system.finalenergy_PJ['Oil'] = (energy_system.finalenergy_PJ['Crude oil'] +
-                                               energy_system.finalenergy_PJ['Oil products'])
+                                           energy_system.finalenergy_PJ['Oil products'])
     energy_system.finalenergy_PJ.drop(columns=['Crude oil', 'Oil products'], inplace=True)
 
     energy_system.finalenergy_PJ['Total'] = energy_system.finalenergy_PJ.sum(axis=1)
@@ -787,9 +786,8 @@ def final_energy(energy_system):
     energy_system.finalenergy_PJ['Electricity Share'] = (energy_system.finalenergy_PJ['Electricity'] /
                                                          energy_system.finalenergy_PJ['Total'] * 100)
 
-
     energy_system.finalenergy_PJ['Heat Share'] = (energy_system.finalenergy_PJ['Heat'] /
-                                                      energy_system.finalenergy_PJ['Total'] * 100)
+                                                  energy_system.finalenergy_PJ['Total'] * 100)
 
     print('\nMost recent year Total Energy Consumption (IEA) = ' +
           str(int(energy_system.finalenergy_PJ['Total'].iloc[-1])) + 'PJ\n')
@@ -819,7 +817,7 @@ def final_energy(energy_system):
                 - energy_system.finalenergy_PJ.loc[yr - 1, 'Electricity'])
 
         energy_system.finalenergy_PJ.loc[yr, 'Heat Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Heat'] -
-                                                                   energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
+                                                               energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
 
     # To plot shares for final year, organise into dataframes of the prerequisite format.
     coal_finalenergy_share_fy = energy_system.finalenergy_PJ['Coal Share'].iloc[-1]
