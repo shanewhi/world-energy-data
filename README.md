@@ -25,7 +25,7 @@ Dependencies -
    d) pip3 install pandas<br>
 3. Install font 'Inter'. Delete matplotlib's font cache files to force rebuilding of cache -
    in a terminal enter rm ~/.matplotlib/fontlist*
-4. The following datasets are required, which are provided in this package and are listed below for reference only:<br>
+4. The following datasets are required, which are provided but listed below for reference:<br>
    a) Global Carbon Budget in .xlsx format. The version in this repository is required as 2024 GCP projected values have
    been included, obtained from https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf. Original GCB was
    downloaded from https://globalcarbonbudgetdata.org/latest-data.html<br>
@@ -43,9 +43,9 @@ Dependencies -
    iv. Select Download chart data
    v. Select Energy transition indicators
    vi. Select CO₂ emissions by sector
-   vii. Select Download chart data
-5. https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at<br>
-   https://robbieandrew.github.io/GCB2024/
+   vii. Select Download chart data<br>
+   e) https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv (datafile from slide 64 at https://robbieandrew.github.io/GCB2024/)<br>
+   f) World Bank Group Total Population dataset from https://data.worldbank.org/indicator/SP.POP.TOTL, in CSV format.<br>
 
 Instructions -
 
