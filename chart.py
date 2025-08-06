@@ -409,7 +409,8 @@ def legend_for_major_emitter_charts(
 # Single column subplot
 #
 ########################################################################################################################
-def column_subplot(upper_title, lower_title, y_label, footer_text, color, highlight_color, series, highlight_bar):
+def column_subplot(series, highlight_bar, country, title, title_addition, y_label, footer_text, color,
+                   highlight_color):
     fig, ax = plt.subplots(
         1,
         1,
@@ -455,19 +456,30 @@ def column_subplot(upper_title, lower_title, y_label, footer_text, color, highli
 
     plt.subplots_adjust(left=0.05, right=0.97, top=0.9, bottom=0.35, hspace=0.1)
 
+    fig.suptitle(
+        country,
+        x=0.05,
+        y=0.985,
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
     fig.text(
         0.05,
-        0.945,
-        upper_title,
+        0.935,
+        title,
         horizontalalignment='left',
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-    )
-    ax.set_title(
-        lower_title,
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
-        loc='left',
+    )
+    fig.text(
+        0.05,
+        0.925,
+        title_addition,
+        horizontalalignment='left',
+        verticalalignment='top',
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.05,

@@ -459,7 +459,8 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
 def per_capita_emissions(energy_system):
     fig_dir = 'charts ' + energy_system.country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save CO2 charts in this directory.
-    country_name_yr = str(energy_system.country) + ', Year ' + str(energy_system.pc_associated_data['FY'])
+    country = str(energy_system.country)
+    year = 'Year ' + str(energy_system.pc_associated_data['FY'])
     title = 'Per Capita Fossil Fuel CO\u2082 Emissions'
     footer_text = ("Data: Population - World Bank Group, dataset 'Population, total', "
                    + "https://data.worldbank.org/indicator/SP.POP.TOTL. Fossil fuel CO\u2082 emissions - "
@@ -503,9 +504,10 @@ def per_capita_emissions(energy_system):
                    )
 
     ylabel = 'Tonne'
-    chart.column_subplot(country_name_yr, title, ylabel, footer_text, user_globals.Color.CO2_EMISSION.value,
-                         user_globals.Color.PER_CAPITA_HIGHLIGHT.value, energy_system.pc_tco2,
-                         energy_system.country_pc_tco2)
+    chart.column_subplot(energy_system.pc_tco2,
+                         energy_system.country_pc_tco2, country, title, year, ylabel, footer_text,
+                         user_globals.Color.CO2_EMISSION.value,
+                         user_globals.Color.PER_CAPITA_HIGHLIGHT.value)
     plt.savefig(
         os.path.join(fig_dir, '3 ' + energy_system.country + ' per capita co2 emissions.svg'),
         format='svg',
