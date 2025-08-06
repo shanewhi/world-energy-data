@@ -325,6 +325,9 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         if country == 'Total World':
             country = 'World'
 
+        ################################################################################################################
+        # Fossil Fuel CO2 Emissions.
+        ################################################################################################################
         # Construct dataframe of fossil fuel CO2 emissions.
         ffco2_data_Mt = country_data.loc[country_data['Var'] == 'co2_combust_mtco2', 'Value']
         ffco2_Mt = pd.DataFrame(index=ffco2_data_Mt.index, columns=['Value', 'Change'])
@@ -336,7 +339,9 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         # Calculate annual change.
         process.ffco2_change(ffco2_Mt)
 
-        # Calculate per capita fossil fuel CO2 emissions.
+        ################################################################################################################
+        # Per Capita Fossil Fuel CO2 Emissions.
+        ################################################################################################################
 
         # Dictionary in which to store all per capita emissions.
         pc_emissions_tco2 = {}
@@ -403,14 +408,24 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         pc_tco2.sort_values(ascending=False, inplace=True)
         # Concat for plotting.
         pc_tco2 = pd.concat([pc_tco2, other_pc_emissions_for_plot_tco2])
+
+        # Shorten relevant country names
         pc_tco2.rename(index={'Total World': 'World'}, inplace=True)
         pc_tco2.rename(index={'China Hong Kong SAR': 'Hong Kong'}, inplace=True)
         pc_tco2.rename(index={'United Arab Emirates': 'UAE'}, inplace=True)
+        if country_pc_tco2['Country'] == 'United Arab Emirates':
+            country_pc_tco2['Country'] = 'UAE'
+
+        # Collect associated per capita stats required for chart's footnotes.
         pc_associated_data['Assessed Pop Share'] = assessed_share_world_population
         pc_associated_data['Assessed FFCO2 Emissions Share'] = assessed_share_world_co2_emissions
         pc_associated_data['World Pop'] = world_population
         pc_associated_data['World FFCO2 Emissions MtCO2'] = world_emissions_mtco2
         pc_associated_data['FY'] = fy
+
+        ################################################################################################################
+        # Fossil Fuel Production.
+        ################################################################################################################
 
         # Identify primary energy in country data.
         total_primary_EJ = country_data.loc[country_data['Var'] == 'tes_ej', 'Value']
@@ -437,6 +452,10 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
             ffprod_PJ['Oil'] = pd.Series(data=0, index=total_primary_EJ.index)
         if ffprod_PJ['Gas'].empty or ffprod_PJ['Gas'].dropna().empty:
             ffprod_PJ['Gas'] = pd.Series(data=0, index=total_primary_EJ.index)
+
+        ################################################################################################################
+        # Primary Energy.
+        ################################################################################################################
 
         # Extract primary energy data, convert to PJ, and copy to dataframe primary_PJ.
         primary_PJ = pd.DataFrame(
@@ -496,6 +515,10 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         primary_PJ['Fossil Fuels'] = (primary_PJ['Coal'] + primary_PJ['Oil'] + primary_PJ['Gas'])
         primary_PJ['Renewables'] = (primary_PJ['Hydro'] + primary_PJ['Wind'] + primary_PJ['Solar'])
         primary_PJ['Total'] = total_primary_EJ * user_globals.Constant.EJ_TO_PJ.value
+
+        ################################################################################################################
+        # Electricity Generation.
+        ################################################################################################################
 
         # Extract electricity generation data and copy to dataframe total_elecgen_TWh.
         # For some countries (e.g. Norway, Luxembourg), EI data contains a total for the country ('elect_twh'), but not
