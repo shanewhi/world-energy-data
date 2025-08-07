@@ -409,8 +409,8 @@ def legend_for_major_emitter_charts(
 # Single column subplot
 #
 ########################################################################################################################
-def column_subplot(series, highlight_bar, country, title, title_addition, y_label, footer_text, color,
-                   highlight_color):
+def column_subplot(series, highlight_bar, ref_line, ref_label, country, title, title_addition, y_label, footer_text,
+                   color, highlight_color):
     fig, ax = plt.subplots(
         1,
         1,
@@ -441,31 +441,31 @@ def column_subplot(series, highlight_bar, country, title, title_addition, y_labe
     ax.set_facecolor('whitesmoke')
     # Show x-axis line.
     ax.axhline(0, color='black', lw=0.4)
-    # Show World value as line.
-    ax.axhline(series['World'], color='black', lw=0.4)
+    # Show reference line.
+    ax.axhline(ref_line, color='black', lw=0.4)
     ax.set_axisbelow(True)
     ax.margins(x=0.002)
     ax.xaxis.grid(False)
-    ax.set_xticks(series.index, labels=series.index, rotation='vertical')
+    ax.tick_params("x", rotation=90)
 
     ax.autoscale(axis='y')
     ax.set_ylim(min(ax.get_yticks()), max(ax.get_yticks()))
     ax.yaxis.grid(False)
-    ax.set_yticks([series['World']], labels=['World'], fontsize=8)
+    ax.set_yticks([ref_line], [ref_label], fontsize=8)
     ax.set_ylabel(y_label, labelpad=-20)
 
-    plt.subplots_adjust(left=0.05, right=0.97, top=0.9, bottom=0.35, hspace=0.1)
+    plt.subplots_adjust(left=0.03, right=0.99, top=0.9, bottom=0.35, hspace=0.1)
 
     fig.suptitle(
         country,
-        x=0.05,
+        x=0.03,
         y=0.985,
         horizontalalignment='left',
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.05,
+        0.03,
         0.935,
         title,
         horizontalalignment='left',
@@ -473,7 +473,7 @@ def column_subplot(series, highlight_bar, country, title, title_addition, y_labe
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.05,
+        0.03,
         0.925,
         title_addition,
         horizontalalignment='left',
@@ -482,7 +482,7 @@ def column_subplot(series, highlight_bar, country, title, title_addition, y_labe
         fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.05,
+        0.03,
         0.15,
         footer_text,
         verticalalignment='top',
