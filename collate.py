@@ -342,85 +342,116 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         ################################################################################################################
         # Per Capita Fossil Fuel CO2 Emissions.
         ################################################################################################################
+        if country == 'World':
+            profile_country = 'Total World'
+        else:
+            profile_country = country
+        # Per capita emissions for specific country being profiled, dictionary.
+        profile_country_pc_tco2 = {}
+        # All per capita emissions, dictionary.
+        all_pc_tco2 = {}
+        # All per capita emissions being plotted (those below set threshold will be included in 'Other').
+        high_pc_tco2 = pd.Series(name='Per capita FFCO2 emissions')
 
-        # Dictionary in which to store all per capita emissions.
-        pc_emissions_tco2 = {}
-        # Pandas Series in which to store all per capita emissions being plotted (those below set threshold will be
-        # included in 'Other').
-        pc_tco2 = pd.Series(name='Per capita FFCO2 emissions')
-        # Dictionary in which to store per capita emissions for specific country being profiled.
-        country_pc_tco2 = {}
-        # Dictionary in which to store associated data to be included in chart footer text.
+        # Associated data for chart footer text.
         pc_associated_data = {}
         # During calculations, tally emissions and population plotted and processed.
         plotted_emissions_mtco2 = 0
         plotted_pop = 0
+        pop_at_or_below_world_mean_pc_emissions = 0
+        emissions_at_or_below_world_mean_pc_emissions_Mtco2 = 0
         assessed_population = 0
         assessed_emissions_mtco2 = 0
-        match = False
+        # Set flag for country being profiled to be assigned per capita emissions of 'Other' unless found to be above
+        # per capita emission threshold.
+        country_below_threshold = True
         # Determine final year of EI data.
         fy = max(ei_data.index)
-        # To reduce execution time, only use most recent year of energy data
+        # Determine world population.
+        world_population = pop_data.at['WLD', 'Population']
+        # To reduce execution time, only use most recent year of energy data.
         fy_energy_data = ei_data.loc[max(ei_data.index)]
         # Change index to allow sorting by FF CO2.
         fy_energy_data.set_index('Var', inplace=True)
+        # Determine world FF CO2 emissions in final year.
+        world_emissions_mtco2 = fy_energy_data.loc[
+            (fy_energy_data.index == 'co2_combust_mtco2') & (
+                    fy_energy_data['Country'] == 'Total World'), 'Value'].values[0]
+        # Calculate world mean per capita FF CO2 emissions
+        world_pc_tco2 = world_emissions_mtco2 * 1e6 / world_population
         # Identify those countries that appear in both datasets, and calculate their per capita emissions.
         for pop_row in pop_data.itertuples():
             for energy_row in fy_energy_data.itertuples():
                 if pop_row.Index == energy_row.ISO3166_alpha3:
+                    # Calculate per capita emissions of each country.
                     if energy_row.Index == 'co2_combust_mtco2':
-                        country_pc_emissions_tco2 = energy_row.Value * 1e6 / pop_row.Population
-                        pc_emissions_tco2[energy_row.Country] = country_pc_emissions_tco2
-                        if energy_row.Country == country:
-                            country_pc_tco2['Country'] = country
-                            country_pc_tco2['Value'] = country_pc_emissions_tco2
-                            match = True
-                        if energy_row.Country == 'Total World' and country == 'World':
-                            country_pc_tco2['Country'] = country
-                            country_pc_tco2['Value'] = country_pc_emissions_tco2
-                            match = True
-                        # Add to dictionary those countries that exceed user set threshold.
-                        # Tally the cumulative population and emissions included.
-                        if country_pc_emissions_tco2 >= user_globals.Constant.PER_CAPITA_THRESHOLD.value:
-                            pc_tco2[energy_row.Country] = country_pc_emissions_tco2
-                            plotted_pop = pop_row.Population
-                            plotted_emissions_mtco2 = energy_row.Value
+                        country_pc_tco2 = energy_row.Value * 1e6 / pop_row.Population
+                        all_pc_tco2[energy_row.Country] = country_pc_tco2
+                        # Save separate value for country being profiled to allow it to be highlighted in chart.
+                        if energy_row.Country == profile_country and not pop_row.Index == 'WLD':
+                            profile_country_pc_tco2['Country'] = profile_country
+                            profile_country_pc_tco2['Value'] = country_pc_tco2
+                            # Rename if need be.
+                            if profile_country_pc_tco2['Country'] == 'United Arab Emirates':
+                                profile_country_pc_tco2['Country'] = 'UAE'
+                            if profile_country_pc_tco2['Country'] == 'Total World':
+                                profile_country_pc_tco2['Country'] = 'World'
+                        # Separate countries that exceed set threshold and tally the cumulative population and
+                        # emissions.
+                        if (country_pc_tco2 >= user_globals.Constant.PER_CAPITA_THRESHOLD.value
+                                and not pop_row.Index == 'WLD'):  # World is added at end of chart.
+                            high_pc_tco2[energy_row.Country] = country_pc_tco2
+                            # If the current country is that being profiled, and is above the threshold, then disable
+                            # the flag that assigns the column to be highlighted in the chart is that of 'Other'.
+                            if energy_row.Country == profile_country:
+                                country_below_threshold = False
+                            # Tally country above threshold provided it's not World.
+                            plotted_pop += pop_row.Population
+                            plotted_emissions_mtco2 += energy_row.Value
+                        # Tally population and emissions of countries with per capita FF CO2 emissions less than or
+                        # equal to world mean emissions.
+                        if country_pc_tco2 <= world_pc_tco2 and not pop_row.Index == 'WLD':
+                            pop_at_or_below_world_mean_pc_emissions += pop_row.Population
+                            emissions_at_or_below_world_mean_pc_emissions_Mtco2 += energy_row.Value
                         # Tally population and emissions for countries that appeared in both datasets.
                         if not pop_row.Index == 'WLD':
                             assessed_population += pop_row.Population
                         if not energy_row.Country == 'Total World':
                             assessed_emissions_mtco2 += energy_row.Value
         # Calculate the share of world population assessed.
-        world_population = pop_data.at['WLD', 'Population']
         assessed_share_world_population = assessed_population / world_population
         # Calculate the share of world FF CO2 emissions assessed.
-        world_emissions_mtco2 = fy_energy_data.loc[
-            (fy_energy_data.index == 'co2_combust_mtco2') & (
-                        fy_energy_data['Country'] == 'Total World'), 'Value'].values[0]
         assessed_share_world_co2_emissions = assessed_emissions_mtco2 / world_emissions_mtco2
         # Calculate the per capita emissions of the remaining population.
         other_pc_emissions_for_plot_tco2 = pd.Series(
             data=[1e6 * (world_emissions_mtco2 - plotted_emissions_mtco2) / (world_population - plotted_pop)],
             index=['Other'])
-        # Highlight 'Other' in chart
-        if match is False:
-            country_pc_tco2 = {'Country': 'Other', 'Value': other_pc_emissions_for_plot_tco2.values[0]}
-        pc_tco2.sort_values(ascending=False, inplace=True)
+        # If country being profiled is below threshold, then 'Other' are assigned to its per capita emissions to be
+        # plotted in the per capita chart.
+        if country_below_threshold is True and not profile_country == 'World':
+            profile_country_pc_tco2 = {'Country': 'Other', 'Value': other_pc_emissions_for_plot_tco2.values[0]}
+        high_pc_tco2.sort_values(ascending=False, inplace=True)
+        world_pc_emissions_for_plot_tco2 = pd.Series(data=[world_pc_tco2], index=['World'])
         # Concat for plotting.
-        pc_tco2 = pd.concat([pc_tco2, other_pc_emissions_for_plot_tco2])
+        plot_pc_tco2 = pd.concat([high_pc_tco2, other_pc_emissions_for_plot_tco2, world_pc_emissions_for_plot_tco2])
+
+        # If World is being profiled, then assign world per capita emissions to it's highlighted.
+        if profile_country == 'Total World':
+            profile_country_pc_tco2 = {'Country': 'World', 'Value': world_pc_emissions_for_plot_tco2}
 
         # Shorten relevant country names
-        pc_tco2.rename(index={'Total World': 'World'}, inplace=True)
-        pc_tco2.rename(index={'China Hong Kong SAR': 'Hong Kong'}, inplace=True)
-        pc_tco2.rename(index={'United Arab Emirates': 'UAE'}, inplace=True)
-        if country_pc_tco2['Country'] == 'United Arab Emirates':
-            country_pc_tco2['Country'] = 'UAE'
+        plot_pc_tco2.rename(index={'Total World': 'World'}, inplace=True)
+        plot_pc_tco2.rename(index={'China Hong Kong SAR': 'Hong Kong'}, inplace=True)
+        plot_pc_tco2.rename(index={'United Arab Emirates': 'UAE'}, inplace=True)
 
         # Collect associated per capita stats required for chart's footnotes.
         pc_associated_data['Assessed Pop Share'] = assessed_share_world_population
         pc_associated_data['Assessed FFCO2 Emissions Share'] = assessed_share_world_co2_emissions
         pc_associated_data['World Pop'] = world_population
+        pc_associated_data['Pop At Or Below PC Mean'] = pop_at_or_below_world_mean_pc_emissions
+        pc_associated_data['Emissions At Or Below PC Mean MtCO2'] = emissions_at_or_below_world_mean_pc_emissions_Mtco2
         pc_associated_data['World FFCO2 Emissions MtCO2'] = world_emissions_mtco2
+        pc_associated_data['World PC tCO2'] = world_pc_tco2
         pc_associated_data['FY'] = fy
 
         ################################################################################################################
@@ -600,8 +631,8 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         incl_ei_flag = False
         ffco2_Mt = None
         ffco2_Gt = None
-        pc_tco2 = None
-        country_pc_tco2 = None
+        plot_pc_tco2 = None
+        profile_country_pc_tco2 = None
         pc_associated_data = None
         ffprod_PJ = None
         primary_PJ = None
@@ -619,8 +650,8 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         incl_ei_flag,
         ffco2_Mt,
         ffco2_Gt,
-        pc_tco2,
-        country_pc_tco2,
+        plot_pc_tco2,
+        profile_country_pc_tco2,
         pc_associated_data,
         co2_by_sector_Mt,
         ffprod_PJ,

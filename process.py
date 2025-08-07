@@ -792,32 +792,32 @@ def final_energy(energy_system):
     print('\nMost recent year Total Energy Consumption (IEA) = ' +
           str(int(energy_system.finalenergy_PJ['Total'].iloc[-1])) + 'PJ\n')
 
-    change_yrs = range(user_globals.Constant.TFC_START_YEAR.value + 1, user_globals.Constant.TFC_END_YEAR.value + 1)
-
-    for yr in change_yrs:
-        energy_system.finalenergy_PJ.loc[yr, 'Coal Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Coal'] -
-                                                               energy_system.finalenergy_PJ.loc[yr - 1, 'Coal'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Oil Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Oil'] -
-                                                              energy_system.finalenergy_PJ.loc[yr - 1, 'Oil'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Gas Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Gas'] -
-                                                              energy_system.finalenergy_PJ.loc[yr - 1, 'Gas'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Wind Solar Etc Change'] = (
-                energy_system.finalenergy_PJ.loc[yr, 'Wind Solar Etc']
-                - energy_system.finalenergy_PJ.loc[yr - 1, 'Wind Solar Etc'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Biofuels and Waste Change'] = (
-                energy_system.finalenergy_PJ.loc[yr, 'Biofuels and Waste']
-                - energy_system.finalenergy_PJ.loc[yr - 1, 'Biofuels and Waste'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Electricity Change'] = (
-                energy_system.finalenergy_PJ.loc[yr, 'Electricity']
-                - energy_system.finalenergy_PJ.loc[yr - 1, 'Electricity'])
-
-        energy_system.finalenergy_PJ.loc[yr, 'Heat Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Heat'] -
-                                                               energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
+    # change_yrs = range(user_globals.Constant.TFC_START_YEAR.value + 1, user_globals.Constant.TFC_END_YEAR.value + 1)
+    #
+    # for yr in change_yrs:
+    #     energy_system.finalenergy_PJ.loc[yr, 'Coal Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Coal'] -
+    #                                                            energy_system.finalenergy_PJ.loc[yr - 1, 'Coal'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Oil Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Oil'] -
+    #                                                           energy_system.finalenergy_PJ.loc[yr - 1, 'Oil'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Gas Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Gas'] -
+    #                                                           energy_system.finalenergy_PJ.loc[yr - 1, 'Gas'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Wind Solar Etc Change'] = (
+    #             energy_system.finalenergy_PJ.loc[yr, 'Wind Solar Etc']
+    #             - energy_system.finalenergy_PJ.loc[yr - 1, 'Wind Solar Etc'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Biofuels and Waste Change'] = (
+    #             energy_system.finalenergy_PJ.loc[yr, 'Biofuels and Waste']
+    #             - energy_system.finalenergy_PJ.loc[yr - 1, 'Biofuels and Waste'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Electricity Change'] = (
+    #             energy_system.finalenergy_PJ.loc[yr, 'Electricity']
+    #             - energy_system.finalenergy_PJ.loc[yr - 1, 'Electricity'])
+    #
+    #     energy_system.finalenergy_PJ.loc[yr, 'Heat Change'] = (energy_system.finalenergy_PJ.loc[yr, 'Heat'] -
+    #                                                            energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
 
     # To plot shares for final year, organise into dataframes of the prerequisite format.
     coal_finalenergy_share_fy = energy_system.finalenergy_PJ['Coal Share'].iloc[-1]

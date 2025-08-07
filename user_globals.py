@@ -107,18 +107,11 @@ class Constant(Enum):
     # fossil fuel CO2. Such countries are designated individual tiles and have their name displayed in the treemap of
     # fossil fuel CO2 emissions by country share, and have their fossil fuel primary energy trends plotted and saved in
     # the Major Emitters folder.
-    PER_CAPITA_THRESHOLD = 2.0  # tCO2/per-capita. Values greater than or equal to this threshold are plotted. Values
-    # less than are tallied in 'Other'.
+    PER_CAPITA_THRESHOLD = 5  # tCO2/per-capita. Values greater than or equal to this threshold are plotted individually
+    # and the remainder are plotted as 'Other'.
     COAL_SHARE_RANK_THRESHOLD = 5  # Percent of global coal production. Defines large coal producer.
     OIL_SHARE_RANK_THRESHOLD = 2  # Percent of global oil production. Defines large oil producer.
     GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent of global gas production. Defines large gas producer.
-
-    # Processing of IEA data takes a noticeably long time. To shorten execution time during testing,
-    # set TFC_START_YEAR to 1999 and TFC_END_YEAR to 2000.
-    TFC_START_YEAR = 2000
-    TFC_END_YEAR = 2022  # Set to most recent year of IEA data.
-    # TFC_START_YEAR = 1999
-    # TFC_END_YEAR = 2000
 
     # Threshold below which column chart displayed as solid line instead for visibility.
     COL_TO_LINE = 0.005

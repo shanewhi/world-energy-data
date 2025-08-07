@@ -462,50 +462,107 @@ def per_capita_emissions(energy_system):
     country = str(energy_system.country)
     year = 'Year ' + str(energy_system.pc_associated_data['FY'])
     title = 'Per Capita Fossil Fuel CO\u2082 Emissions'
-    footer_text = ("Data: Population - World Bank Group, dataset 'Population, total', "
-                   + "https://data.worldbank.org/indicator/SP.POP.TOTL. Fossil fuel CO\u2082 emissions - "
-                   + "The Energy Institute Statistical Review of World Energy, "
-                   + "https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n"
-                   + "Values are of CO\u2082 emissions per capita from coal, oil, gas, and flaring combined, and "
-                   + "exclude emissions from cement. All countries listed in the emissions dataset are included except "
-                   + "Taiwan, which is the only country listed in the emissions dataset but not the population "
-                   + "dataset.\nCountries with per capita emission values below the arbitrarily selected "
-                   + f'{(round(user_globals.Constant.PER_CAPITA_THRESHOLD.value, 2))}'
-                   + 'tCO\u2082/(per capita) threshold '
-                   + "are included in 'Other', along with countries not individually listed in "
-                   + "both the population and emissions datasets (derived "
-                   + "from total emissions and total population).\nEmissions tallied in the countries shown and "
-                   + "'Other' account for "
-                   + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
-                   + "% of world fossil fuel CO\u2082 emissions ("
-                   + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
-                   + '% of '
-                   + f'{(round(energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'], 1)):,}'
-                   + "MtCO\u2082), and "
-                   + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
-                   + "% of world population "
-                   + '('
-                   + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
-                   + '% of '
-                   + f'{(energy_system.pc_associated_data['World Pop']):,}'.rstrip('0').rstrip('.')
-                   + ') in '
-                   + str(energy_system.pc_associated_data['FY'])
-                   + '. Therefore '
-                   + f'{(round(100-energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
-                   + '% of world population emitted '
-                   + f'{(round(100 - energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
-                   + '% of world fossil fuel CO\u2082 emissions.\n'
-                   + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset are "
-                   + "allocated to the country that sold them. Singapore is a small country that sells a large amount "
-                   + "of such fuels, and consequently its per capita emissions are very high. This is detailed in\n"
-                   + "The Global Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
-                   + "https://zenodo.org/records/14106218, p.32.\n"
-                   + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
-                   )
-
+    if user_globals.Constant.PER_CAPITA_THRESHOLD.value > 0:
+        footer_text = ("Data: Population - World Bank Group, dataset 'Population, total', "
+                       + "https://data.worldbank.org/indicator/SP.POP.TOTL. Fossil fuel CO\u2082 emissions - "
+                       + "The Energy Institute Statistical Review of World Energy, "
+                       + "https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n"
+                       + "Values are of CO\u2082 emissions per capita from coal, oil, gas, and flaring combined, and "
+                       + "exclude cement. All countries listed in the emissions dataset are accounted "
+                       + "for except Taiwan, which is the only country listed in the emissions dataset but not the "
+                       + "population dataset.\nOnly countries with per capita emissions above the arbitrarily selected "
+                       + f'{(round(user_globals.Constant.PER_CAPITA_THRESHOLD.value, 2))}'
+                       + 'tCO\u2082/(per capita) threshold are shown, with the remaining '
+                       + "shown in 'Other', along with countries not individually listed in "
+                       + "both the population and emissions datasets (derived "
+                       + "from total emissions and total population).\nEmissions tallied in the countries shown and "
+                       + "'Other' account for "
+                       + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + "% of world fossil fuel CO\u2082 emissions ("
+                       + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + '% of '
+                       + f'{(round(energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'], 1)):,}'
+                       + "MtCO\u2082), and "
+                       + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + "% of world population "
+                       + '('
+                       + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + '% of '
+                       + f'{(energy_system.pc_associated_data['World Pop']):,}'.rstrip('0').rstrip('.')
+                       + ') in '
+                       + str(energy_system.pc_associated_data['FY'])
+                       + '. Therefore '
+                       + f'{(round(100 - energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + '% of world population emitted '
+                       + f'{(round(100 - energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + '% of world fossil fuel CO\u2082 emissions.\n'
+                       + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset "
+                       + "are allocated to the country that sold them. Singapore is a small country that sells a large "
+                       + "amount of such fuels, and consequently its per capita emissions are very high. This is "
+                       + "detailed in the\nGlobal Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
+                       + "https://zenodo.org/records/14106218, p.32. The share of world population at or below the "
+                       + "average per capita level of fossil fuel CO\u2082 emissions in 2024 was "
+                       + f'{(round(energy_system.pc_associated_data['Pop At Or Below PC Mean'] /
+                                   energy_system.pc_associated_data['World Pop'] * 100, 0)):,}'.rstrip('0').rstrip('.')
+                       + '%, accounting for '
+                       + f'{(round(energy_system.pc_associated_data['Emissions At Or Below PC Mean MtCO2'] /
+                energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'] * 100, 0)):,}'.rstrip('0').rstrip('.')
+                       + '% of world emissions.\n'
+                       + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
+                       )
+    else:
+        footer_text = ("Data: Population - World Bank Group, dataset 'Population, total', "
+                       + "https://data.worldbank.org/indicator/SP.POP.TOTL. Fossil fuel CO\u2082 emissions - "
+                       + "The Energy Institute Statistical Review of World Energy, "
+                       + "https://www.energyinst.org/statistical-review/resources-and-data-downloads.\n"
+                       + "Values are of CO\u2082 emissions per capita from coal, oil, gas, and flaring combined, and "
+                       + "exclude cement. All countries listed in the emissions dataset are shown "
+                       + "except Taiwan, which is the only country listed in the emissions dataset but not the "
+                       + "population dataset, and is tallied in 'Other'.\nEmissions tallied in the countries shown and "
+                       + "'Other' account for "
+                       + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + "% of world fossil fuel CO\u2082 emissions ("
+                       + f'{(round(energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + '% of '
+                       + f'{(round(energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'], 1)):,}'
+                       + "MtCO\u2082), and "
+                       + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + "% of world population "
+                       + '('
+                       + f'{(round(energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + '% of '
+                       + f'{(energy_system.pc_associated_data['World Pop']):,}'.rstrip('0').rstrip('.')
+                       + ') in '
+                       + str(energy_system.pc_associated_data['FY'])
+                       + '. Therefore '
+                       + f'{(round(100 - energy_system.pc_associated_data['Assessed Pop Share'] * 100, 1))}'
+                       + '% of world population emitted '
+                       + f'{(round(100 - energy_system.pc_associated_data['Assessed FFCO2 Emissions Share'] * 100, 1))}'
+                       + '% of world fossil fuel CO\u2082 emissions.\n'
+                       + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset "
+                       + "are allocated to the country that sold them. Singapore is a small country that sells a large "
+                       + "amount of such fuels, and consequently its per capita emissions are very high. This is "
+                       + "detailed in the\nGlobal Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
+                       + "https://zenodo.org/records/14106218, p.32. The share of world population at or below the "
+                       + "average per capita level of fossil fuel CO\u2082 emissions in 2024 was "
+                       + f'{(round(energy_system.pc_associated_data['Pop At Or Below PC Mean'] /
+                                   energy_system.pc_associated_data['World Pop'] * 100, 0)):,}'.rstrip('0').rstrip('.')
+                       + '%, accounting for '
+                       + f'{(round(energy_system.pc_associated_data['Emissions At Or Below PC Mean MtCO2'] /
+               energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'] * 100, 0)):,}'.rstrip('0').rstrip('.')
+                       + '% of world emissions.\n'
+                       + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
+                       )
     ylabel = 'Tonne'
     chart.column_subplot(energy_system.pc_tco2,
-                         energy_system.country_pc_tco2, country, title, year, ylabel, footer_text,
+                         energy_system.country_pc_tco2,
+                         energy_system.pc_associated_data['World PC tCO2'],
+                         'World',
+                         country,
+                         title,
+                         year,
+                         ylabel,
+                         footer_text,
                          user_globals.Color.CO2_EMISSION.value,
                          user_globals.Color.PER_CAPITA_HIGHLIGHT.value)
     plt.savefig(
