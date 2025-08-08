@@ -499,15 +499,8 @@ def per_capita_emissions(energy_system):
                        + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset "
                        + "are allocated to the country that sold them. Singapore is a small country that sells a large "
                        + "amount of such fuels, and consequently its per capita emissions are very high. This is "
-                       + "detailed in the\nGlobal Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
-                       + "https://zenodo.org/records/14106218, p.32. The share of world population at or below the "
-                       + "average per capita level of fossil fuel CO\u2082 emissions in 2024 was "
-                       + f'{(round(energy_system.pc_associated_data['Pop At Or Below PC Mean'] /
-                                   energy_system.pc_associated_data['World Pop'] * 100, 0)):,}'.rstrip('0').rstrip('.')
-                       + '%, accounting for '
-                       + f'{(round(energy_system.pc_associated_data['Emissions At Or Below PC Mean MtCO2'] /
-                energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'] * 100, 0)):,}'.rstrip('0').rstrip('.')
-                       + '% of world emissions.\n'
+                       + "detailed in\n the Global Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
+                       + "https://zenodo.org/records/14106218, p.32."
                        + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
                        )
     else:
@@ -542,15 +535,8 @@ def per_capita_emissions(energy_system):
                        + "Emissions from shipping and international aviation fuels in The Energy Institute's dataset "
                        + "are allocated to the country that sold them. Singapore is a small country that sells a large "
                        + "amount of such fuels, and consequently its per capita emissions are very high. This is "
-                       + "detailed in the\nGlobal Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
-                       + "https://zenodo.org/records/14106218, p.32. The share of world population at or below the "
-                       + "average per capita level of fossil fuel CO\u2082 emissions in 2024 was "
-                       + f'{(round(energy_system.pc_associated_data['Pop At Or Below PC Mean'] /
-                                   energy_system.pc_associated_data['World Pop'] * 100, 0)):,}'.rstrip('0').rstrip('.')
-                       + '%, accounting for '
-                       + f'{(round(energy_system.pc_associated_data['Emissions At Or Below PC Mean MtCO2'] /
-               energy_system.pc_associated_data['World FFCO2 Emissions MtCO2'] * 100, 0)):,}'.rstrip('0').rstrip('.')
-                       + '% of world emissions.\n'
+                       + "detailed in\nthe Global Carbon Project's fossil CO\u2082 emissions dataset: 2024 release, "
+                       + "https://zenodo.org/records/14106218, p.32. "
                        + "By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data."
                        )
     ylabel = 'Tonne'
