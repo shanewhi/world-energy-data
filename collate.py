@@ -408,11 +408,6 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
                             # Tally country above threshold provided it's not World.
                             plotted_pop += pop_row.Population
                             plotted_emissions_mtco2 += energy_row.Value
-                        # Tally population and emissions of countries with per capita FF CO2 emissions less than or
-                        # equal to world mean emissions.
-                        if country_pc_tco2 <= world_pc_tco2 and not pop_row.Index == 'WLD':
-                            pop_at_or_below_world_mean_pc_emissions += pop_row.Population
-                            emissions_at_or_below_world_mean_pc_emissions_Mtco2 += energy_row.Value
                         # Tally population and emissions for countries that appeared in both datasets.
                         if not pop_row.Index == 'WLD':
                             assessed_population += pop_row.Population
@@ -448,8 +443,6 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         pc_associated_data['Assessed Pop Share'] = assessed_share_world_population
         pc_associated_data['Assessed FFCO2 Emissions Share'] = assessed_share_world_co2_emissions
         pc_associated_data['World Pop'] = world_population
-        pc_associated_data['Pop At Or Below PC Mean'] = pop_at_or_below_world_mean_pc_emissions
-        pc_associated_data['Emissions At Or Below PC Mean MtCO2'] = emissions_at_or_below_world_mean_pc_emissions_Mtco2
         pc_associated_data['World FFCO2 Emissions MtCO2'] = world_emissions_mtco2
         pc_associated_data['World PC tCO2'] = world_pc_tco2
         pc_associated_data['FY'] = fy
