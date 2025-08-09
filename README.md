@@ -1,6 +1,10 @@
 Generates charts of CO<sub>2</sub> emissions, fossil fuel production, energy consumption, and electricity trends for
 the world and specified countries. Charts are displayed at https://www.worldenergydata.org/.
 
+The does package attempt to check that a compatible country name has been input, but it's coarse and some may break
+at run-time (e.g. Yemen, which the Energy Institue dataset includes, but only for oil production). This may be 
+hardened in the future if time allows.
+
 Requires installation of Python and dependencies listed below. Charts are output in SVG format, so there's no loss of
 resolution when magnified.
 
