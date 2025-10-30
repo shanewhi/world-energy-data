@@ -1443,14 +1443,14 @@ def column_3_subplots(
     fig.suptitle(
         country,
         x=0.05,
-        y=0.93,
+        y=0.935,
         horizontalalignment='left',
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.05,
-        0.88,
+        0.885,
         title,
         horizontalalignment='left',
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -2604,14 +2604,14 @@ def column_8_subplots(
     fig.suptitle(
         country,
         x=0.045,
-        y=0.995,
+        y =1,
         horizontalalignment='left',
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.045,
-        0.955,
+        0.96,
         title,
         horizontalalignment='left',
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -3770,14 +3770,14 @@ def column_grouped(country, title, y_label, footer_text, *colors, **series):
     fig.suptitle(
         country,
         x=0.05,
-        y=0.96,
+        y=0.965,
         horizontalalignment='left',
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.05,
-        0.91,
+        0.915,
         title,
         horizontalalignment='left',
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
@@ -4168,7 +4168,7 @@ def treemap_2_subplots(
     )
     fig.text(
         0.125,
-        0.905,
+        0.9,
         title_addition,
         horizontalalignment='left',
         verticalalignment='top',
