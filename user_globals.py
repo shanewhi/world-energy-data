@@ -130,19 +130,16 @@ class Constant(Enum):
     MAJOR_EMITTER_AXIS_LABEL_FONT_SIZE = 'small'
 
     # FONT WEIGHTS:
-    # Options -
-    # 'ultralight', 'light', 'normal', 'regular', 'book', 'medium', 'roman',
-    # 'semibold', 'demibold', 'demi', 'bold', 'heavy', 'extra bold', 'black'
-    SUPTITLE_FONT_WEIGHT = 'normal'
-    TITLE_FONT_WEIGHT = 'semibold'
-    TITLE_ADDITION_FONT_WEIGHT = 'normal'
-    SUBPLOT_TITLE_FONT_WEIGHT = 'medium'
-    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = 'medium'
-    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = 'medium'
-    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = 'medium'
-    FOOTER_TEXT_FONT_WEIGHT = 'normal'
+    SUPTITLE_FONT_WEIGHT = 'regular'
+    TITLE_FONT_WEIGHT = 'bold'
+    TITLE_ADDITION_FONT_WEIGHT = 'regular'
+    SUBPLOT_TITLE_FONT_WEIGHT = 'regular'
+    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = 'bold'
+    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = 'regular'
+    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = 'regular'
+    FOOTER_TEXT_FONT_WEIGHT = 'regular'
     MAJOR_EMITTER_TITLE_FONT_WEIGHT = 'bold'
-    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = 'semibold'
+    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = 'regular'
 
     # FIGURE SIZES.
     # To inspect, set DISPLAY_CHARTS True, and use the chart sliders. Set ALL parameters.
@@ -263,5 +260,4 @@ plt.style.use(('bmh', rc))
 
 # Set global font parameters.
 # If you add a font to the OS, be sure to delete all matplotlib's font cache files in ~/.matplotlib.
-plt.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = ['Inter']
+plt.rcParams['font.sans-serif'] = 'Helvetica'
