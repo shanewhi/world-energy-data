@@ -828,11 +828,11 @@ def final_energy(energy_system):
     elec_finalenergy_share_fy = energy_system.finalenergy_PJ['Electricity Share'].iloc[-1]
     heat_finalenergy_share_fy = energy_system.finalenergy_PJ['Heat Share'].iloc[-1]
 
-    name = ['Coal',
-            'Oil',
+    name = ['Coal and\ncoal products',
+            'Oil and\noil products',
             'Gas',
             'Wind Solar Etc',
-            'Biofuels & Waste',
+            'Biofuels\nand waste',
             'Electricity',
             'Heat']
 

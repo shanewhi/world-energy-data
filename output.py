@@ -1152,10 +1152,10 @@ def country_finalenergy_charts(energy_system):
     # FINAL ENERGY: Annual quantities.
     ####################################################################################################################
     title = 'Annual Energy Consumption after partial conversions to Electricity (Final Energy)'
-    title1 = 'Coal'
-    title2 = 'Oil'
+    title1 = 'Coal and coal products'
+    title2 = 'Oil and oil products'
     title3 = 'Gas'
-    title4 = 'Biofuels and Waste'
+    title4 = 'Biofuels and waste'
     title5 = 'Electricity'
     title6 = 'Heat'
     if country == 'World':
@@ -1289,12 +1289,12 @@ def country_elecgen_charts(energy_system):
         title = 'Annual Electricity Generation'
         title1 = 'Total'
         title2 = 'Nuclear'
-        title3 = 'Fossil Fuels\n(Coal+Oil+Gas)'
+        title3 = 'Fossil Fuels\n(Coal + Oil + Gas)'
         title4 = 'Coal'
         title5 = 'Oil'
         title6 = 'Gas'
         title7 = 'Bio, Geo and Other'
-        title8 = 'Renewables\n(Hydro+Wind+Solar)'
+        title8 = 'Renewables\n(Hydro + Wind + Solar)'
         title9 = 'Hydro'
         title10 = 'Wind'
         title11 = 'Solar'
@@ -1449,7 +1449,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
                  ' value shown after each fuel')
         title1 = ('Nuclear ' +
                   f'{(round(energy_system.elecgen_TWh['Nuclear Share'].iloc[-1], 1)):,}' + '%')
-        title2 = ('Fossil Fuels (Coal+Oil+Gas) ' +
+        title2 = ('Fossil Fuels (Coal + Oil + Gas) ' +
                   f'{(round(energy_system.elecgen_TWh['Fossil Fuels Share'].iloc[-1], 1)):,}' + '%')
         title3 = ('Coal ' +
                   f'{(round(energy_system.elecgen_TWh['Coal Share'].iloc[-1], 1)):,}' + '%')
@@ -1459,7 +1459,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
                   f'{(round(energy_system.elecgen_TWh['Gas Share'].iloc[-1], 1)):,}' + '%')
         title6 = ('Bio, Geo and Other ' +
                   f'{(round(energy_system.elecgen_TWh['Bio, Geo and Other Share'].iloc[-1], 1)):,}' + '%')
-        title7 = ('Renewables (Hydro+Wind+Solar) ' +
+        title7 = ('Renewables (Hydro + Wind + Solar) ' +
                   f'{(round(energy_system.elecgen_TWh['Renewables Share'].iloc[-1], 1)):,}' + '%')
         title8 = ('Hydro ' +
                   f'{(round(energy_system.elecgen_TWh['Hydro Share'].iloc[-1], 1)):,}' + '%')
