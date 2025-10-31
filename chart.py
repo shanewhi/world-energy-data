@@ -4177,7 +4177,7 @@ def treemap_2_subplots(
     )
     fig.text(
         0.125,
-        0.1,
+        0.07,
         footer_text,
         horizontalalignment='left',
         verticalalignment='top',
