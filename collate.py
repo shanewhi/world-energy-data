@@ -157,22 +157,24 @@ def import_iea_data(country_name):
         print('\nFile not found: ' + filename_co2_emissions_by_sector)
     try:
         tfc = pd.read_csv(filename_tfc, index_col=0, skiprows=3,
-                          dtype={'Coal': float, 'Crude oil': float,
-                                 'Oil products': float, 'Natural gas': float, 'Wind, solar, etc.': float,
+                          dtype={'Coal and coal products': float, 'Primary oil': float,
+                                 'Oil products': float, 'Natural gas': float,
+                                 '"Solar, wind and other renewables"': float,
                                  'Biofuels and waste': float, 'Electricity': float, 'Heat': float, 'Units': str},
                           )
         # IEA TFC data for some countries does not list all forms of consumption. Assign a value of 0 to such columns.
         tfc_keys = tfc.keys()
-        if 'Coal' not in tfc_keys:
-            tfc['Coal'] = 0
-        if 'Crude oil' not in tfc_keys:
-            tfc['Crude oil'] = 0
+        if 'Coal and coal products' not in tfc_keys:
+            tfc['Coal and coal products'] = 0
+        if 'Primary oil' not in tfc_keys:
+            tfc['Primary oil'] = 0
         if 'Oil products' not in tfc_keys:
             tfc['Oil products'] = 0
         if 'Natural gas' not in tfc_keys:
             tfc['Natural gas'] = 0
-        if 'Wind, solar, etc.' not in tfc_keys:
-            tfc['Wind, solar, etc.'] = 0
+        if 'Solar, wind and other renewables' not in tfc_keys:
+            tfc['Solar, wind and other renewables'] = 0
+            print('\n\nZERO\n\n')
         if 'Biofuels and waste' not in tfc_keys:
             tfc['Biofuels and waste'] = 0
         if 'Electricity' not in tfc_keys:
@@ -182,7 +184,8 @@ def import_iea_data(country_name):
 
         tfc.drop(columns='Units', inplace=True)
         tfc.fillna(value=0, inplace=True)
-        tfc.rename(columns={'Natural gas': 'Gas', 'Wind, solar, etc.': 'Wind Solar Etc',
+        tfc.rename(columns={'Coal and coal products': 'Coal', 'Primary oil': 'Crude oil', 'Natural gas': 'Gas',
+                            'Solar, wind and other renewables': 'Wind Solar Etc',
                             'Biofuels and waste': 'Biofuels and Waste', }, inplace=True)
 
     except FileNotFoundError:
