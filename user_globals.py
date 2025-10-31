@@ -213,10 +213,10 @@ class Color(Enum):
     ELECTRICITY = 'teal'
     UNPUBLISHED = 'steelblue'
 
-    SECTOR_ELEC = 'firebrick'
+    SECTOR_ELEC = 'cadetblue'
     SECTOR_OTHER_ENERGY = 'coral'
     SECTOR_INDUSTRY = 'darkmagenta'
-    SECTOR_TRANSPORT = 'cadetblue'
+    SECTOR_TRANSPORT = 'firebrick'
     SECTOR_COM_PUBLIC_SERV = 'midnightblue'
     SECTOR_RESD = 'mediumslateblue'
     SECTOR_AG = 'green'
