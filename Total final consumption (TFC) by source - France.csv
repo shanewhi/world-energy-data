@@ -1,7 +1,7 @@
 Source: IEA World Energy Balances https://www.iea.org/data-and-statistics/data-product/world-energy-statistics-and-balances
 This data is released under a CC BY 4.0 licence: https://www.iea.org/terms/creative-commons-cc-licenses
 
-,Coal,Oil products,Natural gas,"Wind, solar, etc.",Biofuels and waste,Electricity,Heat,Crude oil,Units
+,Coal and coal products,Oil products,Natural gas,"Solar, wind and other renewables",Biofuels and waste,Electricity,Heat,Primary oil,Units
 1990,262327,3145272,1001736,5639,404560,1088027,19996,,TJ
 1991,249575,3324402,1136396,5654,468543,1156903,21981,,TJ
 1992,241325,3341235,1150951,6292,453912,1189177,21915,,TJ
