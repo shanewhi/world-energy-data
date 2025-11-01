@@ -174,7 +174,6 @@ def import_iea_data(country_name):
             tfc['Natural gas'] = 0
         if 'Solar, wind and other renewables' not in tfc_keys:
             tfc['Solar, wind and other renewables'] = 0
-            print('\n\nZERO\n\n')
         if 'Biofuels and waste' not in tfc_keys:
             tfc['Biofuels and waste'] = 0
         if 'Electricity' not in tfc_keys:
