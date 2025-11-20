@@ -360,8 +360,7 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         # During calculations, tally emissions and population plotted and processed.
         plotted_emissions_mtco2 = 0
         plotted_pop = 0
-        pop_at_or_below_world_mean_pc_emissions = 0
-        emissions_at_or_below_world_mean_pc_emissions_Mtco2 = 0
+
         assessed_population = 0
         assessed_emissions_mtco2 = 0
         # Set flag for country being profiled to be assigned per capita emissions of 'Other' unless found to be above
@@ -588,12 +587,12 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         # Replace any NaNs with 0.
         with pd.option_context('future.no_silent_downcasting', True):
             elecgen_TWh.fillna(0, inplace=True)
-        elecgen_TWh['Bio, Geo and Other'] = elecgen_TWh['Bio, Geo'] + elecgen_TWh['Other']
 
         # Calculate categories.
         elecgen_TWh['Fossil Fuels'] = (elecgen_TWh['Coal'] + elecgen_TWh['Oil'] + elecgen_TWh['Gas'])
         elecgen_TWh['Wind and Solar'] = elecgen_TWh['Wind'] + elecgen_TWh['Solar']
         elecgen_TWh['Renewables'] = (elecgen_TWh['Wind'] + elecgen_TWh['Solar'] + elecgen_TWh['Hydro'])
+        elecgen_TWh['Bio, Geo and Other'] = elecgen_TWh['Bio, Geo'] + elecgen_TWh['Other']
 
         # Calculate unpublished quantity for the country.
         # Extract country total from data.
