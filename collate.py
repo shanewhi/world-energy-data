@@ -564,6 +564,8 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
                 'Hydro',
                 'Wind',
                 'Solar',
+                'Bio, Geo',
+                'Other',
                 'Bio, Geo and Other',
                 'Fossil Fuels',
                 'Wind and Solar',
@@ -581,13 +583,13 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         elecgen_TWh['Hydro'] = country_data.loc[country_data['Var'] == 'hydro_twh', 'Value']
         elecgen_TWh['Wind'] = country_data.loc[country_data['Var'] == 'wind_twh', 'Value']
         elecgen_TWh['Solar'] = country_data.loc[country_data['Var'] == 'solar_twh', 'Value']
-        elecgen_TWh['Bio, Geo and Other'] = (
-                country_data.loc[country_data['Var'] == 'biogeo_twh', 'Value']
-                + country_data.loc[country_data['Var'] == 'electbyfuel_other', 'Value']
-        )
+        elecgen_TWh['Bio, Geo'] = country_data.loc[country_data['Var'] == 'biogeo_twh', 'Value']
+        elecgen_TWh['Other'] = country_data.loc[country_data['Var'] == 'electbyfuel_other', 'Value']
         # Replace any NaNs with 0.
         with pd.option_context('future.no_silent_downcasting', True):
             elecgen_TWh.fillna(0, inplace=True)
+        elecgen_TWh['Bio, Geo and Other'] = elecgen_TWh['Bio, Geo'] + elecgen_TWh['Other']
+
         # Calculate categories.
         elecgen_TWh['Fossil Fuels'] = (elecgen_TWh['Coal'] + elecgen_TWh['Oil'] + elecgen_TWh['Gas'])
         elecgen_TWh['Wind and Solar'] = elecgen_TWh['Wind'] + elecgen_TWh['Solar']
