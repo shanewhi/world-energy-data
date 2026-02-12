@@ -718,3 +718,123 @@ def populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data):
         # Increment loop counter
         n += 1
     return major_emitter_co2_energy_dataframe
+
+
+########################################################################################################################
+#
+# Function: major_fossil_fuel_production()
+#
+# Description:
+# For major fossil fuel producers, collate annual coal, oil and gas production
+#
+########################################################################################################################
+def major_fossil_fuel_production(major_coal_producers, major_oil_producers, major_gas_producers,
+                                                  ei_data):
+    # Identify names of major producing countries.
+    major_coal_producing_country_names = major_coal_producers['Name']
+    major_oil_producing_country_names = major_oil_producers["Name"]
+    major_gas_producing_country_names = major_gas_producers["Name"]
+    major_coal_producers_color_list = countries.assign_chart_colors(major_coal_producing_country_names)
+    major_oil_producers_color_list = countries.assign_chart_colors(major_oil_producing_country_names)
+    major_gas_producers_color_list = countries.assign_chart_colors(major_gas_producing_country_names)
+
+    # Restore original country names that may have been shortened earlier for display purposes.
+    major_coal_producing_country_names = countries.restore_original_country_name(major_coal_producing_country_names)
+    major_oil_producing_country_names = countries.restore_original_country_name(major_oil_producing_country_names)
+    major_gas_producing_country_names = countries.restore_original_country_name(major_gas_producing_country_names)
+
+    # 1. Coal
+    # Extract coal production values
+    coal_production_EJ = ei_data.loc[ei_data['Var'] == 'coalprod_ej', ('Country', 'Value')]
+    major_coal_production_EJ = pd.DataFrame()
+    for name in major_coal_producing_country_names:
+        country_coal_production_EJ = coal_production_EJ.loc[coal_production_EJ['Country'] == name]
+        country_coal_production_EJ = country_coal_production_EJ.drop(columns=['Country'])
+        country_share = major_coal_producers.loc[major_coal_producers['Name'] == name, 'Value']
+        label = name+' '+str(country_share.item())+'%'
+        if name == 'Other':
+            label_other = label
+        country_coal_production_EJ = country_coal_production_EJ.rename(columns={'Value':label})
+        major_coal_production_EJ = pd.concat([major_coal_production_EJ, country_coal_production_EJ], axis = 1)
+    major_coal_production_EJ = major_coal_production_EJ.fillna(0)
+
+    # Calculate production by all other countries by summing that from major producers and subtracting from World total.
+    major_coal_production_EJ['Major Sum'] = major_coal_production_EJ.sum(1)
+    world_coal_production_EJ = ei_data.loc[(ei_data['Var'] == 'coalprod_ej') &
+                                           (ei_data['Country'] == 'Total World'), 'Value']
+    major_coal_production_EJ['World'] = world_coal_production_EJ
+    major_coal_production_EJ[label_other] = major_coal_production_EJ['World'] - major_coal_production_EJ['Major Sum']
+
+    # Drop columns 'Major Sum' and 'World' because they won't be plotted.
+    major_coal_production_EJ = major_coal_production_EJ.drop(columns=['Major Sum', 'World'])
+
+    # 2. Extract oil production values
+    oil_production_mt = ei_data.loc[ei_data['Var'] == 'oilprod_mt', ('Country', 'Value')]
+    oil_production_temp = oil_production_mt
+    oil_production_temp['Value'] = (oil_production_temp['Value'] *
+                                    1e6 *
+                                    user_globals.Constant.TOE_TO_GJ.value *
+                                    user_globals.Constant.GJ_TO_EJ.value)
+    oil_production_EJ = oil_production_temp
+    major_oil_production_EJ = pd.DataFrame()
+    for name in major_oil_producing_country_names:
+        country_oil_production_EJ = oil_production_EJ.loc[oil_production_EJ['Country'] == name]
+        country_oil_production_EJ = country_oil_production_EJ.drop(columns=['Country'])
+        country_share = major_oil_producers.loc[major_oil_producers['Name'] == name, 'Value']
+        label = name+' '+str(country_share.item())+'%'
+        if name == 'Other':
+            label_other = label
+        country_oil_production_EJ = country_oil_production_EJ.rename(columns={'Value': label})
+        major_oil_production_EJ = pd.concat([major_oil_production_EJ, country_oil_production_EJ], axis=1)
+    major_oil_production_EJ = major_oil_production_EJ.fillna(0)
+
+    # Calculate production by all other countries by summing that from major producers and subtracting from World total.
+    major_oil_production_EJ['Major Sum'] = major_oil_production_EJ.sum(1)
+    world_oil_production_mt = ei_data.loc[(ei_data['Var'] == 'oilprod_mt') &
+                                          (ei_data['Country'] == 'Total World'), 'Value']
+    world_oil_production_temp = world_oil_production_mt
+    world_oil_production_temp = (world_oil_production_temp *
+                                 1e6 *
+                                 user_globals.Constant.TOE_TO_GJ.value *
+                                 user_globals.Constant.GJ_TO_EJ.value)
+    major_oil_production_EJ['World'] = world_oil_production_temp
+    major_oil_production_EJ[label_other] = major_oil_production_EJ['World'] - major_oil_production_EJ['Major Sum']
+
+    # Drop columns 'Major Sum' and 'World' because they won't be plotted.
+    major_oil_production_EJ = major_oil_production_EJ.drop(columns=['Major Sum', 'World'])
+
+    # Extract gas production values
+    gas_production_EJ = ei_data.loc[ei_data['Var'] == 'gasprod_ej', ('Country', 'Value')]
+    major_gas_production_EJ = pd.DataFrame()
+    for name in major_gas_producing_country_names:
+        country_gas_production_EJ = gas_production_EJ.loc[gas_production_EJ['Country'] == name]
+        country_gas_production_EJ = country_gas_production_EJ.drop(columns=['Country'])
+        country_share = major_gas_producers.loc[major_gas_producers['Name'] == name, 'Value']
+        label = name+' '+str(country_share.item())+'%'
+        if name == 'Other':
+            label_other = label
+        country_gas_production_EJ = country_gas_production_EJ.rename(columns={'Value': label})
+        major_gas_production_EJ = pd.concat([major_gas_production_EJ, country_gas_production_EJ], axis=1)
+    major_gas_production_EJ = major_gas_production_EJ.fillna(0)
+
+    # Calculate production by all other countries by summing that from major producers and subtracting from World total.
+    major_gas_production_EJ['Major Sum'] = major_gas_production_EJ.sum(1)
+    world_gas_production_EJ = ei_data.loc[(ei_data['Var'] == 'gasprod_ej') &
+                                          (ei_data['Country'] == 'Total World'), 'Value']
+    major_gas_production_EJ['World'] = world_gas_production_EJ
+    major_gas_production_EJ[label_other] = major_gas_production_EJ['World'] - major_gas_production_EJ['Major Sum']
+
+    # Drop columns 'Major Sum' and 'World' because they won't be plotted.
+    major_gas_production_EJ = major_gas_production_EJ.drop(columns=['Major Sum', 'World'])
+
+    return user_globals.Major_Fossil_Fuel_Production_Consumption(
+        major_coal_producers,
+        major_coal_production_EJ,
+        major_coal_producers_color_list,
+        major_oil_producers,
+        major_oil_production_EJ,
+        major_oil_producers_color_list,
+        major_gas_producers,
+        major_gas_production_EJ,
+        major_gas_producers_color_list,
+    )

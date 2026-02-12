@@ -50,13 +50,18 @@ output.world_co2_charts(global_carbon)
 # 3. Generate dataframes of major coal, oil and gas producers as required for plot of shares for final year of data in
 # profile() below.
 print('\nIdentifying major fossil fuel producers:\n')
-coal_producers, oil_producers, gas_producers = collate.fossil_fuel_producer_shares(ei_data)
-
+major_coal_producers, major_oil_producers, major_gas_producers = collate.fossil_fuel_producer_shares(ei_data)
+major_fossil_fuel_producer_data = collate.major_fossil_fuel_production(
+    major_coal_producers,
+    major_oil_producers,
+    major_gas_producers,
+    # major_coal_consumers,
+    # major_oil_consumers,
+    # major_gas_consumers,
+    ei_data)
 
 # 4. Profile specified country, countries and or 'Total World'. This also includes plotting country shares of coal,
 # oil and gas production from above, and ensures this chart is included in each country, or world, profile's folder.
-
-
 def profile(country):
     # Import country specific IEA data.
     iea_co2_by_sector_Mt, iea_tfc_TJ = collate.import_iea_data(country)
@@ -73,8 +78,11 @@ def profile(country):
         output.country_finalenergy_elec_charts(country_energy_system)
     if iea_tfc_TJ is not None:
         output.country_finalenergy_charts(country_energy_system)
-    output.world_ffprod_charts(coal_producers, oil_producers, gas_producers, country_energy_system.country)
-
+    # Plot major annual fossil fuel production (and at a later stage, consumption). Two versions will be plotted, the
+    # first being a simpler earlier version that may still be of use.
+    output.world_ffprod_shares(major_coal_producers, major_oil_producers, major_gas_producers,
+                               country_energy_system.country)
+    output.world_ffprod_stacked(country_energy_system.country, major_fossil_fuel_producer_data)
 
 for name in countries:
     print('\n\nGenerating charts for: ' + str(name))

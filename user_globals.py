@@ -80,14 +80,46 @@ class Energy_System:
         self.finalenergy_PJ = finalenergy_PJ
         self.finalenergy_fy_shares = finalenergy_fy_shares
 
+# Define custom class for organising major fossil fuel production and consumption, instead of passing numerous variables
+# or creating a complicated data structure.
+class Major_Fossil_Fuel_Production_Consumption:
+    def __init__(
+                self,
+                major_coal_producers,  # Dataframe of coal producers and their shares of production.
+                major_coal_production_EJ,  # Pandas dataframe of coal production by major producers.
+                major_coal_producers_color_list,  # Coal country colors
+                major_oil_producers,  # Dataframe of oil producers and their shares of production.
+                major_oil_production_EJ,  # Pandas dataframe of oil production by major producers.
+                major_oil_producers_color_list,  # Oil country colors
+                major_gas_producers,  # Dataframe of gas producers and their shares of production.
+                major_gas_production_EJ,  # Pandas dataframe of gas production by major producers.
+                major_gas_producers_color_list, # Gas country colors
+                #major_coal_consumption_EJ,  # Pandas dataframe of coal consumption by major consumers.
+                #major_oil_consumption_EJ,  # Pandas dataframe of oil consumption by major consumers.
+                #major_gas_consumption_EJ,  # Pandas dataframe of gas consumption by major consumers.
+                ):
+        self.major_coal_producers = major_coal_producers
+        self.major_coal_production_EJ = major_coal_production_EJ
+        self.major_coal_producers_color_list = major_coal_producers_color_list
+        self.major_oil_producers = major_oil_producers
+        self.major_oil_production_EJ = major_oil_production_EJ
+        self.major_oil_producers_color_list = major_oil_producers_color_list
+        self.major_gas_producers = major_gas_producers
+        self.major_gas_production_EJ = major_gas_production_EJ
+        self.major_gas_producers_color_list = major_gas_producers_color_list
+        #self.major_coal_consumption_EJ = major_coal_consumption_EJ
+        #self.major_oil_consumption_EJ = major_oil_consumption_EJ
+        #self.major_gas_consumption_EJ = major_gas_consumption_EJ
 
 # Define conversion coefficients (multiply for conversion) and presets.
 class Constant(Enum):
     DISPLAY_CHARTS = False  # Whether charts are output to monitor.
     CHART_START_YR_FOR_MAJOR_EMITTERS = 1965  # Start year for plots of major emitter emissions and fossil fuel primary
     # energy.
-    CHART_START_YR = 2000  # Start year for all charts except change charts
-    CHANGE_CHART_START_YR = 2010
+    CHART_START_YR = 2000  # Default chart start year.
+    CHANGE_CHART_START_YR = 2010 # Start year of annual change charts.
+    FF_PROD_START_YR = 1990 # Start year of fossil fuel production chart.
+    FF_CONS_START_YR = 1990 # Start year of fossil fuel consumption chart.
 
     C_TO_CO2 = 44 / 12
     k_TO_M = 1e-3
@@ -109,9 +141,9 @@ class Constant(Enum):
     # the Major Emitters folder.
     PER_CAPITA_THRESHOLD = 0  # tCO2/per-capita. Values greater than or equal to this threshold are plotted individually
     # and the remainder are plotted as 'Other'.
-    COAL_SHARE_RANK_THRESHOLD = 5  # Percent of global coal production. Defines large coal producer.
+    COAL_SHARE_RANK_THRESHOLD = 2  # Percent of global coal production. Defines large coal producer.
     OIL_SHARE_RANK_THRESHOLD = 2  # Percent of global oil production. Defines large oil producer.
-    GAS_SHARE_RANK_THRESHOLD = 1.5  # Percent of global gas production. Defines large gas producer.
+    GAS_SHARE_RANK_THRESHOLD = 2  # Percent of global gas production. Defines large gas producer.
 
     # Threshold below which column chart displayed as solid line instead for visibility.
     COL_TO_LINE = 0.005
@@ -223,23 +255,33 @@ class Color(Enum):
     SECTOR_OTHER = 'purple'
 
     ALL = 'mediumpurple'
-    CHINA = 'crimson'
-    OTHER_COUNTRIES = 'darkslategrey'
-    US = 'blue'
-    INDIA = 'darkorange'
-    RUSSIA = 'darkgreen'
-    JAPAN = 'darkgoldenrod'
-    INDONESIA = 'indianred'
-    IRAN = 'sienna'
-    SAUDI_ARABIA = 'darkred'
-    SOUTH_KOREA = 'deeppink'
-    GERMANY = 'green'
-    CANADA = 'dodgerblue'
-    MEXICO = 'chocolate'
-    BRAZIL = 'forestgreen'
-    TURKIYE = 'red'
-    SOUTH_AFRICA = 'indigo'
+    ALGERIA ='lavender'
     AUS = 'black'
+    BRAZIL = 'olive'
+    CANADA = 'dodgerblue'
+    CHINA = 'red'
+    INDIA = 'darkorange'
+    INDONESIA = 'saddlebrown'
+    IRAN = 'navy'
+    IRAQ = 'aqua'
+    KUWAIT = 'indianred'
+    MEXICO = 'steelblue'
+    NORWAY = 'hotpink'
+    QATAR = 'mediumspringgreen'
+    RUSSIA = 'maroon'
+    SAUDI_ARABIA = 'green'
+    SOUTH_AFRICA = 'slategrey'
+    US = 'blue'
+    UAE = 'gold'
+    JAPAN = 'fuchsia'
+    SOUTH_KOREA = 'crimson'
+    GERMANY = 'darkviolet'
+    TURKIYE = 'orangered'
+    OTHER_COUNTRIES = 'lightsteelblue'
+    COUNTRY_WITHOUT_ASSIGNED_COLOR = 'white'
+
+    STACKED_AREA_EDGE = 'darkgray'
+
     PER_CAPITA_HIGHLIGHT = 'magenta'
 
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list

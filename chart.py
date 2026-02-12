@@ -622,7 +622,7 @@ def column_2_subplots(
         y_max = max(ylim0, ylim1)
         ax[0].set_ylim(0, y_max)
         ax[1].set_ylim(0, y_max)
-    # Force uppermost tick to be equal to next tick after ylim
+    # Force the uppermost tick to be equal to next tick after ylim
     ax[0].set_ylim(0, max(ax[0].get_yticks()))
     ax[1].set_ylim(0, max(ax[1].get_yticks()))
 
@@ -811,7 +811,7 @@ def line_column(
     ax[1].autoscale(axis='y')
     ax[1].yaxis.grid(True)
 
-    # Force uppermost tick to be equal to next tick after ylim
+    # Force the uppermost tick to be equal to next tick after ylim
     ax[0].set_ylim(0, max(ax[0].get_yticks()))
     ax[1].set_ylim(0, max(ax[1].get_yticks()))
 
@@ -940,7 +940,7 @@ def line_treemap(
         ax0.yaxis.set_major_formatter(
             matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ','))
         )
-    # Force uppermost tick to be equal to next tick after ylim
+    # Force the uppermost tick to be equal to next tick after ylim
     ax0.set_ylim(0, max(ax0.get_yticks()))
 
     tr.treemap(
@@ -1113,7 +1113,7 @@ def column_treemap(
         ax0.yaxis.set_major_formatter(
             matplotlib.ticker.FuncFormatter(lambda x, p: format(decimal.Decimal(x), ','))
         )
-    # Force uppermost tick to be equal to next tick after ylim
+    # Force the uppermost tick to be equal to next tick after ylim
     ax0.set_ylim(0, max(ax0.get_yticks()))
 
     tr.treemap(
@@ -1380,7 +1380,7 @@ def column_3_subplots(
             ax[0].set_ylim(0, y_max)
             ax[1].set_ylim(0, y_max)
             ax[2].set_ylim(0, y_max)
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0].set_ylim(0, max(ax[0].get_yticks()))
         ax[1].set_ylim(0, max(ax[1].get_yticks()))
         ax[2].set_ylim(0, max(ax[2].get_yticks()))
@@ -1504,8 +1504,6 @@ def line_6_subplots(
     fig, ax = plt.subplots(
         2,
         3,
-        sharex=False,
-        sharey=False,
         figsize=(
             user_globals.Constant.FIG_HSIZE_2_ROW.value,
             user_globals.Constant.FIG_VSIZE_2_ROW.value,
@@ -1609,7 +1607,7 @@ def line_6_subplots(
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
 
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
@@ -1727,8 +1725,6 @@ def column_6_subplots(
     fig, ax = plt.subplots(
         2,
         3,
-        sharex=False,
-        sharey=False,
         figsize=(
             user_globals.Constant.FIG_HSIZE_2_ROW.value,
             user_globals.Constant.FIG_VSIZE_2_ROW.value,
@@ -2007,7 +2003,7 @@ def column_6_subplots(
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
 
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
@@ -2142,8 +2138,6 @@ def column_8_subplots(
     fig, ax = plt.subplots(
         2,
         4,
-        sharex=False,
-        sharey=False,
         figsize=(
             user_globals.Constant.FIG_HSIZE_2_ROW.value,
             user_globals.Constant.FIG_VSIZE_2_ROW.value,
@@ -2511,7 +2505,7 @@ def column_8_subplots(
         ax[1, 2].set_ylim(0, y_max)
         ax[1, 3].set_ylim(0, y_max)
 
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
@@ -2686,8 +2680,6 @@ def line_10_subplots(
     fig, ax = plt.subplots(
         2,
         5,
-        sharex=False,
-        sharey=False,
         figsize=(
             user_globals.Constant.FIG_HSIZE_2_ROW.value,
             user_globals.Constant.FIG_VSIZE_2x5.value,
@@ -2882,7 +2874,7 @@ def line_10_subplots(
         ax[1, 2].set_ylim(0, y_max)
         ax[1, 3].set_ylim(0, y_max)
         ax[1, 4].set_ylim(0, y_max)
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
         ax[0, 2].set_ylim(0, max(ax[0, 2].get_yticks()))
@@ -3052,8 +3044,6 @@ def column_11_subplots(
     fig, ax = plt.subplots(
         3,
         5,
-        sharex=False,
-        sharey=False,
         figsize=(
             user_globals.Constant.FIG_HSIZE_3_ROW.value,
             user_globals.Constant.FIG_VSIZE_3_ROW.value,
@@ -3534,7 +3524,7 @@ def column_11_subplots(
         ax[2, 2].set_ylim(0, ylim1)
         ax[2, 3].set_ylim(0, ylim1)
         ax[2, 4].set_ylim(0, ylim1)
-        # Force uppermost tick to be equal to next tick after ylim
+        # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[1, 0].set_ylim(0, max(ax[1, 0].get_yticks()))
         ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
@@ -4317,6 +4307,177 @@ def treemap_3_subplots(
     fig.text(
         0.125,
         0.08,
+        footer_lower_text,
+        horizontalalignment='left',
+        verticalalignment='top',
+        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
+    )
+
+
+########################################################################################################################
+#
+# Function: stacked_area_3_subplots()
+#
+# Description:
+# 3 stacked area subplots in 1 row
+#
+########################################################################################################################
+def stacked_area_3_subplots(df0, colors0, df1, colors1, df2, colors2, subplot0_title,  # Title above LH plot
+                            subplot1_title,  # Title above centre plot
+                            subplot2_title,  # Title above RH plot
+                            country,
+                            title,
+                            x_axis_interval,
+                            ylabel,
+                            footer_upper_text,
+                            footer_lower_text,
+                            equiv_yscale,
+                            x_tick_label_size
+                            ):
+
+    fig, ax = plt.subplots(
+        1,
+        3,
+        figsize=(
+            user_globals.Constant.FIG_HSIZE_1_ROW.value,
+            user_globals.Constant.FIG_VSIZE_1_ROW_TALL.value,
+        ),
+    )
+
+    ax[0].stackplot(df0.truncate(before=user_globals.Constant.CHART_START_YR.value).index.values,
+                    df0.truncate(before=user_globals.Constant.CHART_START_YR.value).T, labels=df0.keys(),
+                    colors=colors0,
+                    edgecolor=user_globals.Color.STACKED_AREA_EDGE.value)
+    ax[0].legend(loc='upper left', reverse=True, fancybox=True, alignment='left')
+    ax[1].stackplot(df1.truncate(before=user_globals.Constant.CHART_START_YR.value).index.values,
+                    df1.truncate(before=user_globals.Constant.CHART_START_YR.value).T, labels=df1.keys(),
+                    colors=colors1,
+                    edgecolor=user_globals.Color.STACKED_AREA_EDGE.value)
+    ax[1].legend(loc='upper left', reverse=True, fancybox=True, alignment='left')
+    ax[2].stackplot(df2.truncate(before=user_globals.Constant.CHART_START_YR.value).index.values,
+                    df2.truncate(before=user_globals.Constant.CHART_START_YR.value).T, labels=df2.keys(),
+                    colors=colors2,
+                    edgecolor=user_globals.Color.STACKED_AREA_EDGE.value)
+    ax[2].legend(loc='upper left', reverse=True, fancybox=True, alignment='left')
+
+    # Configure x-axes.
+    # Create list x_ticks and fill with start year of each decade.
+    x_ticks = [user_globals.Constant.CHART_START_YR.value]
+    for year in df0.index:
+        if year % x_axis_interval == 0:
+            x_ticks.append(year)
+    # If period between final tick and year of final value is >= 3 years, then there's room to append most recent year.
+    # Else replace final value with most recent year.
+    if df0.index.max() - max(x_ticks) >= 3:
+        x_ticks.append(df0.index.max())
+    else:
+        x_ticks[len(x_ticks) - 1] = df0.index.max()
+
+    ax[0].set_xticks(x_ticks, labels=x_ticks)
+    ax[1].set_xticks(x_ticks, labels=x_ticks)
+    ax[2].set_xticks(x_ticks, labels=x_ticks)
+
+    ax[0].tick_params(axis='x', labelsize=x_tick_label_size)
+    ax[1].tick_params(axis='x', labelsize=x_tick_label_size)
+    ax[2].tick_params(axis='x', labelsize=x_tick_label_size)
+
+    ax[1].set_xlabel('Year')
+    ax[0].set_ylabel(ylabel)
+
+    # Remove margins.
+    ax[0].margins(x=0)
+    ax[1].margins(x=0)
+    ax[2].margins(x=0)
+
+    # Configure y-axes. Autoscale and get max-y for setting equiv y-axis scale.
+    ax[0].autoscale(axis='y')
+    ax[1].autoscale(axis='y')
+    ax[2].autoscale(axis='y')
+    ylim0 = ax[0].get_ylim()[1]
+    ylim1 = ax[1].get_ylim()[1]
+    ylim2 = ax[2].get_ylim()[1]
+
+    # Apply equivalent scale to all subplots if set.
+    if equiv_yscale:
+        y_max = max(ylim0, ylim1, ylim2)
+        ax[0].set_ylim(0, y_max)
+        ax[1].set_ylim(0, y_max)
+        ax[2].set_ylim(0, y_max)
+
+    # Force the uppermost tick to be equal to next tick after ylim
+    ax[0].set_ylim(0, max(ax[0].get_yticks()))
+    ax[1].set_ylim(0, max(ax[1].get_yticks()))
+    ax[2].set_ylim(0, max(ax[2].get_yticks()))
+
+    ax[0].yaxis.grid(True)
+    ax[1].yaxis.grid(True)
+    ax[2].yaxis.grid(True)
+
+    ax[0].set_box_aspect(1)
+    ax[1].set_box_aspect(1)
+    ax[2].set_box_aspect(1)
+
+    # Place grid behind columns.
+    ax[0].set_axisbelow(True)
+    ax[1].set_axisbelow(True)
+    ax[2].set_axisbelow(True)
+
+    # Remove ticks from y-axis
+    ax[1].tick_params(axis='y', labelleft=False, length=0)
+    ax[2].tick_params(axis='y', labelleft=False, length=0)
+
+    # Adjust whitespace around plot area.
+    left_margin = 0.1
+    plt.subplots_adjust(left=left_margin, right=0.98, top=0.99, bottom=0.065, wspace=0.15)
+
+    ax[0].set_title(
+        subplot0_title,
+        fontsize='x-large',
+        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        loc='center',
+    )
+    ax[1].set_title(
+        subplot1_title,
+        fontsize='x-large',
+        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        loc='center',
+    )
+    ax[2].set_title(
+        subplot2_title,
+        fontsize='x-large',
+        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        loc='center',
+    )
+
+    fig.suptitle(
+        country,
+        x=left_margin,
+        y=0.96,
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        left_margin,
+        0.91,
+        title,
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        left_margin,
+        0.135,
+        footer_upper_text,
+        horizontalalignment='left',
+        verticalalignment='top',
+        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
+    )
+    fig.text(
+        left_margin,
+        0.09,
         footer_lower_text,
         horizontalalignment='left',
         verticalalignment='top',

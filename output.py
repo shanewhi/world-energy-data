@@ -279,7 +279,7 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
         plt.show()
     plt.close()
 
-    # CHART 6 Global CO2 emission pathways using remaining carbon budgets.
+    # CHART 6: Global CO2 emission pathways using remaining carbon budgets.
 
     title = 'Global CO\u2082 Pathways using Remaining Carbon Budget'
     xlabel = 'Year'
@@ -337,6 +337,7 @@ def country_co2_charts(energy_system, global_carbon):
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
     # CHART 1: Annual fossil fuel CO2 emissions alongside treemap of country shares.
+
     title1 = 'Fossil Fuel CO\u2082 Emissions'
     title2 = 'Fossil Fuel CO\u2082 Emissions by National Share'
     subplot1_title = 'Annual'
@@ -421,6 +422,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
     plt.close()
 
     # CHART 2: Annual change of fossil fuel CO2 emissions.
+
     title = 'Annual Change of Fossil Fuel CO\u2082 Emissions'
     ylabel = 'Megatonne per year (Mt/yr)'
     footer_text = 'Values are rounded to nearest whole number. \n\
@@ -459,6 +461,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
 def per_capita_emissions(energy_system):
     fig_dir = 'charts ' + energy_system.country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save CO2 charts in this directory.
+
+    # CHART 3: Per capita fossil fuel CO2 emissions.
+
     country = str(energy_system.country)
     year = 'Year ' + str(energy_system.pc_associated_data['FY'])
     title = 'Per Capita Fossil Fuel CO\u2082 Emissions'
@@ -572,7 +577,8 @@ def co2_by_sector_chart(energy_system):
     fig_dir = 'charts ' + energy_system.country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
-    # CHART 3: Country Fossil Fuel CO2 emissions by sector.
+    # CHART 4: National fossil fuel CO2 emissions by sector.
+
     country = energy_system.country
     title = 'Annual Sector Emissions of Fossil Fuel CO\u2082. Final year shares shown after sector names.'
     title1 = 'Electricity & Heat Producers ' + str(
@@ -670,16 +676,19 @@ WORLD_GHG_Documentation_2024_final.pdf')
 
 ########################################################################################################################
 #
-# Function: world_ffprod_charts()
+# Function: world_ffprod_shares()
 #
 # Description:
 # Controls plotting of global fossil fuel production shares by country. Country is included as an input argument so
 # that chart is saved in the folder of the country being profiled.
 #
 ########################################################################################################################
-def world_ffprod_charts(coal_prods, oil_prods, gas_prods, country):
+def world_ffprod_shares(coal_prods, oil_prods, gas_prods, country):
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save chart in this directory.
+
+    # CHART 6: Tree-maps of national shares of fossil fuel production.
+
     # Print info to console.
     print(
         'Sum of most recent year coal producer shares = '
@@ -768,6 +777,130 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads."
 
 ########################################################################################################################
 #
+# Function: world_ffprod_stacked()
+#
+# Description:
+# Plots stacked area charts of major coal, oil and gas producing countries.
+#
+########################################################################################################################
+def world_ffprod_stacked(country_folder_name, major_ffprod_data):
+    fig_dir = 'charts ' + country_folder_name + '/'
+    os.makedirs(fig_dir, exist_ok=True)  # Save chart in this directory.
+
+    # CHART 7: Stacked area chart of national fossil fuel production trends.
+
+    final_yr = major_ffprod_data.major_coal_producers.loc[0, 'Year']
+
+    title = 'Major Fossil Fuel Production with ' + str(final_yr) + ' shares shown after country name'
+
+    if (user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
+            user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value
+            and
+            user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
+            user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value):
+        subplot1_title = 'COAL'
+        subplot2_title = 'OIL'
+        subplot3_title = 'GAS'
+    else:
+        # Title above LH plot
+        subplot1_title = ('COAL Producers with ≥' + str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) +
+                          '% share')
+        # Title above centre plot
+        subplot2_title = 'OIL Producers with ≥' + str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) + '% share'
+        # Title above RH plot
+        subplot3_title = 'GAS Producers with ≥' + str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) + '% share'
+
+    coal_prod_total_shares = 100 - round(decimal.Decimal(major_ffprod_data.major_coal_producers.loc[
+                                                             major_ffprod_data.major_coal_producers[
+                                                                 'Name'] == 'Other'].Value.item()), 1)
+    oil_prod_total_shares = 100 - round(decimal.Decimal(major_ffprod_data.major_oil_producers.loc[
+                                                            major_ffprod_data.major_oil_producers[
+                                                                'Name'] == 'Other'].Value.item()), 1)
+    gas_prod_total_shares = 100 - round(decimal.Decimal(major_ffprod_data.major_gas_producers.loc[
+                                                            major_ffprod_data.major_gas_producers[
+                                                                'Name'] == 'Other'].Value.item()), 1)
+
+    # Generate list of countries with production shares greater than list above. Use Python data class Set that doesn't
+    # allow duplicates; no need to use for loops.
+    country_list = set(major_ffprod_data.major_coal_producers.Name)
+    country_list.update(major_ffprod_data.major_oil_producers.Name)
+    country_list.update(major_ffprod_data.major_gas_producers.Name)
+    # Remove 'Other', sort list into alphabetical order and add commas between set elements.
+    country_list.remove('Other')
+    country_list = sorted(country_list)
+    list_divider = ', '
+    printable_country_list = list_divider.join(country_list)
+    num_prod_countries = len(country_list)
+
+    if (user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
+            user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value
+            and
+            user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
+            user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value):
+        footer_upper_text = ('The charts above show that the ' + str(num_prod_countries) +
+                             ' countries listed below produced a ' +
+                             str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) +
+                             '% or greater share of one or more fossil fuels in ' + str(final_yr) +
+                             ', collectively accounting for ' +
+                             str(round(coal_prod_total_shares, 0)) + '% of global coal, ' +
+                             str(round(oil_prod_total_shares, 0)) + '% of global oil, and ' +
+                             str(round(gas_prod_total_shares, 0)) + '% of global gas production: \n' +
+                             printable_country_list) + '.'
+    else:
+        footer_upper_text = ('The charts above show that the ' + str(num_prod_countries) +
+                             ' countries listed below produced a ' +
+                             str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) +
+                             '% or greater share of coal, and or a ' +
+                             str(user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value) +
+                             '% or greater share of oil, and or a ' +
+                             str(user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value) +
+                             '% or greater share of gas in ' + str(final_yr) +
+                             ', collectively accounting for ' +
+                             str(round(coal_prod_total_shares, 0)) + '% of global coal,\n' +
+                             str(round(oil_prod_total_shares, 0)) + '% of global oil, and ' +
+                             str(round(gas_prod_total_shares, 0)) + '% of global gas production: \n' +
+                             printable_country_list) + '.'
+
+    footer_lower_text = "Ranking of producers was determined using fossil fuel production data in following units: \
+Coal EJ, Oil Mt, and Gas EJ. Oil production in units of tonnes is used instead of barrels because it's in closer \
+agreement with IEA data.\n\
+By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. \
+Data: The Energy Institute Statistical Review of World Energy 2024, \
+https://www.energyinst.org/statistical-review/resources-and-data-downloads."
+
+    chart.stacked_area_3_subplots(
+        major_ffprod_data.major_coal_production_EJ,
+        major_ffprod_data.major_coal_producers_color_list,
+        major_ffprod_data.major_oil_production_EJ,
+        major_ffprod_data.major_oil_producers_color_list,
+        major_ffprod_data.major_gas_production_EJ,
+        major_ffprod_data.major_gas_producers_color_list,
+        subplot1_title,
+        subplot2_title,
+        subplot3_title,
+        'World',
+        title,
+        5,
+        'Exajoule (EJ)',
+        footer_upper_text,
+        footer_lower_text,
+        True,
+        10,
+    )
+
+    plt.savefig(
+        os.path.join(fig_dir, '7 ' + country_folder_name + ' prod ff stacked.svg'),
+        format='svg',
+        bbox_inches='tight',
+        pad_inches=0.2,
+    )
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.close()
+
+
+########################################################################################################################
+#
 # Function: country_ffprod_primaryenergy_charts()
 #
 # Description:
@@ -781,6 +914,8 @@ def country_ffprod_primaryenergy_charts(energy_system):
 
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save charts in this directory.
+
+    # CHART 5: National fossil fuel production trends.
 
     ####################################################################################################################
     # PRODUCTION: Annual Fossil Fuel Production.
@@ -875,6 +1010,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
     ####################################################################################################################
     # PRIMARY ENERGY: Annual quantity of fossil fuels.
     ####################################################################################################################
+
+    # CHART 8: National fossil fuel primary energy trends.
+
     title = 'Annual Fossil Fuel Consumption prior to partial conversions to Electricity (Primary Energy)'
     if country == 'World':
         ylabel = 'Exajoule (EJ)'
@@ -949,7 +1087,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
         10
     )
     plt.savefig(
-        os.path.join(fig_dir, '7 ' + country + ' pe ff qty.svg'),
+        os.path.join(fig_dir, '8 ' + country + ' pe ff qty.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -961,6 +1099,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
     ####################################################################################################################
     # PRIMARY ENERGY: Annual change of fossil fuels.
     ####################################################################################################################
+
+    # CHART 9: Change of national fossil fuel primary energy trends.
+
     title = 'Annual Change of Fossil Fuel Consumption prior to partial conversions to Electricity (Primary Energy)'
     if country == 'World':
         ylabel_top = 'Exajoule per year (EJ/yr)'
@@ -1016,7 +1157,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.'
         series3=pe3,
     )
     plt.savefig(
-        os.path.join(fig_dir, '8 ' + country + ' pe sep ff change.svg'),
+        os.path.join(fig_dir, '9 ' + country + ' pe sep ff change.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1043,6 +1184,9 @@ def country_finalenergy_elec_charts(energy_system):
     ####################################################################################################################
     # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
     ####################################################################################################################
+
+    # CHART 11: National final energy fuel shares alongside electricity generation fuel shares.
+
     # Plot only Final Energy if electricity data is unavailable.
     if energy_system.elecgen_TWh is None:
         print(
@@ -1123,7 +1267,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
             footer_text,
         )
     plt.savefig(
-        os.path.join(fig_dir, '10 ' + country + ' fe elec shares.svg'),
+        os.path.join(fig_dir, '11 ' + country + ' fe elec shares.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1147,6 +1291,8 @@ def country_finalenergy_charts(energy_system):
         return None
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
+
+    # CHART 10: National final energy quantity by fuel.
 
     ####################################################################################################################
     # FINAL ENERGY: Annual quantities.
@@ -1256,7 +1402,7 @@ country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
         True,
     )
     plt.savefig(
-        os.path.join(fig_dir, '9 ' + country + ' fe qty.svg'),
+        os.path.join(fig_dir, '10 ' + country + ' fe qty.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1280,6 +1426,8 @@ def country_elecgen_charts(energy_system):
     country = energy_system.country
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
+
+    # CHART 12: Country electricity generation quantity by fuel.
 
     ################################################################################################################
     # ELECTRICITY: Annual generation quantity.
@@ -1387,7 +1535,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
 
     if energy_system.elecgen_TWh is not None:
         plt.savefig(
-            os.path.join(fig_dir, '11 ' + country + ' elec fuel qty.svg'),
+            os.path.join(fig_dir, '12 ' + country + ' elec fuel qty.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2, )
@@ -1398,6 +1546,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
     ####################################################################################################################
     # ELECTRICITY: Annual change of generation by fuel.
     ####################################################################################################################
+
+    # CHART 13: Change of country electricity generation quantity by fuel.
+
     if energy_system.elecgen_TWh is not None:
         title = 'Annual Change of Electricity Generation'
         ylabel_top = 'Terawatt hours per year (TWh/yr)'
@@ -1432,7 +1583,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
             series8=energy_system.elecgen_TWh['Bio, Geo and Other Change'],
         )
         plt.savefig(
-            os.path.join(fig_dir, '12 ' + country + ' elec fuel change.svg'),
+            os.path.join(fig_dir, '13 ' + country + ' elec fuel change.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,
@@ -1444,6 +1595,9 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
     ####################################################################################################################
     # ELECTRICITY: Annual share of generation by fuel.
     ####################################################################################################################
+
+    # CHART 14: Country electricity generation by share of fuel.
+
     if energy_system.elecgen_TWh is not None:
         title = ('Annual Electricity Generation by share with ' + str(energy_system.elecgen_TWh.index[-1]) +
                  ' value shown after each fuel')
@@ -1543,7 +1697,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
         )
 
         plt.savefig(
-            os.path.join(fig_dir, '13 ' + country + ' elec fuel share trends.svg'),
+            os.path.join(fig_dir, '14 ' + country + ' elec fuel share trends.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,
@@ -1644,6 +1798,10 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
         bbox_inches='tight',
         pad_inches=0.2,
     )
+
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.close()
 
     # CHARTS 1 and above: Major emitter national CO2 emission line plot and pairing coal, oil and gas primary energy
     # line plots.
