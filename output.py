@@ -791,8 +791,8 @@ def world_ffprod_stacked(country_folder_name, major_ffprod_data):
 
     final_yr = major_ffprod_data.major_coal_producers.loc[0, 'Year']
 
-    title = ('Fossil Fuel Production trends of countries with ≥2% share in ' + str(final_yr) +
-             '. Share values shown after country name.')
+    title = ('Fossil Fuel Production Trends of Countries with ≥2% National Share in ' + str(final_yr) +
+             ' (share value shown after country name)')
 
     if (user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
             user_globals.Constant.OIL_SHARE_RANK_THRESHOLD.value
