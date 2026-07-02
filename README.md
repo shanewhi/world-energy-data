@@ -21,47 +21,40 @@ This package consists of the following files -</p>
 
 <h3>Software Installation Requirements</h3>
 <p>
-Requires installation of Python and library versions listed below, which can 
-be done using the links and terminal commands shown alongside -</p>
+Requires installation of Python v3.12.7, and library versions listed below, which can 
+be done using the terminal commands shown alongside -</p>
 <ul>
-   <li>Python v3.12.7 <code>https://www.python.org/downloads/</code></li>
-   <li>Matplotlib v3.10.3 <code>pip3 install matplotlib==3.10.3</code></li>
-   <li>Matplotlib-extra v0.1.0 <code>pip3 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
-   <li>Numpy v2.3.1 <code>pip3 install numpy==2.3.1</code></li>
-   <li>Openpyxl v3.1.5 <code>pip3 install openpyxl==3.1.5</code></li>
-   <li>Pandas v2.3.0 <code>pip3 install pandas==2.3.0</code></li>
+    <li><a href="https://www.python.org/downloads/">Python v3.12.7</a></li>
+    <li>Matplotlib v3.10.3 <code>pip3 install matplotlib==3.10.3</code></li>
+    <li>Matplotlib-extra v0.1.0 <code>pip3 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
+    <li>Numpy v2.3.1 <code>pip3 install numpy==2.3.1</code></li>
+    <li>Openpyxl v3.1.5 <code>pip3 install openpyxl==3.1.5</code></li>
+    <li>Pandas v2.3.0 <code>pip3 install pandas==2.3.0</code></li>
 </ul>
 
 <h3>Input Data Requirements</h3>
 <p>
 The following datasets are required, and are included in this package -</p>
 <ol>
-   <li>Global Carbon Budget (GCB) in XLSX format. The version provided in this package is required as projected values have been included from -<br>
-   <code>https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf</code><br>
-   Original GCB -<br>
-   <code>https://globalcarbonbudgetdata.org/latest-data.html</code></li>
-   <li>NOAA ESRL global CO<sub>2</sub> atmospheric concentration data in CSV format -<br>
-   <code>https://gml.noaa.gov/ccgg/trends/gl_data.html</code></li>
-   <li>The Energy Institute Statistical Review of World Energy in consolidated narrow CSV format -<br>
-   <code>https://www.energyinst.org/statistical-review/resources-and-data-downloads</code></li>
-   <li>IEA CO<sub>2</sub> Emissions by Sector and Total Final Consumption by Source for the world and each selected country -<br>
-   <code>https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser</code><br>
+    <li><a href="https://globalcarbonbudget.org/gcb-2025/">Global Carbon Budget (GCB) in XLSX format</a>. 
+    The version provided in this package is required as 
+    <a href="https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf">projected values</a> have been included.</li>
+    <li><a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA ESRL global CO<sub>2</sub> atmospheric concentration data in CSV format</a>.</li>
+    <li><a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">The Energy Institute Statistical Review of World Energy in consolidated narrow CSV format</a>.</li>
+    <li><a href="https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser">IEA CO<sub>2</sub> Emissions by Sector and Total Final Consumption by Source</a> for the world and each selected country.
    Data is obtained by -
-   <ol>
-     <li>Select Country</li>
-     <li>Select Energy Consumption</li>
-     <li> Select Total final consumption (TFC) by source</li>
-     <li>Select Download chart data</li>
-     <li>Select Energy transition indicators</li>
-     <li>Select CO<sub>2</sub> emissions by sector</li>
-     <li>Select Download chart data</li>
+    <ol>
+        <li>Select Country</li>
+        <li>Select Energy Consumption</li>
+        <li> Select Total final consumption (TFC) by source</li>
+        <li>Select Download chart data</li>
+        <li>Select Energy transition indicators</li>
+        <li>Select CO<sub>2</sub> emissions by sector</li>
+        <li>Select Download chart data</li>
    </ol></li>
-   <li>Linear emission reduction pathways -<br>
-   <code>https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv</code><br>
-   This is the datafile from slide 64 of -<br>
-   <code>https://robbieandrew.github.io/GCB2024/</code></li>
-   <li>World Bank Group Total Population dataset in CSV format -<br>
-   <code>https://data.worldbank.org/indicator/SP.POP.TOTL</code></li>
+   <li><a href="https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv">Linear emission reduction pathways</a>.</li>
+   This is the datafile from slide 64 of <a href="https://robbieandrew.github.io/GCB2024/">Figures from the Global Carbon Budget 2024</a>.</li>
+   <li><a href="https://data.worldbank.org/indicator/SP.POP.TOTL">World Bank Group Total Population dataset in CSV format</a>.</li>
 </ol>
 
 <h3>Instructions</h3>
