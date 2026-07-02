@@ -25,11 +25,11 @@ Requires installation of Python v3.12.7, and library versions listed below, whic
 be done using the terminal commands shown alongside -</p>
 <ul>
     <li><a href="https://www.python.org/downloads/">Python v3.12.7</a></li>
-    <li>Matplotlib v3.10.3 <code>pip3 install matplotlib==3.10.3</code></li>
-    <li>Matplotlib-extra v0.1.0 <code>pip3 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
-    <li>Numpy v2.3.1 <code>pip3 install numpy==2.3.1</code></li>
-    <li>Openpyxl v3.1.5 <code>pip3 install openpyxl==3.1.5</code></li>
-    <li>Pandas v2.3.0 <code>pip3 install pandas==2.3.0</code></li>
+    <li>Matplotlib v3.10.3 <code>pip3.12 install matplotlib==3.10.3</code></li>
+    <li>Matplotlib-extra v0.1.0 <code>pip3.12 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
+    <li>Numpy v2.3.1 <code>pip3.12 install numpy==2.3.1</code></li>
+    <li>Openpyxl v3.1.5 <code>pip3.12 install openpyxl==3.1.5</code></li>
+    <li>Pandas v2.3.0 <code>pip3.12 install pandas==2.3.0</code></li>
 </ul>
 
 <h3>Input Data Requirements</h3>
