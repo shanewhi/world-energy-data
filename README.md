@@ -44,8 +44,7 @@ The following datasets are required, and are included in this package -</p>
             Add the row <code>2025</code> and fill the same column with the projected value from <a href="https://globalcarbonbudget.org/"> Table 1 of Key Messages from GCB 2025</a>.</li>
         <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2025</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
     </ol>
-    <li>Visit <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a> and download -<br>
-    <code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format.</li>
+    <li><code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format from <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a>.</li>
     <li>The <a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">2026 Energy Institute Statistical Review of World Energy</a> in consolidated narrow CSV format.<br>
     <li><a href="https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser">IEA CO<sub>2</sub> Emissions by Sector and Total Final Consumption by Source</a> for the world and each selected country.
     Data is obtained by -
