@@ -118,7 +118,7 @@ def import_gcp_esrl_ei_pop_data():
 
     # Import World Bank human population data from all countries for most recent year of ei_data.
     imported_wb_data = pd.read_csv(
-        'API_SP.POP.TOTL_DS2_en_csv_v2_38144.csv', index_col=['Country Code'], header=2,
+        'world_pop.csv', index_col=['Country Code'], header=2,
         usecols=['Country Code', str(imported_ei_data.index[-1])], )
     imported_wb_data.rename(columns={'2024': 'Population'}, inplace=True)
 
