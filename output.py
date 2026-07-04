@@ -118,7 +118,7 @@ Projected values of Flaring and Other for '
                    + str(global_carbon.c_budget['Total'].index[-2]) +
                    ' data is shown. Cement includes cement carbonation.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.')
+Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.')
     chart.treemap_2_subplots(
         global_carbon.emission_category_shares_fy,
         global_carbon.emission_source_shares_fy,
@@ -163,9 +163,9 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
             + f'{(round(ffc_co2.iloc[-1], 0)):,}'.rstrip('0').rstrip('.')
             + 'MtCO\u2082'
     )
-    footer_text = 'Values include cement carbonation and 2024 value is projected.\n\
+    footer_text = 'Values include cement carbonation and 2025 value is projected by the Global Carbon Project.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.'
+Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.'
 
     print(
         'Most recent fossil fuel and cement CO2 emission = '
@@ -206,9 +206,9 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
     title = 'Annual Change of CO\u2082 Emissions from Fossil Fuels and Cement'
     ylabel = 'Megatonne per year (Mt/yr)'
     footer_text = ('Values are rounded to nearest whole number and include cement carbonation. \
-2024 values is projected.\n\
+2025 value is projected by the Global Carbon Project.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.')
+Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.')
     color = user_globals.Color.CO2_EMISSION.value
 
     chart.column_grouped(
@@ -243,10 +243,9 @@ Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbu
     subplot3_title = 'Gas'
     x_axis_interval = 25
     ylabel = 'Megatonne (Mt)'
-    footer_text = ('2024 values are projected by the Global Carbon Project: Emissions from coal, oil and gas in 2024 \
-are expected to be above their 2023 levels by 0.2%, 0.9% and 2.4% respectively.\n\
+    footer_text = ('2025 values are projected by the Global Carbon Project.\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Data: Global Carbon Project, Friedlingstein et al (2024), https://globalcarbonbudgetdata.org/latest-data.html.')
+Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.')
     equiv_yscale = True
     start_yr = global_carbon.c_budget.index.min()
 
