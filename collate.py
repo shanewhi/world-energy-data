@@ -687,15 +687,15 @@ def populate_major_emitter_co2_energy_dataframe(major_emitters, ei_data):
         country_energy_data = ei_data.loc[ei_data['Country'] == country]
         ffco2_Mt = country_energy_data.loc[country_energy_data['Var'] == 'co2_combust_mtco2', 'Value']
         primary_PJ_coal = (
-                country_energy_data.loc[country_energy_data['Var'] == 'coalcons_ej', 'Value']
+                country_energy_data.loc[country_energy_data['Var'] == 'coal_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ_oil = (
-                country_energy_data.loc[country_energy_data['Var'] == 'oilcons_ej', 'Value']
+                country_energy_data.loc[country_energy_data['Var'] == 'oil_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ_gas = (
-                country_energy_data.loc[country_energy_data['Var'] == 'gascons_ej', 'Value']
+                country_energy_data.loc[country_energy_data['Var'] == 'gas_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
 
