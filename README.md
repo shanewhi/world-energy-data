@@ -36,13 +36,20 @@ be done using the terminal commands shown alongside -</p>
 <p>
 The following datasets are required, and are included in this package -</p>
 <ol>
-    <li><a href="https://globalcarbonbudget.org/gcb-2025/">Global Carbon Budget (GCB) in XLSX format</a>. 
-    The version provided in this package is required as 
-    <a href="https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf">projected values</a> have been included.</li>
-    <li><a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA ESRL global CO<sub>2</sub> atmospheric concentration data in CSV format</a>.</li>
-    <li><a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">The Energy Institute Statistical Review of World Energy in consolidated narrow CSV format</a>.</li>
+    <li><a href="https://globalcarbonbudget.org/gcb-2024/">Global Carbon Budget (GCB) 2024 in XLSX format</a>. 
+    Modify this to include the cement carbonation sink and projected values for 2025, as follows -</li>
+    <ol>
+        <li>In sheet titled <code>'Global Carbon Budget'</code>, create a new column named <code>'fossil emissions including cement carbonation’</code> and fill with the values of<br>
+            <code>'fossil emissions excluding cement carbonation'</code> minus <code>'cement carbonation sink'</code><br>
+            Add the row <code>2025</code> and fill the same column with the projected value from the <a href="https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf">Global carbon Budget 2024</a> PDF.</li>
+        <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2025</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
+    </ol>
+    <li>Visit <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a> and download -<br>
+    <code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format.</li>
+    <li><a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">The 2024 Energy Institute Statistical Review of World Energy in consolidated narrow CSV format</a>.<br>
+    The 'Report and data archive' on that page no longer provides data in CSV format for previous years, but it's saved in this repository.</li>
     <li><a href="https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser">IEA CO<sub>2</sub> Emissions by Sector and Total Final Consumption by Source</a> for the world and each selected country.
-   Data is obtained by -
+    Data is obtained by -
     <ol>
         <li>Select Country</li>
         <li>Select Energy Consumption</li>
@@ -51,10 +58,11 @@ The following datasets are required, and are included in this package -</p>
         <li>Select Energy transition indicators</li>
         <li>Select CO<sub>2</sub> emissions by sector</li>
         <li>Select Download chart data</li>
-   </ol></li>
-   <li><a href="https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv">Linear emission reduction pathways</a>.</li>
-   This is the datafile from slide 64 of <a href="https://robbieandrew.github.io/GCB2024/">Figures from the Global Carbon Budget 2024</a>.</li>
-   <li><a href="https://data.worldbank.org/indicator/SP.POP.TOTL">World Bank Group Total Population dataset in CSV format</a>.</li>
+    </ol></li>
+    <li><a href="https://robbieandrew.github.io/GCB2024/CSV/s64_2024_LinearPathways.csv">Linear emission reduction pathways</a>.
+    This is the datafile from slide 64 of <a href="https://robbieandrew.github.io/GCB2024/">Figures from the Global Carbon Budget 2024</a>.</li>
+    <li><a href="https://data.worldbank.org/indicator/SP.POP.TOTL">World Bank Group Total Population dataset in CSV format</a>.<br>
+    Rename the downloaded file 'world_pop.csv'.</li>
 </ol>
 
 <h3>Instructions</h3>
