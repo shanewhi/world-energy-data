@@ -37,12 +37,12 @@ be done using the terminal commands shown alongside -</p>
 The following datasets are required, and are included in this package -</p>
 <ol>
     <li><a href="https://globalcarbonbudget.org/gcb-2024/">Global Carbon Budget (GCB) 2024 in XLSX format</a>. 
-    Modify this to include the cement carbonation sink and projected values for 2025, as follows -</li>
+    Modify this to include the cement carbonation sink and projected values for 2024, as follows -</li>
     <ol>
         <li>In sheet titled <code>'Global Carbon Budget'</code>, create a new column named <code>'fossil emissions including cement carbonation’</code> and fill with the values of<br>
             <code>'fossil emissions excluding cement carbonation'</code> minus <code>'cement carbonation sink'</code><br>
-            Add the row <code>2025</code> and fill the same column with the projected value from the <a href="https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf">Global carbon Budget 2024</a> PDF.</li>
-        <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2025</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
+            Add the row <code>2024</code> and fill the same column with the projected value from the <a href="https://essd.copernicus.org/preprints/essd-2024-519/essd-2024-519.pdf">Global carbon Budget 2024</a> PDF.</li>
+        <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2024</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
     </ol>
     <li>Visit <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a> and download -<br>
     <code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format.</li>
