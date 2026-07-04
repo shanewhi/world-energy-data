@@ -38,8 +38,8 @@ import process
 ########################################################################################################################
 def import_gcp_esrl_ei_pop_data():
     # Import Global Carbon Project (GCP) emissions and carbon budget datasets as Pandas dataframes.
-    gcp_ff_emissions_MtC = pd.read_excel(
-        io='Global_Carbon_Budget_2024_v1.0.xlsx',
+    gcp_ff_emissions_GtC = pd.read_excel(
+        io='Global_Carbon_Budget_2025_v1.0.xlsx',
         sheet_name='Fossil Emissions by Category',
         header=8,
         names=[
@@ -55,7 +55,7 @@ def import_gcp_esrl_ei_pop_data():
         index_col=0,
     )
     gcp_budget_GtC = pd.read_excel(
-        io='Global_Carbon_Budget_2024_v1.0.xlsx',
+        io='Global_Carbon_Budget_2025_v1.0.xlsx',
         sheet_name='Global Carbon Budget',
         header=21,
         names=[
@@ -76,8 +76,8 @@ def import_gcp_esrl_ei_pop_data():
         usecols=['Year', 'Historical', '1.5C / 235 GtCO2', '1.7C / 585 GtCO2', '2.0C / 1110 GtCO2']
     )
 
-    # Convert emission units from MtC to MtCO2.
-    gcp_ff_emissions_MtCO2 = gcp_ff_emissions_MtC.mul(user_globals.Constant.C_TO_CO2.value)
+    # Convert emission units from GtC to MtCO2.
+    gcp_ff_emissions_MtCO2 = gcp_ff_emissions_GtC.mul(user_globals.Constant.C_TO_CO2.value * user_globals.Constant.G_TO_M.value)
 
     # Drop emissions per-capita column.
     gcp_ff_emissions_MtCO2 = gcp_ff_emissions_MtCO2.drop(columns=['Per Capita'])
@@ -112,15 +112,16 @@ def import_gcp_esrl_ei_pop_data():
 
     # Import Energy Institute dataset.
     imported_ei_data = pd.read_csv(
-        'Statistical Review of World Energy Narrow File.csv', index_col=['Year'],
-        usecols=['Country', 'Year', 'ISO3166_alpha3', 'Var', 'Value'],
+        'Statistical Review of World Energy Narrow format.csv', index_col=['Year'],
+                        usecols=['Country', 'Year', 'ISO3166_alpha3', 'Var', 'Value'],
+                        dtype={"Country":str, "Year":int, "ISO3166_alpha3":str, "Var":str, "Value":float}
     )
 
     # Import World Bank human population data from all countries for most recent year of ei_data.
     imported_wb_data = pd.read_csv(
         'world_pop.csv', index_col=['Country Code'], header=2,
         usecols=['Country Code', str(imported_ei_data.index[-1])], )
-    imported_wb_data.rename(columns={'2024': 'Population'}, inplace=True)
+    imported_wb_data.rename(columns={'2025': 'Population'}, inplace=True)
 
     return imported_gcp_data, imported_gcp_co2_rcp_pathways, imported_esrl_data, imported_ei_data, imported_wb_data,
 
@@ -500,37 +501,37 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
             ],
         )
         primary_PJ['Coal'] = (
-                country_data.loc[country_data['Var'] == 'coalcons_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'coal_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Oil'] = (
-                country_data.loc[country_data['Var'] == 'oilcons_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'oil_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Gas'] = (
-                country_data.loc[country_data['Var'] == 'gascons_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'gas_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Nuclear'] = (
-                country_data.loc[country_data['Var'] == 'nuclear_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'nuclear_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Hydro'] = (
-                country_data.loc[country_data['Var'] == 'hydro_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'hydro_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Wind'] = (
-                country_data.loc[country_data['Var'] == 'wind_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'wind_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Solar'] = (
-                country_data.loc[country_data['Var'] == 'solar_ej', 'Value']
+                country_data.loc[country_data['Var'] == 'solar_tes_ej', 'Value']
                 * user_globals.Constant.EJ_TO_PJ.value
         )
         primary_PJ['Bio, Geo and Other'] = (
-                country_data.loc[country_data['Var'] == 'biogeo_ej', 'Value']
+                (country_data.loc[country_data['Var'] == 'biogeo_tes_ej', 'Value']
+                + country_data.loc[country_data['Var'] == 'biofuels_tes_ej', 'Value'])
                 * user_globals.Constant.EJ_TO_PJ.value
-                + country_data.loc[country_data['Var'] == 'biofuels_cons_pj', 'Value']
         )
         # Replace any NaNs with 0 in fields imported into primary_PJ.
         with pd.option_context('future.no_silent_downcasting', True):
