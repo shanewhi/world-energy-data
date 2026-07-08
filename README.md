@@ -5,7 +5,7 @@
 Generates charts of annual CO<sub>2</sub> emissions, fossil fuel production, 
 energy consumption, and electricity generation of the world and specified 
 countries.<br>Output is displayed at <code>https://www.worldenergydata.org/</code>,
-and in this repository in folders named <code>charts [country]</code>.</p>
+and in this repository in folders named<br><code>charts [country]</code>.</p>
 
 <h3>Description</h3>
 <p>
