@@ -710,7 +710,7 @@ def electricity(energy_system):
                  'Gas',
                  'Nuclear',
                  'Hydro',
-                 'Wind & Solar',
+                 'Wind and Solar',
                  'Bio, Geo and Other',
                  'Unpublished']
 
@@ -828,11 +828,11 @@ def final_energy(energy_system):
     elec_finalenergy_share_fy = energy_system.finalenergy_PJ['Electricity Share'].iloc[-1]
     heat_finalenergy_share_fy = energy_system.finalenergy_PJ['Heat Share'].iloc[-1]
 
-    name = ['Coal and\ncoal products',
-            'Oil and\noil products',
+    name = ['Coal and\nCoal Products',
+            'Oil and\nOil Products',
             'Gas',
             'Wind Solar Etc',
-            'Biofuels\nand waste',
+            'Biofuels\nand Waste',
             'Electricity',
             'Heat']
 

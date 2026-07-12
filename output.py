@@ -6,6 +6,8 @@ Created on Wed May  1 14:20:13 2024
 
 @author: shanewhite
 """
+from logging import warning
+from warnings import warn
 
 ########################################################################################################################
 #
@@ -61,8 +63,9 @@ def world_co2_charts(global_carbon):
             + str(round(global_carbon.co2_conc['Mean'].iloc[-1], 1))
             + 'ppm'
     )
-    footer_text = 'Lan, X., Tans, P. and K.W. Thoning: Trends in globally-averaged CO\u2082 determined from NOAA \
-Global Monitoring Laboratory measurements. Version 2024-05 https://doi.org/10.15138/9N0H-ZH07.\n\
+    footer_text = 'Lan, X., Tans, P. and K.W. Thoning: Trends in globally-averaged CO2 \
+determined from NOAA Global Monitoring Laboratory measurements. Version 2026-07 \
+https://doi.org/10.15138/9N0H-ZH07.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: https://gml.noaa.gov/ccgg/trends/gl_data.html.'
     chart.line_column(
@@ -106,9 +109,8 @@ Data: https://gml.noaa.gov/ccgg/trends/gl_data.html.'
     )
 
     country = global_carbon.name
-    title = 'CO\u2082 Emission Sources by Share'
+    title = 'CO\u2082 Emission Sources by Share in Year ' + str(global_carbon.c_budget['Total'].index[-2])
     # Display for second to last year so as not to display a combination of projected and historic values.
-    title_addition = 'Year ' + str(global_carbon.c_budget['Total'].index[-2])
     title1 = 'By Category'
     title2 = 'By Emission Source'
     footer_text = ('Fossil Fuels is the sum of Coal, Oil, Gas, and Flaring. \
@@ -126,7 +128,6 @@ Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu
         title2,
         country,
         title,
-        title_addition,
         footer_text,
     )
     plt.savefig(
@@ -143,9 +144,9 @@ Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu
     ffc_co2 = global_carbon.c_budget['Net FF and Cement']
     co2_color = user_globals.Color.CO2_EMISSION.value
     country = 'World'
-    start_yr1 = min(ffc_co2.index)
+    start_yr1 = user_globals.Constant.CHART_START_YR_FOR_FFCO2_CEMENT.value
     start_yr2 = user_globals.Constant.CHART_START_YR.value
-    title = 'Annual CO\u2082 Emissions from Fossil Fuels and Cement'
+    title = 'Annual CO\u2082 Emissions from Fossil Fuels and Cement (including cement carbonation sink)'
     title1 = str(start_yr1) + ' - ' + str(max(ffc_co2.index))
     title2 = (
             str(user_globals.Constant.CHART_START_YR.value)
@@ -163,7 +164,7 @@ Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu
             + f'{(round(ffc_co2.iloc[-1], 0)):,}'.rstrip('0').rstrip('.')
             + 'MtCO\u2082'
     )
-    footer_text = 'Values include cement carbonation and 2025 value is projected by the Global Carbon Project.\n\
+    footer_text = '2025 value is projected by the Global Carbon Project.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.'
 
@@ -203,9 +204,9 @@ Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu
 
     # CHART 4: Annual change of fossil fuels and cement CO2 emissions.
     series = global_carbon.c_budget['Net FF and Cement Change']
-    title = 'Annual Change of CO\u2082 Emissions from Fossil Fuels and Cement'
+    title = 'Annual Change of CO\u2082 Emissions from Fossil Fuels and Cement (including cement carbonation sink)'
     ylabel = 'Megatonne per year (Mt/yr)'
-    footer_text = ('Values are rounded to nearest whole number and include cement carbonation. \
+    footer_text = ('Values are rounded to nearest whole number. \
 2025 value is projected by the Global Carbon Project.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: Global Carbon Project, Friedlingstein et al (2025), https://www.icos-cp.eu/impact/science/global-carbon-budget/2025.')
@@ -360,27 +361,44 @@ def country_co2_charts(energy_system, global_carbon):
         global_carbon.country_shares_fy['Value'] < user_globals.Constant.MAJOR_EMITTER_SHARE_THRESHOLD.value
         ].Name.values
 
+    # Construct string of country names that emitted more than or equal to 0.5% and less than 1%.
+    # Organise them into pairs to save space on plot, but don't put a comma after the last, should
+    # it be the only country displayed on the final line.
     s = ''
+    j = 1
     for i in large_not_major_emitter_countries:
+        if j % 2 == 0:
+            s += ', '
         s += i
-        s += '\n'
+        if j % 2 == 0:
+            s += '\n'
+        j += 1
 
     additional_text1 = ('Shares total 100% of ' + str(int(max(global_carbon.country_shares_fy['Year']))) +
-                        ' global\nfossil fuel CO\u2082 emissions.\n\n\n\
-Segments excluding Other represent\ncountries with a '
+                        ' global\nfossil fuel CO\u2082 emissions. Displayed\nvalues are rounded.\n\n'
+                        + 'Segments excluding Other represent\ncountries with a '
                         + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
                         + '% or greater share,\nof which there were '
                         + str(len(global_carbon.country_shares_fy) - 1)
                         + ', totalling '
                         + str(large_emitter_share)
-                        + '%.\n\n\nLabelled segments are those with a 1%\nor greater share, of which there were\n'
+                        + '%.\n\n'
+                        + 'Other represents countries\nthat emitted less than a '
+                        + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
+                        + '% share.\n\n'
+                        + 'Labelled segments excluding Other\nand with unique colors had\na 1% or greater share, of which there\nwere '
                         # Subtract 1 so as not to include 'Other'.
-                        + str(len(global_carbon.country_shares_fy[global_carbon.country_shares_fy['Value'] >= 1]) - 1)
+                        + str(len(global_carbon.country_shares_fy[
+                                      global_carbon.country_shares_fy[
+                                          'Value'] >= 1]) - 1)
                         + ', totalling '
                         + str(major_emitter_share)
-                        + '%.\n\n\nUnlabelled segments in lower\nright corner are listed below. \
-These\nhad shares greater than or equal\nto ' + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
-                        + '%, and less than ' + str(user_globals.Constant.MAJOR_EMITTER_SHARE_THRESHOLD.value)
+                        + '%.\n\n'
+                        + 'Grey segments in bottom right corner\nrepresent the following countries that\n'
+                        + 'had shares greater than or equal to '
+                        + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
+                        + '%,\nand less than '
+                        + str(user_globals.Constant.MAJOR_EMITTER_SHARE_THRESHOLD.value)
                         + '% -\n'
                         + s)
 
@@ -798,9 +816,9 @@ def world_ffprod_stacked(country_folder_name, major_ffprod_data):
             and
             user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value ==
             user_globals.Constant.GAS_SHARE_RANK_THRESHOLD.value):
-        subplot1_title = 'COAL'
-        subplot2_title = 'OIL'
-        subplot3_title = 'GAS'
+        subplot1_title = 'Coal'
+        subplot2_title = 'Oil'
+        subplot3_title = 'Gas'
     else:
         # Title above LH plot
         subplot1_title = ('COAL Producers with ≥' + str(user_globals.Constant.COAL_SHARE_RANK_THRESHOLD.value) +
@@ -1197,7 +1215,7 @@ def country_finalenergy_elec_charts(energy_system):
         title = 'Energy Consumption after partial conversions to Electricity (Final Energy)'
         title_addition = "Shares are shown account for energy in the final form that it's consumed, for most recent \
         year of data in each dataset."
-        title1 = 'ENERGY Consumption by Share in year ' + str(
+        title1 = 'Energy Consumption by Share in year ' + str(
             energy_system.finalenergy_PJ.index[-1]
         )
         footer_text = "For clarity: \
@@ -1228,14 +1246,11 @@ WORLD&fuel=Energy%20consumption&indicator=TFCbySource."
             'Sum of most recent year plotted Electricity shares = '
             + str(sum(energy_system.elecgen_fuel_fy_shares['Value']))
         )
-        title = 'Energy Consumption after partial conversions to Electricity (Final Energy), & Electricity \
+        title = 'Energy Consumption after partial conversions to Electricity (Final Energy), and Electricity \
 Generation'
-        title_addition = 'Shares are shown in the form that energy is consumed, for most recent year of data for \
-respective dataset.'
         title1 = (
                 'Energy Consumption by Share in year '
                 + str(energy_system.finalenergy_PJ.index[-1])
-                + '\n(Fuels used for generation of Electricity are shown in the adjacent chart)'
         )
         title2 = 'Electricity Generation by Share in year ' + str(
             energy_system.elecgen_TWh.index[-1]
@@ -1263,7 +1278,6 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
             title2,
             country,
             title,
-            title_addition,
             footer_text,
         )
     plt.savefig(
@@ -1298,10 +1312,10 @@ def country_finalenergy_charts(energy_system):
     # FINAL ENERGY: Annual quantities.
     ####################################################################################################################
     title = 'Annual Energy Consumption after partial conversions to Electricity (Final Energy)'
-    title1 = 'Coal and coal products'
-    title2 = 'Oil and oil products'
+    title1 = 'Coal and Coal Products'
+    title2 = 'Oil and Oil Products'
     title3 = 'Gas'
-    title4 = 'Biofuels and waste'
+    title4 = 'Biofuels and Waste'
     title5 = 'Electricity'
     title6 = 'Heat'
     if country == 'World':
@@ -1423,6 +1437,7 @@ country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
 
 
 def country_elecgen_charts(energy_system):
+    global unpublished_data
     country = energy_system.country
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
@@ -1448,18 +1463,8 @@ def country_elecgen_charts(energy_system):
         title11 = 'Solar'
         ylabel_top = 'Terawatt hours (TWh)'
         ylabel = 'TWh'
-        footer_text = ("The summation of fuel quantities may not equal 'Total' due to unpublished data for some \
-countries.\nFor "
-                       + country
-                       + ', the unpublished quantity in year '
-                       + str(energy_system.elecgen_TWh.index[-1])
-                       + ' was '
-                       + f'{(round(energy_system.elecgen_TWh['Unpublished'].iloc[-1], 2)):,}'
-                       + 'TWh, or '
-                       + f'{(round(energy_system.elecgen_TWh['Unpublished Share'].iloc[-1], 0))}'
-                       .rstrip('0').rstrip('.')
-                       + "%.\nTotal = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + \
-any unpublished quantity above. Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
+        footer_text = ("Total = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other. \
+Fossil Fuels = Coal + Oil + Gas.\nRenewables = Hydro + Wind + Solar. \
 Quantities are gross generation that don't account for imports or exports.\n"
                        + str(energy_system.elecgen_TWh.index[-1])
                        + ' values (rounded): \n'
@@ -1489,6 +1494,22 @@ Quantities are gross generation that don't account for imports or exports.\n"
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
 Data: The Energy Institute Statistical Review of World Energy 2024, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
+        unpublished_data = bool(False)
+        if energy_system.elecgen_TWh['Unpublished'].iloc[-1] > 0:
+            unpublished_data = bool(True)
+            unpublished_text = ("WARNING! The summation of fuel quantities\n\
+doesn't equal Total electricity generation,\ndue to unpublished data for "
+                       + str(country)
+                       + '.\nThe unpublished quantity in year '
+                       + str(energy_system.elecgen_TWh.index[-1])
+                       + ' was\n'
+                       + f'{(round(energy_system.elecgen_TWh['Unpublished'].iloc[-1], 2)):,}'
+                       + 'TWh, or '
+                       + f'{(round(energy_system.elecgen_TWh['Unpublished Share'].iloc[-1], 0))}'
+                       .rstrip('0').rstrip('.')
+                       + "% of Total.")
+        else:
+            unpublished_text = ''
 
         chart.column_11_subplots(
             energy_system.elecgen_TWh['Total Country'],
@@ -1526,6 +1547,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
             title9,
             title10,
             title11,
+            unpublished_text,
             user_globals.Constant.CHART_START_YR.value,
             ylabel_top,
             ylabel,
@@ -1549,7 +1571,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
 
     # CHART 13: Change of country electricity generation quantity by fuel.
 
-    if energy_system.elecgen_TWh is not None:
+    if energy_system.elecgen_TWh is not None and unpublished_data is not True:
         title = 'Annual Change of Electricity Generation'
         ylabel_top = 'Terawatt hours per year (TWh/yr)'
         ylabel_bottom = 'TWh/yr'
@@ -1598,7 +1620,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
 
     # CHART 14: Country electricity generation by share of fuel.
 
-    if energy_system.elecgen_TWh is not None:
+    if energy_system.elecgen_TWh is not None and unpublished_data is not True:
         title = ('Annual Electricity Generation by share with ' + str(energy_system.elecgen_TWh.index[-1]) +
                  ' value shown after each fuel')
         title1 = ('Nuclear ' +
@@ -1622,15 +1644,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
         title10 = ('Solar ' +
                    f'{(round(energy_system.elecgen_TWh['Solar Share'].iloc[-1], 1)):,}' + '%')
         ylabel = 'Annual Share (%)'
-        footer_text = ('Shares may not total 100% for some countries due to unavailability of data. For '
-                       + country
-                       + ', the unpublished share in year '
-                       + str(energy_system.elecgen_TWh.index[-1])
-                       + ' was '
-                       + f'{(round(energy_system.elecgen_TWh['Unpublished Share'].iloc[-1], 0))}'
-                       .rstrip('0').rstrip('.')
-                       + "%.\n\
-Total (100%) = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other + any unpublished share above. \
+        footer_text = ("Total (100%) = Fossil Fuels + Renewables + Nuclear + Bio, Geo and Other. \
 Fossil Fuels = Coal + Oil + Gas. Renewables = Hydro + Wind + Solar.\n\
 Shares are calculated using gross generation quantities that don't account for imports or exports. While geothermal is \
 renewable, the data groups geothermal with biofuels that may not be renewable.\n\
@@ -1750,19 +1764,19 @@ def major_emitter_charts(energy_system, global_carbon, major_emitter_df):
         s += '\n'
 
     additional_text1 = ('Shares total 100% of ' + str(int(max(global_carbon.country_shares_fy['Year'])))
-                        + ' global\nfossil fuel CO\u2082 emissions.\n\n\n'
+                        + ' global\nfossil fuel CO\u2082 emissions.\n\n'
                         + "Segments excluding 'Other' represent\ncountries with a "
                         + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
                         + '% or greater share,\nof which there were '
                         + str(len(global_carbon.country_shares_fy) - 1)
                         + ', totalling '
                         + str(large_emitter_share)
-                        + '%.\n\n\nLabelled segments are those with a 1%\nor greater share, of which there were\n'
+                        + '%.\n\nLabelled segments are those with a 1%\nor greater share, of which there were\n'
                         # Subtract 1 so as not to include 'Other'.
                         + str(len(global_carbon.country_shares_fy[global_carbon.country_shares_fy['Value'] >= 1]) - 1)
                         + ', totalling '
                         + str(major_emitter_share)
-                        + '%.\n\n\nUnlabelled segments in lower\nright corner are listed below. '
+                        + '%.\n\nUnlabelled segments in lower\nright corner are listed below. '
                         + 'These\nhad shares greater than or equal\nto '
                         + str(user_globals.Constant.LARGE_EMITTER_SHARE_THRESHOLD.value)
                         + '%, and less than '
@@ -1781,7 +1795,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
         energy_system.ffco2_Gt['Value'],
         global_carbon.country_shares_fy,
         user_globals.Color.CO2_EMISSION.value,
-        'Total World',
+        'World',
         title1,
         title2,
         subplot1_title,

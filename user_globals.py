@@ -19,6 +19,9 @@
 from enum import Enum
 import matplotlib.pyplot as plt
 
+# Set global font parameters.
+# If you add a font to the OS, be sure to delete all matplotlib's font cache files in ~/.matplotlib.
+plt.rcParams['font.sans-serif'] = 'Google Sans'
 
 # Define custom class for organising fossil fuel CO2 emissions and atmospheric CO2 data
 class Global_Carbon:
@@ -26,13 +29,18 @@ class Global_Carbon:
             self,
             name,  # 'World' label used on plots.
             c_budget,  # Copy of Global Carbon Budget.
-            emission_category_shares_fy,  # Final year shares of global CO2 emissions by category using Global Carbon
+            emission_category_shares_fy,
+            # Final year shares of global CO2 emissions by category using Global Carbon
             # Budget organised into format for plotting treemap.
-            emission_source_shares_fy,  # Final year shares of global CO2 emissions by source using Global Carbon Budget
+            emission_source_shares_fy,
+            # Final year shares of global CO2 emissions by source using Global Carbon Budget
             # organised into format for plotting treemap.
-            remaining_c_budget_data,  # Global CO2 pathways using remaining carbon budgets.
-            co2_conc,  # Copy of NOAA ESRL data for atmospheric CO2 concentration.
-            country_shares_fy,  # Country shares of fossil fuel CO2 emissions for final year.
+            remaining_c_budget_data,
+            # Global CO2 pathways using remaining carbon budgets.
+            co2_conc,
+            # Copy of NOAA ESRL data for atmospheric CO2 concentration.
+            country_shares_fy,
+            # Country shares of fossil fuel CO2 emissions for final year.
     ):
         self.name = name
         self.c_budget = c_budget
@@ -48,20 +56,32 @@ class Energy_System:
     def __init__(self,
                  country,  # Country name.
                  incl_ei_flag,  # True if country appears in EI data.
-                 ffco2_Mt,  # Annual national fossil fuel CO2 emissions in units of megatonnes.
-                 ffco2_Gt,  # Annual national fossil fuel CO2 emissions in units of gigatonnes.
-                 pc_tco2,  # Final year per capita fossil fuel CO2 emissions for all countries.
-                 country_pc_tco2,  # Final year per capita fossil fuel CO2 emissions for country.
-                 pc_associated_data,  # Data used for footer text in per capita fossil fuel CO2 chart.
-                 sector_co2_Mt,  # Annual national CO2 emissions by sector in units of megatonnes.
-                 ffprod_PJ,  # Annual fossil fuel production in units of peta joules.
+                 ffco2_Mt,
+                 # Annual national fossil fuel CO2 emissions in units of megatonnes.
+                 ffco2_Gt,
+                 # Annual national fossil fuel CO2 emissions in units of gigatonnes.
+                 pc_tco2,
+                 # Final year per capita fossil fuel CO2 emissions for all countries.
+                 country_pc_tco2,
+                 # Final year per capita fossil fuel CO2 emissions for country.
+                 pc_associated_data,
+                 # Data used for footer text in per capita fossil fuel CO2 chart.
+                 sector_co2_Mt,
+                 # Annual national CO2 emissions by sector in units of megatonnes.
+                 ffprod_PJ,
+                 # Annual fossil fuel production in units of peta joules.
                  primary_PJ,  # Annual primary energy in units of peta joules.
-                 elecgen_TWh,  # Annual electricity generation in units of tera Watt hours.
-                 elecgen_PWh,  # Annual electricity generation in units of peta Watt hours.
-                 elecgen_category_fy_shares,  # Electricity generation by category share for final year.
-                 elecgen_fuel_fy_shares,  # Electricity generation by fuel share for final year.
+                 elecgen_TWh,
+                 # Annual electricity generation in units of tera Watt hours.
+                 elecgen_PWh,
+                 # Annual electricity generation in units of peta Watt hours.
+                 elecgen_category_fy_shares,
+                 # Electricity generation by category share for final year.
+                 elecgen_fuel_fy_shares,
+                 # Electricity generation by fuel share for final year.
                  finalenergy_PJ,  # Annual final energy in units of peta joules.
-                 finalenergy_fy_shares,  # Final energy by share of fuel for final year.
+                 finalenergy_fy_shares,
+                 # Final energy by share of fuel for final year.
                  ):
         self.country = country
         self.incl_ei_flag = incl_ei_flag
@@ -80,24 +100,31 @@ class Energy_System:
         self.finalenergy_PJ = finalenergy_PJ
         self.finalenergy_fy_shares = finalenergy_fy_shares
 
+
 # Define custom class for organising major fossil fuel production and consumption, instead of passing numerous variables
 # or creating a complicated data structure.
 class Major_Fossil_Fuel_Production_Consumption:
     def __init__(
-                self,
-                major_coal_producers,  # Dataframe of coal producers and their shares of production.
-                major_coal_production_EJ,  # Pandas dataframe of coal production by major producers.
-                major_coal_producers_color_list,  # Coal country colors
-                major_oil_producers,  # Dataframe of oil producers and their shares of production.
-                major_oil_production_EJ,  # Pandas dataframe of oil production by major producers.
-                major_oil_producers_color_list,  # Oil country colors
-                major_gas_producers,  # Dataframe of gas producers and their shares of production.
-                major_gas_production_EJ,  # Pandas dataframe of gas production by major producers.
-                major_gas_producers_color_list, # Gas country colors
-                #major_coal_consumption_EJ,  # Pandas dataframe of coal consumption by major consumers.
-                #major_oil_consumption_EJ,  # Pandas dataframe of oil consumption by major consumers.
-                #major_gas_consumption_EJ,  # Pandas dataframe of gas consumption by major consumers.
-                ):
+            self,
+            major_coal_producers,
+            # Dataframe of coal producers and their shares of production.
+            major_coal_production_EJ,
+            # Pandas dataframe of coal production by major producers.
+            major_coal_producers_color_list,  # Coal country colors
+            major_oil_producers,
+            # Dataframe of oil producers and their shares of production.
+            major_oil_production_EJ,
+            # Pandas dataframe of oil production by major producers.
+            major_oil_producers_color_list,  # Oil country colors
+            major_gas_producers,
+            # Dataframe of gas producers and their shares of production.
+            major_gas_production_EJ,
+            # Pandas dataframe of gas production by major producers.
+            major_gas_producers_color_list,  # Gas country colors
+            #major_coal_consumption_EJ,  # Pandas dataframe of coal consumption by major consumers.
+            #major_oil_consumption_EJ,  # Pandas dataframe of oil consumption by major consumers.
+            #major_gas_consumption_EJ,  # Pandas dataframe of gas consumption by major consumers.
+    ):
         self.major_coal_producers = major_coal_producers
         self.major_coal_production_EJ = major_coal_production_EJ
         self.major_coal_producers_color_list = major_coal_producers_color_list
@@ -111,15 +138,17 @@ class Major_Fossil_Fuel_Production_Consumption:
         #self.major_oil_consumption_EJ = major_oil_consumption_EJ
         #self.major_gas_consumption_EJ = major_gas_consumption_EJ
 
+
 # Define conversion coefficients (multiply for conversion) and presets.
 class Constant(Enum):
     DISPLAY_CHARTS = False  # Whether charts are output to monitor.
+    CHART_START_YR_FOR_FFCO2_CEMENT = 1960 # Initial year of data for cement carbonation is 1959, so begin chart at 1960
     CHART_START_YR_FOR_MAJOR_EMITTERS = 1965  # Start year for plots of major emitter emissions and fossil fuel primary
     # energy.
     CHART_START_YR = 2000  # Default chart start year.
-    CHANGE_CHART_START_YR = 2010 # Start year of annual change charts.
-    FF_PROD_START_YR = 1990 # Start year of fossil fuel production chart.
-    FF_CONS_START_YR = 1990 # Start year of fossil fuel consumption chart.
+    CHANGE_CHART_START_YR = 2010  # Start year of annual change charts.
+    FF_PROD_START_YR = 1990  # Start year of fossil fuel production chart.
+    FF_CONS_START_YR = 1990  # Start year of fossil fuel consumption chart.
 
     C_TO_CO2 = 44 / 12
     k_TO_M = 1e-3
@@ -152,26 +181,34 @@ class Constant(Enum):
     # Named options: 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
     SUPTITLE_FONT_SIZE = 'large'
     TITLE_FONT_SIZE = 'xx-large'
-    TITLE_ADDITION_FONT_SIZE = 'medium'
-    SUBPLOT_TITLE_FONT_SIZE = 'large'
+    TITLE_ADDITION_FONT_SIZE = 'large'
+    SEPARATE_TITLE_FONT_SIZE = 'large'
+    SUBPLOT_TITLE_FONT_SIZE = 'x-large'
+    TREEMAP_SUBPLOT_TITLE_FONT_SIZE = 'x-large'
     SUBPLOT_2ROW_TITLE_FONT_SIZE = 'large'
+    SUBPLOT_3ROW_TITLE_FONT_SIZE = 'large'
     FOOTER_TEXT_FONT_SIZE = 'small'
+    BOLD_FOOTER_FONT_SIZE = 'medium'
     MAJOR_EMITTER_TITLE_FONT_SIZE = 40
     MAJOR_EMITTER_SUB_TITLE_FONT_SIZE = 'large'
     MAJOR_EMITTER_TICK_FONT_SIZE = 'small'
     MAJOR_EMITTER_AXIS_LABEL_FONT_SIZE = 'small'
+    WARNING_FONT_SIZE = 'medium'
 
-    # FONT WEIGHTS:
-    SUPTITLE_FONT_WEIGHT = 'regular'
-    TITLE_FONT_WEIGHT = 'bold'
-    TITLE_ADDITION_FONT_WEIGHT = 'regular'
-    SUBPLOT_TITLE_FONT_WEIGHT = 'regular'
-    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = 'bold'
-    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = 'regular'
-    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = 'regular'
-    FOOTER_TEXT_FONT_WEIGHT = 'regular'
-    MAJOR_EMITTER_TITLE_FONT_WEIGHT = 'bold'
-    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = 'regular'
+    # FONT WEIGHTS: For the font Google Sans, valid range is 400 to 700.
+    SUPTITLE_FONT_WEIGHT = 400
+    TITLE_FONT_WEIGHT = 600
+    TITLE_ADDITION_FONT_WEIGHT = 400
+    SUBPLOT_TITLE_FONT_WEIGHT = 400
+    TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT = 400
+    SEPARATE_TITLE_FONT_WEIGHT = 500
+    SUBPLOT_2ROW_TITLE_FONT_WEIGHT = 400
+    SUBPLOT_3ROW_TITLE_FONT_WEIGHT = 400
+    FOOTER_TEXT_FONT_WEIGHT = 400
+    BOLD_FOOTER_FONT_WEIGHT = 600
+    MAJOR_EMITTER_TITLE_FONT_WEIGHT = 400
+    MAJOR_EMITTER_SUB_TITLE_FONT_WEIGHT = 400
+    WARNING_FONT_WEIGHT = 700
 
     # FIGURE SIZES.
     # To inspect, set DISPLAY_CHARTS True, and use the chart sliders. Set ALL parameters.
@@ -193,10 +230,10 @@ class Constant(Enum):
     FIG_VSIZE_1_TREE = 9.2
 
     FIG_HSIZE_2_TREE = 15
-    FIG_VSIZE_2_TREE = 9.2
+    FIG_VSIZE_2_TREE = 9.4 #9.2
 
     FIG_HSIZE_3_TREE = 17
-    FIG_VSIZE_3_TREE = 6.4
+    FIG_VSIZE_3_TREE = 6.8 #6.4
 
     FIG_HSIZE_CHANGE_SS_COLUMN_PLOT = 12  # For single series plot.
 
@@ -254,8 +291,8 @@ class Color(Enum):
     SECTOR_AG = 'green'
     SECTOR_OTHER = 'purple'
 
-    ALL = 'mediumpurple'
-    ALGERIA ='lavender'
+    ALL = 'lightsteelblue'
+    ALGERIA = 'lavender'
     AUS = 'black'
     BRAZIL = 'olive'
     CANADA = 'dodgerblue'
@@ -277,12 +314,13 @@ class Color(Enum):
     SOUTH_KOREA = 'crimson'
     GERMANY = 'darkviolet'
     TURKIYE = 'orangered'
-    OTHER_COUNTRIES = 'lightsteelblue'
+    OTHER_COUNTRIES = 'mediumpurple'
     COUNTRY_WITHOUT_ASSIGNED_COLOR = 'white'
 
     STACKED_AREA_EDGE = 'darkgray'
 
     PER_CAPITA_HIGHLIGHT = 'magenta'
+
 
 # All prebuilt chart styles: https://python-charts.com/matplotlib/styles/#list
 # Python chart gallery: https://python-graph-gallery.com/
@@ -300,6 +338,3 @@ rc = {
 }
 plt.style.use(('bmh', rc))
 
-# Set global font parameters.
-# If you add a font to the OS, be sure to delete all matplotlib's font cache files in ~/.matplotlib.
-plt.rcParams['font.sans-serif'] = 'Helvetica'

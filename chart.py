@@ -154,7 +154,7 @@ def line_plot(title, x_label, y_label, footer_text, text, series_labels, *colors
         horizontalalignment='left',
         verticalalignment='top',
         fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value,
     )
     t.set_bbox(dict(facecolor='white', edgecolor='lightgrey', pad=5))
 
@@ -409,7 +409,7 @@ def legend_for_major_emitter_charts(
 # Single column subplot
 #
 ########################################################################################################################
-def column_subplot(series, highlight_bar, ref_line, ref_label, country, title, title_addition, y_label, footer_text,
+def column_subplot(series, highlight_bar, ref_line, ref_label, country, title, subplot_title, y_label, footer_text,
                    color, highlight_color):
     fig, ax = plt.subplots(
         1,
@@ -454,7 +454,7 @@ def column_subplot(series, highlight_bar, ref_line, ref_label, country, title, t
     ax.set_yticks([ref_line], [ref_label], fontsize=8)
     ax.set_ylabel(y_label, labelpad=-20)
 
-    plt.subplots_adjust(left=0.03, right=0.99, top=0.9, bottom=0.35, hspace=0.1)
+    plt.subplots_adjust(left=0.03, right=0.99, top=0.89, bottom=0.35, hspace=0.1)
 
     fig.suptitle(
         country,
@@ -472,14 +472,11 @@ def column_subplot(series, highlight_bar, ref_line, ref_label, country, title, t
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
-    fig.text(
-        0.03,
-        0.925,
-        title_addition,
-        horizontalalignment='left',
-        verticalalignment='top',
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+    ax.set_title(
+        subplot_title,
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        loc='left',
     )
     fig.text(
         0.03,
@@ -662,11 +659,13 @@ def column_2_subplots(
     ax[0].set_title(
         subplot0_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         loc='left',
     )
     ax[1].set_title(
         subplot1_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         loc='left',
     )
 
@@ -832,12 +831,14 @@ def line_column(
     ax[0].set_title(
         subplot0_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        loc='center',
     )
     ax[1].set_title(
         subplot1_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        loc='center',
     )
     fig.suptitle(
         country,
@@ -957,14 +958,6 @@ def line_treemap(
         ),
     )
 
-    country1 = 'World'
-    ax1.axis('off')
-    ax1.set_title(
-        subplot1_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
-    )
     ax0.margins(x=0)
     plt.subplots_adjust(
         left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02, hspace=0.05
@@ -975,6 +968,13 @@ def line_treemap(
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc='left',
     )
+    ax1.axis('off')
+    ax1.set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc='left',
+    )
     fig.suptitle(
         country0,
         x=0.18,
@@ -983,6 +983,7 @@ def line_treemap(
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
+    country1 = 'World'
     fig.text(
         0.52,
         0.947,
@@ -1047,7 +1048,7 @@ def column_treemap(
         start_yr,
         x_axis0_interval,
         ylabel0,
-        additional_text0,
+        additional_text1,
         footer_text,
 ):
     fig = plt.figure(
@@ -1130,24 +1131,13 @@ def column_treemap(
         ),
     )
 
-    country1 = 'World'
-    ax1.axis('off')
-    ax1.set_title(
-        subplot1_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
-    )
     ax0.margins(x=0)
+    ax1.axis('off')
+
     plt.subplots_adjust(
         left=0.18, right=0.82, wspace=0.13, top=1, bottom=0.02, hspace=0.05
     )
-    ax0.set_title(
-        subplot0_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
-    )
+
     fig.suptitle(
         country0,
         x=0.18,
@@ -1156,6 +1146,7 @@ def column_treemap(
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
+    country1 = 'World'
     fig.text(
         0.52,
         0.947,
@@ -1164,6 +1155,7 @@ def column_treemap(
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
+
     fig.text(
         0.18,
         0.915,
@@ -1180,14 +1172,28 @@ def column_treemap(
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
+
+    ax0.set_title(
+        subplot0_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc='left',
+    )
+    ax1.set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc='left',
+    )
+
     fig.text(
         0.825,
         0.87,
-        additional_text0,
+        additional_text1,
         horizontalalignment='left',
         verticalalignment='top',
         fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
+        fontweight=user_globals.Constant.SEPARATE_TITLE_FONT_WEIGHT.value,
     )
     fig.text(
         0.18,
@@ -1419,6 +1425,7 @@ def column_3_subplots(
     ax[0].set_title(
         subplot0_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         loc='center',
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
@@ -1427,6 +1434,7 @@ def column_3_subplots(
     ax[1].set_title(
         subplot1_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         loc='center',
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
@@ -1435,6 +1443,7 @@ def column_3_subplots(
     ax[2].set_title(
         subplot2_title,
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         loc='center',
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
@@ -1633,31 +1642,37 @@ def line_6_subplots(
         subplot0_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
     ax[0, 1].set_title(
         subplot1_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
     ax[0, 2].set_title(
         subplot2_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
     ax[1, 0].set_title(
         subplot3_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
     ax[1, 1].set_title(
         subplot4_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
     ax[1, 2].set_title(
         subplot5_title,
         loc='left',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
     )
 
     fig.suptitle(
@@ -2023,6 +2038,7 @@ def column_6_subplots(
         subplot0_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -2031,6 +2047,7 @@ def column_6_subplots(
         subplot1_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -2039,6 +2056,7 @@ def column_6_subplots(
         subplot2_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -2047,6 +2065,7 @@ def column_6_subplots(
         subplot3_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -2055,6 +2074,7 @@ def column_6_subplots(
         subplot4_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -2063,6 +2083,7 @@ def column_6_subplots(
         subplot5_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3035,6 +3056,7 @@ def column_11_subplots(
         subplot8_title,
         subplot9_title,
         subplot10_title,
+        warning_text,
         start_yr,
         ylabel_top,
         ylabel,
@@ -3541,6 +3563,7 @@ def column_11_subplots(
         subplot0_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3549,6 +3572,7 @@ def column_11_subplots(
         subplot1_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3557,6 +3581,7 @@ def column_11_subplots(
         subplot2_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3565,6 +3590,7 @@ def column_11_subplots(
         subplot3_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3573,6 +3599,7 @@ def column_11_subplots(
         subplot4_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3581,6 +3608,7 @@ def column_11_subplots(
         subplot5_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3589,6 +3617,7 @@ def column_11_subplots(
         subplot6_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3597,6 +3626,7 @@ def column_11_subplots(
         subplot7_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3605,6 +3635,7 @@ def column_11_subplots(
         subplot8_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3613,6 +3644,7 @@ def column_11_subplots(
         subplot9_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3621,6 +3653,7 @@ def column_11_subplots(
         subplot10_title,
         loc='center',
         weight=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_WEIGHT.value,
+        size=user_globals.Constant.SUBPLOT_3ROW_TITLE_FONT_SIZE.value,
         y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
         bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
         va='top',
@@ -3645,6 +3678,14 @@ def column_11_subplots(
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
     fig.text(
+        0.23,
+        0.9,
+        warning_text,
+        horizontalalignment='left',
+        fontsize=user_globals.Constant.WARNING_FONT_SIZE.value,
+        fontweight=user_globals.Constant.WARNING_FONT_WEIGHT.value,
+    )
+    fig.text(
         0.425,
         0.96,
         title,
@@ -3658,7 +3699,7 @@ def column_11_subplots(
         footer_text,
         horizontalalignment='left',
         verticalalignment='top',
-        fontsize=user_globals.Constant.FOOTER_TEXT_FONT_SIZE.value,
+        fontsize=user_globals.Constant.BOLD_FOOTER_FONT_SIZE.value,
         fontweight=user_globals.Constant.FOOTER_TEXT_FONT_WEIGHT.value,
     )
 
@@ -3985,7 +4026,7 @@ def treemap_1_subplot(
     ax.axis('off')
     ax.set_title(
         subplot_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc='left',
     )
@@ -4043,7 +4084,6 @@ def treemap_2_subplots(
         subplot1_title,  # Title above RH plot
         country,
         title,
-        title_addition,
         footer_text,
 ):
     fig, ax = plt.subplots(
@@ -4087,9 +4127,9 @@ def treemap_2_subplots(
     ax[0].axis('off')
     ax[0].set_title(
         subplot0_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        loc='center',
     )
 
     # Plot right-hand treemap.
@@ -4120,25 +4160,14 @@ def treemap_2_subplots(
         fontsize='large',
     )
     ax[1].axis('off')
-    if 'ELECTRICITY GENERATION' in subplot1_title:
-        ax[1].set_title(
-            subplot1_title,
-            fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-            fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-            loc='left',
-            color='black',
-            position=(0.011, 1),
-            pad=7.5,
-        )
-    else:
-        ax[1].set_title(
-            subplot1_title,
-            fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
-            fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-            loc='left',
-        )
+    ax[1].set_title(
+        subplot1_title,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
+        loc='center',
+    )
 
-    plt.subplots_adjust(left=0.125, top=0.86, bottom=0.18)
+    plt.subplots_adjust(left=0.125, top=0.94, bottom=0.18)
 
     fig.suptitle(
         country,
@@ -4158,16 +4187,7 @@ def treemap_2_subplots(
     )
     fig.text(
         0.125,
-        0.9,
-        title_addition,
-        horizontalalignment='left',
-        verticalalignment='top',
-        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TITLE_ADDITION_FONT_WEIGHT.value,
-    )
-    fig.text(
-        0.125,
-        0.07,
+        0.12,
         footer_text,
         horizontalalignment='left',
         verticalalignment='top',
@@ -4223,9 +4243,9 @@ def treemap_3_subplots(
     ax[0].axis('off')
     ax[0].set_title(
         subplot0_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        loc='center',
     )
 
     # Plot centre treemap.
@@ -4244,9 +4264,9 @@ def treemap_3_subplots(
     ax[1].axis('off')
     ax[1].set_title(
         subplot1_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        loc='center',
     )
 
     # Plot RH treemap.
@@ -4265,9 +4285,9 @@ def treemap_3_subplots(
     ax[2].axis('off')
     ax[2].set_title(
         subplot2_title,
-        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontsize=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
-        loc='left',
+        loc='center',
     )
 
     fig.suptitle(
@@ -4301,8 +4321,8 @@ def treemap_3_subplots(
         footer_upper_text,
         horizontalalignment='left',
         verticalalignment='top',
-        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.BOLD_FOOTER_FONT_SIZE.value,
+        fontweight=user_globals.Constant.BOLD_FOOTER_FONT_WEIGHT.value,
     )
     fig.text(
         0.125,
@@ -4433,20 +4453,20 @@ def stacked_area_3_subplots(df0, colors0, df1, colors1, df2, colors2, subplot0_t
 
     ax[0].set_title(
         subplot0_title,
-        fontsize='x-large',
-        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc='center',
     )
     ax[1].set_title(
         subplot1_title,
-        fontsize='x-large',
-        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc='center',
     )
     ax[2].set_title(
         subplot2_title,
-        fontsize='x-large',
-        fontweight=user_globals.Constant.MAJOR_EMITTER_TITLE_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        fontweight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         loc='center',
     )
 
@@ -4472,8 +4492,8 @@ def stacked_area_3_subplots(df0, colors0, df1, colors1, df2, colors2, subplot0_t
         footer_upper_text,
         horizontalalignment='left',
         verticalalignment='top',
-        fontsize=user_globals.Constant.TITLE_ADDITION_FONT_SIZE.value,
-        fontweight=user_globals.Constant.TREEMAP_SUBPLOT_TITLE_FONT_WEIGHT.value,
+        fontsize=user_globals.Constant.BOLD_FOOTER_FONT_SIZE.value,
+        fontweight=user_globals.Constant.BOLD_FOOTER_FONT_WEIGHT.value,
     )
     fig.text(
         left_margin,
