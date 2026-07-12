@@ -655,6 +655,10 @@ def electricity(energy_system):
                                                     user_globals.Constant.TWH_TO_PWH.value)
 
     # Total.
+    for yr in change_yrs:
+        energy_system.elecgen_TWh.loc[yr, 'Total Change'] = (
+                energy_system.elecgen_TWh.loc[yr, 'Total Country']
+                - energy_system.elecgen_TWh.loc[yr - 1, 'Total Country'])
     energy_system.elecgen_PWh['Total Country'] = (energy_system.elecgen_TWh['Total Country'] *
                                                   user_globals.Constant.TWH_TO_PWH.value)
 
