@@ -4,12 +4,11 @@
 <p>
 Generates charts of annual CO<sub>2</sub> emissions, fossil fuel production, 
 energy consumption, and electricity generation of the world and specified 
-countries.<br>Output is displayed at <code>https://www.worldenergydata.org/</code>,
-and in this repository in folders named<br><code>charts CO2</code>, <code>charts World</code> and <code>charts [country]</code>.</p>
+countries.<br>Output is displayed at <code>https://www.worldenergydata.org/</code></p>
 
 <h3>Description</h3>
 <p>
-This package consists of the following files -</p>
+This package consists of the following Python files, as well as all necessary input datafiles -</p>
 <ul>
    <li>world_energy_data.py (main executable)</li>
    <li>user_globals.py (global definitions)</li>
@@ -21,21 +20,23 @@ This package consists of the following files -</p>
 </ul>
 
 <h3>Software Installation Requirements</h3>
-<p>
-Requires installation of Python v3.12.7, and library versions listed below, which can 
-be done using the terminal commands shown alongside -</p>
-<ul>
-    <li><a href="https://www.python.org/downloads/">Python v3.12.7</a></li>
-    <li>Matplotlib v3.10.3 <code>pip3.12 install matplotlib==3.10.3</code></li>
-    <li>Matplotlib-extra v0.1.0 <code>pip3.12 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
-    <li>Numpy v2.3.1 <code>pip3.12 install numpy==2.3.1</code></li>
-    <li>Openpyxl v3.1.5 <code>pip3.12 install openpyxl==3.1.5</code></li>
-    <li>Pandas v2.3.0 <code>pip3.12 install pandas==2.3.0</code></li>
-</ul>
+<ol>
+    <li>Install Python v3.12.7 and libraries listed below using the terminal 
+    commands shown alongside -</li>
+    <ul>
+        <li><a href="https://www.python.org/downloads/">Python v3.12.7</a></li>
+        <li>Matplotlib v3.10.3 <code>pip3.12 install matplotlib==3.10.3</code></li>
+        <li>Matplotlib-extra v0.1.0 <code>pip3.12 install git+https://github.com/chenyulue/matplotlib-extra/</code></li>
+        <li>Numpy v2.3.1 <code>pip3.12 install numpy==2.3.1</code></li>
+        <li>Openpyxl v3.1.5 <code>pip3.12 install openpyxl==3.1.5</code></li>
+        <li>Pandas v2.3.0 <code>pip3.12 install pandas==2.3.0</code></li>
+    </ul>
+    <li>Install the free font <a href="https://fonts.google.com/specimen/Google+Sans"> Google Sans</a> to the OS.</li>
+</ol>
 
 <h3>Input Data Requirements</h3>
 <p>
-The following datasets are required, and are included in this package -</p>
+The following datafiles are required, and are included in this package -</p>
 <ol>
     <li><a href="https://www.icos-cp.eu/impact/science/global-carbon-budget/2025">Global Carbon Budget 2025 v1.0 in XLSX format</a>. 
     Modify this to include the cement carbonation sink and projected values for 2025, as follows -</li>
@@ -45,7 +46,8 @@ The following datasets are required, and are included in this package -</p>
             Add the row <code>2025</code> and fill the same column with the projected value from <a href="https://globalcarbonbudget.org/"> Table 1 of Key Messages from GCB 2025</a>.</li>
         <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2025</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
     </ol>
-    <li><code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format from <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a>.</li>
+    <li>Down the following from <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a> -<br>
+    <code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format.</li>
     <li>The <a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">2026 Energy Institute Statistical Review of World Energy</a> in consolidated narrow CSV format.<br>
     <li><a href="https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser">IEA CO<sub>2</sub> Emissions by Sector and Total Final Consumption by Source</a> for the world and each selected country.
     Data is obtained by -
