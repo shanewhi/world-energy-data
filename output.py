@@ -1497,7 +1497,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
         unpublished_data = bool(False)
         if energy_system.elecgen_TWh['Unpublished'].iloc[-1] > 0:
             unpublished_data = bool(True)
-            unpublished_text = ("WARNING! The summation of fuel quantities\n\
+            unpublished_text = ("WARNING: The summation of fuel quantities\n\
 doesn't equal Total electricity generation,\ndue to unpublished data for "
                        + str(country)
                        + '.\nThe unpublished quantity in year '
