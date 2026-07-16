@@ -1221,9 +1221,9 @@ def country_finalenergy_elec_charts(energy_system):
         footer_text = "For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
-'Wind, solar etc' that may be shown in left chart also includes geothermal, \
-tide, ocean and wave energy. This share refers to a non-electric form, such as geothermal \
-heat used for district heating, and\nusually too small to show.\n\
+'Wind, solar etc' that may be shown in the left chart also includes geothermal, \
+tide, ocean and wave energy, and likely refers to non-electric consumption, such as geothermal \
+heat used for district heating. This is\nusually too small to show.\n\
 Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
@@ -1261,8 +1261,8 @@ Generation'
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
 'Wind, solar etc' that may be shown in the left chart also includes geothermal, \
-tide, ocean and wave energy. This share refers to a non-electric form, such as geothermal \
-heat used for district heating, and\nusually too small to show.\n\
+tide, ocean and wave energy, and likely refers to non-electric consumption, such as geothermal \
+heat used for district heating. This is\nusually too small to show.\n\
 For some countries, shares of electricity generation may not total 100% due to unavailability of data for some fuels. \
 Total generation is published, so any such unpublished share is calculated, & shown in the RH\n\
 chart if applicable. Shares of coal, oil, gas, biofuels, and waste shown in the LH chart were consumed for purposes \
