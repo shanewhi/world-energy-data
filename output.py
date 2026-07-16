@@ -1221,7 +1221,9 @@ def country_finalenergy_elec_charts(energy_system):
         footer_text = "For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
-'Wind, solar etc' in the IEA dataset refers to a non-electric form, and usually too small to show.\n\
+'Wind, solar etc' that may be shown in left chart also includes geothermal, \
+tide, ocean and wave energy. This share refers to a non-electric form, such as geothermal \
+heat used for district heating, and usually too small to show.\n\
 Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other than \
 electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
@@ -1258,17 +1260,18 @@ Generation'
         footer_text = ("For clarity: \
 (1) Shares are rounded and values <1% aren't shown, so may not total 100%; \
 (2) Labels may not be shown due to a lack of space, in which case refer to the legend.\n\
-'Wind, solar etc' in the IEA dataset used for the LH chart refers to a non-electric form, and usually too small to \
-show.\n\
+'Wind, solar etc' that may be shown in the left chart also includes geothermal, \
+tide, ocean and wave energy. This share refers to a non-electric form, such as geothermal \
+heat used for district heating, and usually too small to show.\n\
 For some countries, shares of electricity generation may not total 100% due to unavailability of data for some fuels. \
 Total generation is published, so any such unpublished share is calculated, & shown in the RH\n\
 chart if applicable. Shares of coal, oil, gas, biofuels, and waste shown in the LH chart were consumed for purposes \
 other than electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data.\n\
-Energy Consumption data: IEA World Energy Balances,\
+Energy Consumption data: IEA World Energy Balances, \
 https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser?country=WORLD\
 &fuel=Energy%20consumption&indicator=TFCbySource\n\
-Electricity Generation data: The Energy Institute Statistical Review of World Energy 2024, \
+Electricity Generation data: The Energy Institute 2026 Statistical Review of World Energy, \
 https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 
         chart.treemap_2_subplots(
