@@ -600,8 +600,9 @@ def co2_by_sector_chart(energy_system):
     title = 'Annual Sector Emissions of Fossil Fuel CO\u2082. Final year shares shown after sector names.'
     title1 = 'Electricity & Heat Producers ' + str(
         energy_system.sector_co2_Mt['Electricity & Heat Producers Share'].iloc[-1]) + '%'
-    title2 = 'Other Energy Producers ' + str(
-        energy_system.sector_co2_Mt['Other Energy Producers Share'].iloc[-1]) + '%'
+    title2 = 'Other Energy Industries ' + str(
+        energy_system.sector_co2_Mt['Other Energy Industries Share'].iloc[-1]) + '%\n' \
+             + '(see footnotes for definition)'
     title3 = 'Manufacturing Industry ' + str(energy_system.sector_co2_Mt['Manufacturing Industry Share'].iloc[-1]) + '%'
     title4 = 'Transport ' + str(energy_system.sector_co2_Mt['Transport Share'].iloc[-1]) + '%'
     title5 = 'Commercial & Public Services ' + str(
@@ -612,7 +613,7 @@ def co2_by_sector_chart(energy_system):
     ylabel_top = 'Megatonne (Mt)'
     ylabel_bottom = 'Mt'
     sec1 = energy_system.sector_co2_Mt['Electricity & Heat Producers']
-    sec2 = energy_system.sector_co2_Mt['Other Energy Producers']
+    sec2 = energy_system.sector_co2_Mt['Other Energy Industries']
     sec3 = energy_system.sector_co2_Mt['Manufacturing Industry']
     sec4 = energy_system.sector_co2_Mt['Transport']
     sec5 = energy_system.sector_co2_Mt['Commercial & Public Services']
@@ -623,8 +624,8 @@ def co2_by_sector_chart(energy_system):
     footer_text = (str(energy_system.sector_co2_Mt.index[-1]) + ' values: '
                    + 'Electricity & Heat Producers = '
                    + f'{(round(energy_system.sector_co2_Mt['Electricity & Heat Producers'].iloc[-1])):,}'
-                   + 'Mt, Other Energy Producers = '
-                   + f'{(round(energy_system.sector_co2_Mt['Other Energy Producers'].iloc[-1])):,}'
+                   + 'Mt, Other Energy Industries = '
+                   + f'{(round(energy_system.sector_co2_Mt['Other Energy Industries'].iloc[-1])):,}'
                    + 'Mt, Manufacturing Industry = '
                    + f'{(round(energy_system.sector_co2_Mt['Manufacturing Industry'].iloc[-1])):,}'
                    + 'Mt, Transport = '
@@ -638,14 +639,14 @@ def co2_by_sector_chart(energy_system):
                    + 'Mt, Other = '
                    + f'{(round(energy_system.sector_co2_Mt['Non-specified (Other)'].iloc[-1])):,}'
                    + 'Mt'
-                   + '\nOther Energy Production are emissions from on-site energy use for the production of charcoal, \
-bagasse, saw dust, cotton stalks and carbonizing of biofuels as well as fuel used for coal mining, oil and gas \
-extraction and the processing and upgrading of gas. Ag refers to agriculture.\n\
+                   + '\nOther Energy Industries refers to emissions from coal mining, production of coke and brown \
+coal briquettes, oil and gas extraction, refining of oil, processing of natural gas, and production of biofuels \
+and solid fuels (e.g. charcoal). Ag refers to agriculture.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. \n\
 Data: IEA World Energy Balances, https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser\
 ?country=WORLD&fuel=Energy%20transition%20indicators&indicator=CO2BySector\n\
-Glossary: https://iea.blob.core.windows.net/assets/fa184bb7-31e7-4836-978a-d0d92e749c24/\
-WORLD_GHG_Documentation_2024_final.pdf')
+Glossary: https://iea.blob.core.windows.net/assets/9d6a5b6e-a231-4645-8764-b0a1bf6dabe6/\
+GreenhouseGasEmissionsfromEnergy_Documentation_2026.pdf')
 
     chart.column_8_subplots(
         sec1,

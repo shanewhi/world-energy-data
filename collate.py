@@ -148,7 +148,7 @@ def import_iea_data(country_name):
         co2_by_sector.drop(columns='Units', inplace=True)
         co2_by_sector.fillna(value=0, inplace=True)
         co2_by_sector.rename(columns={'Electricity and heat producers': 'Electricity & Heat Producers',
-                                      'Other energy industries': 'Other Energy Producers',
+                                      'Other energy industries': 'Other Energy Industries',
                                       'Transport Sector': 'Transport', 'Industry Sector': 'Manufacturing Industry',
                                       'Residential': 'Residences',
                                       'Commercial and Public Services': 'Commercial & Public Services'}, inplace=True)

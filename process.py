@@ -368,7 +368,7 @@ def sector_co2(energy_system):
     energy_system.sector_co2_Mt['Ag, Forestry & Fishing'] = energy_system.sector_co2_Mt['Agriculture/Forestry'] + \
                                                             energy_system.sector_co2_Mt['Fishing']
     energy_system.sector_co2_Mt['Total'] = energy_system.sector_co2_Mt['Electricity & Heat Producers'] + \
-                                           energy_system.sector_co2_Mt['Other Energy Producers'] + \
+                                           energy_system.sector_co2_Mt['Other Energy Industries'] + \
                                            energy_system.sector_co2_Mt['Transport'] + \
                                            energy_system.sector_co2_Mt['Manufacturing Industry'] + \
                                            energy_system.sector_co2_Mt['Commercial & Public Services'] + \
@@ -379,8 +379,8 @@ def sector_co2(energy_system):
     energy_system.sector_co2_Mt['Electricity & Heat Producers Share'] = round(
         energy_system.sector_co2_Mt['Electricity & Heat Producers'] / energy_system.sector_co2_Mt['Total'] * 100, 1)
 
-    energy_system.sector_co2_Mt['Other Energy Producers Share'] = round(
-        energy_system.sector_co2_Mt['Other Energy Producers'] / energy_system.sector_co2_Mt['Total'] * 100, 1)
+    energy_system.sector_co2_Mt['Other Energy Industries Share'] = round(
+        energy_system.sector_co2_Mt['Other Energy Industries'] / energy_system.sector_co2_Mt['Total'] * 100, 1)
 
     energy_system.sector_co2_Mt['Transport Share'] = round(
         energy_system.sector_co2_Mt['Transport'] / energy_system.sector_co2_Mt['Total'] * 100, 1)
