@@ -772,29 +772,32 @@ def final_energy(energy_system):
 
     energy_system.finalenergy_PJ['Total'] = energy_system.finalenergy_PJ.sum(axis=1)
 
-    energy_system.finalenergy_PJ['Coal Share'] = (energy_system.finalenergy_PJ['Coal']
-                                                  / energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Oil Share'] = (energy_system.finalenergy_PJ['Oil'] /
-                                                 energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Gas Share'] = (energy_system.finalenergy_PJ['Gas'] /
-                                                 energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Wind Solar Etc Share'] = (energy_system.finalenergy_PJ['Wind Solar Etc'] /
-                                                            energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Biofuels and Waste Share'] = (energy_system.finalenergy_PJ['Biofuels and Waste'] /
-                                                                energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Electricity Share'] = (energy_system.finalenergy_PJ['Electricity'] /
-                                                         energy_system.finalenergy_PJ['Total'] * 100)
-
-    energy_system.finalenergy_PJ['Heat Share'] = (energy_system.finalenergy_PJ['Heat'] /
-                                                  energy_system.finalenergy_PJ['Total'] * 100)
-
     print('\nMost recent year Total Energy Consumption (IEA) = ' +
           str(int(energy_system.finalenergy_PJ['Total'].iloc[-1])) + 'PJ\n')
+
+    energy_system.finalenergy_shares = pd.DataFrame(columns=['Coal', 'Oil', 'Gas', 'Wind Solar Etc',
+                                                             'Biofuels and Waste', 'Electricity', 'Heat',])
+
+    energy_system.finalenergy_shares['Coal'] = (energy_system.finalenergy_PJ['Coal']
+                                                  / energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Oil'] = (energy_system.finalenergy_PJ['Oil'] /
+                                                 energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Gas'] = (energy_system.finalenergy_PJ['Gas'] /
+                                                 energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Wind Solar Etc'] = (energy_system.finalenergy_PJ['Wind Solar Etc'] /
+                                                            energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Biofuels and Waste'] = (energy_system.finalenergy_PJ['Biofuels and Waste'] /
+                                                                energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Electricity'] = (energy_system.finalenergy_PJ['Electricity'] /
+                                                         energy_system.finalenergy_PJ['Total'] * 100)
+
+    energy_system.finalenergy_shares['Heat'] = (energy_system.finalenergy_PJ['Heat'] /
+                                                  energy_system.finalenergy_PJ['Total'] * 100)
 
     # change_yrs = range(user_globals.Constant.TFC_START_YEAR.value + 1, user_globals.Constant.TFC_END_YEAR.value + 1)
     #
@@ -824,13 +827,13 @@ def final_energy(energy_system):
     #                                                            energy_system.finalenergy_PJ.loc[yr - 1, 'Heat'])
 
     # To plot shares for final year, organise into dataframes of the prerequisite format.
-    coal_finalenergy_share_fy = energy_system.finalenergy_PJ['Coal Share'].iloc[-1]
-    oil_finalenergy_share_fy = energy_system.finalenergy_PJ['Oil Share'].iloc[-1]
-    gas_finalenergy_share_fy = energy_system.finalenergy_PJ['Gas Share'].iloc[-1]
-    wse_finalenergy_share_fy = energy_system.finalenergy_PJ['Wind Solar Etc Share'].iloc[-1]
-    bio_waste_finalenergy_share_fy = energy_system.finalenergy_PJ['Biofuels and Waste Share'].iloc[-1]
-    elec_finalenergy_share_fy = energy_system.finalenergy_PJ['Electricity Share'].iloc[-1]
-    heat_finalenergy_share_fy = energy_system.finalenergy_PJ['Heat Share'].iloc[-1]
+    coal_finalenergy_share_fy = energy_system.finalenergy_shares['Coal'].iloc[-1]
+    oil_finalenergy_share_fy = energy_system.finalenergy_shares['Oil'].iloc[-1]
+    gas_finalenergy_share_fy = energy_system.finalenergy_shares['Gas'].iloc[-1]
+    wse_finalenergy_share_fy = energy_system.finalenergy_shares['Wind Solar Etc'].iloc[-1]
+    bio_waste_finalenergy_share_fy = energy_system.finalenergy_shares['Biofuels and Waste'].iloc[-1]
+    elec_finalenergy_share_fy = energy_system.finalenergy_shares['Electricity'].iloc[-1]
+    heat_finalenergy_share_fy = energy_system.finalenergy_shares['Heat'].iloc[-1]
 
     name = ['Coal and\nCoal Products',
             'Oil and\nOil Products',

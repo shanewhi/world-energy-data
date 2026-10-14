@@ -1514,10 +1514,12 @@ def line_6_subplots(
         2,
         3,
         figsize=(
-            user_globals.Constant.FIG_HSIZE_2_ROW.value,
-            user_globals.Constant.FIG_VSIZE_2_ROW.value,
+            user_globals.Constant.FIG_HSIZE_2_ROW_LINE.value,
+            user_globals.Constant.FIG_VSIZE_2_ROW_LINE.value,
         ),
     )
+
+    plt.subplots_adjust(left=0.045, right=0.72, top=0.945, bottom=0.1, hspace=0, wspace=0.06)
 
     ax[0, 0].plot(
         series0.truncate(before=start_yr).index,
@@ -1559,21 +1561,13 @@ def line_6_subplots(
     ax[0, 0].set_facecolor('whitesmoke')
     ax[0, 1].set_facecolor('whitesmoke')
     ax[0, 2].set_facecolor('whitesmoke')
-    ax[0, 3].set_facecolor('whitesmoke')
-    ax[0, 4].set_facecolor('whitesmoke')
-    ax[0, 5].set_facecolor('whitesmoke')
+    ax[1, 0].set_facecolor('whitesmoke')
+    ax[1, 1].set_facecolor('whitesmoke')
+    ax[1, 2].set_facecolor('whitesmoke')
 
-    # Create list x_ticks and fill with start year of each decade.
-    x_ticks = [start_yr]
-    for year in series0.index:
-        if year % 10 == 0:
-            x_ticks.append(year)
-    # If period between final tick and year of final value is >= 3 years, then there's room to append most recent year.
-    # Else replace final value with most recent year.
-    if series0.index.max() - max(x_ticks) >= 3:
-        x_ticks.append(series0.index.max())
-    else:
-        x_ticks[len(x_ticks) - 1] = series0.index.max()
+    # Create list x_ticks. For clarity include only year 2000, final year, and the year (about) halfway between.
+    x_ticks = [start_yr, round((series0.index.max() - start_yr) / 2) + start_yr, series0.index.max()]
+
     ax[0, 0].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 1].set_xticks(x_ticks, labels=x_ticks)
     ax[0, 2].set_xticks(x_ticks, labels=x_ticks)
@@ -1581,16 +1575,31 @@ def line_6_subplots(
     ax[1, 1].set_xticks(x_ticks, labels=x_ticks)
     ax[1, 2].set_xticks(x_ticks, labels=x_ticks)
 
-    ax[0, 0].margins(x=0, tight=True)
-    ax[0, 1].margins(x=0, tight=True)
-    ax[0, 2].margins(x=0, tight=True)
-    ax[1, 0].margins(x=0, tight=True)
-    ax[1, 1].margins(x=0, tight=True)
-    ax[1, 2].margins(x=0, tight=True)
+    ax[0, 0].margins(x=0)
+    ax[0, 1].margins(x=0)
+    ax[0, 2].margins(x=0)
+    ax[1, 0].margins(x=0)
+    ax[1, 1].margins(x=0)
+    ax[1, 2].margins(x=0)
 
-    ax[1, 0].set_xlabel('Year')
     ax[1, 1].set_xlabel('Year')
-    ax[1, 2].set_xlabel('Year')
+
+    ax[0, 0].set_ylabel(ylabel)
+    ax[1, 0].set_ylabel(ylabel)
+
+    ax[0, 0].yaxis.grid(True)
+    ax[0, 1].yaxis.grid(True)
+    ax[0, 2].yaxis.grid(True)
+    ax[1, 0].yaxis.grid(True)
+    ax[1, 1].yaxis.grid(True)
+    ax[1, 2].yaxis.grid(True)
+
+    ax[0, 0].set_axisbelow(True)
+    ax[0, 1].set_axisbelow(True)
+    ax[0, 2].set_axisbelow(True)
+    ax[1, 0].set_axisbelow(True)
+    ax[1, 1].set_axisbelow(True)
+    ax[1, 2].set_axisbelow(True)
 
     ax[0, 0].autoscale(axis='y')
     ax[0, 1].autoscale(axis='y')
@@ -1606,7 +1615,27 @@ def line_6_subplots(
     ylim4 = ax[1, 1].get_ylim()[1]
     ylim5 = ax[1, 2].get_ylim()[1]
 
-    # Apply equivalent y scale to all subplots if set.
+    ax[0, 0].set_box_aspect(1)
+    ax[0, 1].set_box_aspect(1)
+    ax[0, 2].set_box_aspect(1)
+    ax[1, 0].set_box_aspect(1)
+    ax[1, 1].set_box_aspect(1)
+    ax[1, 2].set_box_aspect(1)
+
+    ax[0, 0].tick_params(labelsize=10, labelbottom=False)
+    ax[0, 0].tick_params(axis='x', length=0)
+
+    ax[1, 0].tick_params(axis='x', labelsize=7)
+    ax[1, 1].tick_params(axis='x', labelsize=7)
+    ax[1, 2].tick_params(axis='x', labelsize=7)
+
+    ax[0, 1].tick_params(length=0, labelleft=False, labelbottom=False)
+    ax[0, 2].tick_params(length=0, labelleft=False, labelbottom=False)
+
+    ax[1, 1].tick_params(axis='y', length=0, labelleft=False)
+    ax[1, 2].tick_params(axis='y', length=0, labelleft=False)
+
+    # Apply equivalent y scale to all subplots if set except first subplot.
     if equiv_yscale:
         y_max = max(ylim0, ylim1, ylim2, ylim3, ylim4, ylim5)
         ax[0, 0].set_ylim(0, y_max)
@@ -1615,7 +1644,6 @@ def line_6_subplots(
         ax[1, 0].set_ylim(0, y_max)
         ax[1, 1].set_ylim(0, y_max)
         ax[1, 2].set_ylim(0, y_max)
-
         # Force the uppermost tick to be equal to next tick after ylim
         ax[0, 0].set_ylim(0, max(ax[0, 0].get_yticks()))
         ax[0, 1].set_ylim(0, max(ax[0, 1].get_yticks()))
@@ -1624,76 +1652,81 @@ def line_6_subplots(
         ax[1, 1].set_ylim(0, max(ax[1, 1].get_yticks()))
         ax[1, 2].set_ylim(0, max(ax[1, 2].get_yticks()))
 
-    ax[0, 0].set_ylabel(ylabel)
-    ax[1, 0].set_ylabel(ylabel)
-
-    ax[0, 0].set_box_aspect(1)
-    ax[0, 1].set_box_aspect(1)
-    ax[0, 2].set_box_aspect(1)
-    ax[1, 0].set_box_aspect(1)
-    ax[1, 1].set_box_aspect(1)
-    ax[1, 2].set_box_aspect(1)
-
-    plt.subplots_adjust(
-        left=0, right=0.68, top=0.92, bottom=0.1, wspace=0, hspace=0.14
-    )
-
     ax[0, 0].set_title(
         subplot0_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
     ax[0, 1].set_title(
         subplot1_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
     ax[0, 2].set_title(
         subplot2_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
     ax[1, 0].set_title(
         subplot3_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
     ax[1, 1].set_title(
         subplot4_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
     ax[1, 2].set_title(
         subplot5_title,
-        loc='left',
+        loc='center',
         weight=user_globals.Constant.SUBPLOT_TITLE_FONT_WEIGHT.value,
         size=user_globals.Constant.SUBPLOT_TITLE_FONT_SIZE.value,
+        y=user_globals.Constant.COLUMN_11_SUBPLOT_TITLE_YPOS.value,
+        bbox={'facecolor': 'whitesmoke', 'alpha': 0.7},
+        va='top',
     )
 
     fig.suptitle(
         country,
-        x=0.012,
-        y=0.99,
+        x=0.045,
+        y=0.98,
         horizontalalignment='left',
         fontsize=user_globals.Constant.SUPTITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.SUPTITLE_FONT_WEIGHT.value,
     )
+
     fig.text(
-        0.012,
-        0.955,
+        0.045,
+        0.945,
         title,
         horizontalalignment='left',
         fontsize=user_globals.Constant.TITLE_FONT_SIZE.value,
         fontweight=user_globals.Constant.TITLE_FONT_WEIGHT.value,
     )
     fig.text(
-        0.012,
-        0.05,
+        0.045,
+        0.07,
         footer_text,
         horizontalalignment='left',
         verticalalignment='top',

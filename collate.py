@@ -659,6 +659,7 @@ def populate_energy_system(country, ei_data, co2_by_sector_Mt, tfc_TJ, pop_data)
         pd.DataFrame(),  # Populated in process.py
         finalenergy_PJ,
         pd.DataFrame(),  # Populated in process.py
+        pd.DataFrame(),  # Populated in process.py
     )
 
 

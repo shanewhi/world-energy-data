@@ -80,6 +80,7 @@ class Energy_System:
                  elecgen_fuel_fy_shares,
                  # Electricity generation by fuel share for final year.
                  finalenergy_PJ,  # Annual final energy in units of peta joules.
+                 finalenergy_shares, # Final energy by share of fuel.
                  finalenergy_fy_shares,
                  # Final energy by share of fuel for final year.
                  ):
@@ -98,6 +99,7 @@ class Energy_System:
         self.elecgen_category_fy_shares = elecgen_category_fy_shares
         self.elecgen_fuel_fy_shares = elecgen_fuel_fy_shares
         self.finalenergy_PJ = finalenergy_PJ
+        self.finalenergy_shares = finalenergy_shares
         self.finalenergy_fy_shares = finalenergy_fy_shares
 
 
@@ -146,6 +148,7 @@ class Constant(Enum):
     CHART_START_YR_FOR_MAJOR_EMITTERS = 1965  # Start year for plots of major emitter emissions and fossil fuel primary
     # energy.
     CHART_START_YR = 2000  # Default chart start year.
+    IEA_CHART_START_YR = 1990 # Start year of IEA data (CO2 by sector & Final energy).
     CHANGE_CHART_START_YR = 2010  # Start year of annual change charts.
     FF_PROD_START_YR = 1990  # Start year of fossil fuel production chart.
     FF_CONS_START_YR = 1990  # Start year of fossil fuel consumption chart.
@@ -222,6 +225,8 @@ class Constant(Enum):
 
     FIG_HSIZE_2_ROW = 17
     FIG_VSIZE_2_ROW = 9
+    FIG_HSIZE_2_ROW_LINE = 19.5
+    FIG_VSIZE_2_ROW_LINE = 10.5
 
     FIG_HSIZE_3_ROW = 17
     FIG_VSIZE_3_ROW = 10

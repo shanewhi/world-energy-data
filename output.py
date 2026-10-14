@@ -1204,7 +1204,7 @@ def country_finalenergy_elec_charts(energy_system):
     # FINAL ENERGY AND ELECTRICITY COMBINED: Shares for most recent year.
     ####################################################################################################################
 
-    # CHART 11: National final energy fuel shares alongside electricity generation fuel shares.
+    # CHART 12: National final energy fuel shares alongside electricity generation fuel shares.
 
     # Plot only Final Energy if electricity data is unavailable.
     if energy_system.elecgen_TWh is None:
@@ -1285,7 +1285,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
             footer_text,
         )
     plt.savefig(
-        os.path.join(fig_dir, '11 ' + country + ' fe elec shares.svg'),
+        os.path.join(fig_dir, '12 ' + country + ' fe elec shares.svg'),
         format='svg',
         bbox_inches='tight',
         pad_inches=0.2,
@@ -1305,21 +1305,21 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
 ########################################################################################################################
 def country_finalenergy_charts(energy_system):
     country = energy_system.country
-    if energy_system.finalenergy_PJ is None:
+    if energy_system.finalenergy_PJ is None or energy_system.finalenergy_shares is None:
         return None
     fig_dir = 'charts ' + country + '/'
-    os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
+    os.makedirs(fig_dir, exist_ok=True)
 
-    # CHART 10: National final energy quantity by fuel.
+    # CHART 10: National final energy by quantity.
 
     ####################################################################################################################
     # FINAL ENERGY: Annual quantities.
     ####################################################################################################################
-    title = 'Annual Energy Consumption after partial conversions to Electricity (Final Energy)'
-    title1 = 'Coal and Coal Products'
-    title2 = 'Oil and Oil Products'
+    title = 'Energy Consumption after partial conversions to Electricity (Final Energy)'
+    title1 = 'Coal + Coal Products'
+    title2 = 'Oil + Oil Products'
     title3 = 'Gas'
-    title4 = 'Biofuels and Waste'
+    title4 = 'Biofuels + Waste'
     title5 = 'Electricity'
     title6 = 'Heat'
     if country == 'World':
@@ -1429,6 +1429,84 @@ country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
         plt.show()
     plt.close()
 
+    # CHART 11: National final energy by share.
+
+    title = ('Energy Consumption after partial conversions to Electricity (Final Energy) by share showing '+
+             str(user_globals.Constant.IEA_CHART_START_YR.value) + '\u2192' +
+             str(energy_system.finalenergy_shares.index[-2]) + ', ' +
+             str(energy_system.finalenergy_shares.index[-1]) + ' values')
+
+    title1 = ('Coal + Coal Products (' + f'{(round(energy_system.finalenergy_shares['Coal'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Coal'].iloc[-2], 1)):,}' + '%, ' +
+              f'{(round(energy_system.finalenergy_shares['Coal'].iloc[-1], 1)):,}' + '%)')
+    title2 = ('Oil + Oil Products (' + f'{(round(energy_system.finalenergy_shares['Oil'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Oil'].iloc[-2], 1)):,}' + '%, '
+              f'{(round(energy_system.finalenergy_shares['Oil'].iloc[-1], 1)):,}' + '%)')
+    title3 = ('Gas (' + f'{(round(energy_system.finalenergy_shares['Gas'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Gas'].iloc[-2], 1)):,}' + '%, ' +
+              f'{(round(energy_system.finalenergy_shares['Gas'].iloc[-1], 1)):,}' + '%)')
+    title4 = ('Biofuels + Waste (' + f'{(round(energy_system.finalenergy_shares['Biofuels and Waste'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Biofuels and Waste'].iloc[-2], 1)):,}' + '%, ' +
+              f'{(round(energy_system.finalenergy_shares['Biofuels and Waste'].iloc[-1], 1)):,}' + '%)')
+    title5 = ('Electricity (' + f'{(round(energy_system.finalenergy_shares['Electricity'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Electricity'].iloc[-2], 1)):,}' + '%, ' +
+              f'{(round(energy_system.finalenergy_shares['Electricity'].iloc[-1], 1)):,}' + '%)')
+    title6 = ('Heat (' + f'{(round(energy_system.finalenergy_shares['Heat'].iloc[0], 1)):,}' +
+              '%\u2192' + f'{(round(energy_system.finalenergy_shares['Heat'].iloc[-2], 1)):,}' + '%, ' +
+              f'{(round(energy_system.finalenergy_shares['Heat'].iloc[-1], 1)):,}' + '%)')
+
+    fes1 = energy_system.finalenergy_shares['Coal']
+    fes2 = energy_system.finalenergy_shares['Oil']
+    fes3 = energy_system.finalenergy_shares['Gas']
+    fes4 = energy_system.finalenergy_shares['Biofuels and Waste']
+    fes5 = energy_system.finalenergy_shares['Electricity']
+    fes6 = energy_system.finalenergy_shares['Heat']
+
+    ylabel = 'Annual Share (%)'
+
+    footer_text = 'Shares of coal, oil, gas, biofuels, and waste shown were consumed for purposes other \
+than electricity generation, such as steel manufacture, internal combustion, cooking, etc.\
+Earliest year of IEA data is 1990.\n\
+By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. \n\
+Data: IEA World Energy Balances, https://www.iea.org/data-and-statistics/data-tools/energy-statistics-data-browser?\
+country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.'
+
+    chart.line_6_subplots(
+        fes1,
+        fes2,
+        fes3,
+        fes4,
+        fes5,
+        fes6,
+        user_globals.Color.COAL.value,
+        user_globals.Color.OIL.value,
+        user_globals.Color.GAS.value,
+        user_globals.Color.BIOFUELS_AND_WASTE.value,
+        user_globals.Color.ELECTRICITY.value,
+        user_globals.Color.HEAT.value,
+        country,
+        title,
+        title1,
+        title2,
+        title3,
+        title4,
+        title5,
+        title6,
+        user_globals.Constant.IEA_CHART_START_YR.value,
+        ylabel,
+        footer_text,
+        True,
+    )
+    plt.savefig(
+        os.path.join(fig_dir, '11 ' + country + ' fe share.svg'),
+        format='svg',
+        bbox_inches='tight',
+        pad_inches=0.2,
+    )
+    if user_globals.Constant.DISPLAY_CHARTS.value is True:
+        plt.show()
+    plt.close()
+
 
 ########################################################################################################################
 #
@@ -1446,7 +1524,7 @@ def country_elecgen_charts(energy_system):
     fig_dir = 'charts ' + country + '/'
     os.makedirs(fig_dir, exist_ok=True)  # Save co2 charts in this directory.
 
-    # CHART 12: Country electricity generation quantity by fuel.
+    # CHART 13: Country electricity generation quantity by fuel.
 
     ################################################################################################################
     # ELECTRICITY: Annual generation quantity.
@@ -1561,7 +1639,7 @@ doesn't equal Total electricity generation,\ndue to unpublished data for "
 
     if energy_system.elecgen_TWh is not None:
         plt.savefig(
-            os.path.join(fig_dir, '12 ' + country + ' elec fuel qty.svg'),
+            os.path.join(fig_dir, '13 ' + country + ' elec fuel qty.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2, )
@@ -1573,7 +1651,7 @@ doesn't equal Total electricity generation,\ndue to unpublished data for "
     # ELECTRICITY: Annual change of generation by fuel.
     ####################################################################################################################
 
-    # CHART 13: Change of country electricity generation quantity by fuel.
+    # CHART 14: Change of country electricity generation quantity by fuel.
 
     if energy_system.elecgen_TWh is not None and unpublished_data is not True:
         title = 'Annual Change of Electricity Generation'
@@ -1609,7 +1687,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
             series8=energy_system.elecgen_TWh['Bio, Geo and Other Change'],
         )
         plt.savefig(
-            os.path.join(fig_dir, '13 ' + country + ' elec fuel change.svg'),
+            os.path.join(fig_dir, '14 ' + country + ' elec fuel change.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,
@@ -1622,7 +1700,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.')
     # ELECTRICITY: Annual share of generation by fuel.
     ####################################################################################################################
 
-    # CHART 14: Country electricity generation by share of fuel.
+    # CHART 15: Country electricity generation by share of fuel.
 
     if energy_system.elecgen_TWh is not None and unpublished_data is not True:
         title = ('Annual Electricity Generation by share with ' + str(energy_system.elecgen_TWh.index[-1]) +
@@ -1715,7 +1793,7 @@ https://www.energyinst.org/statistical-review/resources-and-data-downloads.")
         )
 
         plt.savefig(
-            os.path.join(fig_dir, '14 ' + country + ' elec fuel share trends.svg'),
+            os.path.join(fig_dir, '15 ' + country + ' elec fuel share trends.svg'),
             format='svg',
             bbox_inches='tight',
             pad_inches=0.2,
