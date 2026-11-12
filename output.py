@@ -1325,39 +1325,39 @@ def country_finalenergy_charts(energy_system):
     if country == 'World':
         ylabel_top = 'Exajoule (EJ)'
         ylabel_bottom = 'EJ'
-        feq1 = pd.Series(
+        feq_coal = pd.Series(
             energy_system.finalenergy_PJ['Coal'] * user_globals.Constant.PJ_TO_EJ.value
         )
-        feq2 = pd.Series(
+        feq_oil = pd.Series(
             energy_system.finalenergy_PJ['Oil'] * user_globals.Constant.PJ_TO_EJ.value
         )
-        feq3 = pd.Series(
+        feq_gas = pd.Series(
             energy_system.finalenergy_PJ['Gas'] * user_globals.Constant.PJ_TO_EJ.value
         )
-        feq4 = pd.Series(
+        feq_bio = pd.Series(
             energy_system.finalenergy_PJ['Biofuels and Waste']
             * user_globals.Constant.PJ_TO_EJ.value
         )
-        feq5 = pd.Series(
+        feq_elec = pd.Series(
             energy_system.finalenergy_PJ['Electricity']
             * user_globals.Constant.PJ_TO_EJ.value
         )
-        feq6 = pd.Series(
+        feq_heat = pd.Series(
             energy_system.finalenergy_PJ['Heat'] * user_globals.Constant.PJ_TO_EJ.value
         )
         footer_text = (str(energy_system.finalenergy_PJ.index[-1]) + ' values: '
                        + 'Coal = '
-                       + f'{(round(energy_system.finalenergy_PJ['Coal'].iloc[-1])):,}'
+                       + f'{(round(feq_coal.iloc[-1])):,}'
                        + 'EJ, Oil = '
-                       + f'{(round(energy_system.finalenergy_PJ['Oil'].iloc[-1])):,}'
+                       + f'{(round(feq_oil.iloc[-1])):,}'
                        + 'EJ, Gas = '
-                       + f'{(round(energy_system.finalenergy_PJ['Gas'].iloc[-1])):,}'
+                       + f'{(round(feq_gas.iloc[-1])):,}'
                        + 'EJ, Biofuels & Waste = '
-                       + f'{(round(energy_system.finalenergy_PJ['Biofuels and Waste'].iloc[-1])):,}'
+                       + f'{(round(feq_bio.iloc[-1])):,}'
                        + 'EJ, Electricity = '
-                       + f'{(round(energy_system.finalenergy_PJ['Electricity'].iloc[-1])):,}'
+                       + f'{(round(feq_elec.iloc[-1])):,}'
                        + 'EJ, Heat = '
-                       + f'{(round(energy_system.finalenergy_PJ['Heat'].iloc[-1])):,}'
+                       + f'{(round(feq_heat.iloc[-1])):,}'
                        + 'EJ\nQuantities of coal, oil, gas, biofuels, and waste shown were consumed for purposes \
 other than electricity generation, such as steel manufacture, internal combustion, cooking, etc.\n\
 By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. \n\
@@ -1366,12 +1366,12 @@ country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
     else:
         ylabel_top = 'Petajoule (PJ)'
         ylabel_bottom = 'PJ'
-        feq1 = energy_system.finalenergy_PJ['Coal']
-        feq2 = energy_system.finalenergy_PJ['Oil']
-        feq3 = energy_system.finalenergy_PJ['Gas']
-        feq4 = energy_system.finalenergy_PJ['Biofuels and Waste']
-        feq5 = energy_system.finalenergy_PJ['Electricity']
-        feq6 = energy_system.finalenergy_PJ['Heat']
+        feq_coal = energy_system.finalenergy_PJ['Coal']
+        feq_oil = energy_system.finalenergy_PJ['Oil']
+        feq_gas = energy_system.finalenergy_PJ['Gas']
+        feq_bio = energy_system.finalenergy_PJ['Biofuels and Waste']
+        feq_elec = energy_system.finalenergy_PJ['Electricity']
+        feq_heat = energy_system.finalenergy_PJ['Heat']
 
         footer_text = (str(energy_system.finalenergy_PJ.index[-1]) + ' values: '
                        + 'Coal = '
@@ -1393,12 +1393,12 @@ Data: IEA World Energy Balances, https://www.iea.org/data-and-statistics/data-to
 country=WORLD&fuel=Energy%20consumption&indicator=TFCbySource.')
 
     chart.column_6_subplots(
-        feq1,
-        feq2,
-        feq3,
-        feq4,
-        feq5,
-        feq6,
+        feq_coal,
+        feq_oil,
+        feq_gas,
+        feq_bio,
+        feq_elec,
+        feq_heat,
         user_globals.Color.COAL.value,
         user_globals.Color.OIL.value,
         user_globals.Color.GAS.value,
