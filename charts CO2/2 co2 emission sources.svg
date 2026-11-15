@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-12T12:13:33.829672</dc:date>
+    <dc:date>2026-11-15T14:05:34.352671</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -31,38 +31,38 @@ z
   <g id="axes_1">
    <g id="patch_2">
     <path d="M 14.4 490.986 
-L 344.20344 490.986 
-L 344.20344 72.486 
+L 344.304641 490.986 
+L 344.304641 72.486 
 L 14.4 72.486 
 z
-" clip-path="url(#p1427e98696)" style="fill: #808080; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p8fd166990f)" style="fill: #808080; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 344.20344 151.151414 
-L 394.854545 151.151414 
+    <path d="M 344.304641 170.031113 
+L 394.854545 170.031113 
 L 394.854545 103.952165 
-L 344.20344 103.952165 
+L 344.304641 103.952165 
 z
-" clip-path="url(#p1427e98696)" style="fill: #5f9ea0; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p8fd166990f)" style="fill: #5f9ea0; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 344.20344 490.986 
+    <path d="M 344.304641 490.986 
 L 394.854545 490.986 
-L 394.854545 151.151414 
-L 344.20344 151.151414 
+L 394.854545 170.031113 
+L 344.304641 170.031113 
 z
-" clip-path="url(#p1427e98696)" style="fill: #6b8e23; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p8fd166990f)" style="fill: #6b8e23; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 344.20344 103.952165 
+    <path d="M 344.304641 103.952165 
 L 394.854545 103.952165 
 L 394.854545 72.486 
-L 344.20344 72.486 
+L 344.304641 72.486 
 z
-" clip-path="url(#p1427e98696)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p8fd166990f)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
-    <g clip-path="url(#p1427e98696)">
+    <g clip-path="url(#p8fd166990f)">
      <!-- Fossil Fuels -->
      <g style="fill: #ffffff" transform="translate(17.4 122.04225) scale(0.6 -0.6)">
       <defs>
@@ -241,8 +241,8 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(457.299927 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p1427e98696)">
-     <!-- 86.6% -->
+    <g clip-path="url(#p8fd166990f)">
+     <!-- 86.8% -->
      <g style="fill: #ffffff" transform="translate(17.4 186.546) scale(0.6 -0.6)">
       <defs>
        <path id="GoogleSans-Regular-38" d="M 1760 -102 
@@ -411,16 +411,54 @@ z
       <use xlink:href="#GoogleSans-Regular-38"/>
       <use xlink:href="#GoogleSans-Regular-36" transform="translate(54.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(110.499969 0)"/>
-      <use xlink:href="#GoogleSans-Regular-36" transform="translate(134.09996 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(189.599945 0)"/>
+      <use xlink:href="#GoogleSans-Regular-38" transform="translate(134.09996 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(189.099945 0)"/>
      </g>
     </g>
    </g>
    <g id="text_2">
-    <g clip-path="url(#p1427e98696)">
-     <!-- 1.5% -->
-     <g style="fill: #ffffff" transform="translate(347.20344 126.12347) scale(0.217495 -0.217495)">
+    <g clip-path="url(#p8fd166990f)">
+     <!-- 2.1% -->
+     <g style="fill: #ffffff" transform="translate(347.304641 126.357637) scale(0.220766 -0.220766)">
       <defs>
+       <path id="GoogleSans-Regular-32" d="M 282 0 
+L 282 544 
+Q 301 563 397 668 
+Q 493 774 640 937 
+Q 787 1101 956 1289 
+Q 1126 1478 1299 1670 
+Q 1472 1862 1619 2022 
+Q 1766 2182 1856 2278 
+Q 2157 2605 2301 2857 
+Q 2445 3110 2445 3392 
+Q 2445 3603 2342 3779 
+Q 2240 3955 2051 4060 
+Q 1862 4166 1613 4166 
+Q 1376 4166 1200 4064 
+Q 1024 3962 918 3814 
+Q 813 3667 781 3526 
+L 288 3725 
+Q 326 3859 425 4022 
+Q 525 4186 691 4339 
+Q 858 4493 1094 4589 
+Q 1331 4685 1638 4685 
+Q 2067 4685 2371 4499 
+Q 2675 4314 2841 4022 
+Q 3008 3731 3008 3398 
+Q 3008 3110 2886 2835 
+Q 2765 2560 2592 2326 
+Q 2419 2093 2259 1926 
+Q 2176 1843 2032 1686 
+Q 1888 1530 1721 1347 
+Q 1555 1165 1395 992 
+Q 1235 819 1116 691 
+Q 998 563 954 518 
+L 954 518 
+L 3046 518 
+L 3046 0 
+L 282 0 
+z
+" transform="scale(0.015625)"/>
        <path id="GoogleSans-Regular-31" d="M 1376 0 
 L 1376 3821 
 L 608 3270 
@@ -431,49 +469,18 @@ L 1920 0
 L 1376 0 
 z
 " transform="scale(0.015625)"/>
-       <path id="GoogleSans-Regular-35" d="M 1811 -102 
-Q 1517 -102 1209 26 
-Q 902 154 662 422 
-Q 422 691 320 1107 
-L 800 1299 
-Q 902 909 1158 662 
-Q 1414 416 1792 416 
-Q 2227 416 2502 688 
-Q 2778 960 2778 1389 
-Q 2778 1677 2656 1901 
-Q 2534 2125 2313 2253 
-Q 2093 2381 1805 2381 
-Q 1568 2381 1350 2269 
-Q 1133 2157 1005 1971 
-L 454 2189 
-L 755 4582 
-L 3040 4582 
-L 3040 4064 
-L 1197 4064 
-L 1011 2598 
-L 1043 2592 
-Q 1197 2720 1414 2803 
-Q 1632 2886 1907 2886 
-Q 2291 2886 2617 2694 
-Q 2944 2502 3139 2169 
-Q 3334 1837 3334 1402 
-Q 3334 979 3136 640 
-Q 2938 301 2595 99 
-Q 2253 -102 1811 -102 
-z
-" transform="scale(0.015625)"/>
       </defs>
-      <use xlink:href="#GoogleSans-Regular-31"/>
-      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(42.999985 0)"/>
-      <use xlink:href="#GoogleSans-Regular-35" transform="translate(66.599976 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(122.499969 0)"/>
+      <use xlink:href="#GoogleSans-Regular-32"/>
+      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(52.399994 0)"/>
+      <use xlink:href="#GoogleSans-Regular-31" transform="translate(75.999985 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(118.999969 0)"/>
      </g>
     </g>
    </g>
    <g id="text_3">
-    <g clip-path="url(#p1427e98696)">
-     <!-- 10.8% -->
-     <g style="fill: #ffffff" transform="translate(347.20344 169.649027) scale(0.166182 -0.166182)">
+    <g clip-path="url(#p8fd166990f)">
+     <!-- 10.2% -->
+     <g style="fill: #ffffff" transform="translate(347.304641 188.61747) scale(0.167422 -0.167422)">
       <defs>
        <path id="GoogleSans-Regular-30" d="M 2054 -102 
 Q 1651 -102 1331 83 
@@ -512,15 +519,15 @@ z
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-30" transform="translate(42.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(107.299973 0)"/>
-      <use xlink:href="#GoogleSans-Regular-38" transform="translate(130.899963 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(185.899948 0)"/>
+      <use xlink:href="#GoogleSans-Regular-32" transform="translate(130.899963 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(183.299957 0)"/>
      </g>
     </g>
    </g>
    <g id="text_4">
-    <g clip-path="url(#p1427e98696)">
+    <g clip-path="url(#p8fd166990f)">
      <!-- 1.0% -->
-     <g style="fill: #ffffff" transform="translate(347.20344 94.041394) scale(0.208892 -0.208892)">
+     <g style="fill: #ffffff" transform="translate(347.304641 94.011977) scale(0.208482 -0.208482)">
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(42.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-30" transform="translate(66.599976 0)"/>
@@ -1052,73 +1059,73 @@ z
   <g id="axes_2">
    <g id="patch_10">
     <path d="M 470.945455 490.986 
-L 724.962654 490.986 
-L 724.962654 256.952267 
-L 470.945455 256.952267 
+L 724.835201 490.986 
+L 724.835201 260.435102 
+L 470.945455 260.435102 
 z
-" clip-path="url(#pfcc94d4cf8)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_11">
-    <path d="M 470.945455 256.952267 
-L 724.962654 256.952267 
-L 724.962654 72.486 
+    <path d="M 470.945455 260.435102 
+L 724.835201 260.435102 
+L 724.835201 72.486 
 L 470.945455 72.486 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_12">
-    <path d="M 724.962654 490.986 
+    <path d="M 724.835201 490.986 
 L 851.4 490.986 
-L 851.4 252.74353 
-L 724.962654 252.74353 
+L 851.4 253.458973 
+L 724.835201 253.458973 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_13">
-    <path d="M 779.150088 116.604976 
-L 815.275044 116.604976 
-L 815.275044 72.486 
-L 779.150088 72.486 
+    <path d="M 788.117601 125.269784 
+L 821.265524 125.269784 
+L 821.265524 72.486 
+L 788.117601 72.486 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #ff69b4; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #ff69b4; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_14">
-    <path d="M 724.962654 116.604976 
-L 779.150088 116.604976 
-L 779.150088 72.486 
-L 724.962654 72.486 
+    <path d="M 724.835201 125.269784 
+L 788.117601 125.269784 
+L 788.117601 72.486 
+L 724.835201 72.486 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #5f9ea0; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #5f9ea0; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_15">
-    <path d="M 724.962654 252.74353 
-L 851.4 252.74353 
-L 851.4 116.604976 
-L 724.962654 116.604976 
+    <path d="M 724.835201 253.458973 
+L 851.4 253.458973 
+L 851.4 125.269784 
+L 724.835201 125.269784 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #6b8e23; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #6b8e23; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_16">
-    <path d="M 815.275044 116.604976 
-L 851.4 116.604976 
+    <path d="M 821.265524 125.269784 
+L 851.4 125.269784 
 L 851.4 72.486 
-L 815.275044 72.486 
+L 821.265524 72.486 
 z
-" clip-path="url(#pfcc94d4cf8)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#p4739af2a21)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_10">
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- Coal -->
-     <g style="fill: #ffffff" transform="translate(473.945455 306.508517) scale(0.6 -0.6)">
+     <g style="fill: #ffffff" transform="translate(473.945455 309.991352) scale(0.6 -0.6)">
       <use xlink:href="#GoogleSans-Regular-43"/>
       <use xlink:href="#GoogleSans-Regular-6f" transform="translate(73.599991 0)"/>
       <use xlink:href="#GoogleSans-Regular-61" transform="translate(132.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-6c" transform="translate(186.099976 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pfcc94d4cf8)">
-     <!-- 37.3% -->
-     <g style="fill: #ffffff" transform="translate(473.945455 371.012267) scale(0.6 -0.6)">
+    <g clip-path="url(#p4739af2a21)">
+     <!-- 36.8% -->
+     <g style="fill: #ffffff" transform="translate(473.945455 374.495102) scale(0.6 -0.6)">
       <defs>
        <path id="GoogleSans-Regular-33" d="M 1664 -102 
 Q 1408 -102 1120 10 
@@ -1164,33 +1171,17 @@ Q 2733 256 2400 77
 Q 2067 -102 1664 -102 
 z
 " transform="scale(0.015625)"/>
-       <path id="GoogleSans-Regular-37" d="M 973 -102 
-L 486 147 
-Q 826 768 1181 1430 
-Q 1536 2093 1885 2761 
-Q 2234 3430 2560 4064 
-L 2560 4064 
-L 282 4064 
-L 282 4582 
-L 3130 4582 
-L 3130 4026 
-Q 2874 3533 2605 3011 
-Q 2336 2490 2061 1958 
-Q 1786 1427 1514 908 
-Q 1242 390 973 -102 
-z
-" transform="scale(0.015625)"/>
       </defs>
       <use xlink:href="#GoogleSans-Regular-33"/>
-      <use xlink:href="#GoogleSans-Regular-37" transform="translate(53.299988 0)"/>
-      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(105.999985 0)"/>
-      <use xlink:href="#GoogleSans-Regular-33" transform="translate(129.599976 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(182.899963 0)"/>
+      <use xlink:href="#GoogleSans-Regular-36" transform="translate(53.299988 0)"/>
+      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(108.799973 0)"/>
+      <use xlink:href="#GoogleSans-Regular-38" transform="translate(132.399963 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(187.399948 0)"/>
      </g>
     </g>
    </g>
    <g id="text_11">
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- Oil -->
      <g style="fill: #ffffff" transform="translate(473.945455 122.04225) scale(0.6 -0.6)">
       <use xlink:href="#GoogleSans-Regular-4f"/>
@@ -1198,115 +1189,21 @@ z
       <use xlink:href="#GoogleSans-Regular-6c" transform="translate(103.099976 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pfcc94d4cf8)">
-     <!-- 29.4% -->
+    <g clip-path="url(#p4739af2a21)">
+     <!-- 30.0% -->
      <g style="fill: #ffffff" transform="translate(473.945455 186.546) scale(0.6 -0.6)">
-      <defs>
-       <path id="GoogleSans-Regular-32" d="M 282 0 
-L 282 544 
-Q 301 563 397 668 
-Q 493 774 640 937 
-Q 787 1101 956 1289 
-Q 1126 1478 1299 1670 
-Q 1472 1862 1619 2022 
-Q 1766 2182 1856 2278 
-Q 2157 2605 2301 2857 
-Q 2445 3110 2445 3392 
-Q 2445 3603 2342 3779 
-Q 2240 3955 2051 4060 
-Q 1862 4166 1613 4166 
-Q 1376 4166 1200 4064 
-Q 1024 3962 918 3814 
-Q 813 3667 781 3526 
-L 288 3725 
-Q 326 3859 425 4022 
-Q 525 4186 691 4339 
-Q 858 4493 1094 4589 
-Q 1331 4685 1638 4685 
-Q 2067 4685 2371 4499 
-Q 2675 4314 2841 4022 
-Q 3008 3731 3008 3398 
-Q 3008 3110 2886 2835 
-Q 2765 2560 2592 2326 
-Q 2419 2093 2259 1926 
-Q 2176 1843 2032 1686 
-Q 1888 1530 1721 1347 
-Q 1555 1165 1395 992 
-Q 1235 819 1116 691 
-Q 998 563 954 518 
-L 954 518 
-L 3046 518 
-L 3046 0 
-L 282 0 
-z
-" transform="scale(0.015625)"/>
-       <path id="GoogleSans-Regular-39" d="M 1478 -102 
-L 1043 198 
-Q 1229 467 1392 697 
-Q 1555 928 1696 1123 
-Q 1837 1318 1955 1481 
-Q 2074 1645 2176 1773 
-L 2157 1798 
-Q 2106 1766 1971 1731 
-Q 1837 1696 1651 1696 
-Q 1306 1696 982 1881 
-Q 659 2067 451 2396 
-Q 243 2726 243 3155 
-Q 243 3584 448 3929 
-Q 653 4275 998 4476 
-Q 1344 4678 1766 4678 
-Q 2118 4678 2403 4547 
-Q 2688 4416 2886 4198 
-Q 3091 3981 3200 3709 
-Q 3309 3437 3309 3155 
-Q 3309 2758 3149 2448 
-Q 2989 2138 2765 1805 
-Q 2573 1517 2374 1225 
-Q 2176 934 1955 608 
-Q 1734 282 1478 -102 
-z
-M 1773 2202 
-Q 2054 2202 2278 2330 
-Q 2502 2458 2633 2678 
-Q 2765 2899 2765 3181 
-Q 2765 3462 2637 3683 
-Q 2509 3904 2285 4032 
-Q 2061 4160 1773 4160 
-Q 1491 4160 1267 4035 
-Q 1043 3910 915 3689 
-Q 787 3469 787 3181 
-Q 787 2893 918 2672 
-Q 1050 2451 1274 2326 
-Q 1498 2202 1773 2202 
-z
-" transform="scale(0.015625)"/>
-       <path id="GoogleSans-Regular-34" d="M 282 1011 
-L 282 1421 
-L 2413 4582 
-L 2989 4582 
-L 2989 0 
-L 2458 0 
-L 2458 3750 
-L 2426 3750 
-L 896 1523 
-L 3514 1523 
-L 3514 1011 
-L 282 1011 
-z
-" transform="scale(0.015625)"/>
-      </defs>
-      <use xlink:href="#GoogleSans-Regular-32"/>
-      <use xlink:href="#GoogleSans-Regular-39" transform="translate(52.399994 0)"/>
-      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(107.899979 0)"/>
-      <use xlink:href="#GoogleSans-Regular-34" transform="translate(131.499969 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(190.59996 0)"/>
+      <use xlink:href="#GoogleSans-Regular-33"/>
+      <use xlink:href="#GoogleSans-Regular-30" transform="translate(53.299988 0)"/>
+      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(117.599976 0)"/>
+      <use xlink:href="#GoogleSans-Regular-30" transform="translate(141.199966 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(205.499954 0)"/>
      </g>
     </g>
    </g>
    <g id="text_12">
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- Gas -->
-     <g style="fill: #ffffff" transform="translate(727.962654 292.521184) scale(0.463416 -0.463416)">
+     <g style="fill: #ffffff" transform="translate(727.835201 293.271737) scale(0.463906 -0.463906)">
       <defs>
        <path id="GoogleSans-Regular-47" d="M 2656 -102 
 Q 2170 -102 1738 77 
@@ -1355,9 +1252,51 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(133.699982 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- 18.9% -->
-     <g style="fill: #ffffff" transform="translate(727.962654 342.341248) scale(0.463416 -0.463416)">
+     <g style="fill: #ffffff" transform="translate(727.835201 343.144523) scale(0.463906 -0.463906)">
+      <defs>
+       <path id="GoogleSans-Regular-39" d="M 1478 -102 
+L 1043 198 
+Q 1229 467 1392 697 
+Q 1555 928 1696 1123 
+Q 1837 1318 1955 1481 
+Q 2074 1645 2176 1773 
+L 2157 1798 
+Q 2106 1766 1971 1731 
+Q 1837 1696 1651 1696 
+Q 1306 1696 982 1881 
+Q 659 2067 451 2396 
+Q 243 2726 243 3155 
+Q 243 3584 448 3929 
+Q 653 4275 998 4476 
+Q 1344 4678 1766 4678 
+Q 2118 4678 2403 4547 
+Q 2688 4416 2886 4198 
+Q 3091 3981 3200 3709 
+Q 3309 3437 3309 3155 
+Q 3309 2758 3149 2448 
+Q 2989 2138 2765 1805 
+Q 2573 1517 2374 1225 
+Q 2176 934 1955 608 
+Q 1734 282 1478 -102 
+z
+M 1773 2202 
+Q 2054 2202 2278 2330 
+Q 2502 2458 2633 2678 
+Q 2765 2899 2765 3181 
+Q 2765 3462 2637 3683 
+Q 2509 3904 2285 4032 
+Q 2061 4160 1773 4160 
+Q 1491 4160 1267 4035 
+Q 1043 3910 915 3689 
+Q 787 3469 787 3181 
+Q 787 2893 918 2672 
+Q 1050 2451 1274 2326 
+Q 1498 2202 1773 2202 
+z
+" transform="scale(0.015625)"/>
+      </defs>
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-38" transform="translate(42.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(97.999969 0)"/>
@@ -1367,31 +1306,31 @@ z
     </g>
    </g>
    <g id="text_13">
-    <g clip-path="url(#pfcc94d4cf8)">
-     <!-- 1.0% -->
-     <g style="fill: #ffffff" transform="translate(782.150088 89.17905) scale(0.140977 -0.140977)">
+    <g clip-path="url(#p4739af2a21)">
+     <!-- 1.1% -->
+     <g style="fill: #ffffff" transform="translate(791.117601 89.188476) scale(0.141108 -0.141108)">
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(42.999985 0)"/>
-      <use xlink:href="#GoogleSans-Regular-30" transform="translate(66.599976 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(130.899963 0)"/>
+      <use xlink:href="#GoogleSans-Regular-31" transform="translate(66.599976 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(109.59996 0)"/>
      </g>
     </g>
    </g>
    <g id="text_14">
-    <g clip-path="url(#pfcc94d4cf8)">
-     <!-- 1.5% -->
-     <g style="fill: #ffffff" transform="translate(727.962654 95.890538) scale(0.234721 -0.234721)">
-      <use xlink:href="#GoogleSans-Regular-31"/>
-      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(42.999985 0)"/>
-      <use xlink:href="#GoogleSans-Regular-35" transform="translate(66.599976 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(122.499969 0)"/>
+    <g clip-path="url(#p4739af2a21)">
+     <!-- 2.1% -->
+     <g style="fill: #ffffff" transform="translate(727.835201 99.408722) scale(0.283862 -0.283862)">
+      <use xlink:href="#GoogleSans-Regular-32"/>
+      <use xlink:href="#GoogleSans-Regular-2e" transform="translate(52.399994 0)"/>
+      <use xlink:href="#GoogleSans-Regular-31" transform="translate(75.999985 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(118.999969 0)"/>
      </g>
     </g>
    </g>
    <g id="text_15">
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- Land Use Change -->
-     <g style="fill: #ffffff" transform="translate(727.962654 134.362315) scale(0.152416 -0.152416)">
+     <g style="fill: #ffffff" transform="translate(727.835201 143.03893) scale(0.152577 -0.152577)">
       <use xlink:href="#GoogleSans-Regular-4c"/>
       <use xlink:href="#GoogleSans-Regular-61" transform="translate(50.499985 0)"/>
       <use xlink:href="#GoogleSans-Regular-6e" transform="translate(103.599976 0)"/>
@@ -1409,21 +1348,21 @@ z
       <use xlink:href="#GoogleSans-Regular-65" transform="translate(734.099884 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pfcc94d4cf8)">
-     <!-- 10.8% -->
-     <g style="fill: #ffffff" transform="translate(727.962654 150.9933) scale(0.152416 -0.152416)">
+    <g clip-path="url(#p4739af2a21)">
+     <!-- 10.2% -->
+     <g style="fill: #ffffff" transform="translate(727.835201 159.687515) scale(0.152577 -0.152577)">
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-30" transform="translate(42.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(107.299973 0)"/>
-      <use xlink:href="#GoogleSans-Regular-38" transform="translate(130.899963 0)"/>
-      <use xlink:href="#GoogleSans-Regular-25" transform="translate(185.899948 0)"/>
+      <use xlink:href="#GoogleSans-Regular-32" transform="translate(130.899963 0)"/>
+      <use xlink:href="#GoogleSans-Regular-25" transform="translate(183.299957 0)"/>
      </g>
     </g>
    </g>
    <g id="text_16">
-    <g clip-path="url(#pfcc94d4cf8)">
+    <g clip-path="url(#p4739af2a21)">
      <!-- 1.0% -->
-     <g style="fill: #ffffff" transform="translate(818.275044 89.17905) scale(0.140977 -0.140977)">
+     <g style="fill: #ffffff" transform="translate(824.265524 87.172002) scale(0.112943 -0.112943)">
       <use xlink:href="#GoogleSans-Regular-31"/>
       <use xlink:href="#GoogleSans-Regular-2e" transform="translate(42.999985 0)"/>
       <use xlink:href="#GoogleSans-Regular-30" transform="translate(66.599976 0)"/>
@@ -1717,7 +1656,7 @@ z
    </g>
   </g>
   <g id="text_26">
-   <!-- CO₂ Emission Sources by Share in Year 2024 -->
+   <!-- CO₂ Emission Sources by Share in Year 2025 -->
    <g transform="translate(14.4 41.472) scale(0.1728 -0.1728)">
     <defs>
      <path id="GoogleSans-SemiBold-43" d="M 2682 -102 
@@ -2329,18 +2268,35 @@ Q 1331 1056 1568 835
 Q 1805 614 2125 614 
 z
 " transform="scale(0.015625)"/>
-     <path id="GoogleSans-SemiBold-34" d="M 288 954 
-L 288 1562 
-L 2278 4582 
+     <path id="GoogleSans-SemiBold-35" d="M 1837 -102 
+Q 1517 -102 1197 29 
+Q 877 160 637 429 
+Q 397 698 294 1114 
+L 979 1382 
+Q 1062 1050 1280 829 
+Q 1498 608 1824 608 
+Q 2163 608 2387 841 
+Q 2611 1075 2611 1414 
+Q 2611 1645 2512 1833 
+Q 2413 2022 2237 2131 
+Q 2061 2240 1830 2240 
+Q 1619 2240 1449 2150 
+Q 1280 2061 1165 1920 
+L 422 2246 
+L 685 4582 
 L 3104 4582 
-L 3104 0 
-L 2342 0 
-L 2342 3437 
-L 2298 3437 
-L 1133 1664 
-L 3642 1664 
-L 3642 954 
-L 288 954 
+L 3104 3904 
+L 1318 3904 
+L 1152 2669 
+L 1197 2656 
+Q 1331 2771 1526 2851 
+Q 1722 2931 1984 2931 
+Q 2355 2931 2672 2736 
+Q 2989 2541 3184 2201 
+Q 3379 1862 3379 1421 
+Q 3379 986 3180 640 
+Q 2982 294 2633 96 
+Q 2285 -102 1837 -102 
 z
 " transform="scale(0.015625)"/>
     </defs>
@@ -2385,11 +2341,11 @@ z
     <use xlink:href="#GoogleSans-SemiBold-32" transform="translate(1834.999557 0)"/>
     <use xlink:href="#GoogleSans-SemiBold-30" transform="translate(1889.599548 0)"/>
     <use xlink:href="#GoogleSans-SemiBold-32" transform="translate(1956.099533 0)"/>
-    <use xlink:href="#GoogleSans-SemiBold-34" transform="translate(2010.699524 0)"/>
+    <use xlink:href="#GoogleSans-SemiBold-35" transform="translate(2010.699524 0)"/>
    </g>
   </g>
   <g id="text_27">
-   <!-- Fossil Fuels is the sum of Coal, Oil, Gas, and Flaring. Projected values of Flaring and Other for 2025 are unavailable. 2024 data is shown. Cement includes cement carbonation. -->
+   <!-- Fossil Fuels is the sum of Coal, Oil, Gas, and Flaring. Projected values of Flaring and Other for 2026 are unavailable. 2025 data is shown. Cement includes cement carbonation. -->
    <g transform="translate(14.4 585.62582) scale(0.0833 -0.0833)">
     <defs>
      <path id="GoogleSans-Regular-66" d="M 160 2771 
@@ -2534,6 +2490,37 @@ Q 1222 691 1468 540
 Q 1715 390 1997 390 
 z
 " transform="scale(0.015625)"/>
+     <path id="GoogleSans-Regular-35" d="M 1811 -102 
+Q 1517 -102 1209 26 
+Q 902 154 662 422 
+Q 422 691 320 1107 
+L 800 1299 
+Q 902 909 1158 662 
+Q 1414 416 1792 416 
+Q 2227 416 2502 688 
+Q 2778 960 2778 1389 
+Q 2778 1677 2656 1901 
+Q 2534 2125 2313 2253 
+Q 2093 2381 1805 2381 
+Q 1568 2381 1350 2269 
+Q 1133 2157 1005 1971 
+L 454 2189 
+L 755 4582 
+L 3040 4582 
+L 3040 4064 
+L 1197 4064 
+L 1011 2598 
+L 1043 2592 
+Q 1197 2720 1414 2803 
+Q 1632 2886 1907 2886 
+Q 2291 2886 2617 2694 
+Q 2944 2502 3139 2169 
+Q 3334 1837 3334 1402 
+Q 3334 979 3136 640 
+Q 2938 301 2595 99 
+Q 2253 -102 1811 -102 
+z
+" transform="scale(0.015625)"/>
      <path id="GoogleSans-Regular-77" d="M 1088 0 
 L 38 3264 
 L 602 3264 
@@ -2655,80 +2642,80 @@ z
     <use xlink:href="#GoogleSans-Regular-32" transform="translate(4163.299255 0)"/>
     <use xlink:href="#GoogleSans-Regular-30" transform="translate(4215.699249 0)"/>
     <use xlink:href="#GoogleSans-Regular-32" transform="translate(4279.999237 0)"/>
-    <use xlink:href="#GoogleSans-Regular-35" transform="translate(4332.399231 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(4388.299225 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4411.499222 0)"/>
-    <use xlink:href="#GoogleSans-Regular-72" transform="translate(4464.599213 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(4501.599197 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(4557.699188 0)"/>
-    <use xlink:href="#GoogleSans-Regular-75" transform="translate(4580.899185 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(4636.799179 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4692.699173 0)"/>
-    <use xlink:href="#GoogleSans-Regular-76" transform="translate(4745.799164 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4796.599152 0)"/>
-    <use xlink:href="#GoogleSans-Regular-69" transform="translate(4849.699142 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(4870.599136 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4891.49913 0)"/>
-    <use xlink:href="#GoogleSans-Regular-62" transform="translate(4944.599121 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(5004.599106 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(5025.4991 0)"/>
-    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(5081.599091 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5105.199081 0)"/>
-    <use xlink:href="#GoogleSans-Regular-32" transform="translate(5128.399078 0)"/>
-    <use xlink:href="#GoogleSans-Regular-30" transform="translate(5180.799072 0)"/>
-    <use xlink:href="#GoogleSans-Regular-32" transform="translate(5245.09906 0)"/>
-    <use xlink:href="#GoogleSans-Regular-34" transform="translate(5297.499054 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5356.599045 0)"/>
-    <use xlink:href="#GoogleSans-Regular-64" transform="translate(5379.799042 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(5439.799026 0)"/>
-    <use xlink:href="#GoogleSans-Regular-74" transform="translate(5492.899017 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(5529.299011 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5582.399002 0)"/>
-    <use xlink:href="#GoogleSans-Regular-69" transform="translate(5605.598999 0)"/>
-    <use xlink:href="#GoogleSans-Regular-73" transform="translate(5626.498993 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5673.598984 0)"/>
-    <use xlink:href="#GoogleSans-Regular-73" transform="translate(5696.798981 0)"/>
-    <use xlink:href="#GoogleSans-Regular-68" transform="translate(5743.898972 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(5800.098969 0)"/>
-    <use xlink:href="#GoogleSans-Regular-77" transform="translate(5859.498962 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(5936.998947 0)"/>
-    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(5992.898941 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6016.498932 0)"/>
-    <use xlink:href="#GoogleSans-Regular-43" transform="translate(6039.698929 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6113.29892 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6d" transform="translate(6169.398911 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6256.698898 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(6312.798889 0)"/>
-    <use xlink:href="#GoogleSans-Regular-74" transform="translate(6368.698883 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6405.098877 0)"/>
-    <use xlink:href="#GoogleSans-Regular-69" transform="translate(6428.298874 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(6449.198868 0)"/>
-    <use xlink:href="#GoogleSans-Regular-63" transform="translate(6505.098862 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(6559.098846 0)"/>
-    <use xlink:href="#GoogleSans-Regular-75" transform="translate(6579.99884 0)"/>
-    <use xlink:href="#GoogleSans-Regular-64" transform="translate(6635.898834 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6695.898819 0)"/>
-    <use xlink:href="#GoogleSans-Regular-73" transform="translate(6751.99881 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6799.098801 0)"/>
-    <use xlink:href="#GoogleSans-Regular-63" transform="translate(6822.298798 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6876.298782 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6d" transform="translate(6932.398773 0)"/>
-    <use xlink:href="#GoogleSans-Regular-65" transform="translate(7019.698761 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7075.798752 0)"/>
-    <use xlink:href="#GoogleSans-Regular-74" transform="translate(7131.698746 0)"/>
-    <use xlink:href="#GoogleSans-Regular-20" transform="translate(7168.09874 0)"/>
-    <use xlink:href="#GoogleSans-Regular-63" transform="translate(7191.298737 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(7245.298721 0)"/>
-    <use xlink:href="#GoogleSans-Regular-72" transform="translate(7298.398712 0)"/>
-    <use xlink:href="#GoogleSans-Regular-62" transform="translate(7335.398697 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(7395.398682 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7454.798676 0)"/>
-    <use xlink:href="#GoogleSans-Regular-61" transform="translate(7510.698669 0)"/>
-    <use xlink:href="#GoogleSans-Regular-74" transform="translate(7563.79866 0)"/>
-    <use xlink:href="#GoogleSans-Regular-69" transform="translate(7600.198654 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(7621.098648 0)"/>
-    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7680.498642 0)"/>
-    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(7736.398636 0)"/>
+    <use xlink:href="#GoogleSans-Regular-36" transform="translate(4332.399231 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(4387.899216 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4411.099213 0)"/>
+    <use xlink:href="#GoogleSans-Regular-72" transform="translate(4464.199203 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(4501.199188 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(4557.299179 0)"/>
+    <use xlink:href="#GoogleSans-Regular-75" transform="translate(4580.499176 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(4636.39917 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4692.299164 0)"/>
+    <use xlink:href="#GoogleSans-Regular-76" transform="translate(4745.399155 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4796.199142 0)"/>
+    <use xlink:href="#GoogleSans-Regular-69" transform="translate(4849.299133 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(4870.199127 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(4891.099121 0)"/>
+    <use xlink:href="#GoogleSans-Regular-62" transform="translate(4944.199112 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(5004.199097 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(5025.099091 0)"/>
+    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(5081.199081 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5104.799072 0)"/>
+    <use xlink:href="#GoogleSans-Regular-32" transform="translate(5127.999069 0)"/>
+    <use xlink:href="#GoogleSans-Regular-30" transform="translate(5180.399063 0)"/>
+    <use xlink:href="#GoogleSans-Regular-32" transform="translate(5244.699051 0)"/>
+    <use xlink:href="#GoogleSans-Regular-35" transform="translate(5297.099045 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5352.999039 0)"/>
+    <use xlink:href="#GoogleSans-Regular-64" transform="translate(5376.199036 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(5436.19902 0)"/>
+    <use xlink:href="#GoogleSans-Regular-74" transform="translate(5489.299011 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(5525.699005 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5578.798996 0)"/>
+    <use xlink:href="#GoogleSans-Regular-69" transform="translate(5601.998993 0)"/>
+    <use xlink:href="#GoogleSans-Regular-73" transform="translate(5622.898987 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(5669.998978 0)"/>
+    <use xlink:href="#GoogleSans-Regular-73" transform="translate(5693.198975 0)"/>
+    <use xlink:href="#GoogleSans-Regular-68" transform="translate(5740.298965 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(5796.498962 0)"/>
+    <use xlink:href="#GoogleSans-Regular-77" transform="translate(5855.898956 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(5933.398941 0)"/>
+    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(5989.298935 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6012.898926 0)"/>
+    <use xlink:href="#GoogleSans-Regular-43" transform="translate(6036.098923 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6109.698914 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6d" transform="translate(6165.798904 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6253.098892 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(6309.198883 0)"/>
+    <use xlink:href="#GoogleSans-Regular-74" transform="translate(6365.098877 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6401.498871 0)"/>
+    <use xlink:href="#GoogleSans-Regular-69" transform="translate(6424.698868 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(6445.598862 0)"/>
+    <use xlink:href="#GoogleSans-Regular-63" transform="translate(6501.498856 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6c" transform="translate(6555.49884 0)"/>
+    <use xlink:href="#GoogleSans-Regular-75" transform="translate(6576.398834 0)"/>
+    <use xlink:href="#GoogleSans-Regular-64" transform="translate(6632.298828 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6692.298813 0)"/>
+    <use xlink:href="#GoogleSans-Regular-73" transform="translate(6748.398804 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(6795.498795 0)"/>
+    <use xlink:href="#GoogleSans-Regular-63" transform="translate(6818.698792 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(6872.698776 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6d" transform="translate(6928.798767 0)"/>
+    <use xlink:href="#GoogleSans-Regular-65" transform="translate(7016.098755 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7072.198746 0)"/>
+    <use xlink:href="#GoogleSans-Regular-74" transform="translate(7128.09874 0)"/>
+    <use xlink:href="#GoogleSans-Regular-20" transform="translate(7164.498734 0)"/>
+    <use xlink:href="#GoogleSans-Regular-63" transform="translate(7187.69873 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(7241.698715 0)"/>
+    <use xlink:href="#GoogleSans-Regular-72" transform="translate(7294.798706 0)"/>
+    <use xlink:href="#GoogleSans-Regular-62" transform="translate(7331.798691 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(7391.798676 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7451.198669 0)"/>
+    <use xlink:href="#GoogleSans-Regular-61" transform="translate(7507.098663 0)"/>
+    <use xlink:href="#GoogleSans-Regular-74" transform="translate(7560.198654 0)"/>
+    <use xlink:href="#GoogleSans-Regular-69" transform="translate(7596.598648 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6f" transform="translate(7617.498642 0)"/>
+    <use xlink:href="#GoogleSans-Regular-6e" transform="translate(7676.898636 0)"/>
+    <use xlink:href="#GoogleSans-Regular-2e" transform="translate(7732.79863 0)"/>
    </g>
    <!-- By Shane White, whitesha@protonmail.com, https://github.com/shanewhi/world-energy-data. -->
    <g transform="translate(14.4 594.876025) scale(0.0833 -0.0833)">
@@ -3156,10 +3143,10 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p1427e98696">
+  <clipPath id="p8fd166990f">
    <rect x="14.4" y="72.486" width="380.454545" height="418.5"/>
   </clipPath>
-  <clipPath id="pfcc94d4cf8">
+  <clipPath id="p4739af2a21">
    <rect x="470.945455" y="72.486" width="380.454545" height="418.5"/>
   </clipPath>
  </defs>
