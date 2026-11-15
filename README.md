@@ -70,8 +70,8 @@ dataset includes, but only for oil production). This may be improved later.</li>
    <li>Edit line 38 of world_energy_data.py (shown below), to include the country name, followed by a comma in the case of a single country<br>
 (a single element tuple must be followed by a comma) -<br>
 <code># Define countries to profile using tuple.<br>countries = ('Total World',)</code>
-   <li>For data not already included in this repository, obtain and move the IEA datafiles from (4) in Input Data Requirements above, to the<br>
-data subfolder. If needed, add the IEA's country name to -<br>
+   <li>For data not already included in this repository, obtain and move the IEA datafiles from (4) in Input Data Requirements above, to the
+data subfolder.<br>If needed, add the IEA's country name to -<br>
 <code>countries.translate_country_name()</code> in <code>countries.py</code>.</li>
    <li>Folders will be created named <code>charts CO2</code>, <code>charts country_name</code> and <code>charts Major Emitters</code></li>
    <li>Flags in <code>user_globals.py</code> can be edited to suit preferences.</li>
