@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-14T12:13:44.694740</dc:date>
+    <dc:date>2026-11-15T14:05:37.752917</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -35,7 +35,7 @@ L 394.854545 308.562923
 L 394.854545 211.986 
 L 247.946355 211.986 
 z
-" clip-path="url(#pafb1f3c89b)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 14.4 490.986 
@@ -43,7 +43,7 @@ L 247.946355 490.986
 L 247.946355 220.986 
 L 14.4 220.986 
 z
-" clip-path="url(#pafb1f3c89b)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 247.946355 490.986 
@@ -51,7 +51,7 @@ L 394.854545 490.986
 L 394.854545 308.562923 
 L 247.946355 308.562923 
 z
-" clip-path="url(#pafb1f3c89b)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 247.946355 211.986 
@@ -59,7 +59,7 @@ L 349.652025 211.986
 L 349.652025 72.486 
 L 247.946355 72.486 
 z
-" clip-path="url(#pafb1f3c89b)" style="fill: #8b4513; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="fill: #8b4513; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 14.4 220.986 
@@ -67,7 +67,7 @@ L 247.946355 220.986
 L 247.946355 72.486 
 L 14.4 72.486 
 z
-" clip-path="url(#pafb1f3c89b)" style="fill: #008080; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="fill: #008080; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 349.652025 211.986 
@@ -75,10 +75,10 @@ L 394.854545 211.986
 L 394.854545 72.486 
 L 349.652025 72.486 
 z
-" clip-path="url(#pafb1f3c89b)" style="fill: #663399; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pe3672bee6f)" style="fill: #663399; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Coal and -->
      <g style="fill: #ffffff" transform="translate(250.946355 234.412482) scale(0.22106 -0.22106)">
       <defs>
@@ -259,7 +259,7 @@ z
       <use xlink:href="#GoogleSans-Regular-64" transform="translate(339.199951 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Coal Products -->
      <g style="fill: #ffffff" transform="translate(250.946355 258.177765) scale(0.22106 -0.22106)">
       <defs>
@@ -433,7 +433,7 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(590.299896 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 9% -->
      <g style="fill: #ffffff" transform="translate(250.946355 281.943048) scale(0.22106 -0.22106)">
       <defs>
@@ -539,7 +539,7 @@ z
     </g>
    </g>
    <g id="text_2">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Oil and -->
      <g style="fill: #ffffff" transform="translate(17.4 256.968747) scale(0.410409 -0.410409)">
       <defs>
@@ -603,7 +603,7 @@ z
       <use xlink:href="#GoogleSans-Regular-64" transform="translate(256.199951 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Oil Products -->
      <g style="fill: #ffffff" transform="translate(17.4 301.090321) scale(0.410409 -0.410409)">
       <use xlink:href="#GoogleSans-Regular-4f"/>
@@ -620,7 +620,7 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(507.299896 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 40% -->
      <g style="fill: #ffffff" transform="translate(17.4 345.211895) scale(0.410409 -0.410409)">
       <defs>
@@ -679,7 +679,7 @@ z
     </g>
    </g>
    <g id="text_3">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Gas -->
      <g style="fill: #ffffff" transform="translate(250.946355 358.119173) scale(0.6 -0.6)">
       <defs>
@@ -730,7 +730,7 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(133.699982 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 17% -->
      <g style="fill: #ffffff" transform="translate(250.946355 422.622923) scale(0.6 -0.6)">
       <defs>
@@ -768,7 +768,7 @@ z
     </g>
    </g>
    <g id="text_4">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Biofuels -->
      <g style="fill: #ffffff" transform="translate(250.946355 93.381791) scale(0.199679 -0.199679)">
       <defs>
@@ -880,7 +880,7 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(309.399948 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- and Waste -->
      <g style="fill: #ffffff" transform="translate(250.946355 114.848565) scale(0.199679 -0.199679)">
       <defs>
@@ -921,7 +921,7 @@ z
       <use xlink:href="#GoogleSans-Regular-65" transform="translate(423.199936 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 9% -->
      <g style="fill: #ffffff" transform="translate(250.946355 136.315339) scale(0.199679 -0.199679)">
       <use xlink:href="#GoogleSans-Regular-39"/>
@@ -930,7 +930,7 @@ z
     </g>
    </g>
    <g id="text_5">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Electricity -->
      <g style="fill: #ffffff" transform="translate(17.4 116.472581) scale(0.515011 -0.515011)">
       <defs>
@@ -991,7 +991,7 @@ z
       <use xlink:href="#GoogleSans-Regular-79" transform="translate(390.999908 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 22% -->
      <g style="fill: #ffffff" transform="translate(17.4 171.839485) scale(0.515011 -0.515011)">
       <defs>
@@ -1041,7 +1041,7 @@ z
     </g>
    </g>
    <g id="text_6">
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- Heat -->
      <g style="fill: #ffffff" transform="translate(352.652025 92.128837) scale(0.182178 -0.182178)">
       <defs>
@@ -1071,7 +1071,7 @@ z
       <use xlink:href="#GoogleSans-Regular-74" transform="translate(178.799973 0)"/>
      </g>
     </g>
-    <g clip-path="url(#pafb1f3c89b)">
+    <g clip-path="url(#pe3672bee6f)">
      <!-- 4% -->
      <g style="fill: #ffffff" transform="translate(352.652025 111.714156) scale(0.182178 -0.182178)">
       <use xlink:href="#GoogleSans-Regular-34"/>
@@ -1517,7 +1517,7 @@ L 680.195455 490.986
 L 680.195455 239.886 
 L 470.945455 239.886 
 z
-" clip-path="url(#p9fb771f499)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_15">
     <path d="M 790.255519 124.566 
@@ -1525,7 +1525,7 @@ L 851.4 124.566
 L 851.4 72.486 
 L 790.255519 72.486 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #a52a2a; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_16">
     <path d="M 470.945455 239.886 
@@ -1533,7 +1533,7 @@ L 680.195455 239.886
 L 680.195455 72.486 
 L 470.945455 72.486 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #ff8c00; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_17">
     <path d="M 680.195455 202.686 
@@ -1541,7 +1541,7 @@ L 790.255519 202.686
 L 790.255519 72.486 
 L 680.195455 72.486 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #9400d3; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #9400d3; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_18">
     <path d="M 680.195455 332.886 
@@ -1549,7 +1549,7 @@ L 851.4 332.886
 L 851.4 202.686 
 L 680.195455 202.686 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #1e90ff; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #1e90ff; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_19">
     <path d="M 680.195455 490.986 
@@ -1557,7 +1557,7 @@ L 851.4 490.986
 L 851.4 332.886 
 L 680.195455 332.886 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #32cd32; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #32cd32; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="patch_20">
     <path d="M 790.255519 202.686 
@@ -1565,10 +1565,10 @@ L 851.4 202.686
 L 851.4 124.566 
 L 790.255519 124.566 
 z
-" clip-path="url(#p9fb771f499)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
+" clip-path="url(#pa6d86879a3)" style="fill: #cd853f; stroke: #ffffff; stroke-width: 0.5; stroke-linejoin: miter"/>
    </g>
    <g id="text_14">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- Coal -->
      <g style="fill: #ffffff" transform="translate(473.945455 289.44225) scale(0.6 -0.6)">
       <use xlink:href="#GoogleSans-Regular-43"/>
@@ -1577,7 +1577,7 @@ z
       <use xlink:href="#GoogleSans-Regular-6c" transform="translate(186.099976 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 33% -->
      <g style="fill: #ffffff" transform="translate(473.945455 353.946) scale(0.6 -0.6)">
       <defs>
@@ -1633,7 +1633,7 @@ z
     </g>
    </g>
    <g id="text_15">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 2% -->
      <g style="fill: #ffffff" transform="translate(793.255519 108.28651) scale(0.407864 -0.407864)">
       <use xlink:href="#GoogleSans-Regular-32"/>
@@ -1642,7 +1642,7 @@ z
     </g>
    </g>
    <g id="text_16">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- Gas -->
      <g style="fill: #ffffff" transform="translate(473.945455 122.04225) scale(0.6 -0.6)">
       <use xlink:href="#GoogleSans-Regular-47"/>
@@ -1650,7 +1650,7 @@ z
       <use xlink:href="#GoogleSans-Regular-73" transform="translate(133.699982 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 22% -->
      <g style="fill: #ffffff" transform="translate(473.945455 186.546) scale(0.6 -0.6)">
       <use xlink:href="#GoogleSans-Regular-32"/>
@@ -1660,7 +1660,7 @@ z
     </g>
    </g>
    <g id="text_17">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- Nuclear -->
      <g style="fill: #ffffff" transform="translate(683.195455 100.519211) scale(0.299373 -0.299373)">
       <defs>
@@ -1691,7 +1691,7 @@ z
       <use xlink:href="#GoogleSans-Regular-72" transform="translate(310.599945 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 9% -->
      <g style="fill: #ffffff" transform="translate(683.195455 132.703643) scale(0.299373 -0.299373)">
       <use xlink:href="#GoogleSans-Regular-39"/>
@@ -1700,7 +1700,7 @@ z
     </g>
    </g>
    <g id="text_18">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- Hydro -->
      <g style="fill: #ffffff" transform="translate(683.195455 251.451644) scale(0.588957 -0.588957)">
       <use xlink:href="#GoogleSans-Regular-48"/>
@@ -1710,7 +1710,7 @@ z
       <use xlink:href="#GoogleSans-Regular-6f" transform="translate(217.399948 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 14% -->
      <g style="fill: #ffffff" transform="translate(683.195455 314.768209) scale(0.588957 -0.588957)">
       <use xlink:href="#GoogleSans-Regular-31"/>
@@ -1720,7 +1720,7 @@ z
     </g>
    </g>
    <g id="text_19">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- Wind and Solar -->
      <g style="fill: #ffffff" transform="translate(683.195455 357.072711) scale(0.245646 -0.245646)">
       <use xlink:href="#GoogleSans-Regular-57"/>
@@ -1739,7 +1739,7 @@ z
       <use xlink:href="#GoogleSans-Regular-72" transform="translate(635.499893 0)"/>
      </g>
     </g>
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 17% -->
      <g style="fill: #ffffff" transform="translate(683.195455 383.481181) scale(0.245646 -0.245646)">
       <use xlink:href="#GoogleSans-Regular-31"/>
@@ -1749,7 +1749,7 @@ z
     </g>
    </g>
    <g id="text_20">
-    <g clip-path="url(#p9fb771f499)">
+    <g clip-path="url(#pa6d86879a3)">
      <!-- 3% -->
      <g style="fill: #ffffff" transform="translate(793.255519 160.175416) scale(0.405195 -0.405195)">
       <use xlink:href="#GoogleSans-Regular-33"/>
@@ -4617,10 +4617,10 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pafb1f3c89b">
+  <clipPath id="pe3672bee6f">
    <rect x="14.4" y="72.486" width="380.454545" height="418.5"/>
   </clipPath>
-  <clipPath id="p9fb771f499">
+  <clipPath id="pa6d86879a3">
    <rect x="470.945455" y="72.486" width="380.454545" height="418.5"/>
   </clipPath>
  </defs>
