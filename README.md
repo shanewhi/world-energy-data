@@ -38,14 +38,10 @@ This package consists of the following Python files, as well as all necessary in
 <p>
 The following datafiles are required, and are included in this package -</p>
 <ol>
-    <li><a href="https://www.icos-cp.eu/impact/science/global-carbon-budget/2025">Global Carbon Budget 2025 v1.0 in XLSX format</a>. 
-    Modify this to include the cement carbonation sink and projected values for 2025, as follows -</li>
-    <ol>
-        <li>In sheet titled <code>'Global Carbon Budget'</code>, create a new column named <code>'fossil emissions including cement carbonation’</code> and fill with the values of<br>
-            <code>'fossil emissions excluding cement carbonation'</code> minus <code>'cement carbonation sink'</code><br>
-            Add the row <code>2025</code> and fill the same column with the projected value from <a href="https://globalcarbonbudget.org/"> Table 1 of Key Messages from GCB 2025</a>.</li>
-        <li>In sheet titled <code>'Fossil Emissions by Category'</code>, add the row <code>2025</code> and fill with the projected values for coal, oil and gas from the same document above.</li>
-    </ol>
+    <li><a href="https://globalcarbonbudget.org/the-data-hub-2026/the-latest-gcb-data-2026/">Global Carbon Budget v2026 in xlsx format</a>. 
+    Modify this to include the cement carbonation sink: In sheet titled <code>'Global Carbon Budget'</code>,<br> 
+    create a new column named <code>'fossil emissions including cement carbonation’</code> and fill with the values of<br>
+    <code>'fossil emissions excluding cement carbonation'</code> minus <code>'cement carbonation sink'</code>.<br>
     <li>Down the following from <a href="https://gml.noaa.gov/ccgg/trends/gl_data.html">NOAA Global Monitoring Laboratory</a> -<br>
     <code>Globally averaged marine surface annual mean data</code> and <code>Globally averaged marine surface annual mean growth rates</code> in CSV format.</li>
     <li>The <a href="https://www.energyinst.org/statistical-review/resources-and-data-downloads">2026 Energy Institute Statistical Review of World Energy</a> in consolidated narrow CSV format.<br>
@@ -64,7 +60,7 @@ The following datafiles are required, and are included in this package -</p>
     This is the datafile from slide 64 of <a href="https://robbieandrew.github.io/GCB2024/">Figures from the Global Carbon Budget 2024</a>.</li>
     <li><a href="https://data.worldbank.org/indicator/SP.POP.TOTL">World Bank Group Total Population dataset in CSV format</a>.<br>
     Unzip the downloaded archive and rename the CSV file <code>'world_pop.csv'</code>.</li>
-</ol>
+</li>
 
 <h3>Instructions</h3>
 <ol>

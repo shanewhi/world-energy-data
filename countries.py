@@ -30,7 +30,7 @@ def translate_country_name(ei_name):
     if ei_name == 'Total World':
         iea_name = 'World'
     elif ei_name == 'China':
-        iea_name = "People's Republic of China"
+        iea_name = "China (P.R. of China and Hong Kong, China)"
     elif ei_name == 'US':
         iea_name = 'United States'
     elif ei_name == 'Iran':

@@ -39,7 +39,7 @@ import process
 def import_gcp_esrl_ei_pop_data():
     # Import Global Carbon Project (GCP) emissions and carbon budget datasets as Pandas dataframes.
     gcp_ff_emissions_GtC = pd.read_excel(
-        io='Global_Carbon_Budget_2025_v1.0.xlsx',
+        io='data/Global_Carbon_Budget_2026_v0.1.xlsx',
         sheet_name='Fossil Emissions by Category',
         header=8,
         names=[
@@ -55,7 +55,7 @@ def import_gcp_esrl_ei_pop_data():
         index_col=0,
     )
     gcp_budget_GtC = pd.read_excel(
-        io='Global_Carbon_Budget_2025_v1.0.xlsx',
+        io='data/Global_Carbon_Budget_2026_v0.1.xlsx',
         sheet_name='Global Carbon Budget',
         header=21,
         names=[
@@ -72,7 +72,7 @@ def import_gcp_esrl_ei_pop_data():
     )
 
     imported_gcp_co2_rcp_pathways = pd.read_csv(
-        's64_2024_LinearPathways.csv', header=0, index_col=['Year'],
+        'data/s64_2024_LinearPathways.csv', header=0, index_col=['Year'],
         usecols=['Year', 'Historical', '1.5C / 235 GtCO2', '1.7C / 585 GtCO2', '2.0C / 1110 GtCO2']
     )
 
@@ -96,11 +96,11 @@ def import_gcp_esrl_ei_pop_data():
 
     # Import atmospheric CO2 concentration and annual change data from NOAA ESRL dataset as Pandas dataframes.
     esrl_co2_conc = pd.read_csv(
-        'co2_annmean_gl.csv', header=37, index_col=['year'], usecols=['year', 'mean']
+        'data/co2_annmean_gl.csv', header=37, index_col=['year'], usecols=['year', 'mean']
     )
 
     esrl_co2_change = pd.read_csv(
-        'co2_gr_gl.csv', header=43, index_col=['year'], usecols=['year', 'ann inc']
+        'data/co2_gr_gl.csv', header=43, index_col=['year'], usecols=['year', 'ann inc']
     )
 
     # Join two datasets
@@ -112,14 +112,14 @@ def import_gcp_esrl_ei_pop_data():
 
     # Import Energy Institute dataset.
     imported_ei_data = pd.read_csv(
-        'Statistical Review of World Energy Narrow format.csv', index_col=['Year'],
+        'data/Statistical Review of World Energy Narrow format.csv', index_col=['Year'],
                         usecols=['Country', 'Year', 'ISO3166_alpha3', 'Var', 'Value'],
                         dtype={"Country":str, "Year":int, "ISO3166_alpha3":str, "Var":str, "Value":float}
     )
 
     # Import World Bank human population data from all countries for most recent year of ei_data.
     imported_wb_data = pd.read_csv(
-        'world_pop.csv', index_col=['Country Code'], header=2,
+        'data/world_pop.csv', index_col=['Country Code'], header=2,
         usecols=['Country Code', str(imported_ei_data.index[-1])], )
     imported_wb_data.rename(columns={'2025': 'Population'}, inplace=True)
 
@@ -136,8 +136,8 @@ def import_gcp_esrl_ei_pop_data():
 ########################################################################################################################
 def import_iea_data(country_name):
     iea_country_name = countries.translate_country_name(country_name)
-    filename_co2_emissions_by_sector = 'CO2 emissions by sector - ' + str(iea_country_name) + '.csv'
-    filename_tfc = 'Total final consumption (TFC) by source - ' + str(iea_country_name) + '.csv'
+    filename_co2_emissions_by_sector = 'data/CO2 emissions by sector - ' + str(iea_country_name) + '.csv'
+    filename_tfc = 'data/Total final consumption (TFC) by source - ' + str(iea_country_name) + '.csv'
     try:
         co2_by_sector = pd.read_csv(filename_co2_emissions_by_sector, skiprows=3, index_col=0,
                                     dtype={'Electricity and heat producers': float, 'Other energy industries': float,
